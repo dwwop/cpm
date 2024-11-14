@@ -17,4 +17,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openprovenance.prov</groupId>
+            <artifactId>prov-model</artifactId>
+        </dependency>
+    </dependencies>
 </project>
