@@ -115,15 +115,15 @@ public abstract class Connector implements ToStatements {
         }
 
         if (referencedBundleHashValue != null) {
-            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.REFERENCED_BUNDLE_HASH_VALUE, referencedBundleHashValue));
+            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.REFERENCED_BUNDLE_HASH_VALUE, referencedBundleHashValue, cF.getProvFactory().getName().XSD_BYTE));
         }
 
         if (hashAlg != null) {
-            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.HASH_ALG, hashAlg.toString()));
+            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.HASH_ALG, hashAlg.toString(), cF.getProvFactory().getName().XSD_STRING));
         }
 
         if (provenanceServiceUri != null) {
-            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.PROVENANCE_SERVICE_URI, provenanceServiceUri));
+            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.PROVENANCE_SERVICE_URI, provenanceServiceUri, cF.getProvFactory().getName().XSD_ANY_URI));
         }
 
         statements.add(cF.newCpmEntity(id, getType(), attributes));

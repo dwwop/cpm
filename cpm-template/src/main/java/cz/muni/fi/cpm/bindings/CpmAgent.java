@@ -41,7 +41,7 @@ public abstract class CpmAgent implements ToStatements{
         attributes.add(cF.newCpmType(getType()));
 
         if (contactIdPid != null) {
-            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.CONTACT_ID_PID, contactIdPid));
+            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.CONTACT_ID_PID, contactIdPid, cF.getProvFactory().getName().XSD_STRING));
         }
 
         return Collections.singletonList(cF.newCpmAgent(id, getType(), attributes));

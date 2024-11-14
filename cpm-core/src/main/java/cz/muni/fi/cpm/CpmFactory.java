@@ -5,7 +5,6 @@ import org.openprovenance.prov.model.*;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Collection;
-import java.util.Collections;
 
 public class CpmFactory implements ICpmFactory {
     private final ProvFactory pF;
@@ -37,16 +36,23 @@ public class CpmFactory implements ICpmFactory {
 
     @Override
     public Attribute newCpmAttribute(String local, Object value) {
+        return newCpmAttribute(
+                local,
+                value,
+                pF.getName().PROV_QUALIFIED_NAME);
+    }
+
+    public Attribute newCpmAttribute(String local, Object value, QualifiedName type) {
         return pF.newOther(
                 newCpmQualifiedName(local),
                 value,
-                pF.getName().PROV_QUALIFIED_NAME);
+                type);
     }
 
     @Override
     public Entity newCpmEntity(QualifiedName id, String type, Collection<Attribute> attributes) {
         attributes.add(newCpmType(type));
-        return pF.newEntity(id, Collections.singletonList(newCpmType(type)));
+        return pF.newEntity(id, attributes);
     }
 
     @Override
@@ -58,7 +64,7 @@ public class CpmFactory implements ICpmFactory {
     @Override
     public Agent newCpmAgent(QualifiedName id, String type, Collection<Attribute> attributes) {
         attributes.add(newCpmType(type));
-        return pF.newAgent(id, Collections.singletonList(newCpmType(type)));
+        return pF.newAgent(id, attributes);
     }
 
 }
