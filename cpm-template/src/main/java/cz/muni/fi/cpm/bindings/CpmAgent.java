@@ -1,10 +1,11 @@
 package cz.muni.fi.cpm.bindings;
 
-import cz.muni.fi.cpm.CpmFactory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import cz.muni.fi.cpm.ICpmFactory;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import org.openprovenance.prov.model.Attribute;
-import org.openprovenance.prov.model.StatementOrBundle;
-import org.openprovenance.prov.vanilla.QualifiedName;
+import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.Statement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,9 +32,10 @@ public abstract class CpmAgent implements ToStatements{
         this.contactIdPid = contactIdPid;
     }
 
+    @JsonIgnore
     public abstract String getType();
 
-    public List<StatementOrBundle> toStatements(CpmFactory cF) {
+    public List<Statement> toStatements(ICpmFactory cF) {
         List<Attribute> attributes = new ArrayList<>();
 
         attributes.add(cF.newCpmType(getType()));
@@ -42,6 +44,6 @@ public abstract class CpmAgent implements ToStatements{
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.CONTACT_ID_PID, contactIdPid));
         }
 
-        return Collections.singletonList(cF.getProvFactory().newAgent(id, attributes));
+        return Collections.singletonList(cF.newCpmAgent(id, getType(), attributes));
     }
 }

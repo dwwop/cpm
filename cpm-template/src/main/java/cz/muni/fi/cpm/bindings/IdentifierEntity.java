@@ -1,12 +1,12 @@
 package cz.muni.fi.cpm.bindings;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.muni.fi.cpm.CpmFactory;
+import cz.muni.fi.cpm.ICpmFactory;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmTypeConstants;
 import org.openprovenance.prov.model.Attribute;
-import org.openprovenance.prov.model.StatementOrBundle;
-import org.openprovenance.prov.vanilla.QualifiedName;
+import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.Statement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,10 +53,9 @@ public class IdentifierEntity implements ToStatements{
         this.comment = comment;
     }
 
-    public List<StatementOrBundle> toStatements(CpmFactory cF) {
+    public List<Statement> toStatements(ICpmFactory cF) {
         List<Attribute> attributes = new ArrayList<>();
 
-        attributes.add(cF.newCpmType(CpmTypeConstants.IDENTIFIER));
 
         if (externalId != null) {
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, externalId));
@@ -70,6 +69,6 @@ public class IdentifierEntity implements ToStatements{
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.COMMENT, comment));
         }
 
-        return Collections.singletonList(cF.getProvFactory().newEntity(id, attributes));
+        return Collections.singletonList(cF.newCpmEntity(id, CpmTypeConstants.IDENTIFIER, attributes));
     }
 }

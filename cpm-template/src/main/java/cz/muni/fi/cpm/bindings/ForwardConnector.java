@@ -6,7 +6,7 @@ import cz.muni.fi.cpm.constants.CpmTypeConstants;
 public class ForwardConnector extends Connector {
 
     @Override
-    public String getConnectorType() {
+    public String getType() {
         return CpmTypeConstants.FORWARD_CONNECTOR;
     }
 }
