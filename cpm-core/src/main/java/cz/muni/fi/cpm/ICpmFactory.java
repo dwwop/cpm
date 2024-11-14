@@ -15,6 +15,8 @@ public interface ICpmFactory {
 
     Attribute newCpmAttribute(String local, Object value);
 
+    Attribute newCpmAttribute(String local, Object value, QualifiedName type);
+
     Entity newCpmEntity(QualifiedName id, String type, Collection<Attribute> attributes);
 
     Activity newCpmActivity(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, String type, Collection<Attribute> attributes);
