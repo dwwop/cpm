@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>org.openprovenance.prov</groupId>
-            <artifactId>prov-template</artifactId>
+            <artifactId>prov-n</artifactId>
             <version>${prov.ver}</version>
         </dependency>
         <dependency>
