@@ -38,8 +38,6 @@ public abstract class CpmAgent implements ToStatements{
     public List<Statement> toStatements(ICpmFactory cF) {
         List<Attribute> attributes = new ArrayList<>();
 
-        attributes.add(cF.newCpmType(getType()));
-
         if (contactIdPid != null) {
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.CONTACT_ID_PID, contactIdPid, cF.getProvFactory().getName().XSD_STRING));
         }
