@@ -106,7 +106,7 @@ public class MainActivity implements ToStatements {
 
         if (generated != null) {
             for (QualifiedName forwardConnector : generated) {
-                statements.add(cF.getProvFactory().newUsed(id, forwardConnector));
+                statements.add(cF.getProvFactory().newWasGeneratedBy(null, forwardConnector, id));
             }
         }
 
