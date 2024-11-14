@@ -56,17 +56,16 @@ public class IdentifierEntity implements ToStatements{
     public List<Statement> toStatements(ICpmFactory cF) {
         List<Attribute> attributes = new ArrayList<>();
 
-
         if (externalId != null) {
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, externalId));
         }
 
         if (externalIdType != null) {
-            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID_TYPE, externalIdType));
+            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID_TYPE, externalIdType, cF.getProvFactory().getName().XSD_STRING));
         }
 
         if (comment != null) {
-            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.COMMENT, comment));
+            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.COMMENT, comment, cF.getProvFactory().getName().XSD_STRING));
         }
 
         return Collections.singletonList(cF.newCpmEntity(id, CpmTypeConstants.IDENTIFIER, attributes));
