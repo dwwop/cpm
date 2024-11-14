@@ -1,10 +1,10 @@
 package cz.muni.fi.cpm.bindings;
 
-import cz.muni.fi.cpm.CpmFactory;
-import org.openprovenance.prov.model.StatementOrBundle;
+import cz.muni.fi.cpm.ICpmFactory;
+import org.openprovenance.prov.model.Statement;
 
 import java.util.List;
 
 public interface ToStatements {
-    public List<StatementOrBundle> toStatements(CpmFactory cF);
+    List<Statement> toStatements(ICpmFactory cF);
 }

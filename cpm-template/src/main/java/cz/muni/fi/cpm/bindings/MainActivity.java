@@ -1,14 +1,14 @@
 package cz.muni.fi.cpm.bindings;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.muni.fi.cpm.CpmFactory;
+import cz.muni.fi.cpm.ICpmFactory;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmTypeConstants;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
 import org.openprovenance.prov.model.Attribute;
-import org.openprovenance.prov.model.StatementOrBundle;
-import org.openprovenance.prov.vanilla.QualifiedName;
+import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.Statement;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
@@ -80,11 +80,10 @@ public class MainActivity implements ToStatements {
         this.used = used;
     }
 
-    public List<StatementOrBundle> toStatements(CpmFactory cF) {
-        List<StatementOrBundle> statements = new ArrayList<StatementOrBundle>();
+    public List<Statement> toStatements(ICpmFactory cF) {
+        List<Statement> statements = new ArrayList<>();
         List<Attribute> attributes = new ArrayList<>();
 
-        attributes.add(cF.newCpmType(CpmTypeConstants.MAIN_ACTIVITY));
 
         if (referencedMetaBundleId != null) {
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.REFERENCED_META_BUNDLE_ID, referencedMetaBundleId));
@@ -97,7 +96,7 @@ public class MainActivity implements ToStatements {
                     cF.getProvFactory().getName().PROV_QUALIFIED_NAME));
         }
 
-        statements.add(cF.getProvFactory().newActivity(id, startTime, endTime, attributes));
+        statements.add(cF.newCpmActivity(id, startTime, endTime, CpmTypeConstants.MAIN_ACTIVITY, attributes));
 
         if (used != null) {
             for (QualifiedName backwardConnector : used) {

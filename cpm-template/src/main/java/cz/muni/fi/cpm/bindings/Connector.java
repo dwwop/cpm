@@ -1,12 +1,12 @@
 package cz.muni.fi.cpm.bindings;
 
-import cz.muni.fi.cpm.CpmFactory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import cz.muni.fi.cpm.ICpmFactory;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.Statement;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public abstract class Connector implements ToStatements {
     private QualifiedName referencedMetaBundleId;
     private Object referencedBundleHashValue;
     private HashAlgorithms hashAlg;
-    private URI provenanceServiceUri;
+    private String provenanceServiceUri;
     private List<QualifiedName> derivedFrom;
     private QualifiedName attributedTo;
 
@@ -78,11 +78,11 @@ public abstract class Connector implements ToStatements {
         this.hashAlg = hashAlg;
     }
 
-    public URI getProvenanceServiceUri() {
+    public String getProvenanceServiceUri() {
         return provenanceServiceUri;
     }
 
-    public void setProvenanceServiceUri(URI provenanceServiceUri) {
+    public void setProvenanceServiceUri(String provenanceServiceUri) {
         this.provenanceServiceUri = provenanceServiceUri;
     }
 
@@ -94,13 +94,13 @@ public abstract class Connector implements ToStatements {
         this.derivedFrom = derivedFrom;
     }
 
-    public abstract String getConnectorType();
+    @JsonIgnore
+    public abstract String getType();
 
-    public List<StatementOrBundle> toStatements(CpmFactory cF) {
-        List<StatementOrBundle> statements = new ArrayList<>();
+    public List<Statement> toStatements(ICpmFactory cF) {
+        List<Statement> statements = new ArrayList<>();
         List<Attribute> attributes = new ArrayList<>();
 
-        attributes.add(cF.newCpmType(getConnectorType()));
 
         if (externalId != null) {
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, externalId));
@@ -126,7 +126,7 @@ public abstract class Connector implements ToStatements {
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.PROVENANCE_SERVICE_URI, provenanceServiceUri));
         }
 
-        statements.add(cF.getProvFactory().newEntity(id, attributes));
+        statements.add(cF.newCpmEntity(id, getType(), attributes));
 
         if (derivedFrom != null) {
             for (QualifiedName derivedFromElement : derivedFrom) {
