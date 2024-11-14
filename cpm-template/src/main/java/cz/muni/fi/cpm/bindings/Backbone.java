@@ -138,9 +138,11 @@ public class Backbone {
             statements.addAll(applyToStatements(identifierEntities, cF));
         }
 
-        Bundle bBBundle = cF.getProvFactory().newNamedBundle(bundleName, statements);
-
         addKnownNamespaces();
+
+        Namespace bundleNamespace = new Namespace();
+        bundleNamespace.setParent(namespace);
+        Bundle bBBundle = cF.getProvFactory().newNamedBundle(bundleName, bundleNamespace, statements);
 
         return cF.getProvFactory().newDocument(namespace, Collections.singletonList(bBBundle));
     }
