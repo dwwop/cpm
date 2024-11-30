@@ -12,6 +12,7 @@ import org.openprovenance.prov.vanilla.QualifiedName;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivityTest {
@@ -77,9 +78,16 @@ public class MainActivityTest {
         QualifiedName activity = new QualifiedName("uri", "activityExample", "ex");
         mainActivity.setId(activity);
 
-        List<org.openprovenance.prov.model.QualifiedName> usedList = new ArrayList<>();
-        usedList.add(new QualifiedName("uri", "used1", "ex"));
-        usedList.add(new QualifiedName("uri", "used2", "ex"));
+        QualifiedName uId = new QualifiedName("uri", "usedId1", "ex");
+        QualifiedName uBc = new QualifiedName("uri", "used1", "ex");
+        MainActivityUsed mainActivityUsed = new MainActivityUsed();
+        mainActivityUsed.setId(uId);
+        mainActivityUsed.setBcId(uBc);
+
+        QualifiedName uBc2 = new QualifiedName("uri", "used2", "ex");
+        MainActivityUsed mainActivityUsed2 = new MainActivityUsed();
+        mainActivityUsed2.setBcId(uBc2);
+        List<MainActivityUsed> usedList = Arrays.asList(mainActivityUsed, mainActivityUsed2);
         mainActivity.setUsed(usedList);
 
         List<Statement> statements = mainActivity.toStatements(new CpmFactory());
@@ -87,10 +95,12 @@ public class MainActivityTest {
         Assert.assertEquals(3, statements.size());
         Assert.assertTrue(statements.get(1) instanceof org.openprovenance.prov.model.Used);
         Assert.assertEquals(activity, ((Used) statements.get(1)).getActivity());
-        Assert.assertEquals(usedList.getFirst(), ((Used) statements.get(1)).getEntity());
+        Assert.assertEquals(usedList.getFirst().getBcId(), ((Used) statements.get(1)).getEntity());
+        Assert.assertEquals(usedList.getFirst().getId(), ((Used) statements.get(1)).getId());
         Assert.assertTrue(statements.get(2) instanceof org.openprovenance.prov.model.Used);
         Assert.assertEquals(activity, ((Used) statements.get(2)).getActivity());
-        Assert.assertEquals(usedList.getLast(), ((Used) statements.get(2)).getEntity());
+        Assert.assertEquals(usedList.getLast().getBcId(), ((Used) statements.get(2)).getEntity());
+        Assert.assertEquals(usedList.getLast().getId(), ((Used) statements.get(2)).getId());
     }
 
     @Test
