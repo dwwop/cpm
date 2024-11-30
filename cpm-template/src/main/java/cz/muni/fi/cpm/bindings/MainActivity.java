@@ -21,7 +21,7 @@ public class MainActivity implements ToStatements {
     @JsonProperty(required = true)
     private QualifiedName referencedMetaBundleId;
     private QualifiedName hasPart;
-    private List<QualifiedName> used;
+    private List<MainActivityUsed> used;
     private List<QualifiedName> generated;
 
     public QualifiedName getId() {
@@ -72,11 +72,11 @@ public class MainActivity implements ToStatements {
         this.generated = generated;
     }
 
-    public List<QualifiedName> getUsed() {
+    public List<MainActivityUsed> getUsed() {
         return used;
     }
 
-    public void setUsed(List<QualifiedName> used) {
+    public void setUsed(List<MainActivityUsed> used) {
         this.used = used;
     }
 
@@ -99,8 +99,8 @@ public class MainActivity implements ToStatements {
         statements.add(cF.newCpmActivity(id, startTime, endTime, CpmTypeConstants.MAIN_ACTIVITY, attributes));
 
         if (used != null) {
-            for (QualifiedName backwardConnector : used) {
-                statements.add(cF.getProvFactory().newUsed(id, backwardConnector));
+            for (MainActivityUsed mainActivityUsed : used) {
+                statements.add(cF.getProvFactory().newUsed(mainActivityUsed.getId(), id, mainActivityUsed.getBcId()));
             }
         }
 

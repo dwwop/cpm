@@ -1,0 +1,231 @@
+{
+  "type": "object",
+  "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:Backbone",
+  "properties": {
+    "namespace": {
+      "type": "object",
+      "id": "urn:jsonschema:org:openprovenance:prov:model:Namespace",
+      "required": true,
+      "properties": {
+        "prefixes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "namespaces": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "defaultNamespace": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "object",
+          "$ref": "urn:jsonschema:org:openprovenance:prov:model:Namespace"
+        }
+      }
+    },
+    "mainActivity": {
+      "type": "object",
+      "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:MainActivity",
+      "required": true,
+      "properties": {
+        "id": {
+          "type": "any"
+        },
+        "startTime": {
+          "type": "any"
+        },
+        "endTime": {
+          "type": "any"
+        },
+        "referencedMetaBundleId": {
+          "type": "any",
+          "required": true
+        },
+        "hasPart": {
+          "type": "any"
+        },
+        "used": {
+          "type": "array",
+          "items": {
+            "type": "any"
+          }
+        },
+        "generated": {
+          "type": "array",
+          "items": {
+            "type": "any"
+          }
+        }
+      }
+    },
+    "bundleName": {
+      "type": "any",
+      "required": true
+    },
+    "backwardConnectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:BackwardConnector",
+        "properties": {
+          "id": {
+            "type": "any"
+          },
+          "externalId": {
+            "type": "any"
+          },
+          "referencedBundleId": {
+            "type": "any"
+          },
+          "referencedMetaBundleId": {
+            "type": "any"
+          },
+          "referencedBundleHashValue": {
+            "type": "object",
+            "id": "urn:jsonschema:java:lang:Object"
+          },
+          "hashAlg": {
+            "type": "string",
+            "enum": [
+              "MD5",
+              "SHA1",
+              "SHA256",
+              "SHA512"
+            ]
+          },
+          "provenanceServiceUri": {
+            "type": "string"
+          },
+          "derivedFrom": {
+            "type": "array",
+            "items": {
+              "type": "any"
+            }
+          },
+          "attributedTo": {
+            "type": "any"
+          },
+          "connectorType": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "forwardConnectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:ForwardConnector",
+        "properties": {
+          "id": {
+            "type": "any"
+          },
+          "externalId": {
+            "type": "any"
+          },
+          "referencedBundleId": {
+            "type": "any"
+          },
+          "referencedMetaBundleId": {
+            "type": "any"
+          },
+          "referencedBundleHashValue": {
+            "type": "object",
+            "$ref": "urn:jsonschema:java:lang:Object"
+          },
+          "hashAlg": {
+            "type": "string",
+            "enum": [
+              "MD5",
+              "SHA1",
+              "SHA256",
+              "SHA512"
+            ]
+          },
+          "provenanceServiceUri": {
+            "type": "string"
+          },
+          "derivedFrom": {
+            "type": "array",
+            "items": {
+              "type": "any"
+            }
+          },
+          "attributedTo": {
+            "type": "any"
+          },
+          "connectorType": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "senderAgents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:SenderAgent",
+        "properties": {
+          "id": {
+            "type": "any"
+          },
+          "contactIdPid": {
+            "type": "object",
+            "$ref": "urn:jsonschema:java:lang:Object"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "receiverAgents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:ReceiverAgent",
+        "properties": {
+          "id": {
+            "type": "any"
+          },
+          "contactIdPid": {
+            "type": "object",
+            "$ref": "urn:jsonschema:java:lang:Object"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "identifierEntities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:IdentifierEntity",
+        "properties": {
+          "id": {
+            "type": "any"
+          },
+          "externalId": {
+            "type": "any",
+            "required": true
+          },
+          "externalIdType": {
+            "type": "string",
+            "required": true
+          },
+          "comment": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
+
