@@ -34,37 +34,70 @@
       "required": true,
       "properties": {
         "id": {
-          "type": "any"
+          "type": "object",
+          "id": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "namespaceURI": {
+              "type": "string"
+            },
+            "localPart": {
+              "type": "string"
+            },
+            "prefix": {
+              "type": "string"
+            }
+          }
         },
         "startTime": {
-          "type": "any"
+          "type": "integer",
+          "format": "utc-millisec"
         },
         "endTime": {
-          "type": "any"
+          "type": "integer",
+          "format": "utc-millisec"
         },
         "referencedMetaBundleId": {
-          "type": "any",
+          "type": "object",
+          "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName",
           "required": true
         },
         "hasPart": {
-          "type": "any"
+          "type": "object",
+          "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
         },
         "used": {
           "type": "array",
           "items": {
-            "type": "any"
+            "type": "object",
+            "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:MainActivityUsed",
+            "properties": {
+              "id": {
+                "type": "object",
+                "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
+              },
+              "bcId": {
+                "type": "object",
+                "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName",
+                "required": true
+              }
+            }
           }
         },
         "generated": {
           "type": "array",
           "items": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           }
         }
       }
     },
     "bundleName": {
-      "type": "any",
+      "type": "object",
+      "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName",
       "required": true
     },
     "backwardConnectors": {
@@ -74,16 +107,20 @@
         "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:BackwardConnector",
         "properties": {
           "id": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "externalId": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "referencedBundleId": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "referencedMetaBundleId": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "referencedBundleHashValue": {
             "type": "object",
@@ -104,14 +141,13 @@
           "derivedFrom": {
             "type": "array",
             "items": {
-              "type": "any"
+              "type": "object",
+              "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
             }
           },
           "attributedTo": {
-            "type": "any"
-          },
-          "connectorType": {
-            "type": "string"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           }
         }
       }
@@ -123,16 +159,20 @@
         "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:ForwardConnector",
         "properties": {
           "id": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "externalId": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "referencedBundleId": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "referencedMetaBundleId": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "referencedBundleHashValue": {
             "type": "object",
@@ -153,14 +193,13 @@
           "derivedFrom": {
             "type": "array",
             "items": {
-              "type": "any"
+              "type": "object",
+              "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
             }
           },
           "attributedTo": {
-            "type": "any"
-          },
-          "connectorType": {
-            "type": "string"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           }
         }
       }
@@ -172,14 +211,12 @@
         "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:SenderAgent",
         "properties": {
           "id": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "contactIdPid": {
             "type": "object",
             "$ref": "urn:jsonschema:java:lang:Object"
-          },
-          "type": {
-            "type": "string"
           }
         }
       }
@@ -191,14 +228,12 @@
         "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:ReceiverAgent",
         "properties": {
           "id": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "contactIdPid": {
             "type": "object",
             "$ref": "urn:jsonschema:java:lang:Object"
-          },
-          "type": {
-            "type": "string"
           }
         }
       }
@@ -210,10 +245,12 @@
         "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:IdentifierEntity",
         "properties": {
           "id": {
-            "type": "any"
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           },
           "externalId": {
-            "type": "any",
+            "type": "object",
+            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName",
             "required": true
           },
           "externalIdType": {
@@ -224,6 +261,12 @@
             "type": "string"
           }
         }
+      }
+    },
+    "prefixes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
       }
     }
   }
