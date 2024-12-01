@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm;
+package cz.muni.fi.cpm.model;
 
 import org.openprovenance.prov.model.*;
 

@@ -1,46 +1,51 @@
 package cz.muni.fi.cpm.vannila;
 
+import cz.muni.fi.cpm.model.IEdge;
 import org.openprovenance.prov.model.Element;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-public class Node {
+public class Node implements Component, cz.muni.fi.cpm.model.INode {
     Element element;
-    Set<Edge> edges;
+    List<IEdge> IEdges;
 
-    public Node(Element element, Set<Edge> edges) {
+    public Node(Element element, List<IEdge> IEdges) {
+        if (element == null) {
+            // TODO throw exception
+        }
         this.element = element;
-        this.edges = edges;
+        this.IEdges = IEdges;
     }
 
     public Node(Element element) {
+        if (element == null) {
+            // TODO throw exception
+        }
         this.element = element;
-        this.edges = new HashSet<>();
+        this.IEdges = new ArrayList<>();
     }
 
+    @Override
     public Element getElement() {
         return element;
     }
 
-    public Set<Edge> getEdges() {
-        return edges;
-    }
-
-    public void setEdges(Set<Edge> edges) {
-        this.edges = edges;
+    @Override
+    public List<IEdge> getEdges() {
+        return IEdges;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Node node = (Node) o;
-        return Objects.equals(element, node.element) && Objects.equals(edges, node.edges);
+        return Objects.equals(element, node.element) && Objects.equals(IEdges, node.IEdges);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(element, edges);
+        return Objects.hash(element, IEdges);
     }
 }

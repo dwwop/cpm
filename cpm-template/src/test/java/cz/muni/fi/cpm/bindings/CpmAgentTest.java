@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.bindings;
 
-import cz.muni.fi.cpm.CpmFactory;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openprovenance.prov.model.*;

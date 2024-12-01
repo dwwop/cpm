@@ -1,15 +1,19 @@
 package cz.muni.fi.cpm.vannila;
 
+import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Relation;
 
 import java.util.Objects;
 
-public class Edge {
+public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
     private Relation relation;
-    private Node source;
-    private Node target;
+    private INode source;
+    private INode target;
 
-    public Edge(Relation relation, Node source, Node target) {
+    public Edge(Relation relation, INode source, INode target) {
+        if (relation == null) {
+            // TODO throw exception
+        }
         this.relation = relation;
         this.source = source;
         this.target = target;
@@ -19,27 +23,28 @@ public class Edge {
         this.relation = relation;
     }
 
+    @Override
     public Relation getRelation() {
         return relation;
     }
 
-    public void setRelation(Relation relation) {
-        this.relation = relation;
-    }
-
-    public Node getSource() {
+    @Override
+    public INode getSource() {
         return source;
     }
 
-    public void setSource(Node source) {
+    @Override
+    public void setSource(INode source) {
         this.source = source;
     }
 
-    public Node getTarget() {
+    @Override
+    public INode getTarget() {
         return target;
     }
 
-    public void setTarget(Node target) {
+    @Override
+    public void setTarget(INode target) {
         this.target = target;
     }
 
@@ -54,4 +59,5 @@ public class Edge {
     public int hashCode() {
         return Objects.hash(relation, source, target);
     }
+
 }

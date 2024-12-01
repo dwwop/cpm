@@ -2,9 +2,9 @@ package cz.muni.fi.cpm.bindings;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import cz.muni.fi.cpm.ICpmFactory;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
+import cz.muni.fi.cpm.model.ICpmFactory;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomNamespacePrefixDeserializer;
 import org.openprovenance.prov.model.*;
 

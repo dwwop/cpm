@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.deserialization;
 
-import cz.muni.fi.cpm.CpmFactory;
 import cz.muni.fi.cpm.bindings.Backbone;
+import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openprovenance.prov.notation.ProvSerialiser;

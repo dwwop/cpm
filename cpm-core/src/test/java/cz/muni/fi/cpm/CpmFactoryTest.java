@@ -3,6 +3,7 @@ package cz.muni.fi.cpm;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.openprovenance.prov.model.*;

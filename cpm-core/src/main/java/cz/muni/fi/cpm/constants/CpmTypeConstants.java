@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.constants;
 
-import cz.muni.fi.cpm.CpmFactory;
-import cz.muni.fi.cpm.ICpmFactory;
+import cz.muni.fi.cpm.model.ICpmFactory;
+import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.openprovenance.prov.model.Type;
 
 public class CpmTypeConstants {

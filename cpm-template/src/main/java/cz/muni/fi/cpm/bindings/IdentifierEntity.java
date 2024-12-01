@@ -1,9 +1,9 @@
 package cz.muni.fi.cpm.bindings;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.muni.fi.cpm.ICpmFactory;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.model.ICpmFactory;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
