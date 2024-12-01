@@ -53,12 +53,16 @@ public class CpmDocument implements StatementAction {
         statements.addAll(nodes.values().stream().map(INode::getElement).toList());
         statements.addAll(edges.stream().map(IEdge::getRelation).toList());
 
-        Bundle newBundle = pF.newNamedBundle(bundle.getId(), pF.newNamespace(bundle.getNamespace()), statements);
+        Bundle newBundle = pF.newNamedBundle(bundle.getId(), statements);
+        Namespace bundleNs = pF.newNamespace();
+        newBundle.setNamespace(bundleNs);
+
         document.getStatementOrBundle().add(newBundle);
 
         Namespace ns = Namespace.gatherNamespaces(newBundle);
         ns.extendWith(namespaces);
         document.setNamespace(ns);
+        bundleNs.setParent(ns);
 
         return document;
     }
