@@ -3,30 +3,26 @@ package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.vannila.CpmFactory;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.vanilla.ProvFactory;
 import org.openprovenance.prov.vanilla.QualifiedName;
 
-import javax.xml.datatype.DatatypeFactory;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class CpmUtilitiesTest {
-    private DatatypeFactory datatypeFactory;
     private ProvFactory pF;
-    private CpmFactory cF;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         pF = new ProvFactory();
-        cF = new CpmFactory(pF);
-        datatypeFactory = DatatypeFactory.newInstance();
     }
 
     @Test
@@ -41,7 +37,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        Assert.assertTrue(CpmUtilities.isCpmElement(element));
+        assertTrue(CpmUtilities.isCpmElement(element));
     }
 
     @Test
@@ -57,8 +53,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-
-        Assert.assertFalse(CpmUtilities.isCpmElement(element));
+        assertFalse(CpmUtilities.isCpmElement(element));
     }
 
 
@@ -75,8 +70,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-
-        Assert.assertFalse(CpmUtilities.isCpmElement(element));
+        assertFalse(CpmUtilities.isCpmElement(element));
     }
 
 
@@ -92,8 +86,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-
-        Assert.assertFalse(CpmUtilities.isCpmElement(element));
+        assertFalse(CpmUtilities.isCpmElement(element));
     }
 
     @Test
@@ -102,7 +95,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, (List<Attribute>) null);
 
-        Assert.assertFalse(CpmUtilities.isCpmElement(element));
+        assertFalse(CpmUtilities.isCpmElement(element));
     }
 
 
@@ -118,12 +111,11 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        Assert.assertTrue(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertTrue(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
     @Test
     public void testHasCpmType_withInvalidUri() {
-
         QualifiedName validQualifiedName = new QualifiedName(
                 "invalidUri",
                 CpmType.FORWARD_CONNECTOR.toString(),
@@ -134,13 +126,12 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        Assert.assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
 
     @Test
     public void testHasCpmType_withInvalidPrefix() {
-
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 CpmType.FORWARD_CONNECTOR.toString(),
@@ -151,7 +142,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        Assert.assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
 
@@ -167,7 +158,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        Assert.assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
     @Test
@@ -182,7 +173,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        Assert.assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
 
@@ -192,7 +183,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, (List<Attribute>) null);
 
-        Assert.assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
 }

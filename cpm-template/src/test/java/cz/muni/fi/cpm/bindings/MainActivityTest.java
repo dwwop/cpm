@@ -4,8 +4,7 @@ import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.vannila.CpmFactory;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.vanilla.QualifiedName;
 
@@ -14,6 +13,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MainActivityTest {
 
@@ -25,19 +26,19 @@ public class MainActivityTest {
 
         List<Statement> statements = mainActivity.toStatements(new CpmFactory());
 
-        Assert.assertNotNull(statements);
-        Assert.assertEquals(1, statements.size());
+        assertNotNull(statements);
+        assertEquals(1, statements.size());
 
         Statement statement = statements.getFirst();
-        Assert.assertTrue(statement instanceof Activity);
+        assertInstanceOf(Activity.class, statement);
 
         Activity activity = (Activity) statement;
-        Assert.assertEquals(id, activity.getId());
+        assertEquals(id, activity.getId());
 
-        Assert.assertNotNull(activity.getType());
-        Assert.assertEquals(1, activity.getType().size());
+        assertNotNull(activity.getType());
+        assertEquals(1, activity.getType().size());
         Type type = activity.getType().getFirst();
-        Assert.assertEquals(CpmType.MAIN_ACTIVITY.toString(), ((QualifiedName) type.getValue()).getLocalPart());
+        assertEquals(CpmType.MAIN_ACTIVITY.toString(), ((QualifiedName) type.getValue()).getLocalPart());
     }
 
     @Test
@@ -50,10 +51,10 @@ public class MainActivityTest {
         List<Statement> statements = mainActivity.toStatements(new CpmFactory());
         Activity activity = (Activity) statements.getFirst();
 
-        Assert.assertNotNull(activity.getOther());
-        Assert.assertEquals(1, activity.getOther().size());
-        Assert.assertEquals(CpmAttributeConstants.REFERENCED_META_BUNDLE_ID, activity.getOther().getFirst().getElementName().getLocalPart());
-        Assert.assertEquals(referencedMetaBundleId, activity.getOther().getFirst().getValue());
+        assertNotNull(activity.getOther());
+        assertEquals(1, activity.getOther().size());
+        assertEquals(CpmAttributeConstants.REFERENCED_META_BUNDLE_ID, activity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(referencedMetaBundleId, activity.getOther().getFirst().getValue());
     }
 
     @Test
@@ -66,10 +67,10 @@ public class MainActivityTest {
         List<Statement> statements = mainActivity.toStatements(new CpmFactory());
         Activity activity = (Activity) statements.getFirst();
 
-        Assert.assertNotNull(activity.getOther());
-        Assert.assertEquals(1, activity.getOther().size());
-        Assert.assertEquals(DctAttributeConstants.HAS_PART, activity.getOther().getFirst().getElementName().getLocalPart());
-        Assert.assertEquals(hasPart, activity.getOther().getFirst().getValue());
+        assertNotNull(activity.getOther());
+        assertEquals(1, activity.getOther().size());
+        assertEquals(DctAttributeConstants.HAS_PART, activity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(hasPart, activity.getOther().getFirst().getValue());
     }
 
     @Test
@@ -92,15 +93,15 @@ public class MainActivityTest {
 
         List<Statement> statements = mainActivity.toStatements(new CpmFactory());
 
-        Assert.assertEquals(3, statements.size());
-        Assert.assertTrue(statements.get(1) instanceof org.openprovenance.prov.model.Used);
-        Assert.assertEquals(activity, ((Used) statements.get(1)).getActivity());
-        Assert.assertEquals(usedList.getFirst().getBcId(), ((Used) statements.get(1)).getEntity());
-        Assert.assertEquals(usedList.getFirst().getId(), ((Used) statements.get(1)).getId());
-        Assert.assertTrue(statements.get(2) instanceof org.openprovenance.prov.model.Used);
-        Assert.assertEquals(activity, ((Used) statements.get(2)).getActivity());
-        Assert.assertEquals(usedList.getLast().getBcId(), ((Used) statements.get(2)).getEntity());
-        Assert.assertEquals(usedList.getLast().getId(), ((Used) statements.get(2)).getId());
+        assertEquals(3, statements.size());
+        assertInstanceOf(Used.class, statements.get(1));
+        assertEquals(activity, ((Used) statements.get(1)).getActivity());
+        assertEquals(usedList.getFirst().getBcId(), ((Used) statements.get(1)).getEntity());
+        assertEquals(usedList.getFirst().getId(), ((Used) statements.get(1)).getId());
+        assertInstanceOf(Used.class, statements.get(2));
+        assertEquals(activity, ((Used) statements.get(2)).getActivity());
+        assertEquals(usedList.getLast().getBcId(), ((Used) statements.get(2)).getEntity());
+        assertEquals(usedList.getLast().getId(), ((Used) statements.get(2)).getId());
     }
 
     @Test
@@ -116,13 +117,13 @@ public class MainActivityTest {
 
         List<Statement> statements = mainActivity.toStatements(new CpmFactory());
 
-        Assert.assertEquals(3, statements.size());
-        Assert.assertTrue(statements.get(1) instanceof WasGeneratedBy);
-        Assert.assertEquals(activity, ((WasGeneratedBy) statements.get(1)).getActivity());
-        Assert.assertEquals(generatedList.getFirst(), ((WasGeneratedBy) statements.get(1)).getEntity());
-        Assert.assertTrue(statements.get(2) instanceof WasGeneratedBy);
-        Assert.assertEquals(activity, ((WasGeneratedBy) statements.get(2)).getActivity());
-        Assert.assertEquals(generatedList.getLast(), ((WasGeneratedBy) statements.get(2)).getEntity());
+        assertEquals(3, statements.size());
+        assertInstanceOf(WasGeneratedBy.class, statements.get(1));
+        assertEquals(activity, ((WasGeneratedBy) statements.get(1)).getActivity());
+        assertEquals(generatedList.getFirst(), ((WasGeneratedBy) statements.get(1)).getEntity());
+        assertInstanceOf(WasGeneratedBy.class, statements.get(2));
+        assertEquals(activity, ((WasGeneratedBy) statements.get(2)).getActivity());
+        assertEquals(generatedList.getLast(), ((WasGeneratedBy) statements.get(2)).getEntity());
     }
 
     @Test
@@ -139,7 +140,7 @@ public class MainActivityTest {
         List<Statement> statements = mainActivity.toStatements(new CpmFactory());
 
         Activity activity = (Activity) statements.get(0);
-        Assert.assertEquals(startTime, activity.getStartTime());
-        Assert.assertEquals(endTime, activity.getEndTime());
+        assertEquals(startTime, activity.getStartTime());
+        assertEquals(endTime, activity.getEndTime());
     }
 }

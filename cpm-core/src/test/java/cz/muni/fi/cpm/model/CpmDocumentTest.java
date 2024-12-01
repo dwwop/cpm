@@ -2,9 +2,8 @@ package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.vanilla.ProvFactory;
 
@@ -13,12 +12,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class CpmDocumentTest {
     private DatatypeFactory datatypeFactory;
     private ProvFactory pF;
     private CpmFactory cF;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         pF = new ProvFactory();
         cF = new CpmFactory(pF);
@@ -28,7 +29,7 @@ public class CpmDocumentTest {
 
     @Test
     public void testConstructor_nullDocument() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> new CpmDocument(null, pF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(null, pF));
     }
 
     @Test
@@ -36,7 +37,7 @@ public class CpmDocumentTest {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> new CpmDocument(document, pF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(document, pF));
     }
 
 
@@ -51,7 +52,7 @@ public class CpmDocumentTest {
 
         CpmDocument doc = new CpmDocument(document, pF);
 
-        Assert.assertEquals(document.getNamespace().getNamespaces(), doc.getNamespaces().getNamespaces());
+        assertEquals(document.getNamespace().getNamespaces(), doc.getNamespaces().getNamespaces());
     }
 
     @Test
@@ -73,9 +74,9 @@ public class CpmDocumentTest {
 
         CpmDocument doc = new CpmDocument(document, pF);
 
-        Assert.assertNotNull(doc.getNode(activityId));
-        Assert.assertFalse(doc.getBackbone().isEmpty());
-        Assert.assertNotNull(doc.getMainActivity());
-        Assert.assertEquals(activity, doc.getNode(activityId).getElement());
+        assertNotNull(doc.getNode(activityId));
+        assertFalse(doc.getBackbone().isEmpty());
+        assertNotNull(doc.getMainActivity());
+        assertEquals(activity, doc.getNode(activityId).getElement());
     }
 }

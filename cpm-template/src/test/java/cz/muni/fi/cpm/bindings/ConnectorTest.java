@@ -3,12 +3,13 @@ package cz.muni.fi.cpm.bindings;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.vanilla.QualifiedName;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConnectorTest {
     @Test
@@ -19,17 +20,17 @@ public class ConnectorTest {
 
         List<Statement> statements = connector.toStatements(new CpmFactory());
 
-        Assert.assertNotNull(statements);
-        Assert.assertEquals(1, statements.size());
+        assertNotNull(statements);
+        assertEquals(1, statements.size());
 
         Statement statement = statements.getFirst();
-        Assert.assertTrue(statement instanceof Entity);
+        assertInstanceOf(Entity.class, statement);
         Entity entity = (Entity) statement;
 
-        Assert.assertNotNull(entity.getType());
-        Assert.assertEquals(1, entity.getType().size());
+        assertNotNull(entity.getType());
+        assertEquals(1, entity.getType().size());
         Type type = entity.getType().getFirst();
-        Assert.assertEquals(CpmType.BACKWARD_CONNECTOR.toString(), ((QualifiedName) type.getValue()).getLocalPart());
+        assertEquals(CpmType.BACKWARD_CONNECTOR.toString(), ((QualifiedName) type.getValue()).getLocalPart());
     }
 
     @Test
@@ -42,10 +43,10 @@ public class ConnectorTest {
         List<Statement> statements = connector.toStatements(new CpmFactory());
         Entity entity = (Entity) statements.getFirst();
 
-        Assert.assertNotNull(entity.getOther());
-        Assert.assertEquals(1, entity.getOther().size());
-        Assert.assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getFirst().getElementName().getLocalPart());
-        Assert.assertEquals(externalId, entity.getOther().getFirst().getValue());
+        assertNotNull(entity.getOther());
+        assertEquals(1, entity.getOther().size());
+        assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(externalId, entity.getOther().getFirst().getValue());
     }
 
     @Test
@@ -58,10 +59,10 @@ public class ConnectorTest {
         List<Statement> statements = connector.toStatements(new CpmFactory());
         Entity entity = (Entity) statements.getFirst();
 
-        Assert.assertNotNull(entity.getOther());
-        Assert.assertEquals(1, entity.getOther().size());
-        Assert.assertEquals(CpmAttributeConstants.REFERENCED_BUNDLE_ID, entity.getOther().getFirst().getElementName().getLocalPart());
-        Assert.assertEquals(bundleId, entity.getOther().getFirst().getValue());
+        assertNotNull(entity.getOther());
+        assertEquals(1, entity.getOther().size());
+        assertEquals(CpmAttributeConstants.REFERENCED_BUNDLE_ID, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(bundleId, entity.getOther().getFirst().getValue());
     }
 
     @Test
@@ -75,16 +76,16 @@ public class ConnectorTest {
         List<Statement> statements = connector.toStatements(new CpmFactory());
         Entity entity = (Entity) statements.getFirst();
 
-        Assert.assertNotNull(entity.getOther());
-        Assert.assertEquals(2, entity.getOther().size());
+        assertNotNull(entity.getOther());
+        assertEquals(2, entity.getOther().size());
 
         Attribute hashValueAttr = entity.getOther().getFirst();
-        Assert.assertEquals(CpmAttributeConstants.REFERENCED_BUNDLE_HASH_VALUE, hashValueAttr.getElementName().getLocalPart());
-        Assert.assertEquals(hashValue, hashValueAttr.getValue());
+        assertEquals(CpmAttributeConstants.REFERENCED_BUNDLE_HASH_VALUE, hashValueAttr.getElementName().getLocalPart());
+        assertEquals(hashValue, hashValueAttr.getValue());
 
-        Assert.assertTrue(entity.getOther().getLast().getValue() instanceof LangString);
-        Assert.assertEquals(CpmAttributeConstants.HASH_ALG, entity.getOther().getLast().getElementName().getLocalPart());
-        Assert.assertEquals(HashAlgorithms.SHA256.toString(), ((LangString) entity.getOther().getLast().getValue()).getValue());
+        assertInstanceOf(LangString.class, entity.getOther().getLast().getValue());
+        assertEquals(CpmAttributeConstants.HASH_ALG, entity.getOther().getLast().getElementName().getLocalPart());
+        assertEquals(HashAlgorithms.SHA256.toString(), ((LangString) entity.getOther().getLast().getValue()).getValue());
 
     }
 
@@ -98,12 +99,12 @@ public class ConnectorTest {
         List<Statement> statements = connector.toStatements(new CpmFactory());
         Entity entity = (Entity) statements.get(0);
 
-        Assert.assertNotNull(entity.getOther());
-        Assert.assertEquals(1, entity.getOther().size());
+        assertNotNull(entity.getOther());
+        assertEquals(1, entity.getOther().size());
 
         Attribute uri = entity.getOther().getFirst();
-        Assert.assertEquals(CpmAttributeConstants.PROVENANCE_SERVICE_URI, uri.getElementName().getLocalPart());
-        Assert.assertEquals(provenanceUri, uri.getValue());
+        assertEquals(CpmAttributeConstants.PROVENANCE_SERVICE_URI, uri.getElementName().getLocalPart());
+        assertEquals(provenanceUri, uri.getValue());
     }
 
     @Test
@@ -115,12 +116,12 @@ public class ConnectorTest {
         connector.setDerivedFrom(List.of(derivedFromId));
 
         List<Statement> statements = connector.toStatements(new CpmFactory());
-        Assert.assertEquals(2, statements.size());
+        assertEquals(2, statements.size());
 
         Statement derivedFromStatement = statements.get(1);
-        Assert.assertTrue(derivedFromStatement instanceof WasDerivedFrom);
-        Assert.assertEquals(derivedFromId, ((WasDerivedFrom) derivedFromStatement).getUsedEntity());
-        Assert.assertEquals(qN, ((WasDerivedFrom) derivedFromStatement).getGeneratedEntity());
+        assertInstanceOf(WasDerivedFrom.class, derivedFromStatement);
+        assertEquals(derivedFromId, ((WasDerivedFrom) derivedFromStatement).getUsedEntity());
+        assertEquals(qN, ((WasDerivedFrom) derivedFromStatement).getGeneratedEntity());
     }
 
     @Test
@@ -132,11 +133,11 @@ public class ConnectorTest {
         connector.setAttributedTo(attributedToId);
 
         List<Statement> statements = connector.toStatements(new CpmFactory());
-        Assert.assertEquals(2, statements.size());
+        assertEquals(2, statements.size());
         Statement attributedToStatement = statements.getLast();
-        Assert.assertTrue(attributedToStatement instanceof WasAttributedTo);
-        Assert.assertEquals(qN, ((WasAttributedTo) attributedToStatement).getEntity());
-        Assert.assertEquals(attributedToId, ((WasAttributedTo) attributedToStatement).getAgent());
+        assertInstanceOf(WasAttributedTo.class, attributedToStatement);
+        assertEquals(qN, ((WasAttributedTo) attributedToStatement).getEntity());
+        assertEquals(attributedToId, ((WasAttributedTo) attributedToStatement).getAgent());
     }
 
     private class TestConnector extends Connector {

@@ -31,73 +31,79 @@
         <maven.compiler.target>23</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <prov.ver>2.2.1</prov.ver>
-        <junit.ver>4.13.2</junit.ver>
+        <junit.ver>5.11.3</junit.ver>
     </properties>
 
     <dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.openprovenance.prov</groupId>
-            <artifactId>prov-model</artifactId>
-            <version>${prov.ver}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openprovenance.prov</groupId>
-            <artifactId>prov-interop</artifactId>
-            <version>${prov.ver}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openprovenance.prov</groupId>
-            <artifactId>prov-n</artifactId>
-            <version>${prov.ver}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openprovenance.prov</groupId>
-            <artifactId>prov-nf</artifactId>
-            <version>${prov.ver}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jsonSchema</artifactId>
-            <version>2.17.1</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.ver}</version>
-            <scope>test</scope>
-        </dependency>
-        <!--    -->
-        <!--    <dependency>-->
-        <!--      <groupId>com.exasol</groupId>-->
-        <!--      <artifactId>parquet-io-java</artifactId>-->
-        <!--      <version>2.0.8</version>-->
-        <!--      <exclusions>-->
-        <!--        <exclusion>-->
-        <!--          <groupId>org.slf4j</groupId>-->
-        <!--          <artifactId>slf4j-reload4j</artifactId>-->
-        <!--        </exclusion>-->
-        <!--      </exclusions>-->
-        <!--    </dependency>-->
-        <!--    <dependency>-->
-        <!--      <groupId>org.gbif.datacite</groupId>-->
-        <!--      <artifactId>datacite-rest-client</artifactId>-->
-        <!--      <version>1.12</version>-->
+        <dependencies>
+            <dependency>
+                <groupId>org.openprovenance.prov</groupId>
+                <artifactId>prov-model</artifactId>
+                <version>${prov.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openprovenance.prov</groupId>
+                <artifactId>prov-interop</artifactId>
+                <version>${prov.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openprovenance.prov</groupId>
+                <artifactId>prov-n</artifactId>
+                <version>${prov.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openprovenance.prov</groupId>
+                <artifactId>prov-nf</artifactId>
+                <version>${prov.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-jsonSchema</artifactId>
+                <version>2.17.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.ver}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.ver}</version>
+                <scope>test</scope>
+            </dependency>
+            <!--    -->
+            <!--    <dependency>-->
+            <!--      <groupId>com.exasol</groupId>-->
+            <!--      <artifactId>parquet-io-java</artifactId>-->
+            <!--      <version>2.0.8</version>-->
+            <!--      <exclusions>-->
+            <!--        <exclusion>-->
+            <!--          <groupId>org.slf4j</groupId>-->
+            <!--          <artifactId>slf4j-reload4j</artifactId>-->
+            <!--        </exclusion>-->
+            <!--      </exclusions>-->
+            <!--    </dependency>-->
+            <!--    <dependency>-->
+            <!--      <groupId>org.gbif.datacite</groupId>-->
+            <!--      <artifactId>datacite-rest-client</artifactId>-->
+            <!--      <version>1.12</version>-->
 
-        <!--      <exclusions>-->
-        <!--        <exclusion>-->
-        <!--          <groupId>ch.qos.logback</groupId>-->
-        <!--          <artifactId>logback-classic</artifactId>-->
-        <!--        </exclusion>-->
-        <!--      </exclusions>-->
-        <!--    </dependency>-->
-        <!--    <dependency>-->
-        <!--      <groupId>org.jdom</groupId>-->
-        <!--      <artifactId>jdom2</artifactId>-->
-        <!--      <version>2.0.6.1</version>-->
-        <!--    </dependency>-->
+            <!--      <exclusions>-->
+            <!--        <exclusion>-->
+            <!--          <groupId>ch.qos.logback</groupId>-->
+            <!--          <artifactId>logback-classic</artifactId>-->
+            <!--        </exclusion>-->
+            <!--      </exclusions>-->
+            <!--    </dependency>-->
+            <!--    <dependency>-->
+            <!--      <groupId>org.jdom</groupId>-->
+            <!--      <artifactId>jdom2</artifactId>-->
+            <!--      <version>2.0.6.1</version>-->
+            <!--    </dependency>-->
 
-    </dependencies>
+        </dependencies>
     </dependencyManagement>
 
 </project>

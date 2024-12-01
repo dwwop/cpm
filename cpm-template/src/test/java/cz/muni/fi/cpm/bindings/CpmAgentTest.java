@@ -3,12 +3,13 @@ package cz.muni.fi.cpm.bindings;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.vanilla.QualifiedName;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CpmAgentTest {
     @Test
@@ -19,19 +20,19 @@ public class CpmAgentTest {
 
         List<Statement> statements = agent.toStatements(new CpmFactory());
 
-        Assert.assertNotNull(statements);
-        Assert.assertEquals(1, statements.size());
+        assertNotNull(statements);
+        assertEquals(1, statements.size());
 
         Statement statement = statements.getFirst();
-        Assert.assertTrue(statement instanceof Agent);
+        assertInstanceOf(Agent.class, statement);
 
         Agent resultAgent = (Agent) statement;
-        Assert.assertEquals(id, resultAgent.getId());
+        assertEquals(id, resultAgent.getId());
 
-        Assert.assertNotNull(resultAgent.getType());
-        Assert.assertEquals(1, resultAgent.getType().size());
+        assertNotNull(resultAgent.getType());
+        assertEquals(1, resultAgent.getType().size());
         Type type = resultAgent.getType().getFirst();
-        Assert.assertEquals(CpmType.SENDER_AGENT.toString(), ((QualifiedName) type.getValue()).getLocalPart());
+        assertEquals(CpmType.SENDER_AGENT.toString(), ((QualifiedName) type.getValue()).getLocalPart());
     }
 
     @Test
@@ -45,13 +46,13 @@ public class CpmAgentTest {
         Agent resultAgent = (Agent) statements.getFirst();
 
         List<Other> otherAttributes = resultAgent.getOther();
-        Assert.assertNotNull(otherAttributes);
-        Assert.assertEquals(1, otherAttributes.size());
+        assertNotNull(otherAttributes);
+        assertEquals(1, otherAttributes.size());
 
         Attribute contactIdAttr = otherAttributes.getFirst();
-        Assert.assertTrue(contactIdAttr.getValue() instanceof LangString);
-        Assert.assertEquals(CpmAttributeConstants.CONTACT_ID_PID, contactIdAttr.getElementName().getLocalPart());
-        Assert.assertEquals(contactIdPid, ((LangString) contactIdAttr.getValue()).getValue());
+        assertInstanceOf(LangString.class, contactIdAttr.getValue());
+        assertEquals(CpmAttributeConstants.CONTACT_ID_PID, contactIdAttr.getElementName().getLocalPart());
+        assertEquals(contactIdPid, ((LangString) contactIdAttr.getValue()).getValue());
     }
 
     private class TestAgent extends CpmAgent {
