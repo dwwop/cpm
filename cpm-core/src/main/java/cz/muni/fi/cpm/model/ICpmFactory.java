@@ -22,4 +22,6 @@ public interface ICpmFactory {
     Activity newCpmActivity(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, String type, Collection<Attribute> attributes);
 
     Agent newCpmAgent(QualifiedName id, String type, Collection<Attribute> attributes);
+
+    Namespace newCpmNamespace();
 }
