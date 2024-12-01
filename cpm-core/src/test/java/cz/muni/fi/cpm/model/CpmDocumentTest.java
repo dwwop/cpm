@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.model;
 
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Assert;
 import org.junit.Before;
@@ -66,7 +66,7 @@ public class CpmDocumentTest {
         QualifiedName activityId = pF.newQualifiedName("uri", "activity", "ex");
         XMLGregorianCalendar startTime = datatypeFactory.newXMLGregorianCalendar("2024-11-13T10:00:00");
         XMLGregorianCalendar endTime = datatypeFactory.newXMLGregorianCalendar("2024-11-13T12:00:00");
-        String type = CpmTypeConstants.MAIN_ACTIVITY;
+        CpmType type = CpmType.MAIN_ACTIVITY;
         Collection<Attribute> attributes = new ArrayList<>();
         Activity activity = cF.newCpmActivity(activityId, startTime, endTime, type, attributes);
         bundle.getStatement().add(activity);

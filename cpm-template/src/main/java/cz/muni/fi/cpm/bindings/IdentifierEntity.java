@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.bindings;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.model.ICpmFactory;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.QualifiedName;
@@ -68,6 +68,6 @@ public class IdentifierEntity implements ToStatements{
             attributes.add(cF.newCpmAttribute(CpmAttributeConstants.COMMENT, comment, cF.getProvFactory().getName().XSD_STRING));
         }
 
-        return Collections.singletonList(cF.newCpmEntity(id, CpmTypeConstants.IDENTIFIER, attributes));
+        return Collections.singletonList(cF.newCpmEntity(id, CpmType.IDENTIFIER, attributes));
     }
 }

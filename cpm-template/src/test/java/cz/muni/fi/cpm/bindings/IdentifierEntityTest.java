@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.bindings;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class IdentifierEntityTest {
         Assert.assertNotNull(entity.getType());
         Assert.assertEquals(1, entity.getType().size());
         Type type = entity.getType().getFirst();
-        Assert.assertEquals(CpmTypeConstants.IDENTIFIER, ((QualifiedName) type.getValue()).getLocalPart());
+        Assert.assertEquals(CpmType.IDENTIFIER.toString(), ((QualifiedName) type.getValue()).getLocalPart());
     }
 
     @Test

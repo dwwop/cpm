@@ -1,6 +1,7 @@
 package cz.muni.fi.cpm.vannila;
 
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
 import cz.muni.fi.cpm.model.ICpmFactory;
 import org.openprovenance.prov.model.*;
@@ -25,9 +26,9 @@ public class CpmFactory implements ICpmFactory {
     }
 
     @Override
-    public Type newCpmType(String type) {
+    public Type newCpmType(CpmType type) {
         return pF.newType(
-                newCpmQualifiedName(type),
+                newCpmQualifiedName(type.toString()),
                 pF.getName().PROV_QUALIFIED_NAME);
     }
 
@@ -53,19 +54,19 @@ public class CpmFactory implements ICpmFactory {
     }
 
     @Override
-    public Entity newCpmEntity(QualifiedName id, String type, Collection<Attribute> attributes) {
+    public Entity newCpmEntity(QualifiedName id, CpmType type, Collection<Attribute> attributes) {
         attributes.add(newCpmType(type));
         return pF.newEntity(id, attributes);
     }
 
     @Override
-    public Activity newCpmActivity(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, String type, Collection<Attribute> attributes) {
+    public Activity newCpmActivity(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, CpmType type, Collection<Attribute> attributes) {
         attributes.add(newCpmType(type));
         return pF.newActivity(id, startTime, endTime, attributes);
     }
 
     @Override
-    public Agent newCpmAgent(QualifiedName id, String type, Collection<Attribute> attributes) {
+    public Agent newCpmAgent(QualifiedName id, CpmType type, Collection<Attribute> attributes) {
         attributes.add(newCpmType(type));
         return pF.newAgent(id, attributes);
     }

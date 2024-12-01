@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmExceptionConstancts;
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.Edge;
 import cz.muni.fi.cpm.vannila.Node;
 import org.openprovenance.prov.model.*;
@@ -246,7 +246,7 @@ public class CpmDocument implements StatementAction {
 
     public INode getMainActivity() {
         for (INode node : backbone) {
-            if (CpmUtilities.hasCpmType(node.getElement(), CpmTypeConstants.MAIN_ACTIVITY)) {
+            if (CpmUtilities.hasCpmType(node.getElement(), CpmType.MAIN_ACTIVITY)) {
                 return node;
             }
         }
@@ -255,7 +255,7 @@ public class CpmDocument implements StatementAction {
         // TODO multiple main activities?
     }
 
-    private List<INode> getConnectors(String type) {
+    private List<INode> getConnectors(CpmType type) {
         List<INode> result = new ArrayList<>();
         for (INode node : backbone) {
             if (CpmUtilities.hasCpmType(node.getElement(), type)) {
@@ -266,11 +266,11 @@ public class CpmDocument implements StatementAction {
     }
 
     public List<INode> getForwardConnectors() {
-        return getConnectors(CpmTypeConstants.FORWARD_CONNECTOR);
+        return getConnectors(CpmType.FORWARD_CONNECTOR);
     }
 
     public List<INode> getBackwardConnectors() {
-        return getConnectors(CpmTypeConstants.BACKWARD_CONNECTOR);
+        return getConnectors(CpmType.BACKWARD_CONNECTOR);
     }
 
     public List<INode> getBackbone() {

@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,10 +28,10 @@ public class CpmFactoryTest {
 
     @Test
     public void testNewCpmType() {
-        String type = CpmTypeConstants.FORWARD_CONNECTOR;
+        CpmType type = CpmType.FORWARD_CONNECTOR;
         Type result = cF.newCpmType(type);
         assertNotNull(result);
-        assertEquals(type, ((QualifiedName) result.getValue()).getLocalPart());
+        assertEquals(type.toString(), ((QualifiedName) result.getValue()).getLocalPart());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class CpmFactoryTest {
     public void testNewCpmAttribute_withCustomType() {
         String local = CpmAttributeConstants.REFERENCED_BUNDLE_ID;
         Object value = "exampleValue";
-        QualifiedName type = cF.newCpmQualifiedName(CpmTypeConstants.IDENTIFIER);
+        QualifiedName type = cF.newCpmQualifiedName(CpmType.IDENTIFIER.toString());
         Attribute result = cF.newCpmAttribute(local, value, type);
         assertNotNull(result);
         assertEquals(local, result.getElementName().getLocalPart());
@@ -69,7 +69,7 @@ public class CpmFactoryTest {
     @Test
     public void testNewCpmEntity() {
         QualifiedName id = cF.newCpmQualifiedName("entityId");
-        String type = CpmTypeConstants.FORWARD_CONNECTOR;
+        CpmType type = CpmType.FORWARD_CONNECTOR;
         Collection<Attribute> attributes = new ArrayList<>();
         Entity result = cF.newCpmEntity(id, type, attributes);
         assertNotNull(result);
@@ -81,7 +81,7 @@ public class CpmFactoryTest {
         QualifiedName id = cF.newCpmQualifiedName("activityId");
         XMLGregorianCalendar startTime = datatypeFactory.newXMLGregorianCalendar("2024-11-13T10:00:00");
         XMLGregorianCalendar endTime = datatypeFactory.newXMLGregorianCalendar("2024-11-13T12:00:00");
-        String type = CpmTypeConstants.MAIN_ACTIVITY;
+        CpmType type = CpmType.MAIN_ACTIVITY;
         Collection<Attribute> attributes = new ArrayList<>();
         Activity result = cF.newCpmActivity(id, startTime, endTime, type, attributes);
         assertNotNull(result);
@@ -91,7 +91,7 @@ public class CpmFactoryTest {
     @Test
     public void testNewCpmAgent() {
         QualifiedName id = cF.newCpmQualifiedName("agentId");
-        String type = CpmTypeConstants.SENDER_AGENT;
+        CpmType type = CpmType.SENDER_AGENT;
         Collection<Attribute> attributes = new ArrayList<>();
         Agent result = cF.newCpmAgent(id, type, attributes);
         assertNotNull(result);

@@ -1,6 +1,7 @@
 package cz.muni.fi.cpm.bindings;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,8 +11,6 @@ import org.openprovenance.prov.vanilla.QualifiedName;
 import java.util.List;
 
 public class ConnectorTest {
-    public static final String TEST_CONNECTOR = "TEST";
-
     @Test
     public void testToStatements_basic() {
         TestConnector connector = new TestConnector();
@@ -30,7 +29,7 @@ public class ConnectorTest {
         Assert.assertNotNull(entity.getType());
         Assert.assertEquals(1, entity.getType().size());
         Type type = entity.getType().getFirst();
-        Assert.assertEquals(TEST_CONNECTOR, ((QualifiedName) type.getValue()).getLocalPart());
+        Assert.assertEquals(CpmType.BACKWARD_CONNECTOR.toString(), ((QualifiedName) type.getValue()).getLocalPart());
     }
 
     @Test
@@ -142,8 +141,8 @@ public class ConnectorTest {
 
     private class TestConnector extends Connector {
         @Override
-        public String getType() {
-            return TEST_CONNECTOR;
+        public CpmType getType() {
+            return CpmType.BACKWARD_CONNECTOR;
         }
     }
 }

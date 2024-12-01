@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.bindings;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Assert;
@@ -37,7 +37,7 @@ public class MainActivityTest {
         Assert.assertNotNull(activity.getType());
         Assert.assertEquals(1, activity.getType().size());
         Type type = activity.getType().getFirst();
-        Assert.assertEquals(CpmTypeConstants.MAIN_ACTIVITY, ((QualifiedName) type.getValue()).getLocalPart());
+        Assert.assertEquals(CpmType.MAIN_ACTIVITY.toString(), ((QualifiedName) type.getValue()).getLocalPart());
     }
 
     @Test

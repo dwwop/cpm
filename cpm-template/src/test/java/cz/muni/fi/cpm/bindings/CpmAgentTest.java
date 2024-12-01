@@ -1,6 +1,7 @@
 package cz.muni.fi.cpm.bindings;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,8 +11,6 @@ import org.openprovenance.prov.vanilla.QualifiedName;
 import java.util.List;
 
 public class CpmAgentTest {
-    public static final String TEST_AGENT = "TEST";
-
     @Test
     public void testToStatements_basic() {
         TestAgent agent = new TestAgent();
@@ -32,7 +31,7 @@ public class CpmAgentTest {
         Assert.assertNotNull(resultAgent.getType());
         Assert.assertEquals(1, resultAgent.getType().size());
         Type type = resultAgent.getType().getFirst();
-        Assert.assertEquals(TEST_AGENT, ((QualifiedName) type.getValue()).getLocalPart());
+        Assert.assertEquals(CpmType.SENDER_AGENT.toString(), ((QualifiedName) type.getValue()).getLocalPart());
     }
 
     @Test
@@ -57,8 +56,8 @@ public class CpmAgentTest {
 
     private class TestAgent extends CpmAgent {
         @Override
-        public String getType() {
-            return TEST_AGENT;
+        public CpmType getType() {
+            return CpmType.SENDER_AGENT;
         }
     }
 }
