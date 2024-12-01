@@ -3,8 +3,7 @@ package cz.muni.fi.cpm.bindings;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.LangString;
 import org.openprovenance.prov.model.Statement;
@@ -12,6 +11,8 @@ import org.openprovenance.prov.model.Type;
 import org.openprovenance.prov.vanilla.QualifiedName;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class IdentifierEntityTest {
 
@@ -23,20 +24,20 @@ public class IdentifierEntityTest {
 
         List<Statement> statements = ie.toStatements(new CpmFactory());
 
-        Assert.assertNotNull(statements);
-        Assert.assertEquals(1, statements.size());
+        assertNotNull(statements);
+        assertEquals(1, statements.size());
 
         Statement statement = statements.getFirst();
-        Assert.assertNotNull(statement);
-        Assert.assertTrue(statement instanceof Entity);
+        assertNotNull(statement);
+        assertInstanceOf(Entity.class, statement);
 
         Entity entity = (Entity) statement;
-        Assert.assertEquals(qN, entity.getId());
+        assertEquals(qN, entity.getId());
 
-        Assert.assertNotNull(entity.getType());
-        Assert.assertEquals(1, entity.getType().size());
+        assertNotNull(entity.getType());
+        assertEquals(1, entity.getType().size());
         Type type = entity.getType().getFirst();
-        Assert.assertEquals(CpmType.IDENTIFIER.toString(), ((QualifiedName) type.getValue()).getLocalPart());
+        assertEquals(CpmType.IDENTIFIER.toString(), ((QualifiedName) type.getValue()).getLocalPart());
     }
 
     @Test
@@ -50,10 +51,10 @@ public class IdentifierEntityTest {
 
         Entity entity = (Entity) statements.getFirst();
 
-        Assert.assertNotNull(entity.getOther());
-        Assert.assertEquals(1, entity.getOther().size());
-        Assert.assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getFirst().getElementName().getLocalPart());
-        Assert.assertEquals(qN, entity.getOther().getFirst().getValue());
+        assertNotNull(entity.getOther());
+        assertEquals(1, entity.getOther().size());
+        assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(qN, entity.getOther().getFirst().getValue());
     }
 
 
@@ -68,11 +69,11 @@ public class IdentifierEntityTest {
 
         Entity entity = (Entity) statements.getFirst();
 
-        Assert.assertNotNull(entity.getOther());
-        Assert.assertEquals(1, entity.getOther().size());
-        Assert.assertTrue(entity.getOther().getFirst().getValue() instanceof LangString);
-        Assert.assertEquals(CpmAttributeConstants.EXTERNAL_ID_TYPE, entity.getOther().getFirst().getElementName().getLocalPart());
-        Assert.assertEquals(externalIdType, ((LangString) entity.getOther().getFirst().getValue()).getValue());
+        assertNotNull(entity.getOther());
+        assertEquals(1, entity.getOther().size());
+        assertInstanceOf(LangString.class, entity.getOther().getFirst().getValue());
+        assertEquals(CpmAttributeConstants.EXTERNAL_ID_TYPE, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(externalIdType, ((LangString) entity.getOther().getFirst().getValue()).getValue());
     }
 
 
@@ -87,10 +88,10 @@ public class IdentifierEntityTest {
 
         Entity entity = (Entity) statements.getFirst();
 
-        Assert.assertNotNull(entity.getOther());
-        Assert.assertEquals(1, entity.getOther().size());
-        Assert.assertTrue(entity.getOther().getFirst().getValue() instanceof LangString);
-        Assert.assertEquals(CpmAttributeConstants.COMMENT, entity.getOther().getFirst().getElementName().getLocalPart());
-        Assert.assertEquals(comment, ((LangString) entity.getOther().getFirst().getValue()).getValue());
+        assertNotNull(entity.getOther());
+        assertEquals(1, entity.getOther().size());
+        assertInstanceOf(LangString.class, entity.getOther().getFirst().getValue());
+        assertEquals(CpmAttributeConstants.COMMENT, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(comment, ((LangString) entity.getOther().getFirst().getValue()).getValue());
     }
 }

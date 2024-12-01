@@ -4,8 +4,8 @@ import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -13,14 +13,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class CpmFactoryTest {
 
     private CpmFactory cF;
     private DatatypeFactory datatypeFactory;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         cF = new CpmFactory();
         datatypeFactory = DatatypeFactory.newInstance();
