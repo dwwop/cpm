@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.model;
 
-import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
+import cz.muni.fi.cpm.constants.CpmExceptionConstancts;
 import cz.muni.fi.cpm.constants.CpmTypeConstants;
 import cz.muni.fi.cpm.vannila.Edge;
 import cz.muni.fi.cpm.vannila.Node;
@@ -20,9 +20,9 @@ public class CpmDocument implements StatementAction {
 
     private final Map<QualifiedName, INode> nodes = new HashMap<>();
     private final List<IEdge> edges = new ArrayList<>();
+    private final List<INode> backbone = new ArrayList<>();
     private Namespace namespaces;
     private Bundle bundle;
-    private List<INode> backbone;
 
 
     public CpmDocument(ProvFactory pF) {
@@ -31,21 +31,19 @@ public class CpmDocument implements StatementAction {
 
     public CpmDocument(final Document document, ProvFactory provFactory) {
         pF = provFactory;
-        if (document != null) {
-            if (document.getStatementOrBundle().size() != 1 || !(document.getStatementOrBundle().getFirst() instanceof Bundle)) {
-                // TODO throw exception
-            }
-
-            Bundle bundle = (Bundle) document.getStatementOrBundle().getFirst();
-            this.bundle = pF.newNamedBundle(bundle.getId(), pF.newNamespace(bundle.getNamespace()), null);
-            this.namespaces = pF.newNamespace(document.getNamespace());
-
-            u.forAllStatement(bundle.getStatement(), this);
+        if (document == null) {
+            throw new IllegalArgumentException(CpmExceptionConstancts.NOT_NULL_DOCUMENT);
         }
 
-        if (!sourceEdges.isEmpty() || !targetEdges.isEmpty()) {
-            // TODO throw exception
+        if (document.getStatementOrBundle().size() != 1 ||
+                !(document.getStatementOrBundle().getFirst() instanceof Bundle docBundle)) {
+            throw new IllegalArgumentException(CpmExceptionConstancts.ONE_BUNDLE_REQUIRED);
         }
+
+        this.bundle = pF.newNamedBundle(docBundle.getId(), pF.newNamespace(docBundle.getNamespace()), null);
+        this.namespaces = pF.newNamespace(document.getNamespace());
+
+        u.forAllStatement(docBundle.getStatement(), this);
     }
 
     public Document toDocument() {
@@ -104,10 +102,7 @@ public class CpmDocument implements StatementAction {
             targetEdges.remove(node.getElement().getId());
         }
 
-        if (element.getType().stream().anyMatch(x ->
-                x.getValue() instanceof QualifiedName qN &&
-                        CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()))) {
+        if (CpmUtilities.isCpmElement(element)) {
             backbone.add(node);
         }
     }
@@ -251,8 +246,7 @@ public class CpmDocument implements StatementAction {
 
     public INode getMainActivity() {
         for (INode node : backbone) {
-            if (node.getElement().getType().stream()
-                    .anyMatch(x -> CpmTypeConstants.MAIN_ACTIVITY_TYPE.equals(x.getValue()))) {
+            if (CpmUtilities.hasCpmType(node.getElement(), CpmTypeConstants.MAIN_ACTIVITY)) {
                 return node;
             }
         }
@@ -261,11 +255,10 @@ public class CpmDocument implements StatementAction {
         // TODO multiple main activities?
     }
 
-    private List<INode> getConnectors(Type type) {
+    private List<INode> getConnectors(String type) {
         List<INode> result = new ArrayList<>();
         for (INode node : backbone) {
-            if (node.getElement().getType().stream()
-                    .anyMatch(x -> type.equals(x.getValue()))) {
+            if (CpmUtilities.hasCpmType(node.getElement(), type)) {
                 result.add(node);
             }
         }
@@ -273,11 +266,11 @@ public class CpmDocument implements StatementAction {
     }
 
     public List<INode> getForwardConnectors() {
-        return getConnectors(CpmTypeConstants.FORWARD_CONNECTOR_TYPE);
+        return getConnectors(CpmTypeConstants.FORWARD_CONNECTOR);
     }
 
     public List<INode> getBackwardConnectors() {
-        return getConnectors(CpmTypeConstants.BACKWARD_CONNECTOR_TYPE);
+        return getConnectors(CpmTypeConstants.BACKWARD_CONNECTOR);
     }
 
     public List<INode> getBackbone() {

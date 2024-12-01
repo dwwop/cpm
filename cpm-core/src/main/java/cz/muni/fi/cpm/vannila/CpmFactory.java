@@ -1,6 +1,7 @@
 package cz.muni.fi.cpm.vannila;
 
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
+import cz.muni.fi.cpm.constants.DctNamespaceConstants;
 import cz.muni.fi.cpm.model.ICpmFactory;
 import org.openprovenance.prov.model.*;
 
@@ -69,4 +70,14 @@ public class CpmFactory implements ICpmFactory {
         return pF.newAgent(id, attributes);
     }
 
+    public Namespace newCpmNamespace() {
+        Namespace namespace = pF.newNamespace();
+        namespace.addKnownNamespaces();
+
+        namespace.getPrefixes().put(CpmNamespaceConstants.CPM_PREFIX, CpmNamespaceConstants.CPM_NS);
+        namespace.getNamespaces().put(CpmNamespaceConstants.CPM_NS, CpmNamespaceConstants.CPM_PREFIX);
+        namespace.getPrefixes().put(DctNamespaceConstants.DCT_PREFIX, DctNamespaceConstants.DCT_NS);
+        namespace.getNamespaces().put(DctNamespaceConstants.DCT_NS, DctNamespaceConstants.DCT_PREFIX);
+        return namespace;
+    }
 }

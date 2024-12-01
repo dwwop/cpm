@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm;
+package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
