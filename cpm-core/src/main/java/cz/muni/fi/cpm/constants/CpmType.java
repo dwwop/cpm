@@ -14,7 +14,7 @@ public enum CpmType {
         this.value = value;
     }
 
-    public String getValue() {
+    public String toString() {
         return value;
     }
 }

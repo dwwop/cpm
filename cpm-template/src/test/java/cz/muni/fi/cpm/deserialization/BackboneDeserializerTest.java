@@ -4,6 +4,7 @@ import cz.muni.fi.cpm.bindings.Backbone;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.notation.ProvSerialiser;
 import org.openprovenance.prov.vanilla.ProvFactory;
 
@@ -20,7 +21,8 @@ public class BackboneDeserializerTest {
             IBackboneDeserializer deserializer = new BackboneDeserializer();
             Backbone bb = deserializer.deserialiseBackbone(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(new ProvFactory());
-            serialiser.serialiseDocument(new FileOutputStream("src/test/resources/output.provn"), bb.toDocument(new CpmFactory()), true);
+            Document doc = bb.toDocument(new CpmFactory());
+            serialiser.serialiseDocument(new FileOutputStream("src/test/resources/output.provn"), doc, true);
             Assert.assertTrue(true);
         } catch (Exception e) {
             e.printStackTrace();
