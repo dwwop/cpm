@@ -1,6 +1,7 @@
-package cz.muni.fi.cpm;
+package cz.muni.fi.cpm.vannila;
 
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
+import cz.muni.fi.cpm.model.ICpmFactory;
 import org.openprovenance.prov.model.*;
 
 import javax.xml.datatype.XMLGregorianCalendar;
