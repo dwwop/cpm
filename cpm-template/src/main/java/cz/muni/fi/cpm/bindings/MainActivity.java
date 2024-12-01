@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.bindings;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
 import cz.muni.fi.cpm.model.ICpmFactory;
@@ -96,7 +96,7 @@ public class MainActivity implements ToStatements {
                     cF.getProvFactory().getName().PROV_QUALIFIED_NAME));
         }
 
-        statements.add(cF.newCpmActivity(id, startTime, endTime, CpmTypeConstants.MAIN_ACTIVITY, attributes));
+        statements.add(cF.newCpmActivity(id, startTime, endTime, CpmType.MAIN_ACTIVITY, attributes));
 
         if (used != null) {
             for (MainActivityUsed mainActivityUsed : used) {

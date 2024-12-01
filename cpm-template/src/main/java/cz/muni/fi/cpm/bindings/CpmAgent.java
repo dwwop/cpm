@@ -2,6 +2,7 @@ package cz.muni.fi.cpm.bindings;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.model.ICpmFactory;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.QualifiedName;
@@ -33,7 +34,7 @@ public abstract class CpmAgent implements ToStatements{
     }
 
     @JsonIgnore
-    public abstract String getType();
+    public abstract CpmType getType();
 
     public List<Statement> toStatements(ICpmFactory cF) {
         List<Attribute> attributes = new ArrayList<>();

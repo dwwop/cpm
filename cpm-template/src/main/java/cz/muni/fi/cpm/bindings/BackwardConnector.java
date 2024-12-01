@@ -1,13 +1,13 @@
 package cz.muni.fi.cpm.bindings;
 
 
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 
 public class BackwardConnector extends Connector {
 
     @Override
-    public String getType() {
-        return CpmTypeConstants.BACKWARD_CONNECTOR;
+    public CpmType getType() {
+        return CpmType.BACKWARD_CONNECTOR;
     }
 
 }

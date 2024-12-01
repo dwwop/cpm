@@ -1,11 +1,11 @@
 package cz.muni.fi.cpm.bindings;
 
-import cz.muni.fi.cpm.constants.CpmTypeConstants;
+import cz.muni.fi.cpm.constants.CpmType;
 
 public class SenderAgent extends CpmAgent {
 
     @Override
-    public String getType() {
-        return CpmTypeConstants.SENDER_AGENT;
+    public CpmType getType() {
+        return CpmType.SENDER_AGENT;
     }
 }
