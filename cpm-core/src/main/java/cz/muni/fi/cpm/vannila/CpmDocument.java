@@ -13,9 +13,11 @@ import java.util.Map;
 
 public class CpmDocument implements StatementAction {
     private static final ProvUtilities u = new ProvUtilities();
+    private final ProvFactory pF;
 
     private final Map<QualifiedName, List<Edge>> sourceEdges = new HashMap<>();
     private final Map<QualifiedName, List<Edge>> targetEdges = new HashMap<>();
+
     private final Map<QualifiedName, Node> nodes = new HashMap<>();
     private final List<Edge> edges = new ArrayList<>();
     private Namespace namespaces;
@@ -23,10 +25,12 @@ public class CpmDocument implements StatementAction {
     private Activity mainActivity;
 
 
-    public CpmDocument() {
+    public CpmDocument(ProvFactory pF) {
+        this.pF = pF;
     }
 
-    public CpmDocument(final Document document, ProvFactory pF) {
+    public CpmDocument(final Document document, ProvFactory provFactory) {
+        pF = provFactory;
         if (document != null) {
             if (document.getStatementOrBundle().size() != 1 || !(document.getStatementOrBundle().getFirst() instanceof Bundle)) {
                 // TODO throw exception
@@ -44,7 +48,7 @@ public class CpmDocument implements StatementAction {
         }
     }
 
-    public Document toDocument(ProvFactory pF) {
+    public Document toDocument() {
         Document document = pF.newDocument();
 
         List<Statement> statements = new ArrayList<>();
