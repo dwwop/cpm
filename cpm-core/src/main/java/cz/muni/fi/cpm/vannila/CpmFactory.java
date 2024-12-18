@@ -4,6 +4,8 @@ import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
 import cz.muni.fi.cpm.model.ICpmFactory;
+import cz.muni.fi.cpm.model.IEdge;
+import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.*;
 
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -80,5 +82,17 @@ public class CpmFactory implements ICpmFactory {
         namespace.getPrefixes().put(DctNamespaceConstants.DCT_PREFIX, DctNamespaceConstants.DCT_NS);
         namespace.getNamespaces().put(DctNamespaceConstants.DCT_NS, DctNamespaceConstants.DCT_PREFIX);
         return namespace;
+    }
+
+    @Override
+    public IEdge newEdge(Relation relation) {
+        Relation clonedRelation = pF.newStatement(relation);
+        return new Edge(clonedRelation);
+    }
+
+    @Override
+    public INode newNode(Element element) {
+        Element clonedElement = pF.newStatement(element);
+        return new Node(clonedElement);
     }
 }

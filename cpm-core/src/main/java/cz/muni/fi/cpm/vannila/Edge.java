@@ -6,7 +6,7 @@ import org.openprovenance.prov.model.Relation;
 import java.util.Objects;
 
 public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
-    private Relation relation;
+    private final Relation relation;
     private INode source;
     private INode target;
 
