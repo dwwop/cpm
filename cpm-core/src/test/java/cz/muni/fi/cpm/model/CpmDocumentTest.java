@@ -222,6 +222,8 @@ public class CpmDocumentTest {
         assertTrue(doc.areAllRelationsMapped());
         assertEquals(entity1, doc.getEdge(relationId).getSource().getElement());
         assertEquals(entity2, doc.getEdge(relationId).getTarget().getElement());
+        assertEquals(wasDerivedFrom, doc.getNode(entityId1).getSourceEdges().getFirst().getRelation());
+        assertEquals(wasDerivedFrom, doc.getNode(entityId2).getTargetEdges().getFirst().getRelation());
     }
 
 
