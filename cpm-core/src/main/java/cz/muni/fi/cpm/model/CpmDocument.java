@@ -70,7 +70,7 @@ public class CpmDocument implements StatementAction {
     private void addEdge(IEdge edge, QualifiedName source, QualifiedName target) {
         if (nodes.containsKey(source)) {
             INode sourceINode = nodes.get(source);
-            sourceINode.getEdges().add(edge);
+            sourceINode.getSourceEdges().add(edge);
             edge.setSource(sourceINode);
         } else {
             sourceEdges.computeIfAbsent(source, _ -> new ArrayList<>()).add(edge);
@@ -78,6 +78,7 @@ public class CpmDocument implements StatementAction {
 
         if (target != null && nodes.containsKey(target)) {
             INode targetINode = nodes.get(target);
+            targetINode.getTargetEdges().add(edge);
             edge.setTarget(targetINode);
         } else {
             targetEdges.computeIfAbsent(target, _ -> new ArrayList<>()).add(edge);
@@ -93,7 +94,7 @@ public class CpmDocument implements StatementAction {
             List<IEdge> edgesToUpdate = sourceEdges.get(node.getElement().getId());
             for (IEdge edge : edgesToUpdate) {
                 edge.setSource(node);
-                node.getEdges().add(edge);
+                node.getSourceEdges().add(edge);
             }
             sourceEdges.remove(node.getElement().getId());
         }
@@ -102,6 +103,7 @@ public class CpmDocument implements StatementAction {
             List<IEdge> edgesToUpdate = targetEdges.get(node.getElement().getId());
             for (IEdge edge : edgesToUpdate) {
                 edge.setTarget(node);
+                node.getTargetEdges().add(edge);
             }
             targetEdges.remove(node.getElement().getId());
         }
