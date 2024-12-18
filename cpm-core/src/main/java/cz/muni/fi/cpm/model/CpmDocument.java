@@ -51,7 +51,7 @@ public class CpmDocument implements StatementAction {
 
         List<Statement> statements = new ArrayList<>();
         statements.addAll(nodes.values().stream().map(INode::getElement).toList());
-        statements.addAll(edges.stream().map(IEdge::getRelation).toList());
+        statements.addAll(edges.stream().map(IEdge::getRelation).distinct().toList());
 
         Bundle newBundle = pF.newNamedBundle(bundle.getId(), statements);
         Namespace bundleNs = pF.newNamespace();
@@ -153,7 +153,7 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(ActedOnBehalfOf actedOnBehalfOf) {
-        // TODO
+        addEdge(new Edge(actedOnBehalfOf), actedOnBehalfOf.getDelegate(), actedOnBehalfOf.getResponsible());
     }
 
     @Override
@@ -163,12 +163,12 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(DictionaryMembership dictionaryMembership) {
-        // TODO
+        throw new UnsupportedOperationException("Not supported");
     }
 
     @Override
     public void doAction(DerivedByRemovalFrom derivedByRemovalFrom) {
-        // TODO
+        throw new UnsupportedOperationException("Not supported");
     }
 
     @Override
@@ -193,7 +193,9 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(HadMember hadMember) {
-        // TODO
+        for (QualifiedName member : hadMember.getEntity()) {
+            addEdge(new Edge(hadMember), hadMember.getCollection(), member);
+        }
     }
 
     @Override
@@ -218,12 +220,12 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(QualifiedHadMember qualifiedHadMember) {
-        // TODO
+        doAction((HadMember) qualifiedHadMember);
     }
 
     @Override
     public void doAction(DerivedByInsertionFrom derivedByInsertionFrom) {
-        // TODO
+        throw new UnsupportedOperationException("Not supported");
     }
 
     @Override
