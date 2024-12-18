@@ -47,7 +47,7 @@ public class BackboneDeserializerTest {
             Backbone bb = deserializer.deserialiseBackbone(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
             Document doc = bb.toDocument(cF);
-            Document transDoc = new CpmDocument(doc, pF).toDocument();
+            Document transDoc = new CpmDocument(doc, pF, new CpmFactory(pF)).toDocument();
             serialiser.serialiseDocument(new FileOutputStream("src/test/resources/outputTrans.provn"), transDoc, true);
             assertTrue(true);
         } catch (Exception e) {

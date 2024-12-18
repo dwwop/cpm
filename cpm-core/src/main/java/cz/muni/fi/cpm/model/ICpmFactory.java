@@ -25,4 +25,8 @@ public interface ICpmFactory {
     Agent newCpmAgent(QualifiedName id, CpmType type, Collection<Attribute> attributes);
 
     Namespace newCpmNamespace();
+
+    IEdge newEdge(Relation relation);
+
+    INode newNode(Element element);
 }

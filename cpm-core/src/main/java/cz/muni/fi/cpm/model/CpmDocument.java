@@ -2,8 +2,6 @@ package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmExceptionConstancts;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.vannila.Edge;
-import cz.muni.fi.cpm.vannila.Node;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.model.extension.QualifiedAlternateOf;
 import org.openprovenance.prov.model.extension.QualifiedHadMember;
@@ -14,6 +12,7 @@ import java.util.*;
 public class CpmDocument implements StatementAction {
     private static final ProvUtilities u = new ProvUtilities();
     private final ProvFactory pF;
+    private final ICpmFactory cF;
 
     private final Map<QualifiedName, List<IEdge>> sourceEdges = new HashMap<>();
     private final Map<QualifiedName, List<IEdge>> targetEdges = new HashMap<>();
@@ -24,13 +23,14 @@ public class CpmDocument implements StatementAction {
     private Namespace namespaces;
     private Bundle bundle;
 
-
-    public CpmDocument(ProvFactory pF) {
+    public CpmDocument(ProvFactory pF, ICpmFactory cF) {
         this.pF = pF;
+        this.cF = cF;
     }
 
-    public CpmDocument(final Document document, ProvFactory provFactory) {
+    public CpmDocument(final Document document, ProvFactory provFactory, ICpmFactory cpmFactory) {
         pF = provFactory;
+        cF = cpmFactory;
         if (document == null) {
             throw new IllegalArgumentException(CpmExceptionConstancts.NOT_NULL_DOCUMENT);
         }
@@ -67,6 +67,10 @@ public class CpmDocument implements StatementAction {
         return document;
     }
 
+    private void addEdge(Relation relation) {
+        addEdge(cF.newEdge(relation), u.getEffect(relation), u.getCause(relation));
+    }
+
     private void addEdge(IEdge edge, QualifiedName source, QualifiedName target) {
         if (nodes.containsKey(source)) {
             INode sourceINode = nodes.get(source);
@@ -88,7 +92,7 @@ public class CpmDocument implements StatementAction {
     }
 
     private void addNode(Element element) {
-        INode node = new Node(element);
+        INode node = cF.newNode(element);
         nodes.put(node.getElement().getId(), node);
         if (sourceEdges.containsKey(node.getElement().getId())) {
             List<IEdge> edgesToUpdate = sourceEdges.get(node.getElement().getId());
@@ -120,12 +124,12 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(Used used) {
-        addEdge(new Edge(used), used.getActivity(), used.getEntity());
+        addEdge(used);
     }
 
     @Override
     public void doAction(WasStartedBy wasStartedBy) {
-        addEdge(new Edge(wasStartedBy), wasStartedBy.getStarter(), wasStartedBy.getTrigger());
+        addEdge(wasStartedBy);
     }
 
     @Override
@@ -135,32 +139,32 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(AlternateOf alternateOf) {
-        addEdge(new Edge(alternateOf), alternateOf.getAlternate1(), alternateOf.getAlternate2());
+        addEdge(alternateOf);
     }
 
     @Override
     public void doAction(WasAssociatedWith wasAssociatedWith) {
-        addEdge(new Edge(wasAssociatedWith), wasAssociatedWith.getActivity(), wasAssociatedWith.getAgent());
+        addEdge(wasAssociatedWith);
     }
 
     @Override
     public void doAction(WasAttributedTo wasAttributedTo) {
-        addEdge(new Edge(wasAttributedTo), wasAttributedTo.getEntity(), wasAttributedTo.getAgent());
+        addEdge(wasAttributedTo);
     }
 
     @Override
     public void doAction(WasInfluencedBy wasInfluencedBy) {
-        addEdge(new Edge(wasInfluencedBy), wasInfluencedBy.getInfluencee(), wasInfluencedBy.getInfluencer());
+        addEdge(wasInfluencedBy);
     }
 
     @Override
     public void doAction(ActedOnBehalfOf actedOnBehalfOf) {
-        addEdge(new Edge(actedOnBehalfOf), actedOnBehalfOf.getDelegate(), actedOnBehalfOf.getResponsible());
+        addEdge(actedOnBehalfOf);
     }
 
     @Override
     public void doAction(WasDerivedFrom wasDerivedFrom) {
-        addEdge(new Edge(wasDerivedFrom), wasDerivedFrom.getGeneratedEntity(), wasDerivedFrom.getUsedEntity());
+        addEdge(wasDerivedFrom);
     }
 
     @Override
@@ -175,7 +179,7 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(WasEndedBy wasEndedBy) {
-        addEdge(new Edge(wasEndedBy), wasEndedBy.getActivity(), wasEndedBy.getTrigger());
+        addEdge(wasEndedBy);
     }
 
     @Override
@@ -185,39 +189,39 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(WasGeneratedBy wasGeneratedBy) {
-        addEdge(new Edge(wasGeneratedBy), wasGeneratedBy.getEntity(), wasGeneratedBy.getActivity());
+        addEdge(wasGeneratedBy);
     }
 
     @Override
     public void doAction(WasInvalidatedBy wasInvalidatedBy) {
-        addEdge(new Edge(wasInvalidatedBy), wasInvalidatedBy.getEntity(), wasInvalidatedBy.getActivity());
+        addEdge(wasInvalidatedBy);
     }
 
     @Override
     public void doAction(HadMember hadMember) {
         for (QualifiedName member : hadMember.getEntity()) {
-            addEdge(new Edge(hadMember), hadMember.getCollection(), member);
+            addEdge(cF.newEdge(hadMember), hadMember.getCollection(), member);
         }
     }
 
     @Override
     public void doAction(MentionOf mentionOf) {
-        addEdge(new Edge(mentionOf), mentionOf.getSpecificEntity(), mentionOf.getGeneralEntity());
+        addEdge(mentionOf);
     }
 
     @Override
     public void doAction(SpecializationOf specializationOf) {
-        addEdge(new Edge(specializationOf), specializationOf.getSpecificEntity(), specializationOf.getGeneralEntity());
+        addEdge(specializationOf);
     }
 
     @Override
     public void doAction(QualifiedSpecializationOf qualifiedSpecializationOf) {
-        addEdge(new Edge(qualifiedSpecializationOf), qualifiedSpecializationOf.getSpecificEntity(), qualifiedSpecializationOf.getGeneralEntity());
+        addEdge(qualifiedSpecializationOf);
     }
 
     @Override
     public void doAction(QualifiedAlternateOf qualifiedAlternateOf) {
-        addEdge(new Edge(qualifiedAlternateOf), qualifiedAlternateOf.getAlternate1(), qualifiedAlternateOf.getAlternate2());
+        addEdge(qualifiedAlternateOf);
     }
 
     @Override
@@ -232,7 +236,7 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(WasInformedBy wasInformedBy) {
-        addEdge(new Edge(wasInformedBy), wasInformedBy.getInformed(), wasInformedBy.getInformant());
+        addEdge(wasInformedBy);
     }
 
     @Override

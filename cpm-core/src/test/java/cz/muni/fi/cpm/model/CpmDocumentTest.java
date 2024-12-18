@@ -4,6 +4,8 @@ import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.model.extension.QualifiedHadMember;
 import org.openprovenance.prov.vanilla.ProvFactory;
@@ -11,6 +13,7 @@ import org.openprovenance.prov.vanilla.ProvFactory;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,18 +21,50 @@ public class CpmDocumentTest {
     private DatatypeFactory datatypeFactory;
     private ProvFactory pF;
     private CpmFactory cF;
+    private ProvUtilities u;
+
+    static Stream<Object[]> provideRelations() {
+        ProvFactory pF = new ProvFactory();
+        QualifiedName entityId1 = pF.newQualifiedName("uri", "entity1", "ex");
+        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
+
+        QualifiedName activityId1 = pF.newQualifiedName("uri", "activity1", "ex");
+        QualifiedName activityId2 = pF.newQualifiedName("uri", "activity2", "ex");
+
+        QualifiedName agentId1 = pF.newQualifiedName("uri", "agent1", "ex");
+        QualifiedName agentId2 = pF.newQualifiedName("uri", "agent2", "ex");
+
+
+        return Stream.of(
+                new Object[]{pF.newUsed(pF.newQualifiedName("uri", "used", "ex"), activityId1, entityId1)},
+                new Object[]{pF.newWasStartedBy(pF.newQualifiedName("uri", "wasStartedBy", "ex"), activityId1, entityId2)},
+                new Object[]{pF.newWasAssociatedWith(pF.newQualifiedName("uri", "associatedWith", "ex"), activityId1, agentId1)},
+                new Object[]{pF.newWasAttributedTo(pF.newQualifiedName("uri", "attributedTo", "ex"), entityId1, agentId1)},
+                new Object[]{pF.newWasDerivedFrom(pF.newQualifiedName("uri", "wasDerivedFrom", "ex"), entityId1, entityId2)},
+                new Object[]{pF.newActedOnBehalfOf(pF.newQualifiedName("uri", "actedOnBehalfOf", "ex"), agentId1, agentId2)},
+                new Object[]{pF.newAlternateOf(entityId1, entityId2)},
+                new Object[]{pF.newWasGeneratedBy(pF.newQualifiedName("uri", "wasGeneratedBy", "ex"), entityId1, activityId1)},
+                new Object[]{pF.newWasInvalidatedBy(pF.newQualifiedName("uri", "wasInvalidatedBy", "ex"), entityId1, activityId1)},
+                new Object[]{pF.newWasEndedBy(pF.newQualifiedName("uri", "wasEndedBy", "ex"), activityId1, entityId1)},
+                new Object[]{pF.newWasInformedBy(pF.newQualifiedName("uri", "wasInformedBy", "ex"), activityId1, activityId2)},
+                new Object[]{pF.newWasInfluencedBy(pF.newQualifiedName("uri", "wasInfluencedBy", "ex"), entityId1, agentId1)},
+                new Object[]{pF.newSpecializationOf(entityId1, entityId2)},
+                new Object[]{pF.newQualifiedSpecializationOf(pF.newQualifiedName("uri", "qualifiedSpecializationOf", "ex"), entityId1, entityId2, Collections.emptyList())},
+                new Object[]{pF.newQualifiedAlternateOf(pF.newQualifiedName("uri", "qualifiedAlternateOf", "ex"), entityId1, entityId2, Collections.emptyList())}
+        );
+    }
 
     @BeforeEach
     public void setUp() throws Exception {
         pF = new ProvFactory();
         cF = new CpmFactory(pF);
+        u = new ProvUtilities();
         datatypeFactory = DatatypeFactory.newInstance();
     }
 
-
     @Test
     public void testConstructor_nullDocument() {
-        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(null, pF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(null, pF, cF));
     }
 
     @Test
@@ -37,7 +72,7 @@ public class CpmDocumentTest {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
-        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(document, pF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(document, pF, cF));
     }
 
 
@@ -50,7 +85,7 @@ public class CpmDocumentTest {
         Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
         document.getStatementOrBundle().add(bundle);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertEquals(document.getNamespace().getNamespaces(), doc.getNamespaces().getNamespaces());
     }
@@ -72,7 +107,7 @@ public class CpmDocumentTest {
         Activity activity = cF.newCpmActivity(activityId, startTime, endTime, type, attributes);
         bundle.getStatement().add(activity);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(activityId));
         assertFalse(doc.getBackbone().isEmpty());
@@ -94,7 +129,7 @@ public class CpmDocumentTest {
         Activity activity = pF.newActivity(activityId);
         bundle.getStatement().add(activity);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(activityId));
         assertTrue(doc.getBackbone().isEmpty());
@@ -117,7 +152,7 @@ public class CpmDocumentTest {
         Entity entity = cF.newCpmEntity(entityId, type, attributes);
         bundle.getStatement().add(entity);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(entityId));
         assertFalse(doc.getBackbone().isEmpty());
@@ -139,7 +174,7 @@ public class CpmDocumentTest {
         Entity entity = pF.newEntity(entityId);
         bundle.getStatement().add(entity);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(entityId));
         assertTrue(doc.getBackbone().isEmpty());
@@ -163,7 +198,7 @@ public class CpmDocumentTest {
         Agent agent = cF.newCpmAgent(agentId, type, attributes);
         bundle.getStatement().add(agent);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(agentId));
         assertFalse(doc.getBackbone().isEmpty());
@@ -184,15 +219,16 @@ public class CpmDocumentTest {
         Agent agent = pF.newAgent(agentId);
         bundle.getStatement().add(agent);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(agentId));
         assertTrue(doc.getBackbone().isEmpty());
         assertEquals(agent, doc.getNode(agentId).getElement());
     }
 
-    @Test
-    public void testConstructor_validRelationsMapping() {
+    @ParameterizedTest
+    @MethodSource("provideRelations")
+    public void testConstructor_validRelationsMapping(Relation relation) {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -200,30 +236,34 @@ public class CpmDocumentTest {
         Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
         document.getStatementOrBundle().add(bundle);
 
-        QualifiedName entityId1 = pF.newQualifiedName("uri", "entity", "ex");
-        Entity entity1 = pF.newEntity(entityId1);
-        bundle.getStatement().add(entity1);
+        QualifiedName sourceId = u.getEffect(relation);
+        QualifiedName targetId = u.getCause(relation);
+        Entity sourceEntity = pF.newEntity(sourceId);
+        Entity targetEntity = pF.newEntity(targetId);
+        bundle.getStatement().add(sourceEntity);
+        bundle.getStatement().add(targetEntity);
 
-        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
-        Entity entity2 = pF.newEntity(entityId2);
-        bundle.getStatement().add(entity2);
+        bundle.getStatement().add(relation);
 
-        QualifiedName relationId = pF.newQualifiedName("uri", "relation", "ex");
-        WasDerivedFrom wasDerivedFrom = pF.newWasDerivedFrom(relationId, entityId1, entityId2);
-        bundle.getStatement().add(wasDerivedFrom);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
-        CpmDocument doc = new CpmDocument(document, pF);
-
-        assertNotNull(doc.getNode(entityId1));
-        assertNotNull(doc.getNode(entityId2));
-        assertNotNull(doc.getEdge(relationId));
-        assertNotNull(doc.getEdge(entityId1, entityId2));
-        assertEquals(wasDerivedFrom, doc.getEdge(relationId).getRelation());
+        assertNotNull(doc.getNode(sourceId));
+        assertNotNull(doc.getNode(targetId));
+        assertNotNull(doc.getEdge(sourceId, targetId));
+        assertEquals(relation, doc.getNode(sourceId).getSourceEdges().getFirst().getRelation());
+        assertEquals(relation, doc.getNode(targetId).getTargetEdges().getFirst().getRelation());
         assertTrue(doc.areAllRelationsMapped());
-        assertEquals(entity1, doc.getEdge(relationId).getSource().getElement());
-        assertEquals(entity2, doc.getEdge(relationId).getTarget().getElement());
-        assertEquals(wasDerivedFrom, doc.getNode(entityId1).getSourceEdges().getFirst().getRelation());
-        assertEquals(wasDerivedFrom, doc.getNode(entityId2).getTargetEdges().getFirst().getRelation());
+
+        if (relation instanceof Identifiable relWithId) {
+            assertNotNull(doc.getEdge(relWithId.getId()));
+            assertEquals(relation, doc.getEdge(relWithId.getId()).getRelation());
+            assertEquals(sourceEntity, doc.getEdge(relWithId.getId()).getSource().getElement());
+            assertEquals(targetEntity, doc.getEdge(relWithId.getId()).getTarget().getElement());
+        } else {
+            assertEquals(relation, doc.getEdge(sourceId, targetId).getRelation());
+            assertEquals(sourceEntity, doc.getEdge(sourceId, targetId).getSource().getElement());
+            assertEquals(targetEntity, doc.getEdge(sourceId, targetId).getTarget().getElement());
+        }
     }
 
 
@@ -247,7 +287,7 @@ public class CpmDocumentTest {
         WasDerivedFrom wasDerivedFrom = pF.newWasDerivedFrom(relationId, entityId1, entityId2);
         bundle.getStatement().add(wasDerivedFrom);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(entityId1));
         assertNull(doc.getNode(entityId2));
@@ -286,7 +326,7 @@ public class CpmDocumentTest {
         WasDerivedFrom wasDerivedFrom = pF.newWasDerivedFrom(relationId, entityId1, entityId2);
         bundle.getStatement().add(wasDerivedFrom);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNull(doc.getNode(entityId1));
         assertNotNull(doc.getNode(entityId2));
@@ -329,7 +369,7 @@ public class CpmDocumentTest {
         document.setNamespace(Namespace.gatherNamespaces(document));
         bundle.setNamespace(Namespace.gatherNamespaces(document));
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
         Document resultDoc = doc.toDocument();
 
         assertEquals(document.getNamespace().getNamespaces(), resultDoc.getNamespace().getNamespaces());
@@ -370,7 +410,7 @@ public class CpmDocumentTest {
         HadMember hadMember = pF.newHadMember(collectionId, entityId1, entityId2);
         bundle.getStatement().add(hadMember);
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(entityId1));
         assertNotNull(doc.getNode(entityId2));
@@ -407,7 +447,7 @@ public class CpmDocumentTest {
         document.setNamespace(Namespace.gatherNamespaces(document));
         bundle.setNamespace(Namespace.gatherNamespaces(document));
 
-        CpmDocument doc = new CpmDocument(document, pF);
+        CpmDocument doc = new CpmDocument(document, pF, cF);
         Document resultDoc = doc.toDocument();
 
         assertEquals(document.getNamespace().getNamespaces(), resultDoc.getNamespace().getNamespaces());
