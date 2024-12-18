@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.model;
 
-import cz.muni.fi.cpm.constants.CpmExceptionConstancts;
+import cz.muni.fi.cpm.constants.CpmExceptionConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.model.extension.QualifiedAlternateOf;
@@ -32,12 +32,12 @@ public class CpmDocument implements StatementAction {
         pF = provFactory;
         cF = cpmFactory;
         if (document == null) {
-            throw new IllegalArgumentException(CpmExceptionConstancts.NOT_NULL_DOCUMENT);
+            throw new IllegalArgumentException(CpmExceptionConstants.NOT_NULL_DOCUMENT);
         }
 
         if (document.getStatementOrBundle().size() != 1 ||
                 !(document.getStatementOrBundle().getFirst() instanceof Bundle docBundle)) {
-            throw new IllegalArgumentException(CpmExceptionConstancts.ONE_BUNDLE_REQUIRED);
+            throw new IllegalArgumentException(CpmExceptionConstants.ONE_BUNDLE_REQUIRED);
         }
 
         this.bundle = pF.newNamedBundle(docBundle.getId(), pF.newNamespace(docBundle.getNamespace()), null);
@@ -169,12 +169,12 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(DictionaryMembership dictionaryMembership) {
-        throw new UnsupportedOperationException("Not supported");
+        throw new UnsupportedOperationException(CpmExceptionConstants.NOT_SUPPORTED);
     }
 
     @Override
     public void doAction(DerivedByRemovalFrom derivedByRemovalFrom) {
-        throw new UnsupportedOperationException("Not supported");
+        throw new UnsupportedOperationException(CpmExceptionConstants.NOT_SUPPORTED);
     }
 
     @Override
@@ -231,7 +231,7 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(DerivedByInsertionFrom derivedByInsertionFrom) {
-        throw new UnsupportedOperationException("Not supported");
+        throw new UnsupportedOperationException(CpmExceptionConstants.NOT_SUPPORTED);
     }
 
     @Override
@@ -241,7 +241,7 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(Bundle bundle, ProvUtilities provUtilities) {
-        throw new UnsupportedOperationException("Not supported");
+        throw new UnsupportedOperationException(CpmExceptionConstants.NOT_SUPPORTED);
     }
 
     public boolean areAllRelationsMapped() {

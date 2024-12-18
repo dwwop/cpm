@@ -380,9 +380,9 @@ public class CpmDocumentTest {
         assertEquals(bundle.getId(), resultBundle.getId());
         assertEquals(bundle.getStatement().size(), resultBundle.getStatement().size());
         assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
+        assertEquals(document.getNamespace().getNamespaces(), resultDoc.getNamespace().getNamespaces());
         assertNotNull(resultBundle.getNamespace());
         assertEquals(resultDoc.getNamespace(), resultBundle.getNamespace().getParent());
-        assertEquals(bundle.getNamespace().getNamespaces(), resultBundle.getNamespace().getNamespaces());
     }
 
 
