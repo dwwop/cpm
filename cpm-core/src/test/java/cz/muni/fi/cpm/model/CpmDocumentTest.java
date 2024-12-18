@@ -5,13 +5,12 @@ import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
+import org.openprovenance.prov.model.extension.QualifiedHadMember;
 import org.openprovenance.prov.vanilla.ProvFactory;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -205,7 +204,7 @@ public class CpmDocumentTest {
         Entity entity1 = pF.newEntity(entityId1);
         bundle.getStatement().add(entity1);
 
-        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity", "ex");
+        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
         Entity entity2 = pF.newEntity(entityId2);
         bundle.getStatement().add(entity2);
 
@@ -318,7 +317,7 @@ public class CpmDocumentTest {
         Entity entity1 = pF.newEntity(entityId1);
         bundle.getStatement().add(entity1);
 
-        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity", "ex");
+        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
         Entity entity2 = pF.newEntity(entityId2);
         bundle.getStatement().add(entity2);
 
@@ -337,9 +336,86 @@ public class CpmDocumentTest {
         assertEquals(bundle.getKind(), resultDoc.getStatementOrBundle().getFirst().getKind());
         Bundle resultBundle = (Bundle) resultDoc.getStatementOrBundle().getFirst();
         assertEquals(bundle.getId(), resultBundle.getId());
+        assertEquals(bundle.getStatement().size(), resultBundle.getStatement().size());
         assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
         assertNotNull(resultBundle.getNamespace());
         assertEquals(resultDoc.getNamespace(), resultBundle.getNamespace().getParent());
         assertEquals(bundle.getNamespace().getNamespaces(), resultBundle.getNamespace().getNamespaces());
+    }
+
+
+    @Test
+    public void testConstructor_hadMember() {
+        Document document = pF.newDocument();
+        document.setNamespace(cF.newCpmNamespace());
+
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        QualifiedName collectionId = pF.newQualifiedName("uri", "collection", "ex");
+        Entity collection = pF.newEntity(collectionId);
+        bundle.getStatement().add(collection);
+
+        QualifiedName entityId1 = pF.newQualifiedName("uri", "entity", "ex");
+        Entity entity1 = pF.newEntity(entityId1);
+        bundle.getStatement().add(entity1);
+
+        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
+        Entity entity2 = pF.newEntity(entityId2);
+        bundle.getStatement().add(entity2);
+
+        HadMember hadMember = pF.newHadMember(collectionId, entityId1, entityId2);
+        bundle.getStatement().add(hadMember);
+
+        CpmDocument doc = new CpmDocument(document, pF);
+
+        assertNotNull(doc.getNode(entityId1));
+        assertNotNull(doc.getNode(entityId2));
+        assertNotNull(doc.getEdge(collectionId, entityId2));
+        assertEquals(hadMember, doc.getEdge(collectionId, entityId1).getRelation());
+        assertEquals(hadMember, doc.getEdge(collectionId, entityId2).getRelation());
+        assertTrue(doc.areAllRelationsMapped());
+    }
+
+
+    @Test
+    public void testConstructor_HadMemberToDocument() {
+        Document document = pF.newDocument();
+
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        QualifiedName collectionId = pF.newQualifiedName("uri", "collection", "ex");
+        Entity collection = pF.newEntity(collectionId);
+        bundle.getStatement().add(collection);
+
+        QualifiedName entityId1 = pF.newQualifiedName("uri", "entity", "ex");
+        Entity entity1 = pF.newEntity(entityId1);
+        bundle.getStatement().add(entity1);
+
+        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
+        Entity entity2 = pF.newEntity(entityId2);
+        bundle.getStatement().add(entity2);
+
+        QualifiedName relationId = pF.newQualifiedName("uri", "relation", "ex");
+        QualifiedHadMember hadMember = pF.newQualifiedHadMember(relationId, collectionId, List.of(entityId1, entityId2), Collections.emptyList());
+        bundle.getStatement().add(hadMember);
+        document.setNamespace(Namespace.gatherNamespaces(document));
+        bundle.setNamespace(Namespace.gatherNamespaces(document));
+
+        CpmDocument doc = new CpmDocument(document, pF);
+        Document resultDoc = doc.toDocument();
+
+        assertEquals(document.getNamespace().getNamespaces(), resultDoc.getNamespace().getNamespaces());
+
+        assertNotNull(doc.getEdge(relationId));
+        assertEquals(1, resultDoc.getStatementOrBundle().size());
+        assertEquals(bundle.getKind(), resultDoc.getStatementOrBundle().getFirst().getKind());
+        Bundle resultBundle = (Bundle) resultDoc.getStatementOrBundle().getFirst();
+        assertEquals(bundle.getId(), resultBundle.getId());
+        assertEquals(bundle.getStatement().size(), resultBundle.getStatement().size());
+        assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
     }
 }
