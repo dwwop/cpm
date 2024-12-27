@@ -9,29 +9,29 @@ public interface INode {
     Element getElement();
 
     /**
-     * Retrieves all edges where the current node acts as the source.
+     * Retrieves all edges where the current node acts as the effect.
      *
-     * @return a list of edges where this node is the source node
+     * @return a list of edges where this node is the effect node
      */
-    List<IEdge> getSourceEdges();
+    List<IEdge> getEffectEdges();
 
     /**
-     * Retrieves all edges where the current node acts as the target.
+     * Retrieves all edges where the current node acts as the cause.
      *
-     * @return a list of edges where this node is the target node
+     * @return a list of edges where this node is the cause node
      */
-    List<IEdge> getTargetEdges();
+    List<IEdge> getCauseEdges();
 
     /**
      * Retrieves all edges connected to the current node,
-     * including edges where the node is a source or a target.
+     * including edges where the node is an effect or a cause.
      *
      * @return a list of all edges connected to this node
      */
     default List<IEdge> getAllEdges() {
         List<IEdge> allEdges = new ArrayList<>();
-        allEdges.addAll(getSourceEdges());
-        allEdges.addAll(getTargetEdges());
+        allEdges.addAll(getEffectEdges());
+        allEdges.addAll(getCauseEdges());
         return allEdges;
     }
 

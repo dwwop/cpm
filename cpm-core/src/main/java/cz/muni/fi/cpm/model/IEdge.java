@@ -5,11 +5,11 @@ import org.openprovenance.prov.model.Relation;
 public interface IEdge {
     Relation getRelation();
 
-    INode getSource();
+    INode getEffect();
 
-    void setSource(INode source);
+    void setEffect(INode effect);
 
-    INode getTarget();
+    INode getCause();
 
-    void setTarget(INode target);
+    void setCause(INode cause);
 }

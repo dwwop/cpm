@@ -2,6 +2,7 @@ package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmExceptionConstants;
 import cz.muni.fi.cpm.constants.CpmType;
+import cz.muni.fi.cpm.exception.NoSpecificKind;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.model.extension.QualifiedAlternateOf;
 import org.openprovenance.prov.model.extension.QualifiedHadMember;
@@ -14,10 +15,10 @@ public class CpmDocument implements StatementAction {
     private final ProvFactory pF;
     private final ICpmFactory cF;
 
-    private final Map<QualifiedName, List<IEdge>> sourceEdges = new HashMap<>();
-    private final Map<QualifiedName, List<IEdge>> targetEdges = new HashMap<>();
+    private final Map<QualifiedName, Map<StatementOrBundle.Kind, List<IEdge>>> effectEdges = new HashMap<>();
+    private final Map<QualifiedName, Map<StatementOrBundle.Kind, List<IEdge>>> causeEdges = new HashMap<>();
 
-    private final Map<QualifiedName, INode> nodes = new HashMap<>();
+    private final Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> nodes = new HashMap<>();
     private final List<IEdge> edges = new ArrayList<>();
     private final List<INode> backbone = new ArrayList<>();
     private Namespace namespaces;
@@ -50,7 +51,10 @@ public class CpmDocument implements StatementAction {
         Document document = pF.newDocument();
 
         List<Statement> statements = new ArrayList<>();
-        statements.addAll(nodes.values().stream().map(INode::getElement).toList());
+        statements.addAll(nodes.entrySet().stream()
+                .flatMap(entry -> entry.getValue().values().stream())
+                .map(INode::getElement)
+                .toList());
         statements.addAll(edges.stream().map(IEdge::getRelation).distinct().toList());
 
         Bundle newBundle = pF.newNamedBundle(bundle.getId(), statements);
@@ -71,49 +75,89 @@ public class CpmDocument implements StatementAction {
         addEdge(cF.newEdge(relation), u.getEffect(relation), u.getCause(relation));
     }
 
-    private void addEdge(IEdge edge, QualifiedName source, QualifiedName target) {
-        if (nodes.containsKey(source)) {
-            INode sourceINode = nodes.get(source);
-            sourceINode.getSourceEdges().add(edge);
-            edge.setSource(sourceINode);
-        } else {
-            sourceEdges.computeIfAbsent(source, _ -> new ArrayList<>()).add(edge);
+
+    private void addEdge(IEdge edge, QualifiedName effect, QualifiedName cause) {
+        try {
+            StatementOrBundle.Kind nodeKind = ProvUtilities2.getEffectKind(edge.getRelation());
+
+            if (nodes.containsKey(effect) && nodes.get(effect).containsKey(nodeKind)) {
+                Map<StatementOrBundle.Kind, INode> kindToNodeMap = nodes.get(effect);
+                INode node = kindToNodeMap.get(nodeKind);
+
+                node.getEffectEdges().add(edge);
+                edge.setEffect(node);
+            } else {
+                effectEdges.computeIfAbsent(effect, _ -> new HashMap<>())
+                        .computeIfAbsent(nodeKind, _ -> new ArrayList<>())
+                        .add(edge);
+            }
+        } catch (NoSpecificKind ignored) {
+            // TODO how to handle
         }
 
-        if (target != null && nodes.containsKey(target)) {
-            INode targetINode = nodes.get(target);
-            targetINode.getTargetEdges().add(edge);
-            edge.setTarget(targetINode);
-        } else {
-            targetEdges.computeIfAbsent(target, _ -> new ArrayList<>()).add(edge);
+        try {
+            StatementOrBundle.Kind nodeKind = ProvUtilities2.getCauseKind(edge.getRelation());
+
+            if (nodes.containsKey(cause) && nodes.get(cause).containsKey(nodeKind)) {
+                Map<StatementOrBundle.Kind, INode> kindToNodeMap = nodes.get(cause);
+                INode node = kindToNodeMap.get(nodeKind);
+
+                node.getCauseEdges().add(edge);
+                edge.setCause(node);
+            } else {
+                causeEdges.computeIfAbsent(cause, _ -> new HashMap<>())
+                        .computeIfAbsent(nodeKind, _ -> new ArrayList<>())
+                        .add(edge);
+            }
+        } catch (NoSpecificKind ignored) {
+            // TODO how to handle
         }
 
         edges.add(edge);
     }
 
     private void addNode(Element element) {
-        INode node = cF.newNode(element);
-        nodes.put(node.getElement().getId(), node);
-        if (sourceEdges.containsKey(node.getElement().getId())) {
-            List<IEdge> edgesToUpdate = sourceEdges.get(node.getElement().getId());
-            for (IEdge edge : edgesToUpdate) {
-                edge.setSource(node);
-                node.getSourceEdges().add(edge);
+        INode newNode = cF.newNode(element);
+        QualifiedName id = element.getId();
+        StatementOrBundle.Kind kind = element.getKind();
+
+        if (nodes.containsKey(id)) {
+            INode existingNode = nodes.get(id).get(kind);
+            if (existingNode != null) {
+                ProvUtilities2.mergeAttributes(existingNode.getElement(), newNode.getElement());
+                return;
             }
-            sourceEdges.remove(node.getElement().getId());
         }
 
-        if (targetEdges.containsKey(node.getElement().getId())) {
-            List<IEdge> edgesToUpdate = targetEdges.get(node.getElement().getId());
+        nodes.computeIfAbsent(id, _ -> new HashMap<>())
+                .putIfAbsent(kind, newNode);
+
+        if (effectEdges.containsKey(id) && effectEdges.get(id).containsKey(kind)) {
+            List<IEdge> edgesToUpdate = effectEdges.get(id).get(kind);
             for (IEdge edge : edgesToUpdate) {
-                edge.setTarget(node);
-                node.getTargetEdges().add(edge);
+                edge.setEffect(newNode);
+                newNode.getEffectEdges().add(edge);
             }
-            targetEdges.remove(node.getElement().getId());
+            effectEdges.get(id).remove(kind);
+            if (effectEdges.get(id).isEmpty()) {
+                effectEdges.remove(id);
+            }
+        }
+
+        if (causeEdges.containsKey(id) && causeEdges.get(id).containsKey(kind)) {
+            List<IEdge> edgesToUpdate = causeEdges.get(id).get(kind);
+            for (IEdge edge : edgesToUpdate) {
+                edge.setCause(newNode);
+                newNode.getCauseEdges().add(edge);
+            }
+            causeEdges.get(id).remove(kind);
+            if (causeEdges.get(id).isEmpty()) {
+                causeEdges.remove(id);
+            }
         }
 
         if (CpmUtilities.isCpmElement(element)) {
-            backbone.add(node);
+            backbone.add(newNode);
         }
     }
 
@@ -245,10 +289,10 @@ public class CpmDocument implements StatementAction {
     }
 
     public boolean areAllRelationsMapped() {
-        return sourceEdges.isEmpty() && targetEdges.isEmpty();
+        return effectEdges.isEmpty() && causeEdges.isEmpty();
     }
 
-    public Map<QualifiedName, INode> getNodes() {
+    public Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> getNodes() {
         return nodes;
     }
 
@@ -289,8 +333,54 @@ public class CpmDocument implements StatementAction {
         return backbone;
     }
 
+    /**
+     * Retrieves a single {@link INode} associated with the given {@link QualifiedName}, if exactly one exists.
+     *
+     * <p>This method should be used when exactly one node is expected. If multiple nodes exist for the given ID,
+     * an {@link IllegalStateException} is thrown. Use {@link #getNodes(QualifiedName)} to retrieve all nodes.</p>
+     *
+     * @param id the {@link QualifiedName} to look up
+     * @return the single {@link INode} for the given ID, or {@code null} if none exists
+     * @throws IllegalStateException if multiple nodes are associated with the given ID
+     */
     public INode getNode(QualifiedName id) {
-        return nodes.get(id);
+        if (nodes.containsKey(id)) {
+            if (nodes.get(id).size() == 1) {
+                return nodes.get(id).values().iterator().next();
+            }
+            throw new IllegalStateException(CpmExceptionConstants.MULTIPLE_NODES);
+        }
+        return null;
+    }
+
+    /**
+     * Retrieves a single {@link INode} associated with the given {@link QualifiedName} and {@link StatementOrBundle.Kind}.
+     *
+     * @param id   the {@link QualifiedName} to look up
+     * @param kind the {@link StatementOrBundle.Kind} to look up
+     * @return the {@link INode} matching the given ID and kind, or {@code null} if none exists
+     */
+    public INode getNode(QualifiedName id, StatementOrBundle.Kind kind) {
+        if (nodes.containsKey(id)) {
+            return nodes.get(id).get(kind);
+        }
+        return null;
+    }
+
+    /**
+     * Retrieves all {@link INode}s associated with the given {@link QualifiedName}.
+     *
+     * <p>Use this method to fetch all nodes for the given ID. For a specific node by kind,
+     * see {@link #getNode(QualifiedName, StatementOrBundle.Kind)}. To ensure only one node exists, use {@link #getNode(QualifiedName)}.</p>
+     *
+     * @param id the {@link QualifiedName} to look up
+     * @return a {@link List} of {@link INode}s associated with the given ID, or {@code null} if none exist
+     */
+    public List<INode> getNodes(QualifiedName id) {
+        if (nodes.containsKey(id)) {
+            return nodes.get(id).values().stream().toList();
+        }
+        return null;
     }
 
     public IEdge getEdge(QualifiedName id) {
@@ -303,12 +393,12 @@ public class CpmDocument implements StatementAction {
         return null;
     }
 
-    public IEdge getEdge(QualifiedName source, QualifiedName target) {
+    public IEdge getEdge(QualifiedName effect, QualifiedName cause) {
         for (IEdge edge : edges) {
-            if (edge.getSource() != null &&
-                    Objects.equals(source, edge.getSource().getElement().getId())
-                    && edge.getTarget() != null &&
-                    Objects.equals(target, edge.getTarget().getElement().getId())) {
+            if (edge.getEffect() != null &&
+                    Objects.equals(effect, edge.getEffect().getElement().getId())
+                    && edge.getCause() != null &&
+                    Objects.equals(cause, edge.getCause().getElement().getId())) {
                 return edge;
             }
         }

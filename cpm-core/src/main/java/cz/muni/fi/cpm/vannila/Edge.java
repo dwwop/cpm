@@ -7,16 +7,16 @@ import java.util.Objects;
 
 public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
     private final Relation relation;
-    private INode source;
-    private INode target;
+    private INode effect;
+    private INode cause;
 
-    public Edge(Relation relation, INode source, INode target) {
+    public Edge(Relation relation, INode effect, INode cause) {
         if (relation == null) {
             // TODO throw exception
         }
         this.relation = relation;
-        this.source = source;
-        this.target = target;
+        this.effect = effect;
+        this.cause = cause;
     }
 
     public Edge(Relation relation) {
@@ -29,35 +29,35 @@ public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
     }
 
     @Override
-    public INode getSource() {
-        return source;
+    public INode getEffect() {
+        return effect;
     }
 
     @Override
-    public void setSource(INode source) {
-        this.source = source;
+    public void setEffect(INode effect) {
+        this.effect = effect;
     }
 
     @Override
-    public INode getTarget() {
-        return target;
+    public INode getCause() {
+        return cause;
     }
 
     @Override
-    public void setTarget(INode target) {
-        this.target = target;
+    public void setCause(INode cause) {
+        this.cause = cause;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Edge edge = (Edge) o;
-        return Objects.equals(relation, edge.relation) && Objects.equals(source, edge.source) && Objects.equals(target, edge.target);
+        return Objects.equals(relation, edge.relation) && Objects.equals(effect, edge.effect) && Objects.equals(cause, edge.cause);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(relation, source, target);
+        return Objects.hash(relation, effect, cause);
     }
 
 }
