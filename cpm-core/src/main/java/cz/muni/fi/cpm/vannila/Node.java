@@ -9,16 +9,16 @@ import java.util.Objects;
 
 public class Node implements Component, cz.muni.fi.cpm.model.INode {
     Element element;
-    List<IEdge> sourceEdges;
-    List<IEdge> targetEdges;
+    List<IEdge> effectEdges;
+    List<IEdge> causeEdges;
 
-    public Node(Element element, List<IEdge> sourceEdges, List<IEdge> targetEdges) {
+    public Node(Element element, List<IEdge> effectEdges, List<IEdge> causeEdges) {
         if (element == null) {
             // TODO throw exception
         }
         this.element = element;
-        this.sourceEdges = sourceEdges;
-        this.targetEdges = targetEdges;
+        this.effectEdges = effectEdges;
+        this.causeEdges = causeEdges;
     }
 
     public Node(Element element) {
@@ -26,8 +26,8 @@ public class Node implements Component, cz.muni.fi.cpm.model.INode {
             // TODO throw exception
         }
         this.element = element;
-        this.sourceEdges = new ArrayList<>();
-        this.targetEdges = new ArrayList<>();
+        this.effectEdges = new ArrayList<>();
+        this.causeEdges = new ArrayList<>();
     }
 
     @Override
@@ -36,24 +36,24 @@ public class Node implements Component, cz.muni.fi.cpm.model.INode {
     }
 
     @Override
-    public List<IEdge> getSourceEdges() {
-        return sourceEdges;
+    public List<IEdge> getEffectEdges() {
+        return effectEdges;
     }
 
     @Override
-    public List<IEdge> getTargetEdges() {
-        return targetEdges;
+    public List<IEdge> getCauseEdges() {
+        return causeEdges;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Node node = (Node) o;
-        return Objects.equals(element, node.element) && Objects.equals(sourceEdges, node.sourceEdges) && Objects.equals(targetEdges, node.targetEdges);
+        return Objects.equals(element, node.element) && Objects.equals(effectEdges, node.effectEdges) && Objects.equals(causeEdges, node.causeEdges);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(element, sourceEdges, targetEdges);
+        return Objects.hash(element, effectEdges, causeEdges);
     }
 }
