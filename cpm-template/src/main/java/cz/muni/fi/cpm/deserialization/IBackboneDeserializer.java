@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public interface IBackboneDeserializer {
-    Backbone deserialiseBackbone(InputStream in) throws IOException;
+    Backbone deserializeBackbone(InputStream in) throws IOException;
 
-    Document deserialiseDocument(InputStream in) throws IOException;
+    Document deserializeDocument(InputStream in) throws IOException;
 }

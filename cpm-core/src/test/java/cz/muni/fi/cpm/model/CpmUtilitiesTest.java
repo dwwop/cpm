@@ -26,7 +26,7 @@ public class CpmUtilitiesTest {
     }
 
     @Test
-    public void testIsCpmElement_withValidCpmElement() {
+    public void isCpmElement_withValidCpmElement_returnsTrue() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -41,7 +41,7 @@ public class CpmUtilitiesTest {
     }
 
     @Test
-    public void testIsCpmElement_withInvalidUri() {
+    public void isCpmElement_withInvalidUri_returnsFalse() {
 
         QualifiedName validQualifiedName = new QualifiedName(
                 "invalidUri",
@@ -58,7 +58,7 @@ public class CpmUtilitiesTest {
 
 
     @Test
-    public void testIsCpmElement_withInvalidPrefix() {
+    public void isCpmElement_withInvalidPrefix_returnsFalse() {
 
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
@@ -75,7 +75,7 @@ public class CpmUtilitiesTest {
 
 
     @Test
-    public void testIsCpmElement_invalidBoth() {
+    public void isCpmElement_withInvalidUriAndPrefix_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 "invalidUri",
                 "validQualifiedName",
@@ -90,7 +90,7 @@ public class CpmUtilitiesTest {
     }
 
     @Test
-    public void testIsCpmElement_withoutType() {
+    public void isCpmElement_withoutType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id, (List<Attribute>) null);
@@ -100,7 +100,7 @@ public class CpmUtilitiesTest {
 
 
     @Test
-    public void testHasCpmType_withValidCpmElement() {
+    public void hasCpmType_withValidCpmElementAndType_returnsTrue() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 CpmType.FORWARD_CONNECTOR.toString(),
@@ -115,7 +115,7 @@ public class CpmUtilitiesTest {
     }
 
     @Test
-    public void testHasCpmType_withInvalidUri() {
+    public void hasCpmType_withInvalidUri_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 "invalidUri",
                 CpmType.FORWARD_CONNECTOR.toString(),
@@ -131,7 +131,7 @@ public class CpmUtilitiesTest {
 
 
     @Test
-    public void testHasCpmType_withInvalidPrefix() {
+    public void hasCpmType_withInvalidPrefix_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 CpmType.FORWARD_CONNECTOR.toString(),
@@ -147,7 +147,7 @@ public class CpmUtilitiesTest {
 
 
     @Test
-    public void testHasCpmType_invalidType() {
+    public void hasCpmType_withInvalidType_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "invalidType",
@@ -162,7 +162,7 @@ public class CpmUtilitiesTest {
     }
 
     @Test
-    public void testHasCpmType_invalidAll() {
+    public void hasCpmType_withInvalidUriAndPrefix_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 "invalidUri",
                 "validQualifiedName",
@@ -178,7 +178,7 @@ public class CpmUtilitiesTest {
 
 
     @Test
-    public void testHasCpmType_withoutType() {
+    public void hasCpmType_withoutType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id, (List<Attribute>) null);

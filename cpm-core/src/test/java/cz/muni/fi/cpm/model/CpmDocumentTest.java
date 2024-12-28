@@ -64,12 +64,12 @@ public class CpmDocumentTest {
     }
 
     @Test
-    public void testConstructor_nullDocument() {
+    public void constructor_nullDocument_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new CpmDocument(null, pF, cF));
     }
 
     @Test
-    public void testConstructor_withoutBundle() {
+    public void constructor_withoutBundle_throwsIllegalArgumentException() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -78,7 +78,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_namespace() {
+    public void constructor_namespace_returnsExpectedNamespaces() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -92,7 +92,7 @@ public class CpmDocumentTest {
     }
 
     @Test
-    public void testConstructor_mainActivity() {
+    public void constructor_mainActivity_returnsExpectedMainActivity() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -118,7 +118,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_regularActivity() {
+    public void constructor_regularActivity_throwsRuntimeExceptionForMainActivity() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -139,7 +139,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_forwardConnector() {
+    public void constructor_forwardConnector_returnsExpectedForwardConnectors() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -163,7 +163,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_regularEntity() {
+    public void constructor_regularEntity_returnsExpectedRegularEntity() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -263,7 +263,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_regularAgent() {
+    public void constructor_regularAgent_returnsExpectedRegularAgent() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -295,7 +295,7 @@ public class CpmDocumentTest {
 
     @ParameterizedTest
     @MethodSource("provideRelations")
-    public void testConstructor_validRelationsMapping(Relation relation) throws NoSpecificKind {
+    public void constructor_validRelationsMapping_returnsMappedRelations(Relation relation) throws NoSpecificKind {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -335,7 +335,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_unfinishedRelationsMappingCause() {
+    public void constructor_unfinishedRelationsMappingCause_handlesUnmappedRelations() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -375,7 +375,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_unfinishedRelationsMappingEffect() {
+    public void constructor_unfinishedRelationsMappingEffect_handlesUnmappedRelations() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -415,7 +415,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_toDocument() {
+    public void constructor_toDocument_returnsEquivalentDocument() {
         Document document = pF.newDocument();
 
         QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
@@ -454,7 +454,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_hadMember() {
+    public void constructor_hadMember_returnsMappedHadMemberRelations() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -489,7 +489,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_HadMemberToDocument() {
+    public void constructor_HadMemberToDocument_returnsExpectedDocument() {
         Document document = pF.newDocument();
 
         QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
@@ -527,7 +527,4 @@ public class CpmDocumentTest {
         assertEquals(bundle.getStatement().size(), resultBundle.getStatement().size());
         assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
     }
-
-    // TODO identical kind, identical id
-    // TODO different kind, identical id -> merge
 }

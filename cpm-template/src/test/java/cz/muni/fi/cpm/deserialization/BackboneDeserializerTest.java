@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class BackboneDeserializerTest {
     @Test
-    public void deserialiseBackbone() {
+    public void deserializeBackbone_Pure_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
         CpmFactory cF = new CpmFactory(pF);
@@ -45,7 +45,7 @@ public class BackboneDeserializerTest {
 
 
     @Test
-    public void deserialiseBackboneWithCpmDocTransform() {
+    public void deserializeBackbone_withCpmDocTransform_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
         CpmFactory cF = new CpmFactory();

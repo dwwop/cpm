@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IdentifierEntityTest {
 
     @Test
-    public void testToStatements_basic() {
+    public void toStatements_basicIdSet_returnsOneStatement() {
         IdentifierEntity ie = new IdentifierEntity();
         QualifiedName qN = new QualifiedName("uri", "example", "ex");
         ie.setId(qN);
@@ -41,7 +41,7 @@ public class IdentifierEntityTest {
     }
 
     @Test
-    public void testToStatements_externalId() {
+    public void toStatements_withExternalId_returnsCorrectExternalId() {
         IdentifierEntity ie = new IdentifierEntity();
         ie.setId(new QualifiedName("uri", "example", "ex"));
         QualifiedName qN = new QualifiedName("uri", "externalId", "ex");
@@ -59,7 +59,7 @@ public class IdentifierEntityTest {
 
 
     @Test
-    public void testToStatements_externalIdType() {
+    public void toStatements_withExternalIdType_returnsCorrectExternalIdType() {
         IdentifierEntity ie = new IdentifierEntity();
         ie.setId(new QualifiedName("uri", "example", "ex"));
         String externalIdType = "externalIdType";
@@ -78,7 +78,7 @@ public class IdentifierEntityTest {
 
 
     @Test
-    public void testToStatements_comment() {
+    public void toStatements_withComment_returnsCorrectComment() {
         IdentifierEntity ie = new IdentifierEntity();
         ie.setId(new QualifiedName("uri", "example", "ex"));
         String comment = "Comment";
