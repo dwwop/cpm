@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MainActivityTest {
 
     @Test
-    public void testToStatements_basic() throws Exception {
+    public void toStatements_basicIdSet_returnsOneStatement() {
         MainActivity mainActivity = new MainActivity();
         QualifiedName id = new QualifiedName("uri", "activityExample", "ex");
         mainActivity.setId(id);
@@ -42,7 +42,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testToStatements_withReferencedMetaBundleId() {
+    public void toStatements_withReferencedMetaBundleId_returnsMetaBundleId() {
         MainActivity mainActivity = new MainActivity();
         mainActivity.setId(new QualifiedName("uri", "activityExample", "ex"));
         QualifiedName referencedMetaBundleId = new QualifiedName("uri", "metaBundleId", "ex");
@@ -58,7 +58,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testToStatements_withHasPart() {
+    public void toStatements_withHasPart_returnsCorrectHasPart() {
         MainActivity mainActivity = new MainActivity();
         mainActivity.setId(new QualifiedName("uri", "activityExample", "ex"));
         QualifiedName hasPart = new QualifiedName("uri", "hasPart", "ex");
@@ -74,7 +74,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testToStatements_withUsed() {
+    public void toStatements_withUsed_returnsCorrectUsed() {
         MainActivity mainActivity = new MainActivity();
         QualifiedName activity = new QualifiedName("uri", "activityExample", "ex");
         mainActivity.setId(activity);
@@ -105,7 +105,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testToStatements_withGenerated() {
+    public void toStatements_withGenerated_returnsCorrectGenerated() {
         MainActivity mainActivity = new MainActivity();
         QualifiedName activity = new QualifiedName("uri", "activityExample", "ex");
         mainActivity.setId(activity);
@@ -127,7 +127,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testToStatements_withStartAndEndTime() throws Exception {
+    public void toStatements_withTimes_returnsCorrectTimes() throws Exception {
         MainActivity mainActivity = new MainActivity();
         mainActivity.setId(new QualifiedName("uri", "activityExample", "ex"));
 

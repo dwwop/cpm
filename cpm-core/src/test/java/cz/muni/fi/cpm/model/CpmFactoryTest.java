@@ -28,7 +28,7 @@ public class CpmFactoryTest {
     }
 
     @Test
-    public void testNewCpmType() {
+    public void newCpmType_withValidType_returnsExpectedType() {
         CpmType type = CpmType.FORWARD_CONNECTOR;
         Type result = cF.newCpmType(type);
         assertNotNull(result);
@@ -36,7 +36,7 @@ public class CpmFactoryTest {
     }
 
     @Test
-    public void testNewCpmQualifiedName() {
+    public void newCpmQualifiedName_withValidLocalName_returnsExpectedQualifiedName() {
         String local = CpmAttributeConstants.COMMENT;
         QualifiedName result = cF.newCpmQualifiedName(local);
         assertNotNull(result);
@@ -46,7 +46,7 @@ public class CpmFactoryTest {
     }
 
     @Test
-    public void testNewCpmAttribute_withType() {
+    public void newCpmAttribute_withType_returnsExpectedAttribute() {
         String local = CpmAttributeConstants.REFERENCED_BUNDLE_ID;
         Object value = "exampleValue";
         Attribute result = cF.newCpmAttribute(local, value);
@@ -56,7 +56,7 @@ public class CpmFactoryTest {
     }
 
     @Test
-    public void testNewCpmAttribute_withCustomType() {
+    public void newCpmAttribute_withCustomType_returnsExpectedCustomAttribute() {
         String local = CpmAttributeConstants.REFERENCED_BUNDLE_ID;
         Object value = "exampleValue";
         QualifiedName type = cF.newCpmQualifiedName(CpmType.IDENTIFIER.toString());
@@ -68,7 +68,7 @@ public class CpmFactoryTest {
     }
 
     @Test
-    public void testNewCpmEntity() {
+    public void newCpmEntity_withValidParameters_returnsExpectedEntity() {
         QualifiedName id = cF.newCpmQualifiedName("entityId");
         CpmType type = CpmType.FORWARD_CONNECTOR;
         Collection<Attribute> attributes = new ArrayList<>();
@@ -78,7 +78,7 @@ public class CpmFactoryTest {
     }
 
     @Test
-    public void testNewCpmActivity() throws Exception {
+    public void newCpmActivity_withValidParameters_returnsExpectedActivity() {
         QualifiedName id = cF.newCpmQualifiedName("activityId");
         XMLGregorianCalendar startTime = datatypeFactory.newXMLGregorianCalendar("2024-11-13T10:00:00");
         XMLGregorianCalendar endTime = datatypeFactory.newXMLGregorianCalendar("2024-11-13T12:00:00");
@@ -90,7 +90,7 @@ public class CpmFactoryTest {
     }
 
     @Test
-    public void testNewCpmAgent() {
+    public void newCpmAgent_withValidParameters_returnsExpectedAgent() {
         QualifiedName id = cF.newCpmQualifiedName("agentId");
         CpmType type = CpmType.SENDER_AGENT;
         Collection<Attribute> attributes = new ArrayList<>();

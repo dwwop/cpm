@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CpmAgentTest {
     @Test
-    public void testToStatements_basic() {
+    public void toStatements_basicIdSet_returnsOneStatement() {
         TestAgent agent = new TestAgent();
         QualifiedName id = new QualifiedName("uri", "agentExample", "ex");
         agent.setId(id);
@@ -36,7 +36,7 @@ public class CpmAgentTest {
     }
 
     @Test
-    public void testToStatements_withContactIdPid() {
+    public void toStatements_withContactIdPid_returnsCorrectContactId() {
         TestAgent agent = new TestAgent();
         agent.setId(new QualifiedName("uri", "agentExample", "ex"));
         String contactIdPid = "contact123";

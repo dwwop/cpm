@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ConnectorTest {
     @Test
-    public void testToStatements_basic() {
+    public void toStatements_basicIdSet_returnsOneStatement() {
         TestConnector connector = new TestConnector();
         QualifiedName id = new QualifiedName("uri", "connectorExample", "ex");
         connector.setId(id);
@@ -34,7 +34,7 @@ public class ConnectorTest {
     }
 
     @Test
-    public void testToStatements_withExternalId() {
+    public void toStatements_withExternalId_returnsCorrectExternalId() {
         TestConnector connector = new TestConnector();
         connector.setId(new QualifiedName("uri", "connectorExample", "ex"));
         QualifiedName externalId = new QualifiedName("uri", "externalIdExample", "ex");
@@ -50,7 +50,7 @@ public class ConnectorTest {
     }
 
     @Test
-    public void testToStatements_withReferencedBundleId() {
+    public void toStatements_withReferencedBundleId_returnsCorrectBundleId() {
         TestConnector connector = new TestConnector();
         connector.setId(new QualifiedName("uri", "connectorExample", "ex"));
         QualifiedName bundleId = new QualifiedName("uri", "bundleExample", "ex");
@@ -66,7 +66,7 @@ public class ConnectorTest {
     }
 
     @Test
-    public void testToStatements_withHashValueAndAlg() {
+    public void toStatements_withHashAndAlg_returnsCorrectValues() {
         TestConnector connector = new TestConnector();
         connector.setId(new QualifiedName("uri", "connectorExample", "ex"));
         Object hashValue = "hashValue";
@@ -90,7 +90,7 @@ public class ConnectorTest {
     }
 
     @Test
-    public void testToStatements_withProvenanceServiceUri() {
+    public void toStatements_withProvenanceUri_returnsCorrectUri() {
         TestConnector connector = new TestConnector();
         connector.setId(new QualifiedName("uri", "connectorExample", "ex"));
         String provenanceUri = "http://example.com/provenance";
@@ -108,7 +108,7 @@ public class ConnectorTest {
     }
 
     @Test
-    public void testToStatements_withDerivedFrom() {
+    public void toStatements_withDerivedFrom_returnsCorrectRelation() {
         TestConnector connector = new TestConnector();
         QualifiedName qN = new QualifiedName("uri", "connectorExample", "ex");
         connector.setId(qN);
@@ -125,7 +125,7 @@ public class ConnectorTest {
     }
 
     @Test
-    public void testToStatements_withAttributedTo() {
+    public void toStatements_withAttributedTo_returnsCorrectAttribution() {
         TestConnector connector = new TestConnector();
         QualifiedName qN = new QualifiedName("uri", "connectorExample", "ex");
         connector.setId(qN);
