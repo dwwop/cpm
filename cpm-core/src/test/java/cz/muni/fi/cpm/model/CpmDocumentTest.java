@@ -185,7 +185,62 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void testConstructor_senderAgent() {
+    public void constructor_identicalIdSameKind_returnsExpectedTypes() {
+        Document document = pF.newDocument();
+        document.setNamespace(cF.newCpmNamespace());
+
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        QualifiedName entityId = pF.newQualifiedName("uri", "entity", "ex");
+        Entity entity1 = pF.newEntity(entityId);
+        bundle.getStatement().add(entity1);
+
+        Entity entity2 = pF.newEntity(entityId);
+        QualifiedName typeId = pF.newQualifiedName("uri", "type", "ex");
+        Type type = pF.newType("", typeId);
+        entity2.getType().add(type);
+        bundle.getStatement().add(entity2);
+
+        CpmDocument doc = new CpmDocument(document, pF, cF);
+
+        assertNotNull(doc.getNode(entityId));
+        assertTrue(doc.getBackbone().isEmpty());
+        assertTrue(doc.getForwardConnectors().isEmpty());
+        assertFalse(doc.getNode(entityId).getElement().getType().isEmpty());
+        assertEquals(type, doc.getNode(entityId).getElement().getType().getFirst());
+    }
+
+
+    @Test
+    public void constructor_identicalIdDifferentKind_returnsExpectedTypes() {
+        Document document = pF.newDocument();
+        document.setNamespace(cF.newCpmNamespace());
+
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        QualifiedName identicalId = pF.newQualifiedName("uri", "id", "ex");
+
+        Entity entity = pF.newEntity(identicalId);
+        bundle.getStatement().add(entity);
+
+        Activity activity = pF.newActivity(identicalId);
+        bundle.getStatement().add(activity);
+
+        CpmDocument doc = new CpmDocument(document, pF, cF);
+
+        assertThrows(IllegalStateException.class, () -> doc.getNode(identicalId));
+        assertEquals(2, doc.getNodes(identicalId).size());
+        assertEquals(entity, doc.getNode(identicalId, StatementOrBundle.Kind.PROV_ENTITY).getElement());
+        assertEquals(activity, doc.getNode(identicalId, StatementOrBundle.Kind.PROV_ACTIVITY).getElement());
+    }
+
+
+    @Test
+    public void constructor_senderAgent_returnsExpectedSenderAgent() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
