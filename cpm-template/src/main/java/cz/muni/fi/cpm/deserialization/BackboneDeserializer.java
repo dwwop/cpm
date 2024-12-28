@@ -32,7 +32,7 @@ public class BackboneDeserializer implements IBackboneDeserializer {
     }
 
     @Override
-    public Backbone deserialiseBackbone(InputStream in) throws IOException {
+    public Backbone deserializeBackbone(InputStream in) throws IOException {
         getAttributes().get().remove(JSON_CONTEXT_KEY_NAMESPACE);
 
         Backbone bb = null;
@@ -45,8 +45,8 @@ public class BackboneDeserializer implements IBackboneDeserializer {
     }
 
     @Override
-    public Document deserialiseDocument(InputStream in) throws IOException {
-        return deserialiseBackbone(in).toDocument(cpmFactory);
+    public Document deserializeDocument(InputStream in) throws IOException {
+        return deserializeBackbone(in).toDocument(cpmFactory);
     }
 
     private void customize(ObjectMapper mapper) {
