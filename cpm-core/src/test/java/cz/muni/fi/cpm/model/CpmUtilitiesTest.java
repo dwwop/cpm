@@ -7,6 +7,8 @@ import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vannila.CpmFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.vanilla.ProvFactory;
@@ -14,6 +16,7 @@ import org.openprovenance.prov.vanilla.QualifiedName;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,6 +25,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CpmUtilitiesTest {
     private ProvFactory pF;
     private CpmFactory cF;
+
+    private static Stream<Object[]> provideConnectorTypes() {
+        return Stream.of(
+                new Object[]{CpmType.FORWARD_CONNECTOR.toString()},
+                new Object[]{CpmType.BACKWARD_CONNECTOR.toString()}
+        );
+    }
 
     @BeforeEach
     public void setUp() {
@@ -65,7 +75,6 @@ public class CpmUtilitiesTest {
         assertFalse(CpmUtilities.isBackbone(element));
     }
 
-
     @Test
     public void isBackbone_withInvalidPrefix_returnsFalse() {
 
@@ -81,7 +90,6 @@ public class CpmUtilitiesTest {
 
         assertFalse(CpmUtilities.isBackbone(element));
     }
-
 
     @Test
     public void isBackbone_withInvalidUriAndPrefix_returnsFalse() {
@@ -129,7 +137,6 @@ public class CpmUtilitiesTest {
         assertFalse(CpmUtilities.isBackbone(element));
     }
 
-
     @Test
     public void isBackbone_withValidOtherAttr_returnsTrue() {
         QualifiedName validQualifiedName = new QualifiedName(
@@ -151,7 +158,6 @@ public class CpmUtilitiesTest {
         assertFalse(CpmUtilities.hasCpmType(null, null));
     }
 
-
     @Test
     public void hasCpmType_withValidCpmElementAndNullType_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
@@ -171,7 +177,6 @@ public class CpmUtilitiesTest {
     public void hasCpmType_withNullElementAndValidType_returnsFalse() {
         assertFalse(CpmUtilities.hasCpmType(null, CpmType.BACKWARD_CONNECTOR));
     }
-
 
     @Test
     public void hasCpmType_withValidCpmElementAndType_returnsTrue() {
@@ -203,7 +208,6 @@ public class CpmUtilitiesTest {
         assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
-
     @Test
     public void hasCpmType_withInvalidPrefix_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
@@ -218,7 +222,6 @@ public class CpmUtilitiesTest {
 
         assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
-
 
     @Test
     public void hasCpmType_withInvalidType_returnsFalse() {
@@ -250,7 +253,6 @@ public class CpmUtilitiesTest {
         assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
-
     @Test
     public void hasCpmType_withoutType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
@@ -260,4 +262,34 @@ public class CpmUtilitiesTest {
         assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
     }
 
+    @ParameterizedTest
+    @MethodSource("provideConnectorTypes")
+    public void isConnector_withValidCpmElementAndType_returnsTrue(String cpmType) {
+        QualifiedName validQualifiedName = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                cpmType,
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
+
+        Element element = pF.newEntity(id, Collections.singletonList(attribute));
+
+        assertTrue(CpmUtilities.isConnector(element));
+    }
+
+    @Test
+    public void isConnector_invalidType_returnsFalse() {
+        QualifiedName validQualifiedName = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                CpmType.MAIN_ACTIVITY.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
+
+        Element element = pF.newEntity(id, Collections.singletonList(attribute));
+
+        assertFalse(CpmUtilities.isConnector(element));
+    }
 }

@@ -9,6 +9,7 @@ import org.openprovenance.prov.model.extension.QualifiedHadMember;
 import org.openprovenance.prov.model.extension.QualifiedSpecializationOf;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class CpmDocument implements StatementAction {
     private static final ProvUtilities u = new ProvUtilities();
@@ -419,5 +420,36 @@ public class CpmDocument implements StatementAction {
             }
         }
         return null;
+    }
+
+    private List<INode> getRelatedConnectors(QualifiedName id, Function<IEdge, INode> extractNode, Function<INode, List<IEdge>> extractEdges) {
+        INode node = getNode(id, StatementOrBundle.Kind.PROV_ENTITY);
+        if (node == null || !CpmUtilities.isConnector(node.getElement())) {
+            return null;
+        }
+
+        List<INode> result = new ArrayList<>();
+        List<INode> toProcess = new ArrayList<>(extractEdges.apply(node).stream()
+                .map(extractNode)
+                .toList());
+
+        while (!toProcess.isEmpty()) {
+            INode current = toProcess.removeFirst();
+            result.add(current);
+            toProcess.addAll(extractEdges.apply(current).stream()
+                    .filter(x -> StatementOrBundle.Kind.PROV_DERIVATION.equals(x.getRelation().getKind()))
+                    .map(extractNode)
+                    .filter(x -> CpmUtilities.isConnector(x.getElement()) && !result.contains(x))
+                    .toList());
+        }
+        return result;
+    }
+
+    public List<INode> getPrecursors(QualifiedName id) {
+        return getRelatedConnectors(id, IEdge::getEffect, INode::getCauseEdges);
+    }
+
+    public List<INode> getSuccessors(QualifiedName id) {
+        return getRelatedConnectors(id, IEdge::getCause, INode::getEffectEdges);
     }
 }

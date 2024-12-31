@@ -28,4 +28,13 @@ public class CpmUtilities {
                         CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
                         Objects.equals(type.toString(), qN.getLocalPart()));
     }
+
+    public static boolean isConnector(Element element) {
+        return element != null && element.getType().stream().anyMatch(x ->
+                x.getValue() instanceof QualifiedName qN &&
+                        CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
+                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
+                        (CpmType.FORWARD_CONNECTOR.toString().equals(qN.getLocalPart()) ||
+                                CpmType.BACKWARD_CONNECTOR.toString().equals(qN.getLocalPart())));
+    }
 }

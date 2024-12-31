@@ -24,7 +24,7 @@ public class CpmDocumentTest {
     private CpmFactory cF;
     private ProvUtilities u;
 
-    static Stream<Object[]> provideRelations() {
+    private static Stream<Object[]> provideRelations() {
         ProvFactory pF = new ProvFactory();
         QualifiedName entityId1 = pF.newQualifiedName("uri", "entity1", "ex");
         QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
@@ -579,5 +579,75 @@ public class CpmDocumentTest {
         List<IEdge> crossPart = doc.getCrossPartEdges();
         assertEquals(1, crossPart.size());
         assertEquals(relation3, crossPart.getFirst().getRelation());
+    }
+
+
+    @Test
+    public void getSuccessors_validData_returnsExpectedNodes() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity1 = cF.newCpmEntity(id1, CpmType.FORWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
+        Entity entity2 = cF.newCpmEntity(id2, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id3 = cF.newCpmQualifiedName("qN3");
+        Entity entity3 = cF.newCpmEntity(id3, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id4 = cF.newCpmQualifiedName("qN4");
+        Entity entity4 = cF.newCpmEntity(id4, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        Relation relation1 = cF.getProvFactory().newWasDerivedFrom(id4, id3);
+        Relation relation2 = cF.getProvFactory().newWasDerivedFrom(id3, id2);
+        Relation relation3 = cF.getProvFactory().newWasDerivedFrom(id2, id1);
+
+        Document document = pF.newDocument();
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        bundle.getStatement().addAll(List.of(entity1, entity2, entity3, entity4));
+        bundle.getStatement().addAll(List.of(relation1, relation2, relation3));
+        document.setNamespace(Namespace.gatherNamespaces(document));
+        bundle.setNamespace(Namespace.gatherNamespaces(document));
+
+        CpmDocument doc = new CpmDocument(document, pF, cF);
+
+        List<INode> precursors = doc.getPrecursors(id1);
+        assertEquals(3, precursors.size());
+        assertTrue(precursors.stream().anyMatch(x -> entity2.equals(x.getElement())));
+        assertTrue(precursors.stream().anyMatch(x -> entity3.equals(x.getElement())));
+        assertTrue(precursors.stream().anyMatch(x -> entity4.equals(x.getElement())));
+
+        assertEquals(0, doc.getPrecursors(id4).size());
+
+        List<INode> successors = doc.getSuccessors(id4);
+        assertEquals(3, successors.size());
+        assertTrue(successors.stream().anyMatch(x -> entity1.equals(x.getElement())));
+        assertTrue(successors.stream().anyMatch(x -> entity2.equals(x.getElement())));
+        assertTrue(successors.stream().anyMatch(x -> entity3.equals(x.getElement())));
+
+        assertEquals(0, doc.getSuccessors(id1).size());
+    }
+
+
+    @Test
+    public void getRelatedNodes_invalidAndNullData_returnsNull() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Agent agent = cF.newCpmAgent(id1, CpmType.SENDER_AGENT, new ArrayList<>());
+
+        Document document = pF.newDocument();
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        bundle.getStatement().add(agent);
+        document.setNamespace(Namespace.gatherNamespaces(document));
+        bundle.setNamespace(Namespace.gatherNamespaces(document));
+
+        CpmDocument doc = new CpmDocument(document, pF, cF);
+
+        List<INode> precursors = doc.getPrecursors(id1);
+        assertNull(precursors);
+        assertNull(doc.getSuccessors(null));
     }
 }
