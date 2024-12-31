@@ -650,4 +650,46 @@ public class CpmDocumentTest {
         assertNull(precursors);
         assertNull(doc.getSuccessors(null));
     }
+
+    @Test
+    public void setBundleId_validId_renamesBundle() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Agent agent = cF.newCpmAgent(id1, CpmType.SENDER_AGENT, new ArrayList<>());
+
+        Document document = pF.newDocument();
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        bundle.getStatement().add(agent);
+        document.setNamespace(Namespace.gatherNamespaces(document));
+        bundle.setNamespace(Namespace.gatherNamespaces(document));
+
+        CpmDocument doc = new CpmDocument(document, pF, cF);
+        QualifiedName newId = pF.newQualifiedName("uri", "newName", "ex");
+        doc.setBundleId(newId);
+        Document output = doc.toDocument();
+        assertEquals(newId, ((Bundle) output.getStatementOrBundle().getFirst()).getId());
+    }
+
+
+    @Test
+    public void setBundleId_nullId_returnsNull() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Agent agent = cF.newCpmAgent(id1, CpmType.SENDER_AGENT, new ArrayList<>());
+
+        Document document = pF.newDocument();
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        bundle.getStatement().add(agent);
+        document.setNamespace(Namespace.gatherNamespaces(document));
+        bundle.setNamespace(Namespace.gatherNamespaces(document));
+
+        CpmDocument doc = new CpmDocument(document, pF, cF);
+        doc.setBundleId(null);
+        Document output = doc.toDocument();
+        assertNull(((Bundle) output.getStatementOrBundle().getFirst()).getId());
+    }
 }

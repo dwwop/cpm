@@ -24,7 +24,7 @@ public class CpmDocument implements StatementAction {
     private final List<INode> backbone = new ArrayList<>();
     private final List<INode> domainSpecificPart = new ArrayList<>();
     private Namespace namespaces;
-    private Bundle bundle;
+    private QualifiedName bundleId;
 
     public CpmDocument(ProvFactory pF, ICpmFactory cF) {
         this.pF = pF;
@@ -43,7 +43,7 @@ public class CpmDocument implements StatementAction {
             throw new IllegalArgumentException(CpmExceptionConstants.ONE_BUNDLE_REQUIRED);
         }
 
-        this.bundle = pF.newNamedBundle(docBundle.getId(), pF.newNamespace(docBundle.getNamespace()), null);
+        this.bundleId = docBundle.getId();
         this.namespaces = pF.newNamespace(document.getNamespace());
 
         u.forAllStatement(docBundle.getStatement(), this);
@@ -59,7 +59,7 @@ public class CpmDocument implements StatementAction {
                 .toList());
         statements.addAll(edges.stream().map(IEdge::getRelation).distinct().toList());
 
-        Bundle newBundle = pF.newNamedBundle(bundle.getId(), statements);
+        Bundle newBundle = pF.newNamedBundle(bundleId, statements);
         Namespace bundleNs = pF.newNamespace();
         newBundle.setNamespace(bundleNs);
 
@@ -451,5 +451,9 @@ public class CpmDocument implements StatementAction {
 
     public List<INode> getSuccessors(QualifiedName id) {
         return getRelatedConnectors(id, IEdge::getCause, INode::getEffectEdges);
+    }
+
+    public void setBundleId(QualifiedName id) {
+        this.bundleId = id;
     }
 }
