@@ -41,7 +41,6 @@ public class CpmFactory implements ICpmFactory {
         return pF.newQualifiedName(CpmNamespaceConstants.CPM_NS, local, CpmNamespaceConstants.CPM_PREFIX);
     }
 
-
     @Override
     public Attribute newCpmAttribute(String local, Object value) {
         return newCpmAttribute(
@@ -50,6 +49,7 @@ public class CpmFactory implements ICpmFactory {
                 pF.getName().PROV_QUALIFIED_NAME);
     }
 
+    @Override
     public Attribute newCpmAttribute(String local, Object value, QualifiedName type) {
         return pF.newOther(
                 newCpmQualifiedName(local),
@@ -93,6 +93,12 @@ public class CpmFactory implements ICpmFactory {
     }
 
     @Override
+    public IEdge newEdge(IEdge edge) {
+        Relation clonedRelation = pF.newStatement(edge.getRelation());
+        return new Edge(clonedRelation);
+    }
+
+    @Override
     public INode newNode(Element element) {
         Element clonedElement = pF.newStatement(element);
         return new Node(clonedElement);
@@ -100,7 +106,7 @@ public class CpmFactory implements ICpmFactory {
 
     private INode newFilteredNode(INode node, Predicate<? super IEdge> edgeFilter) {
         Element clonedElement = pF.newStatement(node.getElement());
-        List<IEdge> bbEffectEdges = node.getEffectEdges().stream().filter(edgeFilter).toList();
+        List<IEdge> bbEffectEdges = node.getEffectEdges().stream().filter(edgeFilter).map(this::newEdge).toList();
         List<IEdge> bbCauseEdges = node.getCauseEdges().stream().filter(edgeFilter).toList();
         return new Node(clonedElement, bbEffectEdges, bbCauseEdges);
     }

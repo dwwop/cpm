@@ -45,16 +45,15 @@ public class BackboneDeserializerTest {
 
 
     @Test
-    public void deserializeBackbone_withCpmDocTransform_serialisesSuccessfully() {
+    public void deserializeDocument_withCpmDocTransform_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
         CpmFactory cF = new CpmFactory();
 
         try (InputStream inputStream = classLoader.getResourceAsStream("test.json")) {
             IBackboneDeserializer deserializer = new BackboneDeserializer();
-            Backbone bb = deserializer.deserializeBackbone(inputStream);
+            Document doc = deserializer.deserializeDocument(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
-            Document doc = bb.toDocument(cF);
             Document transDoc = new CpmDocument(doc, pF, new CpmFactory(pF)).toDocument();
 
             File outputFile = new File("src/test/resources/outputTrans.provn");

@@ -439,7 +439,8 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
         Document resultDoc = doc.toDocument();
 
-        assertEquals(document.getNamespace().getNamespaces(), resultDoc.getNamespace().getNamespaces());
+        Map<String, String> resultNs = resultDoc.getNamespace().getNamespaces();
+        assertTrue(resultNs.entrySet().containsAll(document.getNamespace().getNamespaces().entrySet()));
 
         assertEquals(1, resultDoc.getStatementOrBundle().size());
         assertEquals(bundle.getKind(), resultDoc.getStatementOrBundle().getFirst().getKind());
@@ -447,7 +448,6 @@ public class CpmDocumentTest {
         assertEquals(bundle.getId(), resultBundle.getId());
         assertEquals(bundle.getStatement().size(), resultBundle.getStatement().size());
         assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
-        assertEquals(document.getNamespace().getNamespaces(), resultDoc.getNamespace().getNamespaces());
         assertNotNull(resultBundle.getNamespace());
         assertEquals(resultDoc.getNamespace(), resultBundle.getNamespace().getParent());
     }
@@ -517,7 +517,8 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
         Document resultDoc = doc.toDocument();
 
-        assertEquals(document.getNamespace().getNamespaces(), resultDoc.getNamespace().getNamespaces());
+        Map<String, String> resultNs = resultDoc.getNamespace().getNamespaces();
+        assertTrue(resultNs.entrySet().containsAll(document.getNamespace().getNamespaces().entrySet()));
 
         assertNotNull(doc.getEdge(relationId));
         assertEquals(1, resultDoc.getStatementOrBundle().size());

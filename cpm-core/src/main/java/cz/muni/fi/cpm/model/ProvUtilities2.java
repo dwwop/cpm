@@ -13,6 +13,14 @@ public class ProvUtilities2 {
     private static final String END_TIME = "endTime";
     private static final String VALUE = "value";
 
+    /**
+     * Retrieves the effect kind for the given relation.
+     * This method returns the {@link StatementOrBundle.Kind} based on the type of the relation.
+     *
+     * @param r the relation for which to determine the effect kind
+     * @return the corresponding {@link StatementOrBundle.Kind} for the effect
+     * @throws NoSpecificKind if the relation is not recognized or doesn't have a specific effect kind
+     */
     public static StatementOrBundle.Kind getEffectKind(Relation r) throws NoSpecificKind {
         if (r instanceof Used) {
             return StatementOrBundle.Kind.PROV_ACTIVITY;
@@ -52,6 +60,14 @@ public class ProvUtilities2 {
         }
     }
 
+    /**
+     * Retrieves the cause kind for the given relation.
+     * This method returns the {@link StatementOrBundle.Kind} based on the type of the relation.
+     *
+     * @param r the relation for which to determine the cause kind
+     * @return the corresponding {@link StatementOrBundle.Kind} for the cause
+     * @throws NoSpecificKind if the relation is not recognized or doesn't have a specific cause kind
+     */
     public static StatementOrBundle.Kind getCauseKind(Relation r) throws NoSpecificKind {
         if (r instanceof Used) {
             return StatementOrBundle.Kind.PROV_ENTITY;
@@ -91,7 +107,14 @@ public class ProvUtilities2 {
         }
     }
 
-
+    /**
+     * Merges the attributes from the new element into the existing one, ensuring no conflicts.
+     * This method merges labels, locations, types, and other attributes, and checks for conflicts in time values for activities and value conflicts for entities.
+     *
+     * @param existing   the existing element to merge into
+     * @param newElement the new element whose attributes will be merged
+     * @throws ValueConflict if there is a conflict in values between the existing and new element (e.g., conflicting start or end times for activities)
+     */
     public static <T extends Element> void mergeAttributes(T existing, T newElement) throws ValueConflict {
         Set<LangString> set = new HashSet<>(newElement.getLabel());
         existing.getLabel().forEach(set::remove);

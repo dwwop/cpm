@@ -23,7 +23,6 @@ public class CpmDocument implements StatementAction {
     private final List<IEdge> edges = new ArrayList<>();
     private final List<INode> backbone = new ArrayList<>();
     private final List<INode> domainSpecificPart = new ArrayList<>();
-    private Namespace namespaces;
     private QualifiedName bundleId;
 
     public CpmDocument(ProvFactory pF, ICpmFactory cF) {
@@ -44,11 +43,18 @@ public class CpmDocument implements StatementAction {
         }
 
         this.bundleId = docBundle.getId();
-        this.namespaces = pF.newNamespace(document.getNamespace());
 
         u.forAllStatement(docBundle.getStatement(), this);
     }
 
+    /**
+     * Converts the current object to a {@link Document} representation.
+     * This method creates a new {@link Document} and populates it with statements
+     * from nodes and edges, and then wraps them in a new {@link Bundle}. The resulting
+     * document includes the relevant gathered namespaces.
+     *
+     * @return the created {@link Document} containing the bundle and namespaces
+     */
     public Document toDocument() {
         Document document = pF.newDocument();
 
@@ -66,7 +72,7 @@ public class CpmDocument implements StatementAction {
         document.getStatementOrBundle().add(newBundle);
 
         Namespace ns = Namespace.gatherNamespaces(newBundle);
-        ns.extendWith(namespaces);
+        ns.extendWith(cF.newCpmNamespace());
         document.setNamespace(ns);
         bundleNs.setParent(ns);
 
@@ -292,14 +298,45 @@ public class CpmDocument implements StatementAction {
         throw new UnsupportedOperationException(CpmExceptionConstants.NOT_SUPPORTED);
     }
 
+    /**
+     * Gathers the namespaces from the current set of nodes and edges, and extends them with CPM and PROV namespaces.
+     *
+     * @return the extended Namespace that includes the gathered namespaces, CPM namespace and PROV namespace
+     */
+    public Namespace getNamespaces() {
+        List<StatementOrBundle> statements = new ArrayList<>();
+        statements.addAll(nodes.entrySet().stream()
+                .flatMap(entry -> entry.getValue().values().stream())
+                .map(INode::getElement)
+                .toList());
+        statements.addAll(edges.stream().map(IEdge::getRelation).distinct().toList());
+
+
+        NamespaceGatherer gatherer = new NamespaceGatherer();
+        u.forAllStatementOrBundle(statements, gatherer);
+        Namespace ns = gatherer.getNamespace();
+        ns.extendWith(cF.newCpmNamespace());
+        return ns;
+    }
+
+    /**
+     * Checks if all relations are mapped. When all relations are mapped, both effect and cause nodes on all relations are not {@code null}
+     *
+     * @return {@code true} if all relations are mapped;
+     * {@code false} otherwise
+     */
     public boolean areAllRelationsMapped() {
         return effectEdges.isEmpty() && causeEdges.isEmpty();
     }
 
-    public Namespace getNamespaces() {
-        return namespaces;
-    }
 
+    /**
+     * Retrieves the main activity node from the backbone.
+     * This method iterates through the nodes in the backbone and returns the first node
+     * that has the {@link CpmType#MAIN_ACTIVITY} type. If no such node is found, it returns {@code null}.
+     *
+     * @return the main activity node, or {@code null} if not found
+     */
     public INode getMainActivity() {
         for (INode node : backbone) {
             if (CpmUtilities.hasCpmType(node.getElement(), CpmType.MAIN_ACTIVITY)) {
@@ -319,22 +356,47 @@ public class CpmDocument implements StatementAction {
         return result;
     }
 
+    /**
+     * Retrieves a list of forward connector nodes from the backbone.
+     *
+     * @return a list of forward connector nodes
+     */
     public List<INode> getForwardConnectors() {
         return getConnectors(CpmType.FORWARD_CONNECTOR);
     }
 
+    /**
+     * Retrieves a list of backward connector nodes from the backbone.
+     *
+     * @return a list of backward connector nodes
+     */
     public List<INode> getBackwardConnectors() {
         return getConnectors(CpmType.BACKWARD_CONNECTOR);
     }
 
+    /**
+     * Creates a clone of each node in the backbone, keeping only relations that are between backbone nodes.
+     *
+     * @return a list of cloned backbone nodes
+     */
     public List<INode> getBackbonePart() {
         return backbone.stream().map(cF::newBBNode).toList();
     }
 
+    /**
+     * Creates a clone of each node in the domain specific part of the document, keeping only relations that are between DS nodes.
+     *
+     * @return a list of cloned domain specific nodes
+     */
     public List<INode> getDomainSpecificPart() {
         return domainSpecificPart.stream().map(cF::newDSNode).toList();
     }
 
+    /**
+     * Retrieves all original edges that are between backbone nodes and domain specific nodes.
+     *
+     * @return a list of original cross part edges
+     */
     public List<IEdge> getCrossPartEdges() {
         return edges.stream().filter(IEdge::isCrossPart).toList();
     }
@@ -399,7 +461,13 @@ public class CpmDocument implements StatementAction {
         return nodes;
     }
 
-
+    /**
+     * Retrieves an edge from the list of edges based on the provided identifier.
+     * This method searches for an edge where the relation's ID matches the specified {@link QualifiedName}.
+     *
+     * @param id the identifier of the relation to search for
+     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     */
     public IEdge getEdge(QualifiedName id) {
         for (IEdge edge : edges) {
             if (edge.getRelation() instanceof Identifiable relWithId
@@ -410,6 +478,14 @@ public class CpmDocument implements StatementAction {
         return null;
     }
 
+    /**
+     * Retrieves an edge based on the provided effect and cause identifiers.
+     * This method searches for an edge where the effect and cause match the specified {@link QualifiedName} values.
+     *
+     * @param effect the identifier of the effect
+     * @param cause  the identifier of the cause
+     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     */
     public IEdge getEdge(QualifiedName effect, QualifiedName cause) {
         for (IEdge edge : edges) {
             if (edge.getEffect() != null &&
@@ -445,10 +521,24 @@ public class CpmDocument implements StatementAction {
         return result;
     }
 
+    /**
+     * Retrieves a list of precursor nodes for the specified connector, based on the provided {@link QualifiedName}.
+     * A precursor connector is defined as a connector node related to the given node via a derivation relation.
+     *
+     * @param id the identifier of the node for which to find the precursor nodes
+     * @return a list of precursor nodes, or {@code null} the node is not a connector or is {@code null}
+     */
     public List<INode> getPrecursors(QualifiedName id) {
         return getRelatedConnectors(id, IEdge::getEffect, INode::getCauseEdges);
     }
 
+    /**
+     * Retrieves a list of successor connectors for the specified connector, based on the provided {@link QualifiedName}.
+     * A successor connector is defined as a connector node related to the given node via a derivation relation.
+     *
+     * @param id the identifier of the node for which to find the successor nodes
+     * @return a list of successor nodes, or {@code null} the node is not a connector or is {@code null}
+     */
     public List<INode> getSuccessors(QualifiedName id) {
         return getRelatedConnectors(id, IEdge::getCause, INode::getEffectEdges);
     }
