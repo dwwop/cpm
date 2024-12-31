@@ -306,9 +306,7 @@ public class CpmDocument implements StatementAction {
                 return node;
             }
         }
-        throw new RuntimeException("No main activity found");
-        // TODO throw correct exception
-        // TODO multiple main activities?
+        return null;
     }
 
     private List<INode> getConnectors(CpmType type) {
