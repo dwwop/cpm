@@ -21,6 +21,7 @@ public class CpmDocument implements StatementAction {
     private final Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> nodes = new HashMap<>();
     private final List<IEdge> edges = new ArrayList<>();
     private final List<INode> backbone = new ArrayList<>();
+    private final List<INode> domainSpecificPart = new ArrayList<>();
     private Namespace namespaces;
     private Bundle bundle;
 
@@ -156,8 +157,10 @@ public class CpmDocument implements StatementAction {
             }
         }
 
-        if (CpmUtilities.isCpmElement(element)) {
+        if (CpmUtilities.isBackbone(element)) {
             backbone.add(newNode);
+        } else {
+            domainSpecificPart.add(newNode);
         }
     }
 
@@ -292,10 +295,6 @@ public class CpmDocument implements StatementAction {
         return effectEdges.isEmpty() && causeEdges.isEmpty();
     }
 
-    public Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> getNodes() {
-        return nodes;
-    }
-
     public Namespace getNamespaces() {
         return namespaces;
     }
@@ -327,8 +326,16 @@ public class CpmDocument implements StatementAction {
         return getConnectors(CpmType.BACKWARD_CONNECTOR);
     }
 
-    public List<INode> getBackbone() {
-        return backbone;
+    public List<INode> getBackbonePart() {
+        return backbone.stream().map(cF::newBBNode).toList();
+    }
+
+    public List<INode> getDomainSpecificPart() {
+        return domainSpecificPart.stream().map(cF::newDSNode).toList();
+    }
+
+    public List<IEdge> getCrossPartEdges() {
+        return edges.stream().filter(IEdge::isCrossPart).toList();
     }
 
     /**
@@ -380,6 +387,17 @@ public class CpmDocument implements StatementAction {
         }
         return null;
     }
+
+    /**
+     * Retrieves the entire mapping of {@link QualifiedName} to their associated nodes.
+     *
+     * @return a {@link Map} where keys are {@link QualifiedName}s and values are maps of
+     * {@link StatementOrBundle.Kind} to {@link INode}.
+     */
+    public Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> getNodes() {
+        return nodes;
+    }
+
 
     public IEdge getEdge(QualifiedName id) {
         for (IEdge edge : edges) {

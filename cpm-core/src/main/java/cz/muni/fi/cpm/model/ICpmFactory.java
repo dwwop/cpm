@@ -29,4 +29,8 @@ public interface ICpmFactory {
     IEdge newEdge(Relation relation);
 
     INode newNode(Element element);
+
+    INode newBBNode(INode node);
+
+    INode newDSNode(INode node);
 }

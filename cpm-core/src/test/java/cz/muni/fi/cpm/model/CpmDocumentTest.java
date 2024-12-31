@@ -111,7 +111,7 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(activityId));
-        assertFalse(doc.getBackbone().isEmpty());
+        assertFalse(doc.getBackbonePart().isEmpty());
         assertNotNull(doc.getMainActivity());
         assertEquals(activity, doc.getNode(activityId).getElement());
     }
@@ -133,7 +133,7 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(activityId));
-        assertTrue(doc.getBackbone().isEmpty());
+        assertTrue(doc.getBackbonePart().isEmpty());
         assertNull(doc.getMainActivity());
     }
 
@@ -156,7 +156,7 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(entityId));
-        assertFalse(doc.getBackbone().isEmpty());
+        assertFalse(doc.getBackbonePart().isEmpty());
         assertFalse(doc.getForwardConnectors().isEmpty());
         assertEquals(entity, doc.getNode(entityId).getElement());
     }
@@ -178,7 +178,7 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(entityId));
-        assertTrue(doc.getBackbone().isEmpty());
+        assertTrue(doc.getBackbonePart().isEmpty());
         assertTrue(doc.getForwardConnectors().isEmpty());
         assertEquals(entity, doc.getNode(entityId).getElement());
     }
@@ -206,7 +206,7 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(entityId));
-        assertTrue(doc.getBackbone().isEmpty());
+        assertTrue(doc.getBackbonePart().isEmpty());
         assertTrue(doc.getForwardConnectors().isEmpty());
         assertFalse(doc.getNode(entityId).getElement().getType().isEmpty());
         assertEquals(type, doc.getNode(entityId).getElement().getType().getFirst());
@@ -257,7 +257,7 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(agentId));
-        assertFalse(doc.getBackbone().isEmpty());
+        assertFalse(doc.getBackbonePart().isEmpty());
         assertEquals(agent, doc.getNode(agentId).getElement());
     }
 
@@ -278,7 +278,7 @@ public class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cF);
 
         assertNotNull(doc.getNode(agentId));
-        assertTrue(doc.getBackbone().isEmpty());
+        assertTrue(doc.getBackbonePart().isEmpty());
         assertEquals(agent, doc.getNode(agentId).getElement());
     }
 
@@ -526,5 +526,58 @@ public class CpmDocumentTest {
         assertEquals(bundle.getId(), resultBundle.getId());
         assertEquals(bundle.getStatement().size(), resultBundle.getStatement().size());
         assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
+    }
+
+    @Test
+    public void getBackbonePartAndDSPart_validData_returnsBBAndDs() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity1 = cF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
+        Entity entity2 = cF.newCpmEntity(id2, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id3 = cF.newCpmQualifiedName("qN3");
+        Agent agent = cF.getProvFactory().newAgent(id3);
+
+        QualifiedName id4 = cF.newCpmQualifiedName("qN4");
+        Entity entity4 = cF.newCpmEntity(id4, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        Relation relation1 = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id1, id3);
+
+        Relation relation2 = cF.getProvFactory().newWasDerivedFrom(id2, id4);
+
+        Relation relation3 = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id2, id3);
+
+        Document document = pF.newDocument();
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        bundle.getStatement().addAll(List.of(entity1, agent, entity2, entity4));
+        bundle.getStatement().addAll(List.of(relation1, relation2, relation3));
+        document.setNamespace(Namespace.gatherNamespaces(document));
+        bundle.setNamespace(Namespace.gatherNamespaces(document));
+
+        CpmDocument doc = new CpmDocument(document, pF, cF);
+
+        List<INode> bb = doc.getBackbonePart();
+        assertEquals(2, bb.size());
+        assertTrue(bb.stream().anyMatch(x -> entity2.equals(x.getElement())));
+        assertTrue(bb.stream().anyMatch(x -> entity4.equals(x.getElement())));
+        assertEquals(0, bb.getFirst().getCauseEdges().size());
+        assertEquals(1, bb.getFirst().getEffectEdges().size());
+        assertEquals(relation2, bb.getFirst().getEffectEdges().getFirst().getRelation());
+
+        List<INode> ds = doc.getDomainSpecificPart();
+        assertEquals(2, ds.size());
+        assertTrue(ds.stream().anyMatch(x -> entity1.equals(x.getElement())));
+        assertTrue(ds.stream().anyMatch(x -> agent.equals(x.getElement())));
+        assertEquals(0, ds.getFirst().getCauseEdges().size());
+        assertEquals(1, ds.getFirst().getEffectEdges().size());
+        assertEquals(relation1, ds.getFirst().getEffectEdges().getFirst().getRelation());
+
+        List<IEdge> crossPart = doc.getCrossPartEdges();
+        assertEquals(1, crossPart.size());
+        assertEquals(relation3, crossPart.getFirst().getRelation());
     }
 }
