@@ -98,4 +98,83 @@ public class CpmFactoryTest {
         assertNotNull(result);
         assertTrue(attributes.contains(cF.newCpmType(type)));
     }
+
+    @Test
+    public void newBBNode_edgeWithBBNode_returnsExpectedBBNode() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity = cF.newCpmEntity(id1, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
+        Entity entity2 = cF.newCpmEntity(id1, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id3 = cF.newCpmQualifiedName("qN3");
+        Entity entity3 = cF.getProvFactory().newEntity(id3);
+
+        Relation relation = cF.getProvFactory().newWasDerivedFrom(id1, id2);
+
+        INode node = cF.newNode(entity);
+        INode node2 = cF.newNode(entity2);
+
+        IEdge edge = cF.newEdge(relation);
+        edge.setCause(node);
+        edge.setEffect(node2);
+
+        node.getCauseEdges().add(edge);
+
+        Relation relation2 = cF.getProvFactory().newWasDerivedFrom(id1, id3);
+        INode node3 = cF.newNode(entity3);
+
+        IEdge edge2 = cF.newEdge(relation2);
+        edge2.setCause(node);
+        edge2.setEffect(node3);
+
+        node.getCauseEdges().add(edge2);
+
+        INode output = cF.newBBNode(node);
+
+        assertNotNull(output);
+        assertEquals(1, output.getCauseEdges().size());
+        assertEquals(entity, output.getCauseEdges().getFirst().getCause().getElement());
+        assertEquals(entity2, output.getCauseEdges().getFirst().getEffect().getElement());
+    }
+
+
+    @Test
+    public void newBBNode_edgeWithDSNode_returnsExpectedDSNode() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity = cF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
+        Entity entity2 = cF.newCpmEntity(id1, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id3 = cF.newCpmQualifiedName("qN3");
+        Entity entity3 = cF.getProvFactory().newEntity(id3);
+
+        Relation relation = cF.getProvFactory().newWasDerivedFrom(id1, id2);
+
+        INode node = cF.newNode(entity);
+        INode node2 = cF.newNode(entity2);
+
+        IEdge edge = cF.newEdge(relation);
+        edge.setCause(node);
+        edge.setEffect(node2);
+
+        node.getCauseEdges().add(edge);
+
+        Relation relation2 = cF.getProvFactory().newWasDerivedFrom(id1, id3);
+        INode node3 = cF.newNode(entity3);
+
+        IEdge edge2 = cF.newEdge(relation2);
+        edge2.setCause(node);
+        edge2.setEffect(node3);
+
+        node.getCauseEdges().add(edge2);
+
+        INode output = cF.newDSNode(node);
+
+        assertNotNull(output);
+        assertEquals(1, output.getCauseEdges().size());
+        assertEquals(entity, output.getCauseEdges().getFirst().getCause().getElement());
+        assertEquals(entity3, output.getCauseEdges().getFirst().getEffect().getElement());
+    }
 }

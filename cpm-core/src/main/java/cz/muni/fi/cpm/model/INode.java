@@ -34,5 +34,4 @@ public interface INode {
         allEdges.addAll(getCauseEdges());
         return allEdges;
     }
-
 }

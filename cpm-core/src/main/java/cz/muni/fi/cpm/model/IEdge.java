@@ -12,4 +12,10 @@ public interface IEdge {
     INode getCause();
 
     void setCause(INode cause);
+
+    boolean isBackbone();
+
+    boolean isDomainSpecific();
+
+    boolean isCrossPart();
 }

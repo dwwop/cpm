@@ -9,15 +9,20 @@ import java.util.Objects;
 
 public class CpmUtilities {
 
-    public static boolean isCpmElement(Element element) {
-        return element.getType().stream().anyMatch(x ->
-                x.getValue() instanceof QualifiedName qN &&
+    public static boolean isBackbone(Element element) {
+        return element != null && element.getType().size() == 1 &&
+                (element.getType().getFirst().getValue() instanceof QualifiedName qN &&
                         CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()));
+                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix())) &&
+                element.getOther().stream().allMatch(x ->
+                        x.getElementName() instanceof QualifiedName qN2 &&
+                                CpmNamespaceConstants.CPM_NS.equals(qN2.getNamespaceURI()) &&
+                                CpmNamespaceConstants.CPM_PREFIX.equals(qN2.getPrefix())) &&
+                element.getLocation().isEmpty() && element.getLabel().isEmpty();
     }
 
     public static boolean hasCpmType(Element element, CpmType type) {
-        return type != null && element.getType().stream().anyMatch(x ->
+        return element != null && type != null && element.getType().stream().anyMatch(x ->
                 x.getValue() instanceof QualifiedName qN &&
                         CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
                         CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
