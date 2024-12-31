@@ -118,7 +118,7 @@ public class CpmDocumentTest {
 
 
     @Test
-    public void constructor_regularActivity_throwsRuntimeExceptionForMainActivity() {
+    public void constructor_regularActivity_returnsNull() {
         Document document = pF.newDocument();
         document.setNamespace(cF.newCpmNamespace());
 
@@ -134,7 +134,7 @@ public class CpmDocumentTest {
 
         assertNotNull(doc.getNode(activityId));
         assertTrue(doc.getBackbone().isEmpty());
-        assertThrows(RuntimeException.class, () -> doc.getMainActivity());
+        assertNull(doc.getMainActivity());
     }
 
 
