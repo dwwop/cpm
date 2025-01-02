@@ -54,7 +54,7 @@ public class BackboneDeserializerTest {
             IBackboneDeserializer deserializer = new BackboneDeserializer();
             Document doc = deserializer.deserializeDocument(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
-            Document transDoc = new CpmDocument(doc, pF, new CpmFactory(pF)).toDocument();
+            Document transDoc = new CpmDocument(doc, pF, cF).toDocument();
 
             File outputFile = new File("src/test/resources/outputTrans.provn");
             serialiser.serialiseDocument(new FileOutputStream(outputFile), transDoc, true);
