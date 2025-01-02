@@ -47,6 +47,34 @@ public class CpmDocument implements StatementAction {
         u.forAllStatement(docBundle.getStatement(), this);
     }
 
+    public CpmDocument(final QualifiedName bundleId, List<INode> backbone, List<INode> domainSpecificPart, List<IEdge> crossPartEdges, ProvFactory provFactory, ICpmFactory cpmFactory) {
+        this.pF = provFactory;
+        this.cF = cpmFactory;
+        this.bundleId = bundleId;
+
+        if (bundleId == null || backbone == null || domainSpecificPart == null || crossPartEdges == null) {
+            throw new IllegalArgumentException(CpmExceptionConstants.NOT_NULL_PARTS);
+        }
+
+        addNodes(backbone);
+        addNodes(domainSpecificPart);
+        addEdges(crossPartEdges);
+    }
+
+    public CpmDocument(List<Statement> backbone, List<Statement> domainSpecificPart, List<Statement> crossPartEdges, final QualifiedName bundleId, ProvFactory provFactory, ICpmFactory cpmFactory) {
+        this.pF = provFactory;
+        this.cF = cpmFactory;
+        this.bundleId = bundleId;
+
+        if (bundleId == null || backbone == null || domainSpecificPart == null || crossPartEdges == null) {
+            throw new IllegalArgumentException(CpmExceptionConstants.NOT_NULL_PARTS);
+        }
+
+        u.forAllStatement(backbone, this);
+        u.forAllStatement(domainSpecificPart, this);
+        u.forAllStatement(crossPartEdges, this);
+    }
+
     /**
      * Converts the current object to a {@link Document} representation.
      * This method creates a new {@link Document} and populates it with statements
@@ -77,6 +105,13 @@ public class CpmDocument implements StatementAction {
         bundleNs.setParent(ns);
 
         return document;
+    }
+
+
+    private void addEdges(List<IEdge> edges) {
+        for (IEdge edge : edges) {
+            u.doAction(edge.getRelation(), this);
+        }
     }
 
     private void addEdge(Relation relation) {
@@ -122,6 +157,13 @@ public class CpmDocument implements StatementAction {
         }
 
         edges.add(edge);
+    }
+
+    private void addNodes(List<INode> nodes) {
+        for (INode node : nodes) {
+            u.doAction(node.getElement(), this);
+            addEdges(node.getAllEdges());
+        }
     }
 
     private void addNode(Element element) {
@@ -545,5 +587,26 @@ public class CpmDocument implements StatementAction {
 
     public void setBundleId(QualifiedName id) {
         this.bundleId = id;
+    }
+
+    public QualifiedName getBundleId() {
+        return this.bundleId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        CpmDocument document = (CpmDocument) o;
+        return Objects.equals(effectEdges, document.effectEdges) &&
+                Objects.equals(causeEdges, document.causeEdges) &&
+                Objects.equals(nodes, document.nodes) &&
+                Objects.equals(edges.size(), document.edges.size()) &&
+                Objects.equals(new HashSet<>(edges), new HashSet<>(document.edges)) &&
+                Objects.equals(bundleId, document.bundleId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(effectEdges, causeEdges, nodes, edges, bundleId);
     }
 }

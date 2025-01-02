@@ -73,12 +73,19 @@ public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Edge edge = (Edge) o;
-        return Objects.equals(relation, edge.relation) && Objects.equals(effect, edge.effect) && Objects.equals(cause, edge.cause);
+        return Objects.equals(relation, edge.relation) &&
+                Objects.equals(effect != null ? effect.getElement() : null,
+                        edge.effect != null ? edge.effect.getElement() : null) &&
+                Objects.equals(cause != null ? cause.getElement() : null,
+                        edge.cause != null ? edge.cause.getElement() : null);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(relation, effect, cause);
+        return Objects.hash(relation,
+                effect != null ? effect.getElement() : null,
+                cause != null ? cause.getElement() : null
+        );
     }
 
 }
