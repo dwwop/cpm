@@ -76,6 +76,240 @@ public class CpmDocumentTest {
         assertThrows(IllegalArgumentException.class, () -> new CpmDocument(document, pF, cF));
     }
 
+    @Test
+    public void constructor_graphPartsNullDocument_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), pF, cF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(pF.newQualifiedName("uri", "bundle", "ex"), null, new ArrayList<>(), new ArrayList<>(), pF, cF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(pF.newQualifiedName("uri", "bundle", "ex"), new ArrayList<>(), null, new ArrayList<>(), pF, cF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(pF.newQualifiedName("uri", "bundle", "ex"), new ArrayList<>(), new ArrayList<>(), null, pF, cF));
+    }
+
+
+    @Test
+    public void constructor_statementPartsNullDocument_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null, pF, cF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(null, new ArrayList<>(), new ArrayList<>(), pF.newQualifiedName("uri", "bundle", "ex"), pF, cF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(new ArrayList<>(), null, new ArrayList<>(), pF.newQualifiedName("uri", "bundle", "ex"), pF, cF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(new ArrayList<>(), new ArrayList<>(), null, pF.newQualifiedName("uri", "bundle", "ex"), pF, cF));
+    }
+
+
+    @Test
+    public void constructor_graph_returnsExpectedDocument() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity1 = cF.getProvFactory().newEntity(id1);
+        INode node1 = cF.newNode(entity1);
+
+        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
+        Entity entity2 = cF.newCpmEntity(id2, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+        INode node2 = cF.newNode(entity2);
+
+        QualifiedName id3 = cF.newCpmQualifiedName("qN3");
+        Agent agent = cF.getProvFactory().newAgent(id3);
+        INode node3 = cF.newNode(agent);
+
+        QualifiedName id4 = cF.newCpmQualifiedName("qN4");
+        Entity entity4 = cF.newCpmEntity(id4, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+        INode node4 = cF.newNode(entity4);
+
+        Relation relation1 = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id1, id3);
+        IEdge edge1 = cF.newEdge(relation1);
+        edge1.setEffect(node1);
+        edge1.setCause(node3);
+        node1.getEffectEdges().add(edge1);
+        node3.getCauseEdges().add(edge1);
+
+        Relation relation2 = cF.getProvFactory().newWasDerivedFrom(id2, id4);
+        IEdge edge2 = cF.newEdge(relation2);
+        edge2.setEffect(node2);
+        edge2.setCause(node4);
+        node2.getEffectEdges().add(edge2);
+        node4.getCauseEdges().add(edge2);
+
+        Relation relation3 = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id2, id3);
+        IEdge edge3 = cF.newEdge(relation3);
+        edge3.setEffect(node2);
+        edge3.setCause(node3);
+        node2.getEffectEdges().add(edge3);
+        node3.getCauseEdges().add(edge3);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(entity2, entity4, relation2), List.of(entity1, agent, relation1), List.of(relation3), bundleId, pF, cF);
+
+        assertEquals(node1, doc.getNode(id1));
+        assertEquals(node2, doc.getNode(id2));
+        assertEquals(node3, doc.getNode(id3));
+        assertEquals(node4, doc.getNode(id4));
+        assertEquals(edge1, doc.getEdge(id1, id3));
+        assertEquals(edge2, doc.getEdge(id2, id4));
+        assertEquals(edge3, doc.getEdge(id2, id3));
+        assertNotNull(doc.getBundleId());
+    }
+
+    @Test
+    public void constructor_statements_returnsExpectedDocument() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity1 = cF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
+        Entity entity2 = cF.newCpmEntity(id2, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id3 = cF.newCpmQualifiedName("qN3");
+        Agent agent = cF.getProvFactory().newAgent(id3);
+
+        QualifiedName id4 = cF.newCpmQualifiedName("qN4");
+        Entity entity4 = cF.newCpmEntity(id4, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        Relation relation1 = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id1, id3);
+
+        Relation relation2 = cF.getProvFactory().newWasDerivedFrom(id2, id4);
+
+        Relation relation3 = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id2, id3);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(entity2, entity4, relation2), List.of(entity1, agent, relation1), List.of(relation3), bundleId, pF, cF);
+
+        assertNotNull(doc.getNode(id1));
+        assertNotNull(doc.getNode(id2));
+        assertNotNull(doc.getNode(id3));
+        assertNotNull(doc.getNode(id4));
+        assertNotNull(doc.getEdge(id1, id3));
+        assertNotNull(doc.getEdge(id2, id4));
+        assertNotNull(doc.getEdge(id2, id3));
+        assertNotNull(doc.getBundleId());
+    }
+
+    @Test
+    public void equals_graphAndStatementsAndDocument_returnsTrue() {
+        QualifiedName id1Stat = cF.newCpmQualifiedName("qN1");
+        Entity entity1Stat = cF.getProvFactory().newEntity(id1Stat);
+
+        QualifiedName id2Stat = cF.newCpmQualifiedName("qN2");
+        Entity entity2Stat = cF.newCpmEntity(id2Stat, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id3Stat = cF.newCpmQualifiedName("qN3");
+        Agent agentStat = cF.getProvFactory().newAgent(id3Stat);
+
+        QualifiedName id4Stat = cF.newCpmQualifiedName("qN4");
+        Entity entity4Stat = cF.newCpmEntity(id4Stat, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        Relation relation1Stat = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id1Stat, id3Stat);
+
+        Relation relation2Stat = cF.getProvFactory().newWasDerivedFrom(id2Stat, id4Stat);
+
+        Relation relation3Stat = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id2Stat, id3Stat);
+
+        QualifiedName bundleIdStat = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument docStat = new CpmDocument(List.of(entity2Stat, entity4Stat, relation2Stat), List.of(entity1Stat, agentStat, relation1Stat), List.of(relation3Stat), bundleIdStat, pF, cF);
+
+
+        QualifiedName id1Graph = cF.newCpmQualifiedName("qN1");
+        Entity entity1Graph = cF.getProvFactory().newEntity(id1Graph);
+        INode node1Graph = cF.newNode(entity1Graph);
+
+        QualifiedName id2Graph = cF.newCpmQualifiedName("qN2");
+        Entity entity2Graph = cF.newCpmEntity(id2Graph, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+        INode node2Graph = cF.newNode(entity2Graph);
+
+        QualifiedName id3Graph = cF.newCpmQualifiedName("qN3");
+        Agent agentGraph = cF.getProvFactory().newAgent(id3Graph);
+        INode node3Graph = cF.newNode(agentGraph);
+
+        QualifiedName id4Graph = cF.newCpmQualifiedName("qN4");
+        Entity entity4Graph = cF.newCpmEntity(id4Graph, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+        INode node4Graph = cF.newNode(entity4Graph);
+
+        Relation relation1Graph = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id1Graph, id3Graph);
+        IEdge edge1Graph = cF.newEdge(relation1Graph);
+        edge1Graph.setEffect(node1Graph);
+        edge1Graph.setCause(node3Graph);
+        node1Graph.getEffectEdges().add(edge1Graph);
+        node3Graph.getCauseEdges().add(edge1Graph);
+
+        Relation relation2Graph = cF.getProvFactory().newWasDerivedFrom(id2Graph, id4Graph);
+        IEdge edge2 = cF.newEdge(relation2Graph);
+        edge2.setEffect(node2Graph);
+        edge2.setCause(node4Graph);
+        node2Graph.getEffectEdges().add(edge2);
+        node4Graph.getCauseEdges().add(edge2);
+
+        Relation relation3Graph = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id2Graph, id3Graph);
+        IEdge edge3 = cF.newEdge(relation3Graph);
+        edge3.setEffect(node2Graph);
+        edge3.setCause(node3Graph);
+        node2Graph.getEffectEdges().add(edge3);
+        node3Graph.getCauseEdges().add(edge3);
+
+        QualifiedName bundleIdGraph = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument docGraph = new CpmDocument(List.of(entity2Graph, entity4Graph, relation2Graph), List.of(entity1Graph, agentGraph, relation1Graph), List.of(relation3Graph), bundleIdGraph, pF, cF);
+
+        QualifiedName id1Doc = cF.newCpmQualifiedName("qN1");
+        Entity entity1Doc = cF.getProvFactory().newEntity(id1Doc);
+
+        QualifiedName id2Doc = cF.newCpmQualifiedName("qN2");
+        Entity entity2Doc = cF.newCpmEntity(id2Doc, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        QualifiedName id3Doc = cF.newCpmQualifiedName("qN3");
+        Agent agentDoc = cF.getProvFactory().newAgent(id3Doc);
+
+        QualifiedName id4Doc = cF.newCpmQualifiedName("qN4");
+        Entity entity4Doc = cF.newCpmEntity(id4Doc, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
+
+        Relation relation1Doc = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id1Doc, id3Doc);
+
+        Relation relation2Doc = cF.getProvFactory().newWasDerivedFrom(id2Doc, id4Doc);
+
+        Relation relation3Doc = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id2Doc, id3Doc);
+
+        Document document = pF.newDocument();
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        bundle.getStatement().addAll(List.of(entity1Doc, agentDoc, entity2Doc, entity4Doc));
+        bundle.getStatement().addAll(List.of(relation1Doc, relation2Doc, relation3Doc));
+        document.setNamespace(Namespace.gatherNamespaces(document));
+        bundle.setNamespace(Namespace.gatherNamespaces(document));
+
+        CpmDocument docDoc = new CpmDocument(document, pF, cF);
+
+        assertEquals(docDoc, docGraph);
+        assertEquals(docStat, docGraph);
+        assertEquals(docStat, docDoc);
+    }
+
+    @Test
+    public void equals_unmappedRelations_returnsTrue() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+
+        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
+
+        QualifiedName id3 = cF.newCpmQualifiedName("qN3");
+
+        QualifiedName id4 = cF.newCpmQualifiedName("qN4");
+
+        Relation relation1 = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id1, id3);
+
+        Relation relation2 = cF.getProvFactory().newWasDerivedFrom(id2, id4);
+        Document document = pF.newDocument();
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+        bundle.getStatement().addAll(List.of(relation1, relation2));
+        CpmDocument doc1 = new CpmDocument(document, pF, cF);
+
+        Document document2 = pF.newDocument();
+        Bundle bundle2 = pF.newNamedBundle(id, new ArrayList<>());
+        document2.getStatementOrBundle().add(bundle2);
+        CpmDocument doc2 = new CpmDocument(document2, pF, cF);
+        bundle2.getStatement().add(relation1);
+
+        assertNotEquals(doc1, doc2);
+    }
 
     @Test
     public void constructor_namespace_returnsExpectedNamespaces() {
@@ -181,6 +415,7 @@ public class CpmDocumentTest {
         assertTrue(doc.getBackbonePart().isEmpty());
         assertTrue(doc.getForwardConnectors().isEmpty());
         assertEquals(entity, doc.getNode(entityId).getElement());
+        assertNotNull(doc.getBundleId());
     }
 
 

@@ -7,4 +7,5 @@ public class CpmExceptionConstants {
     public static final String NOT_NULL_DOCUMENT = "Document cannot be null";
     public static final String NOT_SUPPORTED = "Not supported";
     public static final String MULTIPLE_NODES = "Multiple nodes found for the given QualifiedName";
+    public static final String NOT_NULL_PARTS = "Document parts cannot be null";
 }

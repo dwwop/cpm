@@ -154,6 +154,7 @@ public class ProvUtilities2 {
         }
     }
 
+    // TODO ?
     public static void mergeAttributes(Influence existing, Influence newElement) {
         Set<LangString> set = new HashSet<>(newElement.getLabel());
         existing.getLabel().forEach(set::remove);
