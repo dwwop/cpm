@@ -444,6 +444,56 @@ public class CpmDocument implements StatementAction {
     }
 
     /**
+     * Removes a node with the specified ID and kind from the graph structure.
+     * <p>
+     * This method removes the node identified by the given {@code id} and {@code kind}.
+     * It removes the node from the graph and its associated parts and updates the corresponding collections
+     *
+     * @param id   the qualified name of the node to be removed
+     * @param kind the kind of the element within the node
+     * @return {@code true} if the node was successfully removed; {@code false} otherwise
+     */
+    public boolean removeNode(QualifiedName id, StatementOrBundle.Kind kind) {
+        INode node = getNode(id, kind);
+        if (node == null) {
+            return false;
+        }
+        node.getEffectEdges().forEach(e -> {
+            e.setEffect(null);
+            effectEdges.computeIfAbsent(id, _ -> new HashMap<>())
+                    .computeIfAbsent(kind, _ -> new ArrayList<>())
+                    .add(e);
+        });
+        node.getCauseEdges().forEach(e -> {
+            e.setCause(null);
+            causeEdges.computeIfAbsent(id, _ -> new HashMap<>())
+                    .computeIfAbsent(kind, _ -> new ArrayList<>())
+                    .add(e);
+        });
+
+        nodes.remove(id);
+        backbone.remove(node);
+        domainSpecificPart.remove(node);
+        return true;
+    }
+
+    /**
+     * Removes a node from the graph based on its identifier.
+     * If there are multiple nodes associated with the identifier,
+     * the node will not be removed and the method will return false.
+     *
+     * @param id the unique identifier of the node to be removed
+     * @return true if the node was successfully removed, false otherwise
+     */
+    public boolean removeNode(QualifiedName id) {
+        if (!nodes.containsKey(id) || nodes.get(id).size() != 1) {
+            return false;
+        }
+
+        return removeNode(id, getNode(id).getElement().getKind());
+    }
+
+    /**
      * Retrieves a single {@link INode} associated with the given {@link QualifiedName}, if exactly one exists.
      *
      * <p>This method should be used when exactly one node is expected. If multiple nodes exist for the given ID,
@@ -530,10 +580,14 @@ public class CpmDocument implements StatementAction {
      */
     public IEdge getEdge(QualifiedName effect, QualifiedName cause) {
         for (IEdge edge : edges) {
-            if (edge.getEffect() != null &&
-                    Objects.equals(effect, edge.getEffect().getElement().getId())
-                    && edge.getCause() != null &&
-                    Objects.equals(cause, edge.getCause().getElement().getId())) {
+            if (edge.getRelation() instanceof HadMember hM) {
+                if (Objects.equals(hM.getCollection(), effect) &&
+                        hM.getEntity() != null && hM.getEntity().contains(cause)) {
+                    return edge;
+                }
+            }
+            if (Objects.equals(u.getCause(edge.getRelation()), cause) &&
+                    Objects.equals(u.getEffect(edge.getRelation()), effect)) {
                 return edge;
             }
         }
@@ -585,12 +639,12 @@ public class CpmDocument implements StatementAction {
         return getRelatedConnectors(id, IEdge::getCause, INode::getEffectEdges);
     }
 
-    public void setBundleId(QualifiedName id) {
-        this.bundleId = id;
-    }
-
     public QualifiedName getBundleId() {
         return this.bundleId;
+    }
+
+    public void setBundleId(QualifiedName id) {
+        this.bundleId = id;
     }
 
     @Override

@@ -594,7 +594,9 @@ public class CpmDocumentTest {
         assertNotNull(doc.getNode(entityId1));
         assertNull(doc.getNode(entityId2));
         assertNotNull(doc.getEdge(relationId));
-        assertNull(doc.getEdge(entityId1, entityId2));
+        assertNotNull(doc.getEdge(entityId1, entityId2));
+        assertNull(doc.getEdge(entityId1, entityId2).getCause());
+        assertNotNull(doc.getEdge(entityId1, entityId2).getEffect());
         assertEquals(wasDerivedFrom, doc.getEdge(relationId).getRelation());
         assertFalse(doc.areAllRelationsMapped());
         assertEquals(entity1, doc.getEdge(relationId).getEffect().getElement());
@@ -633,8 +635,9 @@ public class CpmDocumentTest {
         assertNull(doc.getNode(entityId1));
         assertNotNull(doc.getNode(entityId2));
         assertNotNull(doc.getEdge(relationId));
-        assertNull(doc.getEdge(entityId2));
-        assertNull(doc.getEdge(entityId1, entityId2));
+        assertNotNull(doc.getEdge(entityId1, entityId2));
+        assertNotNull(doc.getEdge(entityId1, entityId2).getCause());
+        assertNull(doc.getEdge(entityId1, entityId2).getEffect());
         assertEquals(wasDerivedFrom, doc.getEdge(relationId).getRelation());
         assertFalse(doc.areAllRelationsMapped());
         assertEquals(entity2, doc.getEdge(relationId).getCause().getElement());
@@ -927,5 +930,67 @@ public class CpmDocumentTest {
         doc.setBundleId(null);
         Document output = doc.toDocument();
         assertNull(((Bundle) output.getStatementOrBundle().getFirst()).getId());
+    }
+
+
+    @Test
+    public void removeNode_nodeWithRelations_returnsTrue() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity = cF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
+        Agent agent = cF.getProvFactory().newAgent(id2);
+
+        Relation relation1 = cF.getProvFactory().newWasAttributedTo(cF.newCpmQualifiedName("attr"), id1, id2);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1), List.of(), bundleId, pF, cF);
+
+        assertTrue(doc.removeNode(id1));
+        assertNull(doc.getNodes(id1));
+        assertFalse(doc.areAllRelationsMapped());
+        assertNull(doc.getEdge(id1, id2).getEffect());
+        assertEquals(1, doc.getDomainSpecificPart().size());
+
+        assertTrue(doc.removeNode(id2));
+        assertNull(doc.getNodes(id2));
+        assertFalse(doc.areAllRelationsMapped());
+        assertNull(doc.getEdge(id1, id2).getCause());
+        assertEquals(0, doc.getDomainSpecificPart().size());
+
+        doc.doAction(entity);
+        doc.doAction(agent);
+        assertTrue(doc.areAllRelationsMapped());
+        assertNotNull(doc.getEdge(id1, id2).getEffect());
+        assertEquals(entity, doc.getEdge(id1, id2).getEffect().getElement());
+        assertNotNull(doc.getEdge(id1, id2).getCause());
+        assertEquals(agent, doc.getEdge(id1, id2).getCause().getElement());
+    }
+
+    @Test
+    public void removeNode_duplicateId_returnsFalse() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity1 = cF.getProvFactory().newEntity(id1);
+
+        Agent agent = cF.getProvFactory().newAgent(id1);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity1, agent), List.of(), bundleId, pF, cF);
+
+        assertFalse(doc.removeNode(id1));
+    }
+
+    @Test
+    public void removeNode_nonExistentId_returnsFalse() {
+        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
+        Entity entity1 = cF.getProvFactory().newEntity(id1);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity1), List.of(), bundleId, pF, cF);
+
+        assertFalse(doc.removeNode(cF.newCpmQualifiedName("nonExistentId")));
     }
 }
