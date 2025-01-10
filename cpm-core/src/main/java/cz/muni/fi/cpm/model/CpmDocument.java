@@ -367,7 +367,7 @@ public class CpmDocument implements StatementAction {
      * @return {@code true} if all relations are mapped;
      * {@code false} otherwise
      */
-    public boolean areAllRelationsMapped() {
+    boolean areAllRelationsMapped() {
         return effectEdges.isEmpty() && causeEdges.isEmpty();
     }
 
@@ -554,44 +554,99 @@ public class CpmDocument implements StatementAction {
     }
 
     /**
-     * Retrieves an edge from the list of edges based on the provided identifier.
-     * This method searches for an edge where the relation's ID matches the specified {@link QualifiedName}.
+     * Retrieves all edges associated with a given relation identifier.
+     * This method searches through the list of edges and returns those whose relation ID matches the specified {@link QualifiedName}.
      *
      * @param id the identifier of the relation to search for
-     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     * @return a list of {@link IEdge} objects matching the specified identifier, or an empty list if none are found
      */
-    public IEdge getEdge(QualifiedName id) {
+    public List<IEdge> getEdges(QualifiedName id) {
+        List<IEdge> result = new ArrayList<>();
         for (IEdge edge : edges) {
             if (edge.getRelation() instanceof Identifiable relWithId
-                    && Objects.equals(id, relWithId.getId())) {
-                return edge;
+                    && Objects.equals(id, relWithId.getId())
+            ) {
+                result.add(edge);
             }
         }
-        return null;
+        return result;
     }
 
     /**
-     * Retrieves an edge based on the provided effect and cause identifiers.
-     * This method searches for an edge where the effect and cause match the specified {@link QualifiedName} values.
+     * Retrieves a single edge associated with a given relation identifier.
+     * This method searches for an edge whose relation ID matches the specified {@link QualifiedName}.
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     *
+     * @param id the identifier of the relation to search for
+     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     * @throws IllegalStateException if multiple edges are found with the same identifier
+     */
+    public IEdge getEdge(QualifiedName id) {
+        List<IEdge> edges = getEdges(id);
+        if (edges.isEmpty()) {
+            return null;
+        }
+
+        if (edges.size() != 1) {
+            throw new IllegalStateException(CpmExceptionConstants.MULTIPLE_EDGES);
+        }
+
+        return edges.getFirst();
+    }
+
+    /**
+     * Retrieves all edges that match the specified effect and cause identifiers.
+     * This method searches for edges where:
+     * <ul>
+     *     <li>The relation is a {@link HadMember} and the collection matches the effect and the cause is contained within the entity.</li>
+     *     <li>The cause and effect of the relation match the specified identifiers.</li>
+     * </ul>
+     *
+     * @param effect the identifier of the effect
+     * @param cause  the identifier of the cause
+     * @return a list of {@link IEdge} objects matching the specified effect and cause, or an empty list if none are found
+     */
+    public List<IEdge> getEdges(QualifiedName effect, QualifiedName cause) {
+        List<IEdge> result = new ArrayList<>();
+        for (IEdge edge : edges) {
+            if (edge.getRelation() instanceof HadMember hM) {
+                if (Objects.equals(hM.getCollection(), effect) &&
+                        hM.getEntity() != null && hM.getEntity().contains(cause) &&
+                        (edge.getCause() != null && Objects.equals(edge.getCause().getElement().getId(), cause) ||
+                                edge.getCause() == null && causeEdges.getOrDefault(cause, Map.of())
+                                        .getOrDefault(StatementOrBundle.Kind.PROV_ENTITY, List.of())
+                                        .stream().anyMatch(x -> x == edge))) {
+                    result.add(edge);
+                }
+            } else if (Objects.equals(u.getCause(edge.getRelation()), cause) &&
+                    Objects.equals(u.getEffect(edge.getRelation()), effect)) {
+                result.add(edge);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Retrieves a single edge that matches the specified effect and cause identifiers.
+     * This method searches for an edge whose effect and cause match the specified {@link QualifiedName} values.
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
      *
      * @param effect the identifier of the effect
      * @param cause  the identifier of the cause
      * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     * @throws IllegalStateException if multiple edges are found between the specified effect and cause
      */
     public IEdge getEdge(QualifiedName effect, QualifiedName cause) {
-        for (IEdge edge : edges) {
-            if (edge.getRelation() instanceof HadMember hM) {
-                if (Objects.equals(hM.getCollection(), effect) &&
-                        hM.getEntity() != null && hM.getEntity().contains(cause)) {
-                    return edge;
-                }
-            }
-            if (Objects.equals(u.getCause(edge.getRelation()), cause) &&
-                    Objects.equals(u.getEffect(edge.getRelation()), effect)) {
-                return edge;
-            }
+        List<IEdge> edges = getEdges(effect, cause);
+        if (edges.isEmpty()) {
+            return null;
         }
-        return null;
+
+        if (edges.size() != 1) {
+            throw new IllegalStateException(CpmExceptionConstants.MULTIPLE_EDGES_BETWEEN_NODES);
+        }
+
+        return edges.getFirst();
     }
 
     private boolean removeEdge(IEdge edge) {
@@ -686,6 +741,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of precursor nodes, or {@code null} the node is not a connector or is {@code null}
      */
     public List<INode> getPrecursors(QualifiedName id) {
+        // look at david rypar thesis
         return getRelatedConnectors(id, IEdge::getEffect, INode::getCauseEdges);
     }
 
