@@ -594,6 +594,67 @@ public class CpmDocument implements StatementAction {
         return null;
     }
 
+    private boolean removeEdge(IEdge edge) {
+        if (edge == null) {
+            return false;
+        }
+        if (edge.getCause() != null) {
+            edge.getCause().getCauseEdges().remove(edge);
+        } else {
+            causeEdges.computeIfPresent(u.getCause(edge.getRelation()), (_, nodeKindMap) -> {
+                try {
+                    nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getRelation()), (_, edgeList) -> {
+                        edgeList.remove(edge);
+                        return edgeList.isEmpty() ? null : edgeList;
+                    });
+                } catch (NoSpecificKind ignored) {
+                }
+                return nodeKindMap.isEmpty() ? null : nodeKindMap;
+            });
+        }
+
+        if (edge.getEffect() != null) {
+            edge.getEffect().getEffectEdges().remove(edge);
+        } else {
+            effectEdges.computeIfPresent(u.getEffect(edge.getRelation()), (_, nodeKindMap) -> {
+                try {
+                    nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getRelation()), (_, edgeList) -> {
+                        edgeList.remove(edge);
+                        return edgeList.isEmpty() ? null : edgeList;
+                    });
+                } catch (NoSpecificKind ignored) {
+                }
+                return nodeKindMap.isEmpty() ? null : nodeKindMap;
+            });
+        }
+
+        edges.remove(edge);
+        return true;
+    }
+
+    /**
+     * Removes an edge identified by its unique ID.
+     *
+     * @param id the unique identifier of the edge to be removed
+     * @return {@code true} if the edge was successfully removed, {@code false} otherwise
+     */
+    public boolean removeEdge(QualifiedName id) {
+        IEdge edge = getEdge(id);
+        return removeEdge(edge);
+    }
+
+    /**
+     * Removes an edge based on its effect and cause identifiers.
+     *
+     * @param effect the identifier of the effect node
+     * @param cause  the identifier of the cause node
+     * @return {@code true} if the edge was successfully removed, {@code false} otherwise
+     */
+    public boolean removeEdge(QualifiedName effect, QualifiedName cause) {
+        IEdge edge = getEdge(effect, cause);
+        return removeEdge(edge);
+    }
+
     private List<INode> getRelatedConnectors(QualifiedName id, Function<IEdge, INode> extractNode, Function<INode, List<IEdge>> extractEdges) {
         INode node = getNode(id, StatementOrBundle.Kind.PROV_ENTITY);
         if (node == null || !CpmUtilities.isConnector(node.getElement())) {
