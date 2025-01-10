@@ -649,53 +649,54 @@ public class CpmDocument implements StatementAction {
         return edges.getFirst();
     }
 
-    private boolean removeEdge(IEdge edge) {
-        if (edge == null) {
+    private boolean removeEdge(List<IEdge> edgesToRemove) {
+        if (edgesToRemove == null || edgesToRemove.isEmpty()) {
             return false;
         }
-        if (edge.getCause() != null) {
-            edge.getCause().getCauseEdges().remove(edge);
-        } else {
-            causeEdges.computeIfPresent(u.getCause(edge.getRelation()), (_, nodeKindMap) -> {
-                try {
-                    nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getRelation()), (_, edgeList) -> {
-                        edgeList.remove(edge);
-                        return edgeList.isEmpty() ? null : edgeList;
-                    });
-                } catch (NoSpecificKind ignored) {
-                }
-                return nodeKindMap.isEmpty() ? null : nodeKindMap;
-            });
-        }
+        for (IEdge edge : edgesToRemove) {
+            if (edge.getCause() != null) {
+                edge.getCause().getCauseEdges().remove(edge);
+            } else {
+                causeEdges.computeIfPresent(u.getCause(edge.getRelation()), (_, nodeKindMap) -> {
+                    try {
+                        nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getRelation()), (_, edgeList) -> {
+                            edgeList.remove(edge);
+                            return edgeList.isEmpty() ? null : edgeList;
+                        });
+                    } catch (NoSpecificKind ignored) {
+                    }
+                    return nodeKindMap.isEmpty() ? null : nodeKindMap;
+                });
+            }
 
-        if (edge.getEffect() != null) {
-            edge.getEffect().getEffectEdges().remove(edge);
-        } else {
-            effectEdges.computeIfPresent(u.getEffect(edge.getRelation()), (_, nodeKindMap) -> {
-                try {
-                    nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getRelation()), (_, edgeList) -> {
-                        edgeList.remove(edge);
-                        return edgeList.isEmpty() ? null : edgeList;
-                    });
-                } catch (NoSpecificKind ignored) {
-                }
-                return nodeKindMap.isEmpty() ? null : nodeKindMap;
-            });
-        }
+            if (edge.getEffect() != null) {
+                edge.getEffect().getEffectEdges().remove(edge);
+            } else {
+                effectEdges.computeIfPresent(u.getEffect(edge.getRelation()), (_, nodeKindMap) -> {
+                    try {
+                        nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getRelation()), (_, edgeList) -> {
+                            edgeList.remove(edge);
+                            return edgeList.isEmpty() ? null : edgeList;
+                        });
+                    } catch (NoSpecificKind ignored) {
+                    }
+                    return nodeKindMap.isEmpty() ? null : nodeKindMap;
+                });
+            }
 
-        edges.remove(edge);
+            edges.remove(edge);
+        }
         return true;
     }
 
     /**
-     * Removes an edge identified by its unique ID.
+     * Removes all edges identified by its unique ID.
      *
      * @param id the unique identifier of the edge to be removed
      * @return {@code true} if the edge was successfully removed, {@code false} otherwise
      */
     public boolean removeEdge(QualifiedName id) {
-        IEdge edge = getEdge(id);
-        return removeEdge(edge);
+        return removeEdge(getEdges(id));
     }
 
     /**
@@ -706,8 +707,7 @@ public class CpmDocument implements StatementAction {
      * @return {@code true} if the edge was successfully removed, {@code false} otherwise
      */
     public boolean removeEdge(QualifiedName effect, QualifiedName cause) {
-        IEdge edge = getEdge(effect, cause);
-        return removeEdge(edge);
+        return removeEdge(getEdges(effect, cause));
     }
 
     private List<INode> getRelatedConnectors(QualifiedName id, Function<IEdge, INode> extractNode, Function<INode, List<IEdge>> extractEdges) {

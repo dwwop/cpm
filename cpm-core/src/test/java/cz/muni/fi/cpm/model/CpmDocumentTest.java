@@ -791,7 +791,6 @@ public class CpmDocumentTest {
     }
 
 
-
     @Test
     public void constructor_HadMemberToDocument_returnsExpectedDocument() {
         Document document = pF.newDocument();
