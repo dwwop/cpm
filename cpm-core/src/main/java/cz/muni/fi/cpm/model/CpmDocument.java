@@ -18,6 +18,9 @@ public class CpmDocument implements StatementAction {
 
     private final Map<QualifiedName, Map<StatementOrBundle.Kind, List<IEdge>>> effectEdges = new HashMap<>();
     private final Map<QualifiedName, Map<StatementOrBundle.Kind, List<IEdge>>> causeEdges = new HashMap<>();
+    private final Map<QualifiedName, Map<QualifiedName, List<IEdge>>> causeInfluences = new HashMap<>();
+    private final Map<QualifiedName, Map<QualifiedName, List<IEdge>>> effectInfluences = new HashMap<>();
+
 
     private final Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> nodes = new HashMap<>();
     private final List<IEdge> edges = new ArrayList<>();
@@ -135,7 +138,7 @@ public class CpmDocument implements StatementAction {
                         .add(edge);
             }
         } catch (NoSpecificKind ignored) {
-            // TODO how to handle
+            // handled in doAction(WasInfluencedBy)
         }
 
         try {
@@ -153,7 +156,7 @@ public class CpmDocument implements StatementAction {
                         .add(edge);
             }
         } catch (NoSpecificKind ignored) {
-            // TODO how to handle
+            // handled in doAction(WasInfluencedBy)
         }
 
         edges.add(edge);
@@ -163,6 +166,121 @@ public class CpmDocument implements StatementAction {
         for (INode node : nodes) {
             u.doAction(node.getElement(), this);
             addEdges(node.getAllEdges());
+        }
+    }
+
+    private void processEffectInfluence(QualifiedName effect, INode newNode) {
+        if (!effectInfluences.containsKey(effect)) {
+            return;
+        }
+        for (QualifiedName cause : effectInfluences.get(effect).keySet()) {
+            List<IEdge> influences = effectInfluences.get(effect).get(cause);
+
+            if (influences.getFirst().getEffect() == null && influences.getFirst().getCause() == null) {
+                // exactly one edge in influences list, no need to update causeInfluences because the object is the same
+                influences.getFirst().setEffect(newNode);
+                newNode.getEffectEdges().add(influences.getFirst());
+                continue;
+            }
+
+            if (influences.getFirst().getEffect() != null && influences.getFirst().getCause() == null) {
+                // need to handle separately in order to not create duplicate edges
+                // since there is no cause edge, all other edges (1 or 2) will be the same
+                IEdge edge = cF.newEdge(influences.getFirst());
+                edge.setEffect(newNode);
+                newNode.getEffectEdges().add(edge);
+                influences.add(edge);
+                causeInfluences.get(cause).get(effect).add(edge);
+                edges.add(edge);
+                continue;
+            }
+            if (influences.getFirst().getCause() != null && influences.getFirst().getEffect() != null) {
+                // since we can have any situation between no. of effect nodes : no. of cause nodes
+                // we need to get all ca
+
+                // effect - cause actual edges + edges to be added
+                // 1 - 1 1 + 1
+                // 1 - 2 2 + 2
+                // 1 - 3 3 + 3
+                // 2 - 1 2 + 1
+                // 2 - 2 4 + 2
+                // 2 - 3 6 + 3
+                for (INode causeNode : influences.stream().map(IEdge::getCause).distinct().toList()) {
+                    IEdge edge = cF.newEdge(influences.getFirst());
+                    edge.setEffect(newNode);
+                    edge.setCause(causeNode);
+                    newNode.getEffectEdges().add(edge);
+                    causeNode.getCauseEdges().add(edge);
+                    influences.add(edge);
+                    causeInfluences.get(cause).get(effect).add(edge);
+                    edges.add(edge);
+                }
+                continue;
+            }
+
+            // cause != null && effect == null
+            for (IEdge edge : effectInfluences.get(effect).get(cause)) {
+                edge.setEffect(newNode);
+                newNode.getEffectEdges().add(edge);
+            }
+        }
+    }
+
+
+    private void processCauseInfluence(QualifiedName cause, INode newNode) {
+        if (!causeInfluences.containsKey(cause)) {
+            return;
+        }
+        for (QualifiedName effect : causeInfluences.get(cause).keySet()) {
+            List<IEdge> influences = causeInfluences.get(cause).get(effect);
+
+            if (influences.getFirst().getEffect() == null && influences.getFirst().getCause() == null) {
+                // exactly one edge in influences list
+                influences.getFirst().setCause(newNode);
+                newNode.getCauseEdges().add(influences.getFirst());
+                continue;
+            }
+
+            if (influences.getFirst().getCause() != null && influences.getFirst().getEffect() == null) {
+                // need to handle separately in order to not create duplicate edges
+                // since there is no effect edge, all other edges (1 or 2) will be the same
+                IEdge edge = cF.newEdge(influences.getFirst());
+                edge.setCause(newNode);
+                newNode.getCauseEdges().add(edge);
+                influences.add(edge);
+                effectInfluences.get(effect).get(cause).add(edge);
+                edges.add(edge);
+                continue;
+            }
+            if (influences.getFirst().getCause() != null && influences.getFirst().getEffect() != null) {
+                // since we can have any situation between no. of cause nodes : no. of effect nodes
+                // we need to get all ca
+
+                // effect - cause actual edges + edges to be added
+                // 1 - 1 1 + 1
+                // 1 - 2 2 + 2
+                // 1 - 3 3 + 3
+                // 2 - 1 2 + 1
+                // 2 - 2 4 + 2
+                // 2 - 3 6 + 3
+                for (INode effectNode : influences.stream().map(IEdge::getEffect).distinct().toList()) {
+                    IEdge edge = cF.newEdge(influences.getFirst());
+                    edge.setCause(newNode);
+                    edge.setEffect(effectNode);
+                    newNode.getCauseEdges().add(edge);
+                    effectNode.getEffectEdges().add(edge);
+                    influences.add(edge);
+                    effectInfluences.get(effect).get(cause).add(edge);
+                    edges.add(edge);
+                }
+                continue;
+            }
+
+            // cause == null && effect != null
+            for (IEdge edge : causeInfluences.get(cause).get(effect)) {
+                edge.setCause(newNode);
+                newNode.getCauseEdges().add(edge);
+            }
         }
     }
 
@@ -205,6 +323,9 @@ public class CpmDocument implements StatementAction {
                 causeEdges.remove(id);
             }
         }
+
+        processCauseInfluence(id, newNode);
+        processEffectInfluence(id, newNode);
 
         if (CpmUtilities.isBackbone(element)) {
             backbone.add(newNode);
@@ -250,7 +371,60 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(WasInfluencedBy wasInfluencedBy) {
-        addEdge(wasInfluencedBy);
+        QualifiedName effect = u.getEffect(wasInfluencedBy);
+        QualifiedName cause = u.getCause(wasInfluencedBy);
+        List<INode> effectNodes = new ArrayList<>();
+        List<INode> causeNodes = new ArrayList<>();
+        List<IEdge> finalEdges = new ArrayList<>();
+
+        if (nodes.containsKey(effect)) {
+            effectNodes.addAll(nodes.get(effect).values());
+        }
+
+
+        if (nodes.containsKey(cause)) {
+            causeNodes.addAll(nodes.get(cause).values());
+        }
+
+        if (effectNodes.isEmpty() && causeNodes.isEmpty()) {
+            IEdge edge = cF.newEdge(wasInfluencedBy);
+            finalEdges.add(edge);
+        } else if (effectNodes.isEmpty()) {
+            for (INode causeNode : causeNodes) {
+                IEdge edge = cF.newEdge(wasInfluencedBy);
+                edge.setCause(causeNode);
+                causeNode.getCauseEdges().add(edge);
+                finalEdges.add(edge);
+            }
+        } else if (causeNodes.isEmpty()) {
+            for (INode effectNode : effectNodes) {
+                IEdge edge = cF.newEdge(wasInfluencedBy);
+                edge.setEffect(effectNode);
+                effectNode.getEffectEdges().add(edge);
+                finalEdges.add(edge);
+            }
+        } else {
+            for (INode effectNode : effectNodes) {
+                for (INode causeNode : causeNodes) {
+                    IEdge edge = cF.newEdge(wasInfluencedBy);
+                    edge.setEffect(effectNode);
+                    effectNode.getEffectEdges().add(edge);
+                    edge.setCause(causeNode);
+                    causeNode.getCauseEdges().add(edge);
+                    finalEdges.add(edge);
+                }
+            }
+        }
+
+        for (IEdge edge : finalEdges) {
+            causeInfluences.computeIfAbsent(cause, _ -> new HashMap<>())
+                    .computeIfAbsent(effect, _ -> new ArrayList<>())
+                    .add(edge);
+            effectInfluences.computeIfAbsent(effect, _ -> new HashMap<>())
+                    .computeIfAbsent(cause, _ -> new ArrayList<>())
+                    .add(edge);
+            edges.add(edge);
+        }
     }
 
     @Override
@@ -367,8 +541,8 @@ public class CpmDocument implements StatementAction {
      * @return {@code true} if all relations are mapped;
      * {@code false} otherwise
      */
-    boolean areAllRelationsMapped() {
-        return effectEdges.isEmpty() && causeEdges.isEmpty();
+    public boolean areAllRelationsMapped() {
+        return edges.stream().allMatch(x -> x.getCause() != null && x.getEffect() != null);
     }
 
 
@@ -540,7 +714,7 @@ public class CpmDocument implements StatementAction {
         if (nodes.containsKey(id)) {
             return nodes.get(id).values().stream().toList();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     /**
@@ -681,6 +855,17 @@ public class CpmDocument implements StatementAction {
                     } catch (NoSpecificKind ignored) {
                     }
                     return nodeKindMap.isEmpty() ? null : nodeKindMap;
+                });
+            }
+
+            if (StatementOrBundle.Kind.PROV_INFLUENCE.equals(edge.getRelation().getKind())) {
+                causeInfluences.computeIfPresent(u.getCause(edge.getRelation()), (_, causeEdgeMap) -> {
+                    causeEdgeMap.computeIfPresent(u.getEffect(edge.getRelation()), (_, _) -> null);
+                    return causeEdgeMap.isEmpty() ? null : causeEdgeMap;
+                });
+                effectInfluences.computeIfPresent(u.getEffect(edge.getRelation()), (_, effectEdgeMap) -> {
+                    effectEdgeMap.computeIfPresent(u.getCause(edge.getRelation()), (_, _) -> null);
+                    return effectEdgeMap.isEmpty() ? null : effectEdgeMap;
                 });
             }
 
