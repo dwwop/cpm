@@ -13,18 +13,12 @@ public class Node implements Component, cz.muni.fi.cpm.model.INode {
     List<IEdge> causeEdges;
 
     public Node(Element element, List<IEdge> effectEdges, List<IEdge> causeEdges) {
-        if (element == null) {
-            // TODO throw exception
-        }
         this.element = element;
         this.effectEdges = effectEdges;
         this.causeEdges = causeEdges;
     }
 
     public Node(Element element) {
-        if (element == null) {
-            // TODO throw exception
-        }
         this.element = element;
         this.effectEdges = new ArrayList<>();
         this.causeEdges = new ArrayList<>();

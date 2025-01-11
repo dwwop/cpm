@@ -12,9 +12,6 @@ public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
     private INode cause;
 
     public Edge(Relation relation, INode effect, INode cause) {
-        if (relation == null) {
-            // TODO throw exception
-        }
         this.relation = relation;
         this.effect = effect;
         this.cause = cause;
