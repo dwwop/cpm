@@ -11,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Element;
+import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.vanilla.ProvFactory;
 import org.openprovenance.prov.vanilla.QualifiedName;
 
@@ -40,12 +41,12 @@ public class CpmUtilitiesTest {
     }
 
     @Test
-    public void isBackbone_nullElement_returnsFalse() {
+    public void containsOnlyCPMAttributes_nullElement_returnsFalse() {
         assertFalse(CpmUtilities.isBackbone(null));
     }
 
     @Test
-    public void isBackbone_withValidBackbone_returnsTrue() {
+    public void containsOnlyCPMAttributes_returnsTrue() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -56,11 +57,11 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        assertTrue(CpmUtilities.isBackbone(element));
+        assertTrue(CpmUtilities.containsOnlyCPMAttributes(element));
     }
 
     @Test
-    public void isBackbone_withInvalidUri_returnsFalse() {
+    public void containsOnlyCPMAttributes_withInvalidUri_returnsFalse() {
 
         QualifiedName invalidNS = new QualifiedName(
                 "invalidUri",
@@ -72,11 +73,11 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        assertFalse(CpmUtilities.isBackbone(element));
+        assertFalse(CpmUtilities.containsOnlyCPMAttributes(element));
     }
 
     @Test
-    public void isBackbone_withInvalidPrefix_returnsFalse() {
+    public void containsOnlyCPMAttributes_withInvalidPrefix_returnsFalse() {
 
         QualifiedName invalidPrefix = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
@@ -88,11 +89,11 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        assertFalse(CpmUtilities.isBackbone(element));
+        assertFalse(CpmUtilities.containsOnlyCPMAttributes(element));
     }
 
     @Test
-    public void isBackbone_withInvalidUriAndPrefix_returnsFalse() {
+    public void containsOnlyCPMAttributes_withInvalidUriAndPrefix_returnsFalse() {
         QualifiedName invalidQualifiedName = new QualifiedName(
                 "invalidUri",
                 "invalidQualifiedName",
@@ -103,20 +104,20 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
-        assertFalse(CpmUtilities.isBackbone(element));
+        assertFalse(CpmUtilities.containsOnlyCPMAttributes(element));
     }
 
     @Test
-    public void isBackbone_withoutType_returnsFalse() {
+    public void containsOnlyCPMAttributes_withoutType_returnsTrue() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id, (List<Attribute>) null);
 
-        assertFalse(CpmUtilities.isBackbone(element));
+        assertTrue(CpmUtilities.containsOnlyCPMAttributes(element));
     }
 
     @Test
-    public void isBackbone_withInvalidOtherAttr_returnsFalse() {
+    public void containsOnlyCPMAttributes_withInvalidOtherAttr_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -134,11 +135,11 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, List.of(attribute, other));
 
-        assertFalse(CpmUtilities.isBackbone(element));
+        assertFalse(CpmUtilities.containsOnlyCPMAttributes(element));
     }
 
     @Test
-    public void isBackbone_withValidOtherAttr_returnsTrue() {
+    public void containsOnlyCPMAttributes_withValidOtherAttr_returnsTrue() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -150,7 +151,7 @@ public class CpmUtilitiesTest {
 
         Element element = pF.newEntity(id, List.of(attribute, other));
 
-        assertTrue(CpmUtilities.isBackbone(element));
+        assertTrue(CpmUtilities.containsOnlyCPMAttributes(element));
     }
 
     @Test
@@ -291,5 +292,189 @@ public class CpmUtilitiesTest {
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
 
         assertFalse(CpmUtilities.isConnector(element));
+    }
+
+    @Test
+    public void isBackbone_withoutCpmType_returnsFalse() {
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+        Element element = pF.newEntity(id);
+        INode node = cF.newNode(element);
+
+        assertFalse(CpmUtilities.isBackbone(node));
+    }
+
+
+    @Test
+    public void isBackbone_withCpmType_returnsTrue() {
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+        Attribute cpmType = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        Element element = pF.newEntity(id, Collections.singletonList(cpmType));
+        INode node = cF.newNode(element);
+
+        assertTrue(CpmUtilities.isBackbone(node));
+    }
+
+
+    @Test
+    public void isBackbone_withCpmTypeAndInvalidSecType_returnsFalse() {
+        QualifiedName validQualifiedName = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                "validQualifiedName",
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        Attribute cpmType = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
+
+        Element element = pF.newEntity(id, List.of(attribute, cpmType));
+        INode node = cF.newNode(element);
+
+        assertFalse(CpmUtilities.isBackbone(node));
+    }
+
+
+    @Test
+    public void isBackbone_withInvalidSecType_returnsFalse() {
+        QualifiedName validQualifiedName = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                "validQualifiedName",
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
+
+        Element element = pF.newEntity(id, List.of(attribute));
+        INode node = cF.newNode(element);
+
+        assertFalse(CpmUtilities.isBackbone(node));
+    }
+
+
+    @Test
+    public void isBackbone_withGeneralizedNodeContainingCpmType_returnsTrue() {
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+        Element element = pF.newEntity(id);
+        INode node = cF.newNode(element);
+
+        org.openprovenance.prov.model.QualifiedName genId = pF.newQualifiedName("uri", "genEntity", "ex");
+
+        Attribute cpmType = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        Element genElement = pF.newEntity(genId, Collections.singletonList(cpmType));
+        INode genNode = cF.newNode(genElement);
+
+        Relation rel = pF.newSpecializationOf(id, genId);
+        IEdge edge = cF.newEdge(rel);
+        edge.setCause(genNode);
+        genNode.getCauseEdges().add(edge);
+        edge.setEffect(node);
+        node.getEffectEdges().add(edge);
+
+        assertTrue(CpmUtilities.isBackbone(node));
+    }
+
+    @Test
+    public void isBackbone_withGeneralizedNodeContainingCpmTypeAndInvalidAttr_returnsFalse() {
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+        Element element = pF.newEntity(id);
+        INode node = cF.newNode(element);
+
+        org.openprovenance.prov.model.QualifiedName genId = pF.newQualifiedName("uri", "genEntity", "ex");
+
+        Attribute cpmType = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        QualifiedName validQualifiedName = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                "validQualifiedName",
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
+
+        Element genElement = pF.newEntity(genId, List.of(cpmType, attribute));
+        INode genNode = cF.newNode(genElement);
+
+        Relation rel = pF.newSpecializationOf(id, genId);
+        IEdge edge = cF.newEdge(rel);
+        edge.setCause(genNode);
+        genNode.getCauseEdges().add(edge);
+        edge.setEffect(node);
+        node.getEffectEdges().add(edge);
+
+        assertFalse(CpmUtilities.isBackbone(node));
+    }
+
+
+    @Test
+    public void isBackbone_with2GeneralizedNodes_returnsTrue() {
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+        Element element = pF.newEntity(id);
+        INode node = cF.newNode(element);
+
+        org.openprovenance.prov.model.QualifiedName genId = pF.newQualifiedName("uri", "genEntity", "ex");
+
+        Element genElement = pF.newEntity(genId);
+        INode genNode = cF.newNode(genElement);
+
+        org.openprovenance.prov.model.QualifiedName genId2 = pF.newQualifiedName("uri", "genEntity2", "ex");
+
+        Attribute cpmType2 = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        Element genElement2 = pF.newEntity(genId, Collections.singletonList(cpmType2));
+        INode genNode2 = cF.newNode(genElement2);
+
+        Relation rel = pF.newSpecializationOf(id, genId);
+        IEdge edge = cF.newEdge(rel);
+        edge.setCause(genNode);
+        genNode.getCauseEdges().add(edge);
+        edge.setEffect(node);
+        node.getEffectEdges().add(edge);
+
+        Relation rel2 = pF.newSpecializationOf(genId, genId2);
+        IEdge edge2 = cF.newEdge(rel2);
+        edge2.setCause(genNode2);
+        genNode2.getCauseEdges().add(edge2);
+        edge2.setEffect(genNode);
+        genNode.getEffectEdges().add(edge2);
+
+        assertTrue(CpmUtilities.isBackbone(node));
+    }
+
+    @Test
+    public void hasAnyCpmType_hasType_returnsTrue() {
+        for (CpmType type : CpmType.values()) {
+            org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+            Attribute cpmType = cF.newCpmType(type);
+            Element element = pF.newEntity(id, Collections.singletonList(cpmType));
+
+            assertTrue(CpmUtilities.hasAnyCpmType(element));
+        }
+    }
+
+
+    @Test
+    public void hasAnyCpmType_noType_returnsFalse() {
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+        Element element = pF.newEntity(id);
+
+        assertFalse(CpmUtilities.hasAnyCpmType(element));
+    }
+
+
+    @Test
+    public void hasAnyCpmType_invalidType_returnsFalse() {
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+        Attribute invalidType = pF.newType(
+                cF.newCpmQualifiedName("invalid"),
+                pF.getName().PROV_QUALIFIED_NAME);
+
+        Element element = pF.newEntity(id, Collections.singletonList(invalidType));
+
+        assertFalse(CpmUtilities.hasAnyCpmType(element));
     }
 }
