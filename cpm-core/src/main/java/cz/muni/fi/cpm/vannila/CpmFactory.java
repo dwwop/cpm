@@ -10,8 +10,6 @@ import org.openprovenance.prov.model.*;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Collection;
-import java.util.List;
-import java.util.function.Predicate;
 
 public class CpmFactory implements ICpmFactory {
     private final ProvFactory pF;
@@ -104,20 +102,8 @@ public class CpmFactory implements ICpmFactory {
         return new Node(clonedElement);
     }
 
-    private INode newFilteredNode(INode node, Predicate<? super IEdge> edgeFilter) {
+    public INode newNode(INode node) {
         Element clonedElement = pF.newStatement(node.getElement());
-        List<IEdge> bbEffectEdges = node.getEffectEdges().stream().filter(edgeFilter).map(this::newEdge).toList();
-        List<IEdge> bbCauseEdges = node.getCauseEdges().stream().filter(edgeFilter).toList();
-        return new Node(clonedElement, bbEffectEdges, bbCauseEdges);
-    }
-
-    @Override
-    public INode newBBNode(INode node) {
-        return newFilteredNode(node, IEdge::isBackbone);
-    }
-
-    @Override
-    public INode newDSNode(INode node) {
-        return newFilteredNode(node, IEdge::isDomainSpecific);
+        return new Node(clonedElement);
     }
 }

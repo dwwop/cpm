@@ -48,7 +48,6 @@ public class CpmDocumentTest {
                 new Object[]{pF.newWasInvalidatedBy(pF.newQualifiedName("uri", "wasInvalidatedBy", "ex"), entityId1, activityId1)},
                 new Object[]{pF.newWasEndedBy(pF.newQualifiedName("uri", "wasEndedBy", "ex"), activityId1, entityId1)},
                 new Object[]{pF.newWasInformedBy(pF.newQualifiedName("uri", "wasInformedBy", "ex"), activityId1, activityId2)},
-//                new Object[]{pF.newWasInfluencedBy(pF.newQualifiedName("uri", "wasInfluencedBy", "ex"), entityId1, agentId1)},
                 new Object[]{pF.newSpecializationOf(entityId1, entityId2)},
                 new Object[]{pF.newQualifiedSpecializationOf(pF.newQualifiedName("uri", "qualifiedSpecializationOf", "ex"), entityId1, entityId2, Collections.emptyList())},
                 new Object[]{pF.newQualifiedAlternateOf(pF.newQualifiedName("uri", "qualifiedAlternateOf", "ex"), entityId1, entityId2, Collections.emptyList())}
@@ -868,9 +867,11 @@ public class CpmDocumentTest {
         assertEquals(2, bb.size());
         assertTrue(bb.stream().anyMatch(x -> entity2.equals(x.getElement())));
         assertTrue(bb.stream().anyMatch(x -> entity4.equals(x.getElement())));
-        assertEquals(0, bb.getFirst().getCauseEdges().size());
-        assertEquals(1, bb.getFirst().getEffectEdges().size());
-        assertEquals(relation2, bb.getFirst().getEffectEdges().getFirst().getRelation());
+        assertEquals(1, bb.getFirst().getCauseEdges().size());
+        assertEquals(0, bb.getFirst().getEffectEdges().size());
+        assertEquals(relation2, bb.getFirst().getCauseEdges().getFirst().getRelation());
+        assertSame(bb.getLast(), bb.getLast().getEffectEdges().getLast().getEffect());
+        assertSame(bb.getFirst(), bb.getFirst().getCauseEdges().getFirst().getCause());
 
         List<INode> ds = doc.getDomainSpecificPart();
         assertEquals(2, ds.size());
@@ -879,6 +880,8 @@ public class CpmDocumentTest {
         assertEquals(0, ds.getFirst().getCauseEdges().size());
         assertEquals(1, ds.getFirst().getEffectEdges().size());
         assertEquals(relation1, ds.getFirst().getEffectEdges().getFirst().getRelation());
+        assertSame(ds.getFirst(), ds.getFirst().getEffectEdges().getFirst().getEffect());
+        assertSame(ds.getLast(), ds.getLast().getCauseEdges().getFirst().getCause());
 
         List<IEdge> crossPart = doc.getCrossPartEdges();
         assertEquals(1, crossPart.size());

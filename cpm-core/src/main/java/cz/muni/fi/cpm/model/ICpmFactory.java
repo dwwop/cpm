@@ -96,6 +96,7 @@ public interface ICpmFactory {
 
     /**
      * Creates a new edge based on the clone of the underlying relation of the given Edge.
+     * Removes cause and effect nodes
      *
      * @param edge the relation to create the edge from
      * @return a new IEdge
@@ -111,20 +112,11 @@ public interface ICpmFactory {
     INode newNode(Element element);
 
     /**
-     * Creates a new node based on the given node.
-     * Clones the underlying element and filters the edges, so that only backbone relations are present.
+     * Creates a new node based on the clone of the underlying element of the given Node.
+     * Empties cause and effect edges
      *
-     * @param node the node to create a backbone node from
+     * @param node the element to create the node from
      * @return a new INode
      */
-    INode newBBNode(INode node);
-
-    /**
-     * Creates a new node based on the given node.
-     * Clones the underlying element and filters the edges, so that only domain specific relations are present.
-     *
-     * @param node the node to create a backbone node from
-     * @return a new INode
-     */
-    INode newDSNode(INode node);
+    INode newNode(INode node);
 }

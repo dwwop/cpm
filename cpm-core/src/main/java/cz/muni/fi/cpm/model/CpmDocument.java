@@ -10,6 +10,7 @@ import org.openprovenance.prov.model.extension.QualifiedSpecializationOf;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CpmDocument implements StatementAction {
     private static final ProvUtilities u = new ProvUtilities();
@@ -590,13 +591,32 @@ public class CpmDocument implements StatementAction {
         return getConnectors(CpmType.BACKWARD_CONNECTOR);
     }
 
+
+    private List<INode> getFilteredNodes(List<INode> nodes, Function<IEdge, Boolean> edgeFilter) {
+        Map<INode, INode> clonedNodeMap = nodes.stream()
+                .collect(Collectors.toMap(node -> node, cF::newNode));
+
+        List<IEdge> edges = clonedNodeMap.keySet().stream()
+                .flatMap(x -> x.getCauseEdges().stream().filter(edgeFilter::apply)).toList();
+
+        for (IEdge edge : edges) {
+            IEdge clonedEdge = cF.newEdge(edge);
+            clonedEdge.setCause(clonedNodeMap.get(edge.getCause()));
+            clonedEdge.getCause().getCauseEdges().add(clonedEdge);
+            clonedEdge.setEffect(clonedNodeMap.get(edge.getEffect()));
+            clonedEdge.getEffect().getEffectEdges().add(clonedEdge);
+        }
+
+        return clonedNodeMap.values().stream().toList();
+    }
+
     /**
      * Creates a clone of each node in the backbone, keeping only relations that are between backbone nodes.
      *
      * @return a list of cloned backbone nodes
      */
     public List<INode> getBackbonePart() {
-        return backbone.stream().map(cF::newBBNode).toList();
+        return getFilteredNodes(backbone, IEdge::isBackbone);
     }
 
     /**
@@ -605,7 +625,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of cloned domain specific nodes
      */
     public List<INode> getDomainSpecificPart() {
-        return domainSpecificPart.stream().map(cF::newDSNode).toList();
+        return getFilteredNodes(domainSpecificPart, IEdge::isDomainSpecific);
     }
 
     /**
