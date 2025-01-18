@@ -1,6 +1,5 @@
 package cz.muni.fi.cpm.vannila;
 
-import cz.muni.fi.cpm.model.CpmUtilities;
 import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Relation;
 
@@ -44,26 +43,6 @@ public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
     @Override
     public void setCause(INode cause) {
         this.cause = cause;
-    }
-
-    @Override
-    public boolean isBackbone() {
-        return effect != null && CpmUtilities.isBackbone(effect.getElement()) && cause != null && CpmUtilities.isBackbone(cause.getElement());
-    }
-
-    @Override
-    public boolean isDomainSpecific() {
-        return effect != null && !CpmUtilities.isBackbone(effect.getElement()) && cause != null && !CpmUtilities.isBackbone(cause.getElement());
-    }
-
-    @Override
-    public boolean isCrossPart() {
-        if (effect == null || cause == null) {
-            return false;
-        }
-        boolean isCauseBackbone = CpmUtilities.isBackbone(cause.getElement());
-        boolean isEffectBackbone = CpmUtilities.isBackbone(effect.getElement());
-        return ((isCauseBackbone && !isEffectBackbone) || (!isCauseBackbone && isEffectBackbone));
     }
 
     @Override

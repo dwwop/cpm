@@ -24,9 +24,8 @@ public class CpmDocument implements StatementAction {
 
 
     private final Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> nodes = new HashMap<>();
+    private final List<INode> listOfNodes = new ArrayList<>();
     private final List<IEdge> edges = new ArrayList<>();
-    private final List<INode> backbone = new ArrayList<>();
-    private final List<INode> domainSpecificPart = new ArrayList<>();
     private QualifiedName bundleId;
 
     public CpmDocument(ProvFactory pF, ICpmFactory cF) {
@@ -328,11 +327,7 @@ public class CpmDocument implements StatementAction {
         processCauseInfluence(id, newNode);
         processEffectInfluence(id, newNode);
 
-        if (CpmUtilities.isBackbone(element)) {
-            backbone.add(newNode);
-        } else {
-            domainSpecificPart.add(newNode);
-        }
+        listOfNodes.add(newNode);
     }
 
     @Override
@@ -555,8 +550,9 @@ public class CpmDocument implements StatementAction {
      * @return the main activity node, or {@code null} if not found
      */
     public INode getMainActivity() {
-        for (INode node : backbone) {
-            if (CpmUtilities.hasCpmType(node.getElement(), CpmType.MAIN_ACTIVITY)) {
+        for (INode node : listOfNodes) {
+            if (CpmUtilities.isBackbone(node) &&
+                    CpmUtilities.hasCpmType(node.getElement(), CpmType.MAIN_ACTIVITY)) {
                 return node;
             }
         }
@@ -565,8 +561,9 @@ public class CpmDocument implements StatementAction {
 
     private List<INode> getConnectors(CpmType type) {
         List<INode> result = new ArrayList<>();
-        for (INode node : backbone) {
-            if (CpmUtilities.hasCpmType(node.getElement(), type)) {
+        for (INode node : listOfNodes) {
+            if (CpmUtilities.isBackbone(node) &&
+                    CpmUtilities.hasCpmType(node.getElement(), type)) {
                 result.add(node);
             }
         }
@@ -592,12 +589,14 @@ public class CpmDocument implements StatementAction {
     }
 
 
-    private List<INode> getFilteredNodes(List<INode> nodes, Function<IEdge, Boolean> edgeFilter) {
-        Map<INode, INode> clonedNodeMap = nodes.stream()
+    private List<INode> getFilteredNodes(Function<INode, Boolean> nodeFilter) {
+        Map<INode, INode> clonedNodeMap = listOfNodes.stream().filter(nodeFilter::apply)
                 .collect(Collectors.toMap(node -> node, cF::newNode));
 
         List<IEdge> edges = clonedNodeMap.keySet().stream()
-                .flatMap(x -> x.getCauseEdges().stream().filter(edgeFilter::apply)).toList();
+                .flatMap(x -> x.getCauseEdges().stream()
+                        .filter(e -> clonedNodeMap.containsKey(e.getEffect())))
+                .toList();
 
         for (IEdge edge : edges) {
             IEdge clonedEdge = cF.newEdge(edge);
@@ -616,7 +615,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of cloned backbone nodes
      */
     public List<INode> getBackbonePart() {
-        return getFilteredNodes(backbone, IEdge::isBackbone);
+        return getFilteredNodes(CpmUtilities::isBackbone);
     }
 
     /**
@@ -625,7 +624,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of cloned domain specific nodes
      */
     public List<INode> getDomainSpecificPart() {
-        return getFilteredNodes(domainSpecificPart, IEdge::isDomainSpecific);
+        return getFilteredNodes(x -> !CpmUtilities.isBackbone(x));
     }
 
     /**
@@ -634,7 +633,17 @@ public class CpmDocument implements StatementAction {
      * @return a list of original cross part edges
      */
     public List<IEdge> getCrossPartEdges() {
-        return edges.stream().filter(IEdge::isCrossPart).toList();
+        Map<INode, Boolean> nodeBackboneMap = listOfNodes.stream()
+                .collect(Collectors.toMap(node -> node, CpmUtilities::isBackbone));
+
+        return edges.stream().filter(e -> {
+            if (e.getEffect() == null || e.getCause() == null) {
+                return false;
+            }
+            boolean isCauseBackbone = nodeBackboneMap.get(e.getCause());
+            boolean isEffectBackbone = nodeBackboneMap.get(e.getEffect());
+            return ((isCauseBackbone && !isEffectBackbone) || (!isCauseBackbone && isEffectBackbone));
+        }).toList();
     }
 
     /**
@@ -666,8 +675,7 @@ public class CpmDocument implements StatementAction {
         });
 
         nodes.remove(id);
-        backbone.remove(node);
-        domainSpecificPart.remove(node);
+        listOfNodes.remove(node);
         return true;
     }
 
