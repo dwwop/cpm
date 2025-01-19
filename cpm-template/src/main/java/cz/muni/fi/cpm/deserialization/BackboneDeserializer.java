@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import cz.muni.fi.cpm.bindings.Backbone;
-import cz.muni.fi.cpm.model.ICpmFactory;
-import cz.muni.fi.cpm.vannila.CpmFactory;
+import cz.muni.fi.cpm.model.ICpmProvFactory;
+import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomQualifiedNameDeserializer;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.QualifiedName;
@@ -19,16 +19,16 @@ import static org.openprovenance.prov.core.json.serialization.deserial.CustomThr
 
 public class BackboneDeserializer implements IBackboneDeserializer {
     private final ObjectMapper mapper;
-    private final ICpmFactory cpmFactory;
+    private final ICpmProvFactory cpmFactory;
 
-    public BackboneDeserializer(ObjectMapper mapper, ICpmFactory cpmFactory) {
+    public BackboneDeserializer(ObjectMapper mapper, ICpmProvFactory cpmFactory) {
         this.mapper = mapper;
         this.cpmFactory = cpmFactory;
         customize(mapper);
     }
 
     public BackboneDeserializer() {
-        this(new ObjectMapper(), new CpmFactory());
+        this(new ObjectMapper(), new CpmProvFactory());
     }
 
     @Override

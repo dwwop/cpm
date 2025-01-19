@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.bindings;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.vannila.CpmFactory;
+import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.vanilla.QualifiedName;
@@ -18,7 +18,7 @@ public class CpmAgentTest {
         QualifiedName id = new QualifiedName("uri", "agentExample", "ex");
         agent.setId(id);
 
-        List<Statement> statements = agent.toStatements(new CpmFactory());
+        List<Statement> statements = agent.toStatements(new CpmProvFactory());
 
         assertNotNull(statements);
         assertEquals(1, statements.size());
@@ -42,7 +42,7 @@ public class CpmAgentTest {
         String contactIdPid = "contact123";
         agent.setContactIdPid(contactIdPid);
 
-        List<Statement> statements = agent.toStatements(new CpmFactory());
+        List<Statement> statements = agent.toStatements(new CpmProvFactory());
         Agent resultAgent = (Agent) statements.getFirst();
 
         List<Other> otherAttributes = resultAgent.getOther();

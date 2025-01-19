@@ -2,7 +2,6 @@ package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.StatementOrBundle;
 
@@ -13,17 +12,17 @@ import java.util.Objects;
 public class CpmUtilities {
     public static boolean isBackbone(INode node) {
         if (node == null) return false;
-        if (!containsOnlyCPMAttributes(node.getElement())) return false;
+        if (!containsOnlyCPMAttributes(node)) return false;
 
-        boolean hasAnyCpmType = hasAnyCpmType(node.getElement());
+        boolean hasAnyCpmType = hasAnyCpmType(node);
         List<INode> generalizedNodes = new LinkedList<>(node.getEffectEdges().stream()
                 .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getRelation().getKind()))
                 .map(IEdge::getCause).toList());
 
         while (!generalizedNodes.isEmpty()) {
             INode curNode = generalizedNodes.removeFirst();
-            if (!containsOnlyCPMAttributes(curNode.getElement())) return false;
-            hasAnyCpmType = hasAnyCpmType || hasAnyCpmType(curNode.getElement());
+            if (!containsOnlyCPMAttributes(curNode)) return false;
+            hasAnyCpmType = hasAnyCpmType || hasAnyCpmType(curNode);
             generalizedNodes.addAll(curNode.getEffectEdges().stream()
                     .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getRelation().getKind()))
                     .map(IEdge::getCause).toList());
@@ -32,65 +31,78 @@ public class CpmUtilities {
         return hasAnyCpmType;
     }
 
-    public static boolean containsOnlyCPMAttributes(Element element) {
-        return element != null &&
-                element.getLocation().isEmpty() && element.getLabel().isEmpty() &&
-                (element.getType().isEmpty() ||
-                        (element.getType().size() == 1 &&
-                                element.getType().getFirst().getValue() instanceof QualifiedName qN &&
+    public static boolean containsOnlyCPMAttributes(INode node) {
+        if (node == null) return false;
+
+        return node.getElements().stream().allMatch(element ->
+                element != null &&
+                        element.getLocation().isEmpty() && element.getLabel().isEmpty() &&
+                        (element.getType().isEmpty() ||
+                                (element.getType().size() == 1 &&
+                                        element.getType().getFirst().getValue() instanceof QualifiedName qN &&
+                                        CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
+                                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()))) &&
+                        element.getOther().stream().allMatch(x ->
+                                x.getElementName() instanceof QualifiedName qN2 &&
+                                        CpmNamespaceConstants.CPM_NS.equals(qN2.getNamespaceURI()) &&
+                                        CpmNamespaceConstants.CPM_PREFIX.equals(qN2.getPrefix())));
+    }
+
+    /**
+     * Checks if the given {@link INode} has any supported CPM type.
+     * This method verifies if any of the elements in the node contain a type that matches
+     * the CPM namespace, prefix, and is listed in {@link CpmType#STRING_VALUES}.
+     *
+     * @param node the {@link INode} to check
+     * @return {@code true} if the node has any element with a supported CPM type, {@code false} otherwise
+     */
+    public static boolean hasAnyCpmType(INode node) {
+        if (node == null) return false;
+
+        return node.getElements().stream().anyMatch(element ->
+                element != null && element.getType().stream().anyMatch(x ->
+                        x.getValue() instanceof QualifiedName qN &&
                                 CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()))) &&
-                element.getOther().stream().allMatch(x ->
-                        x.getElementName() instanceof QualifiedName qN2 &&
-                                CpmNamespaceConstants.CPM_NS.equals(qN2.getNamespaceURI()) &&
-                                CpmNamespaceConstants.CPM_PREFIX.equals(qN2.getPrefix()));
-    }
-
-
-    /**
-     * Checks if the given {@link Element} has any supported CPM type.
-     * This method verifies if the element's type matches the given {@link CpmType}.
-     *
-     * @param element the {@link Element} to check
-     * @return {@code true} if the element has any CPM type, {@code false} otherwise
-     */
-    public static boolean hasAnyCpmType(Element element) {
-        return element != null && element.getType().stream().anyMatch(x ->
-                x.getValue() instanceof QualifiedName qN &&
-                        CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
-                        CpmType.STRING_VALUES.contains(qN.getLocalPart()));
+                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
+                                CpmType.STRING_VALUES.contains(qN.getLocalPart())));
     }
 
     /**
-     * Checks if the given {@link Element} has a specific CPM type.
-     * This method verifies if the element's type matches the given {@link CpmType}.
+     * Checks if the given {@link INode} has a specific CPM type.
+     * This method verifies if any of the elements in the node contain a type that matches
+     * the CPM namespace, prefix, and the specified {@link CpmType}.
      *
-     * @param element the {@link Element} to check
-     * @param type    the {@link CpmType} to compare against
-     * @return {@code true} if the element has the specified CPM type, {@code false} otherwise
+     * @param node the {@link INode} to check
+     * @param type the {@link CpmType} to compare against
+     * @return {@code true} if the node has any element with the specified CPM type, {@code false} otherwise
      */
-    public static boolean hasCpmType(Element element, CpmType type) {
-        return element != null && type != null && element.getType().stream().anyMatch(x ->
-                x.getValue() instanceof QualifiedName qN &&
-                        CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
-                        Objects.equals(type.toString(), qN.getLocalPart()));
+    public static boolean hasCpmType(INode node, CpmType type) {
+        if (node == null) return false;
+
+        return node.getElements().stream().anyMatch(element ->
+                element != null && type != null && element.getType().stream().anyMatch(x ->
+                        x.getValue() instanceof QualifiedName qN &&
+                                CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
+                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
+                                Objects.equals(type.toString(), qN.getLocalPart())));
     }
 
     /**
-     * Checks if the given {@link Element} is considered a connector element.
-     * A connector element is defined as having either a forward or backward connector type.
+     * Checks if the given {@link INode} is considered a connector node.
+     * A connector node is defined as having any element with a type matching either
+     * {@link CpmType#FORWARD_CONNECTOR} or {@link CpmType#BACKWARD_CONNECTOR}.
      *
-     * @param element the {@link Element} to check
-     * @return {@code true} if the element is a connector, {@code false} otherwise
+     * @param node the {@link INode} to check
+     * @return {@code true} if the node contains a connector element, {@code false} otherwise
      */
-    public static boolean isConnector(Element element) {
-        return element != null && element.getType().stream().anyMatch(x ->
-                x.getValue() instanceof QualifiedName qN &&
-                        CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
-                        (CpmType.FORWARD_CONNECTOR.toString().equals(qN.getLocalPart()) ||
-                                CpmType.BACKWARD_CONNECTOR.toString().equals(qN.getLocalPart())));
+    public static boolean isConnector(INode node) {
+        if (node == null) return false;
+        return node.getElements().stream().anyMatch(element ->
+                element != null && element.getType().stream().anyMatch(x ->
+                        x.getValue() instanceof QualifiedName qN &&
+                                CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
+                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
+                                (CpmType.FORWARD_CONNECTOR.toString().equals(qN.getLocalPart()) ||
+                                        CpmType.BACKWARD_CONNECTOR.toString().equals(qN.getLocalPart()))));
     }
 }

@@ -4,7 +4,8 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.vannila.CpmFactory;
+import cz.muni.fi.cpm.merged.CpmMergedFactory;
+import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,7 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CpmUtilitiesTest {
     private ProvFactory pF;
-    private CpmFactory cF;
+    private CpmMergedFactory cF;
+    private ICpmProvFactory cPF;
 
     private static Stream<Object[]> provideConnectorTypes() {
         return Stream.of(
@@ -37,7 +39,8 @@ public class CpmUtilitiesTest {
     @BeforeEach
     public void setUp() {
         pF = new ProvFactory();
-        cF = new CpmFactory();
+        cF = new CpmMergedFactory();
+        cPF = new CpmProvFactory();
     }
 
     @Test
@@ -56,8 +59,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertTrue(CpmUtilities.containsOnlyCPMAttributes(element));
+        assertTrue(CpmUtilities.containsOnlyCPMAttributes(node));
     }
 
     @Test
@@ -72,8 +76,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(invalidNS, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.containsOnlyCPMAttributes(element));
+        assertFalse(CpmUtilities.containsOnlyCPMAttributes(node));
     }
 
     @Test
@@ -88,8 +93,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(invalidPrefix, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.containsOnlyCPMAttributes(element));
+        assertFalse(CpmUtilities.containsOnlyCPMAttributes(node));
     }
 
     @Test
@@ -103,8 +109,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(invalidQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.containsOnlyCPMAttributes(element));
+        assertFalse(CpmUtilities.containsOnlyCPMAttributes(node));
     }
 
     @Test
@@ -112,8 +119,9 @@ public class CpmUtilitiesTest {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id, (List<Attribute>) null);
+        INode node = cF.newNode(element);
 
-        assertTrue(CpmUtilities.containsOnlyCPMAttributes(element));
+        assertTrue(CpmUtilities.containsOnlyCPMAttributes(node));
     }
 
     @Test
@@ -134,8 +142,9 @@ public class CpmUtilitiesTest {
         Attribute other = pF.newOther(invalidQualifiedName, "", pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, List.of(attribute, other));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.containsOnlyCPMAttributes(element));
+        assertFalse(CpmUtilities.containsOnlyCPMAttributes(node));
     }
 
     @Test
@@ -147,11 +156,12 @@ public class CpmUtilitiesTest {
 
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
-        Attribute other = cF.newCpmAttribute(CpmAttributeConstants.PROVENANCE_SERVICE_URI, "", pF.getName().XSD_ANY_URI);
+        Attribute other = cPF.newCpmAttribute(CpmAttributeConstants.PROVENANCE_SERVICE_URI, "", pF.getName().XSD_ANY_URI);
 
         Element element = pF.newEntity(id, List.of(attribute, other));
+        INode node = cF.newNode(element);
 
-        assertTrue(CpmUtilities.containsOnlyCPMAttributes(element));
+        assertTrue(CpmUtilities.containsOnlyCPMAttributes(node));
     }
 
     @Test
@@ -170,8 +180,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasCpmType(element, null));
+        assertFalse(CpmUtilities.hasCpmType(node, null));
     }
 
     @Test
@@ -190,8 +201,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertTrue(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertTrue(CpmUtilities.hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }
 
     @Test
@@ -205,8 +217,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }
 
     @Test
@@ -220,8 +233,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }
 
     @Test
@@ -235,8 +249,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }
 
     @Test
@@ -250,8 +265,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }
 
     @Test
@@ -259,8 +275,9 @@ public class CpmUtilitiesTest {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id, (List<Attribute>) null);
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasCpmType(element, CpmType.FORWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }
 
     @ParameterizedTest
@@ -275,8 +292,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertTrue(CpmUtilities.isConnector(element));
+        assertTrue(CpmUtilities.isConnector(node));
     }
 
     @Test
@@ -290,8 +308,9 @@ public class CpmUtilitiesTest {
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.isConnector(element));
+        assertFalse(CpmUtilities.isConnector(node));
     }
 
     @Test
@@ -309,7 +328,7 @@ public class CpmUtilitiesTest {
     public void isBackbone_withCpmType_returnsTrue() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
-        Attribute cpmType = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        Attribute cpmType = cPF.newCpmType(CpmType.BACKWARD_CONNECTOR);
         Element element = pF.newEntity(id, Collections.singletonList(cpmType));
         INode node = cF.newNode(element);
 
@@ -324,7 +343,7 @@ public class CpmUtilitiesTest {
                 "validQualifiedName",
                 CpmNamespaceConstants.CPM_PREFIX);
 
-        Attribute cpmType = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        Attribute cpmType = cPF.newCpmType(CpmType.BACKWARD_CONNECTOR);
 
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
@@ -362,7 +381,7 @@ public class CpmUtilitiesTest {
 
         org.openprovenance.prov.model.QualifiedName genId = pF.newQualifiedName("uri", "genEntity", "ex");
 
-        Attribute cpmType = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        Attribute cpmType = cPF.newCpmType(CpmType.BACKWARD_CONNECTOR);
         Element genElement = pF.newEntity(genId, Collections.singletonList(cpmType));
         INode genNode = cF.newNode(genElement);
 
@@ -385,7 +404,7 @@ public class CpmUtilitiesTest {
 
         org.openprovenance.prov.model.QualifiedName genId = pF.newQualifiedName("uri", "genEntity", "ex");
 
-        Attribute cpmType = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        Attribute cpmType = cPF.newCpmType(CpmType.BACKWARD_CONNECTOR);
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -421,7 +440,7 @@ public class CpmUtilitiesTest {
 
         org.openprovenance.prov.model.QualifiedName genId2 = pF.newQualifiedName("uri", "genEntity2", "ex");
 
-        Attribute cpmType2 = cF.newCpmType(CpmType.BACKWARD_CONNECTOR);
+        Attribute cpmType2 = cPF.newCpmType(CpmType.BACKWARD_CONNECTOR);
         Element genElement2 = pF.newEntity(genId, Collections.singletonList(cpmType2));
         INode genNode2 = cF.newNode(genElement2);
 
@@ -447,10 +466,11 @@ public class CpmUtilitiesTest {
         for (CpmType type : CpmType.values()) {
             org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
-            Attribute cpmType = cF.newCpmType(type);
+            Attribute cpmType = cPF.newCpmType(type);
             Element element = pF.newEntity(id, Collections.singletonList(cpmType));
+            INode node = cF.newNode(element);
 
-            assertTrue(CpmUtilities.hasAnyCpmType(element));
+            assertTrue(CpmUtilities.hasAnyCpmType(node));
         }
     }
 
@@ -460,8 +480,9 @@ public class CpmUtilitiesTest {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasAnyCpmType(element));
+        assertFalse(CpmUtilities.hasAnyCpmType(node));
     }
 
 
@@ -470,11 +491,12 @@ public class CpmUtilitiesTest {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Attribute invalidType = pF.newType(
-                cF.newCpmQualifiedName("invalid"),
+                cPF.newCpmQualifiedName("invalid"),
                 pF.getName().PROV_QUALIFIED_NAME);
 
         Element element = pF.newEntity(id, Collections.singletonList(invalidType));
+        INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasAnyCpmType(element));
+        assertFalse(CpmUtilities.hasAnyCpmType(node));
     }
 }

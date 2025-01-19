@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.vannila;
+package cz.muni.fi.cpm.model;
 
 public interface Component {
 }

@@ -3,7 +3,7 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.vannila.CpmFactory;
+import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
@@ -16,14 +16,14 @@ import java.util.Collection;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class CpmFactoryTest {
+public class CpmProvFactoryTest {
 
-    private CpmFactory cF;
+    private ICpmProvFactory cF;
     private DatatypeFactory datatypeFactory;
 
     @BeforeEach
     public void setUp() throws Exception {
-        cF = new CpmFactory();
+        cF = new CpmProvFactory();
         datatypeFactory = DatatypeFactory.newInstance();
     }
 
@@ -99,41 +99,4 @@ public class CpmFactoryTest {
         assertTrue(attributes.contains(cF.newCpmType(type)));
     }
 
-    @Test
-    public void newBBNode_edgeWithBBNode_returnsExpectedBBNode() {
-        QualifiedName id1 = cF.newCpmQualifiedName("qN1");
-        Entity entity = cF.newCpmEntity(id1, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
-
-        QualifiedName id2 = cF.newCpmQualifiedName("qN2");
-        Entity entity2 = cF.newCpmEntity(id1, CpmType.BACKWARD_CONNECTOR, new ArrayList<>());
-
-        QualifiedName id3 = cF.newCpmQualifiedName("qN3");
-        Entity entity3 = cF.getProvFactory().newEntity(id3);
-
-        Relation relation = cF.getProvFactory().newWasDerivedFrom(id1, id2);
-
-        INode node = cF.newNode(entity);
-        INode node2 = cF.newNode(entity2);
-
-        IEdge edge = cF.newEdge(relation);
-        edge.setCause(node);
-        edge.setEffect(node2);
-
-        node.getCauseEdges().add(edge);
-
-        Relation relation2 = cF.getProvFactory().newWasDerivedFrom(id1, id3);
-        INode node3 = cF.newNode(entity3);
-
-        IEdge edge2 = cF.newEdge(relation2);
-        edge2.setCause(node);
-        edge2.setEffect(node3);
-
-        node.getCauseEdges().add(edge2);
-
-        INode output = cF.newNode(node);
-
-        assertNotNull(output);
-        assertEquals(0, output.getCauseEdges().size());
-        assertEquals(0, output.getEffectEdges().size());
-    }
 }

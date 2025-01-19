@@ -1,24 +1,23 @@
-package cz.muni.fi.cpm.vannila;
+package cz.muni.fi.cpm.vanilla;
 
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
-import cz.muni.fi.cpm.model.ICpmFactory;
-import cz.muni.fi.cpm.model.IEdge;
-import cz.muni.fi.cpm.model.INode;
+import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.*;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Collection;
 
-public class CpmFactory implements ICpmFactory {
+public class CpmProvFactory implements ICpmProvFactory {
+
     private final ProvFactory pF;
 
-    public CpmFactory() {
+    public CpmProvFactory() {
         this.pF = new org.openprovenance.prov.vanilla.ProvFactory();
     }
 
-    public CpmFactory(ProvFactory pF) {
+    public CpmProvFactory(ProvFactory pF) {
         this.pF = pF;
     }
 
@@ -82,28 +81,5 @@ public class CpmFactory implements ICpmFactory {
         namespace.getPrefixes().put(DctNamespaceConstants.DCT_PREFIX, DctNamespaceConstants.DCT_NS);
         namespace.getNamespaces().put(DctNamespaceConstants.DCT_NS, DctNamespaceConstants.DCT_PREFIX);
         return namespace;
-    }
-
-    @Override
-    public IEdge newEdge(Relation relation) {
-        Relation clonedRelation = pF.newStatement(relation);
-        return new Edge(clonedRelation);
-    }
-
-    @Override
-    public IEdge newEdge(IEdge edge) {
-        Relation clonedRelation = pF.newStatement(edge.getRelation());
-        return new Edge(clonedRelation);
-    }
-
-    @Override
-    public INode newNode(Element element) {
-        Element clonedElement = pF.newStatement(element);
-        return new Node(clonedElement);
-    }
-
-    public INode newNode(INode node) {
-        Element clonedElement = pF.newStatement(node.getElement());
-        return new Node(clonedElement);
     }
 }

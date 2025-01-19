@@ -3,7 +3,7 @@ package cz.muni.fi.cpm.bindings;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.model.ICpmFactory;
+import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
@@ -53,7 +53,7 @@ public class IdentifierEntity implements ToStatements{
         this.comment = comment;
     }
 
-    public List<Statement> toStatements(ICpmFactory cF) {
+    public List<Statement> toStatements(ICpmProvFactory cF) {
         List<Attribute> attributes = new ArrayList<>();
 
         if (externalId != null) {

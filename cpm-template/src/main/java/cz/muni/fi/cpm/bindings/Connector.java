@@ -3,7 +3,7 @@ package cz.muni.fi.cpm.bindings;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.model.ICpmFactory;
+import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
@@ -98,7 +98,7 @@ public abstract class Connector implements ToStatements {
     @JsonIgnore
     public abstract CpmType getType();
 
-    public List<Statement> toStatements(ICpmFactory cF) {
+    public List<Statement> toStatements(ICpmProvFactory cF) {
         List<Statement> statements = new ArrayList<>();
         List<Attribute> attributes = new ArrayList<>();
 

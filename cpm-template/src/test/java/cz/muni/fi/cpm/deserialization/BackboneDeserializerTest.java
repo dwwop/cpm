@@ -1,8 +1,9 @@
 package cz.muni.fi.cpm.deserialization;
 
 import cz.muni.fi.cpm.bindings.Backbone;
+import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
-import cz.muni.fi.cpm.vannila.CpmFactory;
+import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.notation.ProvSerialiser;
@@ -21,7 +22,7 @@ public class BackboneDeserializerTest {
     public void deserializeBackbone_Pure_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
-        CpmFactory cF = new CpmFactory(pF);
+        CpmProvFactory cF = new CpmProvFactory(pF);
 
         try (InputStream inputStream = classLoader.getResourceAsStream("test.json")) {
             IBackboneDeserializer deserializer = new BackboneDeserializer();
@@ -48,13 +49,14 @@ public class BackboneDeserializerTest {
     public void deserializeDocument_withCpmDocTransform_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
-        CpmFactory cF = new CpmFactory();
+        CpmMergedFactory cF = new CpmMergedFactory();
+        CpmProvFactory cPF = new CpmProvFactory();
 
         try (InputStream inputStream = classLoader.getResourceAsStream("test.json")) {
             IBackboneDeserializer deserializer = new BackboneDeserializer();
             Document doc = deserializer.deserializeDocument(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
-            Document transDoc = new CpmDocument(doc, pF, cF).toDocument();
+            Document transDoc = new CpmDocument(doc, pF, cPF, cF).toDocument();
 
             File outputFile = new File("src/test/resources/outputTrans.provn");
             serialiser.serialiseDocument(new FileOutputStream(outputFile), transDoc, true);

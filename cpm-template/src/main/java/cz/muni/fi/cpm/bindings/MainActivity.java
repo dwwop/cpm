@@ -5,7 +5,7 @@ import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
-import cz.muni.fi.cpm.model.ICpmFactory;
+import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
@@ -80,7 +80,7 @@ public class MainActivity implements ToStatements {
         this.used = used;
     }
 
-    public List<Statement> toStatements(ICpmFactory cF) {
+    public List<Statement> toStatements(ICpmProvFactory cF) {
         List<Statement> statements = new ArrayList<>();
         List<Attribute> attributes = new ArrayList<>();
 

@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.bindings;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.vannila.CpmFactory;
+import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.vanilla.QualifiedName;
@@ -18,7 +18,7 @@ public class ConnectorTest {
         QualifiedName id = new QualifiedName("uri", "connectorExample", "ex");
         connector.setId(id);
 
-        List<Statement> statements = connector.toStatements(new CpmFactory());
+        List<Statement> statements = connector.toStatements(new CpmProvFactory());
 
         assertNotNull(statements);
         assertEquals(1, statements.size());
@@ -40,7 +40,7 @@ public class ConnectorTest {
         QualifiedName externalId = new QualifiedName("uri", "externalIdExample", "ex");
         connector.setExternalId(externalId);
 
-        List<Statement> statements = connector.toStatements(new CpmFactory());
+        List<Statement> statements = connector.toStatements(new CpmProvFactory());
         Entity entity = (Entity) statements.getFirst();
 
         assertNotNull(entity.getOther());
@@ -56,7 +56,7 @@ public class ConnectorTest {
         QualifiedName bundleId = new QualifiedName("uri", "bundleExample", "ex");
         connector.setReferencedBundleId(bundleId);
 
-        List<Statement> statements = connector.toStatements(new CpmFactory());
+        List<Statement> statements = connector.toStatements(new CpmProvFactory());
         Entity entity = (Entity) statements.getFirst();
 
         assertNotNull(entity.getOther());
@@ -73,7 +73,7 @@ public class ConnectorTest {
         connector.setReferencedBundleHashValue(hashValue);
         connector.setHashAlg(HashAlgorithms.SHA256);
 
-        List<Statement> statements = connector.toStatements(new CpmFactory());
+        List<Statement> statements = connector.toStatements(new CpmProvFactory());
         Entity entity = (Entity) statements.getFirst();
 
         assertNotNull(entity.getOther());
@@ -96,7 +96,7 @@ public class ConnectorTest {
         String provenanceUri = "http://example.com/provenance";
         connector.setProvenanceServiceUri(provenanceUri);
 
-        List<Statement> statements = connector.toStatements(new CpmFactory());
+        List<Statement> statements = connector.toStatements(new CpmProvFactory());
         Entity entity = (Entity) statements.get(0);
 
         assertNotNull(entity.getOther());
@@ -115,7 +115,7 @@ public class ConnectorTest {
         QualifiedName derivedFromId = new QualifiedName("uri", "derivedFromExample", "ex");
         connector.setDerivedFrom(List.of(derivedFromId));
 
-        List<Statement> statements = connector.toStatements(new CpmFactory());
+        List<Statement> statements = connector.toStatements(new CpmProvFactory());
         assertEquals(2, statements.size());
 
         Statement derivedFromStatement = statements.get(1);
@@ -132,7 +132,7 @@ public class ConnectorTest {
         QualifiedName attributedToId = new QualifiedName("uri", "attributedToExample", "ex");
         connector.setAttributedTo(attributedToId);
 
-        List<Statement> statements = connector.toStatements(new CpmFactory());
+        List<Statement> statements = connector.toStatements(new CpmProvFactory());
         assertEquals(2, statements.size());
         Statement attributedToStatement = statements.getLast();
         assertInstanceOf(WasAttributedTo.class, attributedToStatement);
