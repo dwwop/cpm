@@ -3,7 +3,7 @@ package cz.muni.fi.cpm.bindings;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
-import cz.muni.fi.cpm.vannila.CpmFactory;
+import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.vanilla.QualifiedName;
@@ -24,7 +24,7 @@ public class MainActivityTest {
         QualifiedName id = new QualifiedName("uri", "activityExample", "ex");
         mainActivity.setId(id);
 
-        List<Statement> statements = mainActivity.toStatements(new CpmFactory());
+        List<Statement> statements = mainActivity.toStatements(new CpmProvFactory());
 
         assertNotNull(statements);
         assertEquals(1, statements.size());
@@ -48,7 +48,7 @@ public class MainActivityTest {
         QualifiedName referencedMetaBundleId = new QualifiedName("uri", "metaBundleId", "ex");
         mainActivity.setReferencedMetaBundleId(referencedMetaBundleId);
 
-        List<Statement> statements = mainActivity.toStatements(new CpmFactory());
+        List<Statement> statements = mainActivity.toStatements(new CpmProvFactory());
         Activity activity = (Activity) statements.getFirst();
 
         assertNotNull(activity.getOther());
@@ -64,7 +64,7 @@ public class MainActivityTest {
         QualifiedName hasPart = new QualifiedName("uri", "hasPart", "ex");
         mainActivity.setHasPart(hasPart);
 
-        List<Statement> statements = mainActivity.toStatements(new CpmFactory());
+        List<Statement> statements = mainActivity.toStatements(new CpmProvFactory());
         Activity activity = (Activity) statements.getFirst();
 
         assertNotNull(activity.getOther());
@@ -91,7 +91,7 @@ public class MainActivityTest {
         List<MainActivityUsed> usedList = Arrays.asList(mainActivityUsed, mainActivityUsed2);
         mainActivity.setUsed(usedList);
 
-        List<Statement> statements = mainActivity.toStatements(new CpmFactory());
+        List<Statement> statements = mainActivity.toStatements(new CpmProvFactory());
 
         assertEquals(3, statements.size());
         assertInstanceOf(Used.class, statements.get(1));
@@ -115,7 +115,7 @@ public class MainActivityTest {
         generatedList.add(new QualifiedName("uri", "generated2", "ex"));
         mainActivity.setGenerated(generatedList);
 
-        List<Statement> statements = mainActivity.toStatements(new CpmFactory());
+        List<Statement> statements = mainActivity.toStatements(new CpmProvFactory());
 
         assertEquals(3, statements.size());
         assertInstanceOf(WasGeneratedBy.class, statements.get(1));
@@ -137,7 +137,7 @@ public class MainActivityTest {
         mainActivity.setStartTime(startTime);
         mainActivity.setEndTime(endTime);
 
-        List<Statement> statements = mainActivity.toStatements(new CpmFactory());
+        List<Statement> statements = mainActivity.toStatements(new CpmProvFactory());
 
         Activity activity = (Activity) statements.get(0);
         assertEquals(startTime, activity.getStartTime());

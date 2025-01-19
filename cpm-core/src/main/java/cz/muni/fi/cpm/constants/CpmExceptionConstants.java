@@ -10,4 +10,5 @@ public class CpmExceptionConstants {
     public static final String MULTIPLE_EDGES = "Multiple edges found for the given QualifiedName";
     public static final String MULTIPLE_EDGES_BETWEEN_NODES = "Multiple edges between specified nodes";
     public static final String NOT_NULL_PARTS = "Document parts cannot be null";
+    public static final String UNSUPPORTED_DUPLICATE_RELATION = "Duplicate relation of unsupported kind";
 }

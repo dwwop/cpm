@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class CpmDocument implements StatementAction {
     private static final ProvUtilities u = new ProvUtilities();
     private final ProvFactory pF;
+    private final ICpmProvFactory cPF;
     private final ICpmFactory cF;
 
     private final Map<QualifiedName, Map<StatementOrBundle.Kind, List<IEdge>>> effectEdges = new HashMap<>();
@@ -28,14 +29,16 @@ public class CpmDocument implements StatementAction {
     private final List<IEdge> edges = new ArrayList<>();
     private QualifiedName bundleId;
 
-    public CpmDocument(ProvFactory pF, ICpmFactory cF) {
+    public CpmDocument(ProvFactory pF, ICpmProvFactory cPF, ICpmFactory cF) {
         this.pF = pF;
         this.cF = cF;
+        this.cPF = cPF;
     }
 
-    public CpmDocument(final Document document, ProvFactory provFactory, ICpmFactory cpmFactory) {
+    public CpmDocument(final Document document, ProvFactory provFactory, ICpmProvFactory cPF, ICpmFactory cF) {
         pF = provFactory;
-        cF = cpmFactory;
+        this.cPF = cPF;
+        this.cF = cF;
         if (document == null) {
             throw new IllegalArgumentException(CpmExceptionConstants.NOT_NULL_DOCUMENT);
         }
@@ -50,9 +53,10 @@ public class CpmDocument implements StatementAction {
         u.forAllStatement(docBundle.getStatement(), this);
     }
 
-    public CpmDocument(final QualifiedName bundleId, List<INode> backbone, List<INode> domainSpecificPart, List<IEdge> crossPartEdges, ProvFactory provFactory, ICpmFactory cpmFactory) {
+    public CpmDocument(final QualifiedName bundleId, List<INode> backbone, List<INode> domainSpecificPart, List<IEdge> crossPartEdges, ProvFactory provFactory, ICpmProvFactory cPF, ICpmFactory cF) {
         this.pF = provFactory;
-        this.cF = cpmFactory;
+        this.cF = cF;
+        this.cPF = cPF;
         this.bundleId = bundleId;
 
         if (bundleId == null || backbone == null || domainSpecificPart == null || crossPartEdges == null) {
@@ -64,9 +68,10 @@ public class CpmDocument implements StatementAction {
         addEdges(crossPartEdges);
     }
 
-    public CpmDocument(List<Statement> backbone, List<Statement> domainSpecificPart, List<Statement> crossPartEdges, final QualifiedName bundleId, ProvFactory provFactory, ICpmFactory cpmFactory) {
+    public CpmDocument(List<Statement> backbone, List<Statement> domainSpecificPart, List<Statement> crossPartEdges, final QualifiedName bundleId, ProvFactory provFactory, ICpmProvFactory cPF, ICpmFactory cF) {
         this.pF = provFactory;
-        this.cF = cpmFactory;
+        this.cF = cF;
+        this.cPF = cPF;
         this.bundleId = bundleId;
 
         if (bundleId == null || backbone == null || domainSpecificPart == null || crossPartEdges == null) {
@@ -89,12 +94,11 @@ public class CpmDocument implements StatementAction {
     public Document toDocument() {
         Document document = pF.newDocument();
 
-        List<Statement> statements = new ArrayList<>();
-        statements.addAll(nodes.entrySet().stream()
-                .flatMap(entry -> entry.getValue().values().stream())
-                .map(INode::getElement)
-                .toList());
-        statements.addAll(edges.stream().map(IEdge::getRelation).distinct().toList());
+        List<Component> components = new ArrayList<>();
+        components.addAll(listOfNodes);
+        components.addAll(edges);
+
+        List<Statement> statements = cF.getComponentsTransformer().apply(components);
 
         Bundle newBundle = pF.newNamedBundle(bundleId, statements);
         Namespace bundleNs = pF.newNamespace();
@@ -103,7 +107,7 @@ public class CpmDocument implements StatementAction {
         document.getStatementOrBundle().add(newBundle);
 
         Namespace ns = Namespace.gatherNamespaces(newBundle);
-        ns.extendWith(cF.newCpmNamespace());
+        ns.extendWith(cPF.newCpmNamespace());
         document.setNamespace(ns);
         bundleNs.setParent(ns);
 
@@ -113,7 +117,9 @@ public class CpmDocument implements StatementAction {
 
     private void addEdges(List<IEdge> edges) {
         for (IEdge edge : edges) {
-            u.doAction(edge.getRelation(), this);
+            for (Relation r : edge.getRelations()) {
+                u.doAction(r, this);
+            }
         }
     }
 
@@ -123,6 +129,15 @@ public class CpmDocument implements StatementAction {
 
 
     private void addEdge(IEdge edge, QualifiedName effect, QualifiedName cause) {
+        if (!StatementOrBundle.Kind.PROV_MEMBERSHIP.equals(edge.getRelation().getKind())) {
+            for (IEdge existingEdge : edges) {
+                if (ProvUtilities2.sameEdge(u, edge.getRelation(), existingEdge.getRelation())) {
+                    existingEdge.handleDuplicate(edge.getRelation());
+                    return;
+                }
+            }
+        }
+
         try {
             StatementOrBundle.Kind nodeKind = ProvUtilities2.getEffectKind(edge.getRelation());
 
@@ -164,8 +179,10 @@ public class CpmDocument implements StatementAction {
 
     private void addNodes(List<INode> nodes) {
         for (INode node : nodes) {
-            u.doAction(node.getElement(), this);
-            addEdges(node.getAllEdges());
+            for (Element e : node.getElements()) {
+                u.doAction(e, this);
+            }
+            addEdges(node.getCauseEdges());
         }
     }
 
@@ -292,7 +309,7 @@ public class CpmDocument implements StatementAction {
         if (nodes.containsKey(id)) {
             INode existingNode = nodes.get(id).get(kind);
             if (existingNode != null) {
-                ProvUtilities2.mergeAttributes(existingNode.getElement(), newNode.getElement());
+                existingNode.handleDuplicate(element);
                 return;
             }
         }
@@ -517,17 +534,13 @@ public class CpmDocument implements StatementAction {
      */
     public Namespace getNamespaces() {
         List<StatementOrBundle> statements = new ArrayList<>();
-        statements.addAll(nodes.entrySet().stream()
-                .flatMap(entry -> entry.getValue().values().stream())
-                .map(INode::getElement)
-                .toList());
-        statements.addAll(edges.stream().map(IEdge::getRelation).distinct().toList());
-
+        statements.addAll(listOfNodes.stream().flatMap(x -> x.getElements().stream()).distinct().toList());
+        statements.addAll(edges.stream().flatMap(x -> x.getRelations().stream()).distinct().toList());
 
         NamespaceGatherer gatherer = new NamespaceGatherer();
         u.forAllStatementOrBundle(statements, gatherer);
         Namespace ns = gatherer.getNamespace();
-        ns.extendWith(cF.newCpmNamespace());
+        ns.extendWith(cPF.newCpmNamespace());
         return ns;
     }
 
@@ -552,7 +565,7 @@ public class CpmDocument implements StatementAction {
     public INode getMainActivity() {
         for (INode node : listOfNodes) {
             if (CpmUtilities.isBackbone(node) &&
-                    CpmUtilities.hasCpmType(node.getElement(), CpmType.MAIN_ACTIVITY)) {
+                    CpmUtilities.hasCpmType(node, CpmType.MAIN_ACTIVITY)) {
                 return node;
             }
         }
@@ -563,7 +576,7 @@ public class CpmDocument implements StatementAction {
         List<INode> result = new ArrayList<>();
         for (INode node : listOfNodes) {
             if (CpmUtilities.isBackbone(node) &&
-                    CpmUtilities.hasCpmType(node.getElement(), type)) {
+                    CpmUtilities.hasCpmType(node, type)) {
                 result.add(node);
             }
         }
@@ -925,7 +938,7 @@ public class CpmDocument implements StatementAction {
 
     private List<INode> getRelatedConnectors(QualifiedName id, Function<IEdge, INode> extractNode, Function<INode, List<IEdge>> extractEdges) {
         INode node = getNode(id, StatementOrBundle.Kind.PROV_ENTITY);
-        if (node == null || !CpmUtilities.isConnector(node.getElement())) {
+        if (!CpmUtilities.isConnector(node)) {
             return null;
         }
 
@@ -940,7 +953,7 @@ public class CpmDocument implements StatementAction {
             toProcess.addAll(extractEdges.apply(current).stream()
                     .filter(x -> StatementOrBundle.Kind.PROV_DERIVATION.equals(x.getRelation().getKind()))
                     .map(extractNode)
-                    .filter(x -> CpmUtilities.isConnector(x.getElement()) && !result.contains(x))
+                    .filter(x -> CpmUtilities.isConnector(x) && !result.contains(x))
                     .toList());
         }
         return result;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
-import cz.muni.fi.cpm.model.ICpmFactory;
+import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomNamespacePrefixDeserializer;
 import org.openprovenance.prov.model.*;
 
@@ -102,7 +102,7 @@ public class Backbone {
         this.identifierEntities = identifierEntities;
     }
 
-    private <T extends ToStatements> List<Statement> applyToStatements(List<T> object, ICpmFactory cF) {
+    private <T extends ToStatements> List<Statement> applyToStatements(List<T> object, ICpmProvFactory cF) {
         return object.stream()
                 .map(x -> x.toStatements(cF))
                 .flatMap(List::stream)
@@ -118,7 +118,7 @@ public class Backbone {
         namespace.getNamespaces().put(DctNamespaceConstants.DCT_NS, DctNamespaceConstants.DCT_PREFIX);
     }
 
-    public Document toDocument(ICpmFactory cF) {
+    public Document toDocument(ICpmProvFactory cF) {
         List<Statement> statements = new ArrayList<>(mainActivity.toStatements(cF));
 
         if (backwardConnectors != null) {

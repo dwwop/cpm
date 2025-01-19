@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.bindings;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.vannila.CpmFactory;
+import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.LangString;
@@ -22,7 +22,7 @@ public class IdentifierEntityTest {
         QualifiedName qN = new QualifiedName("uri", "example", "ex");
         ie.setId(qN);
 
-        List<Statement> statements = ie.toStatements(new CpmFactory());
+        List<Statement> statements = ie.toStatements(new CpmProvFactory());
 
         assertNotNull(statements);
         assertEquals(1, statements.size());
@@ -47,7 +47,7 @@ public class IdentifierEntityTest {
         QualifiedName qN = new QualifiedName("uri", "externalId", "ex");
         ie.setExternalId(qN);
 
-        List<Statement> statements = ie.toStatements(new CpmFactory());
+        List<Statement> statements = ie.toStatements(new CpmProvFactory());
 
         Entity entity = (Entity) statements.getFirst();
 
@@ -65,7 +65,7 @@ public class IdentifierEntityTest {
         String externalIdType = "externalIdType";
         ie.setExternalIdType(externalIdType);
 
-        List<Statement> statements = ie.toStatements(new CpmFactory());
+        List<Statement> statements = ie.toStatements(new CpmProvFactory());
 
         Entity entity = (Entity) statements.getFirst();
 
@@ -84,7 +84,7 @@ public class IdentifierEntityTest {
         String comment = "Comment";
         ie.setComment(comment);
 
-        List<Statement> statements = ie.toStatements(new CpmFactory());
+        List<Statement> statements = ie.toStatements(new CpmProvFactory());
 
         Entity entity = (Entity) statements.getFirst();
 

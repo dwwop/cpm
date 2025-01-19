@@ -5,6 +5,7 @@ import cz.muni.fi.cpm.exception.ValueConflict;
 import org.openprovenance.prov.model.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class ProvUtilities2 {
@@ -154,7 +155,6 @@ public class ProvUtilities2 {
         }
     }
 
-    // TODO ?
     public static void mergeAttributes(Influence existing, Influence newElement) {
         Set<LangString> set = new HashSet<>(newElement.getLabel());
         existing.getLabel().forEach(set::remove);
@@ -173,6 +173,50 @@ public class ProvUtilities2 {
         Set<Other> set4 = new HashSet<Other>(newElement.getOther());
         existing.getOther().forEach(set4::remove);
         existing.getOther().addAll(set4);
+    }
+
+    public static boolean sameEdge(ProvUtilities u, Relation r1, Relation r2) {
+        if (r1 instanceof WasInformedBy && r2 instanceof WasInformedBy) {
+            return sameEdge(u, r1, r2, 2);
+        } else if (r1 instanceof Used && r2 instanceof Used) {
+            return sameEdge(u, r1, r2, 3);
+        } else if (r1 instanceof WasGeneratedBy && r2 instanceof WasGeneratedBy) {
+            return sameEdge(u, r1, r2, 3);
+        } else if (r1 instanceof WasDerivedFrom && r2 instanceof WasDerivedFrom) {
+            return sameEdge(u, r1, r2, 5);
+        } else if (r1 instanceof WasAssociatedWith && r2 instanceof WasAssociatedWith) {
+            return sameEdge(u, r1, r2, 3);
+        } else if (r1 instanceof WasAttributedTo && r2 instanceof WasAttributedTo) {
+            return sameEdge(u, r1, r2, 2);
+        } else if (r1 instanceof ActedOnBehalfOf && r2 instanceof ActedOnBehalfOf) {
+            return sameEdge(u, r1, r2, 3);
+        } else if (r1 instanceof WasInvalidatedBy && r2 instanceof WasInvalidatedBy) {
+            return sameEdge(u, r1, r2, 3);
+        } else if (r1 instanceof SpecializationOf && r2 instanceof SpecializationOf) {
+            return sameEdge(u, r1, r2, 2);
+        } else if (r1 instanceof AlternateOf && r2 instanceof AlternateOf) {
+            return sameEdge(u, r1, r2, 2);
+        } else if (r1 instanceof WasInfluencedBy && r2 instanceof WasInfluencedBy) {
+            return sameEdge(u, r1, r2, 2);
+        } else if (r1 instanceof WasStartedBy && r2 instanceof WasStartedBy) {
+            return sameEdge(u, r1, r2, 4);
+        } else if (r1 instanceof WasEndedBy && r2 instanceof WasEndedBy) {
+            return sameEdge(u, r1, r2, 4);
+        } else if (r1 instanceof HadMember && r2 instanceof HadMember) {
+            return sameEdge(u, r1, r2, 2);
+        }
+        return false;
+    }
+
+    private static boolean sameEdge(ProvUtilities u, Relation r1, Relation r2, int count) {
+        for (int i = 0; i <= count; i++) {
+            Object qn1 = u.getter(r1, i);
+            Object qn2 = u.getter(r2, i);
+            if (!Objects.equals(qn1, qn2)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

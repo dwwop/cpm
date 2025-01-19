@@ -5,8 +5,26 @@ import org.openprovenance.prov.model.Element;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface INode {
+public interface INode extends Component {
+    /**
+     * Retrieves merged Element
+     *
+     * @return merged element
+     */
     Element getElement();
+
+    /**
+     * Retrieves all elements within node
+     *
+     * @return a list of all elements within node
+     */
+    List<Element> getElements();
+
+
+    /**
+     * Method to handle duplicate element of the same kind with the same id
+     */
+    void handleDuplicate(Element duplicateElement);
 
     /**
      * Retrieves all edges where the current node acts as the effect.

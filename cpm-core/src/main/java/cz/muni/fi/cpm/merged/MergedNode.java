@@ -1,24 +1,25 @@
-package cz.muni.fi.cpm.vannila;
+package cz.muni.fi.cpm.merged;
 
 import cz.muni.fi.cpm.model.IEdge;
+import cz.muni.fi.cpm.model.ProvUtilities2;
 import org.openprovenance.prov.model.Element;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Node implements Component, cz.muni.fi.cpm.model.INode {
+public class MergedNode implements cz.muni.fi.cpm.model.INode {
     Element element;
     List<IEdge> effectEdges;
     List<IEdge> causeEdges;
 
-    public Node(Element element, List<IEdge> effectEdges, List<IEdge> causeEdges) {
+    public MergedNode(Element element, List<IEdge> effectEdges, List<IEdge> causeEdges) {
         this.element = element;
         this.effectEdges = effectEdges;
         this.causeEdges = causeEdges;
     }
 
-    public Node(Element element) {
+    public MergedNode(Element element) {
         this.element = element;
         this.effectEdges = new ArrayList<>();
         this.causeEdges = new ArrayList<>();
@@ -27,6 +28,16 @@ public class Node implements Component, cz.muni.fi.cpm.model.INode {
     @Override
     public Element getElement() {
         return element;
+    }
+
+    @Override
+    public List<Element> getElements() {
+        return List.of(element);
+    }
+
+    @Override
+    public void handleDuplicate(Element duplicateElement) {
+        ProvUtilities2.mergeAttributes(this.element, duplicateElement);
     }
 
     @Override
@@ -42,7 +53,7 @@ public class Node implements Component, cz.muni.fi.cpm.model.INode {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Node node = (Node) o;
+        MergedNode node = (MergedNode) o;
         return Objects.equals(element, node.element) && Objects.equals(effectEdges, node.effectEdges) && Objects.equals(causeEdges, node.causeEdges);
     }
 

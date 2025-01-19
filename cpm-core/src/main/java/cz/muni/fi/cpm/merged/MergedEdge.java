@@ -1,28 +1,47 @@
-package cz.muni.fi.cpm.vannila;
+package cz.muni.fi.cpm.merged;
 
 import cz.muni.fi.cpm.model.INode;
+import cz.muni.fi.cpm.model.ProvUtilities2;
+import org.openprovenance.prov.model.Influence;
 import org.openprovenance.prov.model.Relation;
 
+import java.util.List;
 import java.util.Objects;
 
-public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
+import static cz.muni.fi.cpm.constants.CpmExceptionConstants.UNSUPPORTED_DUPLICATE_RELATION;
+
+public class MergedEdge implements cz.muni.fi.cpm.model.IEdge {
     private final Relation relation;
     private INode effect;
     private INode cause;
 
-    public Edge(Relation relation, INode effect, INode cause) {
+    public MergedEdge(Relation relation, INode effect, INode cause) {
         this.relation = relation;
         this.effect = effect;
         this.cause = cause;
     }
 
-    public Edge(Relation relation) {
+    public MergedEdge(Relation relation) {
         this.relation = relation;
     }
 
     @Override
     public Relation getRelation() {
         return relation;
+    }
+
+    @Override
+    public List<Relation> getRelations() {
+        return List.of(relation);
+    }
+
+    @Override
+    public void handleDuplicate(Relation duplicateRelation) {
+        if (this.relation instanceof Influence i1 && duplicateRelation instanceof Influence i2) {
+            ProvUtilities2.mergeAttributes(i1, i2);
+        } else {
+            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
+        }
     }
 
     @Override
@@ -48,7 +67,7 @@ public class Edge implements Component, cz.muni.fi.cpm.model.IEdge {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Edge edge = (Edge) o;
+        MergedEdge edge = (MergedEdge) o;
         return Objects.equals(relation, edge.relation) &&
                 Objects.equals(effect != null ? effect.getElement() : null,
                         edge.effect != null ? edge.effect.getElement() : null) &&
