@@ -6,6 +6,7 @@ import cz.muni.fi.cpm.model.CpmDocument;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.Document;
+import org.openprovenance.prov.model.ProvDeserialiser;
 import org.openprovenance.prov.notation.ProvSerialiser;
 import org.openprovenance.prov.vanilla.ProvFactory;
 
@@ -62,6 +63,37 @@ public class BackboneDeserializerTest {
             serialiser.serialiseDocument(new FileOutputStream(outputFile), transDoc, true);
 
             File expectedOutputFile = new File("src/test/resources/expectedOutputTrans.provn");
+            String outputContent = new String(Files.readAllBytes(outputFile.toPath()));
+            String expectedOutputContent = new String(Files.readAllBytes(expectedOutputFile.toPath()));
+
+            assertEquals(expectedOutputContent, outputContent);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test
+    public void deserializeDocument_withCpmDocTransform_serialisesAndOrdersCorrectly() {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        ProvFactory pF = new ProvFactory();
+        CpmMergedFactory cF = new CpmMergedFactory();
+        CpmProvFactory cPF = new CpmProvFactory();
+
+        try (InputStream inputStream = classLoader.getResourceAsStream("expectedOutputOrdered.provn")) {
+            ProvDeserialiser provDeserialiser = new org.openprovenance.prov.notation.ProvDeserialiser(pF);
+            Document doc = provDeserialiser.deserialiseDocument(inputStream);
+
+            Document transDoc = new CpmDocument(doc, pF, cPF, cF).toDocument();
+
+            File outputFile = new File("src/test/resources/outputOrdered.provn");
+
+            ProvSerialiser serialiser = new ProvSerialiser(pF);
+            serialiser.serialiseDocument(new FileOutputStream(outputFile), transDoc, true);
+
+            File expectedOutputFile = new File("src/test/resources/expectedOutputOrdered.provn");
             String outputContent = new String(Files.readAllBytes(outputFile.toPath()));
             String expectedOutputContent = new String(Files.readAllBytes(expectedOutputFile.toPath()));
 

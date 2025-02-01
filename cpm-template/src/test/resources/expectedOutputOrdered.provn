@@ -1,0 +1,24 @@
+document
+prefix dct <http://purl.org/dc/terms/>
+prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
+prefix ex <test>
+bundle ex:bundle1
+
+activity(ex:activity1,2011-11-16T16:05:00.000Z,2011-11-16T18:05:00.000Z,[prov:type = 'cpm:mainActivity', cpm:referencedMetaBundleId = 'ex:metaBundle1', dct:hasPart = 'ex:subActivity1'])
+entity(ex:backConnector1,[prov:type = 'cpm:backwardConnector', cpm:externalId = 'ex:external1', cpm:referencedBundleId = 'ex:referencedBundle1', cpm:referencedMetaBundleId = 'ex:referencedMeta1', cpm:referencedBundlehashValue = "{hash=abc123def456}" %% xsd:byte, cpm:hashAlg = "SHA256" %% xsd:string, cpm:provenanceServiceUri = "http://provenance.service.org" %% xsd:anyURI])
+entity(ex:forwardConnector1,[prov:type = 'cpm:forwardConnector', cpm:externalId = 'ex:external2', cpm:referencedBundleId = 'ex:referencedBundle2', cpm:referencedMetaBundleId = 'ex:referencedMeta2', cpm:referencedBundlehashValue = "{hash=def789ghi012}" %% xsd:byte, cpm:hashAlg = "SHA512" %% xsd:string, cpm:provenanceServiceUri = "http://provenance.service.org" %% xsd:anyURI])
+agent(ex:receiverAgent1,[prov:type = 'cpm:receiverAgent', cpm:contactIdPid = "{contactId=contact002}" %% xsd:string])
+agent(ex:senderAgent1,[prov:type = 'cpm:senderAgent', cpm:contactIdPid = "{contactId=contact001}" %% xsd:string])
+entity(ex:identifierEntity1,[prov:type = 'cpm:id', cpm:externalId = 'ex:extID1', cpm:externalIdType = "Document" %% xsd:string, cpm:comment = "An example identifier entity" %% xsd:string])
+used(ex:id1;ex:activity1,ex:input1,-)
+used(ex:activity1,ex:input2,-)
+wasGeneratedBy(ex:output1,ex:activity1,-)
+wasGeneratedBy(ex:output2,ex:activity1,-)
+wasDerivedFrom(ex:backConnector1, ex:origin1)
+wasDerivedFrom(ex:backConnector1, ex:origin2)
+wasAttributedTo(ex:backConnector1, ex:agent1)
+wasDerivedFrom(ex:forwardConnector1, ex:origin3)
+wasDerivedFrom(ex:forwardConnector1, ex:origin4)
+wasAttributedTo(ex:forwardConnector1, ex:agent2)
+endBundle
+endDocument
