@@ -16,9 +16,10 @@ wasGeneratedBy(ex:output1,ex:activity1,-)
 wasGeneratedBy(ex:output2,ex:activity1,-)
 wasDerivedFrom(ex:backConnector1, ex:origin1)
 wasDerivedFrom(ex:backConnector1, ex:origin2)
-wasAttributedTo(ex:backConnector1, ex:agent1)
+wasAttributedTo(ex:attribution1;ex:backConnector1, ex:agent1)
 wasDerivedFrom(ex:forwardConnector1, ex:origin3)
 wasDerivedFrom(ex:forwardConnector1, ex:origin4)
-wasAttributedTo(ex:forwardConnector1, ex:agent2)
+wasAttributedTo(ex:attribution;ex:forwardConnector1, ex:agent2)
+specializationOf(ex:forwardConnector1,ex:baseFC)
 endBundle
 endDocument

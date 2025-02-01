@@ -130,7 +130,9 @@ public class ConnectorTest {
         QualifiedName qN = new QualifiedName("uri", "connectorExample", "ex");
         connector.setId(qN);
         QualifiedName attributedToId = new QualifiedName("uri", "attributedToExample", "ex");
-        connector.setAttributedTo(attributedToId);
+        ConnectorAttributed cA = new ConnectorAttributed();
+        cA.setAgentId(attributedToId);
+        connector.setAttributedTo(cA);
 
         List<Statement> statements = connector.toStatements(new CpmProvFactory());
         assertEquals(2, statements.size());
@@ -138,6 +140,22 @@ public class ConnectorTest {
         assertInstanceOf(WasAttributedTo.class, attributedToStatement);
         assertEquals(qN, ((WasAttributedTo) attributedToStatement).getEntity());
         assertEquals(attributedToId, ((WasAttributedTo) attributedToStatement).getAgent());
+    }
+
+    @Test
+    public void toStatements_forwardConnectorSpecialisation_returnsCorrectSpecialisation() {
+        ForwardConnector connector = new ForwardConnector();
+        QualifiedName qN = new QualifiedName("uri", "connectorExample", "ex");
+        connector.setId(qN);
+        QualifiedName specialisationId = new QualifiedName("uri", "specialisationExample", "ex");
+        connector.setSpecializationOf(specialisationId);
+
+        List<Statement> statements = connector.toStatements(new CpmProvFactory());
+        assertEquals(2, statements.size());
+        Statement specStatement = statements.getLast();
+        assertInstanceOf(SpecializationOf.class, specStatement);
+        assertEquals(qN, ((SpecializationOf) specStatement).getSpecificEntity());
+        assertEquals(specialisationId, ((SpecializationOf) specStatement).getGeneralEntity());
     }
 
     private class TestConnector extends Connector {
