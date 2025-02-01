@@ -8,8 +8,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Extension of utilities for manipulating PROV Statements.
+ */
 public class ProvUtilities2 {
-    // TODO tests
     private static final String START_TIME = "startTime";
     private static final String END_TIME = "endTime";
     private static final String VALUE = "value";

@@ -8,6 +8,11 @@ import org.openprovenance.prov.model.Statement;
 import java.util.List;
 import java.util.function.Function;
 
+
+/**
+ * Factory interface for creating CPM model components, such as nodes and edges,
+ * used in CpmDocument for easier data traversal.
+ */
 public interface ICpmFactory {
 
     ProvFactory getProvFactory();
@@ -46,5 +51,11 @@ public interface ICpmFactory {
      */
     INode newNode(INode node);
 
+    /**
+     * Returns a function that transforms a list of CPM components into a list of {@link Statement} objects.
+     * Primary usage in conversion from {@link CpmDocument} back to {@link org.openprovenance.prov.model.Document}
+     *
+     * @return a transformation function mapping {@code List<Component>} to {@code List<Statement>}
+     */
     Function<List<Component>, List<Statement>> getComponentsTransformer();
 }

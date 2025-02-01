@@ -9,6 +9,9 @@ import org.openprovenance.prov.model.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Collection;
 
+/**
+ * Wrapper for the {@link org.openprovenance.prov.vanilla.ProvFactory} from ProvToolBox for creation of Cpm Statements
+ */
 public class CpmProvFactory implements ICpmProvFactory {
 
     private final ProvFactory pF;

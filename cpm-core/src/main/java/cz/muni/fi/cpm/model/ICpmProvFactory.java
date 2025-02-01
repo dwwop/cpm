@@ -6,6 +6,10 @@ import org.openprovenance.prov.model.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Collection;
 
+
+/**
+ * Factory interface for creating CPM-specific PROV model components.
+ */
 public interface ICpmProvFactory {
 
     ProvFactory getProvFactory();

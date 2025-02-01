@@ -12,6 +12,16 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+
+/**
+ * Represents a CPM-specific document that models provenance information
+ * while integrating with the PROV data model.
+ * <p>
+ * This class provides methods for constructing, transforming, and manipulating
+ * a CPM document, allowing conversion to and from {@link Document} and CPM structures.
+ * It maintains nodes ({@link INode}), edges ({@link IEdge}), and their relationships, ensuring proper
+ * representation of provenance data as a traversable graph
+ */
 public class CpmDocument implements StatementAction {
     private static final ProvUtilities u = new ProvUtilities();
     private final ProvFactory pF;

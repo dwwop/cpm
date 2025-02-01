@@ -9,6 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ * Utilities for manipulating CPM Descriptions.
+ */
 public class CpmUtilities {
     public static boolean isBackbone(INode node) {
         if (node == null) return false;
