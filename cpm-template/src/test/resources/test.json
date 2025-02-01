@@ -38,7 +38,10 @@
         "ex:origin1",
         "ex:origin2"
       ],
-      "attributedTo": "ex:agent1"
+      "attributedTo": {
+        "id": "ex:attribution1",
+        "agentId": "ex:agent1"
+      }
     }
   ],
   "forwardConnectors": [
@@ -56,7 +59,11 @@
         "ex:origin3",
         "ex:origin4"
       ],
-      "attributedTo": "ex:agent2"
+      "attributedTo": {
+        "id": "ex:attribution",
+        "agentId": "ex:agent2"
+      },
+      "specializationOf": "ex:baseFC"
     }
   ],
   "senderAgents": [
