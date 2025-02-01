@@ -21,13 +21,13 @@ public abstract class Connector implements ToStatements {
     private HashAlgorithms hashAlg;
     private String provenanceServiceUri;
     private List<QualifiedName> derivedFrom;
-    private QualifiedName attributedTo;
+    private ConnectorAttributed attributedTo;
 
-    public QualifiedName getAttributedTo() {
+    public ConnectorAttributed getAttributedTo() {
         return attributedTo;
     }
 
-    public void setAttributedTo(QualifiedName attributedTo) {
+    public void setAttributedTo(ConnectorAttributed attributedTo) {
         this.attributedTo = attributedTo;
     }
 
@@ -136,8 +136,7 @@ public abstract class Connector implements ToStatements {
         }
 
         if (attributedTo != null) {
-            // TODO attributedTo IDs
-            statements.add(cF.getProvFactory().newWasAttributedTo(null, id, attributedTo));
+            statements.add(cF.getProvFactory().newWasAttributedTo(attributedTo.getId(), id, attributedTo.getAgentId()));
         }
 
         return statements;

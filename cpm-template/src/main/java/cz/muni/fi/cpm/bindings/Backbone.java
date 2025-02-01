@@ -63,6 +63,9 @@ public class Backbone {
     }
 
     public List<BackwardConnector> getBackwardConnectors() {
+        if (backwardConnectors == null) {
+            backwardConnectors = new ArrayList<>();
+        }
         return backwardConnectors;
     }
 
@@ -71,6 +74,9 @@ public class Backbone {
     }
 
     public List<ForwardConnector> getForwardConnectors() {
+        if (forwardConnectors == null) {
+            forwardConnectors = new ArrayList<>();
+        }
         return forwardConnectors;
     }
 
@@ -79,6 +85,9 @@ public class Backbone {
     }
 
     public List<SenderAgent> getSenderAgents() {
+        if (senderAgents == null) {
+            senderAgents = new ArrayList<>();
+        }
         return senderAgents;
     }
 
@@ -87,6 +96,9 @@ public class Backbone {
     }
 
     public List<ReceiverAgent> getReceiverAgents() {
+        if (receiverAgents == null) {
+            receiverAgents = new ArrayList<>();
+        }
         return receiverAgents;
     }
 
@@ -95,6 +107,9 @@ public class Backbone {
     }
 
     public List<IdentifierEntity> getIdentifierEntities() {
+        if (identifierEntities == null) {
+            identifierEntities = new ArrayList<>();
+        }
         return identifierEntities;
     }
 
