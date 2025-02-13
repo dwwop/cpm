@@ -1,0 +1,73 @@
+{
+  "prefixes" : {
+    "_" : "https://openprovenance.org/blank#",
+    "ex" : "test"
+  },
+  "mainActivity" : {
+    "id" : "ex:activity1",
+    "startTime" : "2011-11-16T16:05:00.000Z",
+    "endTime" : "2011-11-16T18:05:00.000Z",
+    "referencedMetaBundleId" : "ex:metaBundle1",
+    "hasPart" : "ex:subActivity1",
+    "used" : [ {
+      "id" : "ex:id1",
+      "bcId" : "ex:input1"
+    }, {
+      "id" : null,
+      "bcId" : "ex:input2"
+    } ],
+    "generated" : [ "ex:output1", "ex:output2" ]
+  },
+  "bundleName" : "ex:bundle1",
+  "backwardConnectors" : [ {
+    "id" : "ex:backConnector1",
+    "externalId" : "ex:external1",
+    "referencedBundleId" : "ex:referencedBundle1",
+    "referencedMetaBundleId" : "ex:referencedMeta1",
+    "referencedBundleHashValue" : {
+      "hash" : "abc123def456"
+    },
+    "hashAlg" : "SHA256",
+    "provenanceServiceUri" : "http://provenance.service.org",
+    "derivedFrom" : [ "ex:origin1", "ex:origin2" ],
+    "attributedTo" : {
+      "id" : "ex:attribution1",
+      "agentId" : "ex:agent1"
+    }
+  } ],
+  "forwardConnectors" : [ {
+    "id" : "ex:forwardConnector1",
+    "externalId" : "ex:external2",
+    "referencedBundleId" : "ex:referencedBundle2",
+    "referencedMetaBundleId" : "ex:referencedMeta2",
+    "referencedBundleHashValue" : {
+      "hash" : "def789ghi012"
+    },
+    "hashAlg" : "SHA512",
+    "provenanceServiceUri" : "http://provenance.service.org",
+    "derivedFrom" : [ "ex:origin3", "ex:origin4" ],
+    "attributedTo" : {
+      "id" : "ex:attribution",
+      "agentId" : "ex:agent2"
+    },
+    "specializationOf" : "ex:baseFC"
+  } ],
+  "senderAgents" : [ {
+    "id" : "ex:senderAgent1",
+    "contactIdPid" : {
+      "contactId" : "contact001"
+    }
+  } ],
+  "receiverAgents" : [ {
+    "id" : "ex:receiverAgent1",
+    "contactIdPid" : {
+      "contactId" : "contact002"
+    }
+  } ],
+  "identifierEntities" : [ {
+    "id" : "ex:identifierEntity1",
+    "externalId" : "ex:extID1",
+    "externalIdType" : "Document",
+    "comment" : "An example identifier entity"
+  } ]
+}

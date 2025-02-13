@@ -19,22 +19,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class BackboneDeserializerTest {
+    private static final String DESERIALIZE_FOLDER = "deserialization" + File.separator;
+    private static final String TEST_RESOURCES = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
+
     @Test
     public void deserializeBackbone_Pure_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
         CpmProvFactory cF = new CpmProvFactory(pF);
 
-        try (InputStream inputStream = classLoader.getResourceAsStream("test.json")) {
+        try (InputStream inputStream = classLoader.getResourceAsStream(DESERIALIZE_FOLDER + "test.json")) {
             IBackboneDeserializer deserializer = new BackboneDeserializer();
             Backbone bb = deserializer.deserializeBackbone(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
             Document doc = bb.toDocument(cF);
 
-            File outputFile = new File("src/test/resources/output.provn");
+            File outputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "output.provn");
             serialiser.serialiseDocument(new FileOutputStream(outputFile), doc, true);
 
-            File expectedOutputFile = new File("src/test/resources/expectedOutput.provn");
+            File expectedOutputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "expectedOutput.provn");
             String outputContent = new String(Files.readAllBytes(outputFile.toPath()));
             String expectedOutputContent = new String(Files.readAllBytes(expectedOutputFile.toPath()));
 
@@ -53,16 +56,16 @@ public class BackboneDeserializerTest {
         CpmMergedFactory cF = new CpmMergedFactory();
         CpmProvFactory cPF = new CpmProvFactory();
 
-        try (InputStream inputStream = classLoader.getResourceAsStream("test.json")) {
+        try (InputStream inputStream = classLoader.getResourceAsStream(DESERIALIZE_FOLDER + "test.json")) {
             IBackboneDeserializer deserializer = new BackboneDeserializer();
             Document doc = deserializer.deserializeDocument(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
             Document transDoc = new CpmDocument(doc, pF, cPF, cF).toDocument();
 
-            File outputFile = new File("src/test/resources/outputTrans.provn");
+            File outputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "outputTrans.provn");
             serialiser.serialiseDocument(new FileOutputStream(outputFile), transDoc, true);
 
-            File expectedOutputFile = new File("src/test/resources/expectedOutputTrans.provn");
+            File expectedOutputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "expectedOutputTrans.provn");
             String outputContent = new String(Files.readAllBytes(outputFile.toPath()));
             String expectedOutputContent = new String(Files.readAllBytes(expectedOutputFile.toPath()));
 
@@ -82,18 +85,18 @@ public class BackboneDeserializerTest {
         CpmMergedFactory cF = new CpmMergedFactory();
         CpmProvFactory cPF = new CpmProvFactory();
 
-        try (InputStream inputStream = classLoader.getResourceAsStream("expectedOutputOrdered.provn")) {
+        try (InputStream inputStream = classLoader.getResourceAsStream(DESERIALIZE_FOLDER + "expectedOutputOrdered.provn")) {
             ProvDeserialiser provDeserialiser = new org.openprovenance.prov.notation.ProvDeserialiser(pF);
             Document doc = provDeserialiser.deserialiseDocument(inputStream);
 
             Document transDoc = new CpmDocument(doc, pF, cPF, cF).toDocument();
 
-            File outputFile = new File("src/test/resources/outputOrdered.provn");
+            File outputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "outputOrdered.provn");
 
             ProvSerialiser serialiser = new ProvSerialiser(pF);
             serialiser.serialiseDocument(new FileOutputStream(outputFile), transDoc, true);
 
-            File expectedOutputFile = new File("src/test/resources/expectedOutputOrdered.provn");
+            File expectedOutputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "expectedOutputOrdered.provn");
             String outputContent = new String(Files.readAllBytes(outputFile.toPath()));
             String expectedOutputContent = new String(Files.readAllBytes(expectedOutputFile.toPath()));
 
