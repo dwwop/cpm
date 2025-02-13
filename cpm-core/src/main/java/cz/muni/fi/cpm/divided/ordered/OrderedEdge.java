@@ -16,7 +16,7 @@ public class OrderedEdge implements cz.muni.fi.cpm.model.IEdge, WithOrderedState
     private INode cause;
 
     public OrderedEdge(Relation relation, CpmOrderedFactory cF) {
-        this.relations = new HashMap<>(Map.of(relation, cF.getOrder()));
+        this.relations = new IdentityHashMap<>(Map.of(relation, cF.getOrder()));
         this.cF = cF;
     }
 
@@ -63,7 +63,7 @@ public class OrderedEdge implements cz.muni.fi.cpm.model.IEdge, WithOrderedState
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         OrderedEdge edge = (OrderedEdge) o;
-        return Objects.equals(relations.keySet(), edge.relations.keySet()) &&
+        return Objects.equals(new HashSet<>(relations.keySet()), new HashSet<>(edge.relations.keySet())) &&
                 Objects.equals(effect != null ? effect.getElements() : null,
                         edge.effect != null ? edge.effect.getElements() : null) &&
                 Objects.equals(cause != null ? cause.getElements() : null,
@@ -72,7 +72,7 @@ public class OrderedEdge implements cz.muni.fi.cpm.model.IEdge, WithOrderedState
 
     @Override
     public int hashCode() {
-        return Objects.hash(relations.keySet(),
+        return Objects.hash(new HashSet<>(relations.keySet()),
                 effect != null ? effect.getElements() : null,
                 cause != null ? cause.getElements() : null
         );

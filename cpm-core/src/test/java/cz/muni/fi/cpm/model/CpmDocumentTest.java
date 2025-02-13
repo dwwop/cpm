@@ -418,8 +418,6 @@ public abstract class CpmDocumentTest {
     }
 
 
-
-
     @Test
     public void constructor_identicalIdDifferentKind_returnsExpectedTypes() {
         Document document = pF.newDocument();
@@ -1287,6 +1285,37 @@ public abstract class CpmDocumentTest {
         assertEquals(1, doc.getNode(id2, StatementOrBundle.Kind.PROV_ENTITY).getCauseEdges().size());
         assertEquals(1, doc.getNode(id2, StatementOrBundle.Kind.PROV_AGENT).getCauseEdges().size());
         assertTrue(doc.areAllRelationsMapped());
+    }
+
+
+    @Test
+    public void toDocument_influenceOneEffectTwoCauses_containsOneInfluence() {
+        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+        Entity cause = pF.newEntity(id1);
+
+        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+        Entity effect = pF.newEntity(id2);
+
+        Agent agent = pF.newAgent(id2);
+
+        QualifiedName rel = cPF.newCpmQualifiedName("rel");
+        WasInfluencedBy inf = pF.newWasInfluencedBy(rel, id1, id2);
+
+        Document document = pF.newDocument();
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, List.of(effect, cause, inf, agent));
+        document.getStatementOrBundle().add(bundle);
+
+        CpmDocument doc = new CpmDocument(document, pF, cPF, cF);
+
+        Document resultDoc = doc.toDocument();
+
+        assertEquals(1, resultDoc.getStatementOrBundle().size());
+        assertEquals(bundle.getKind(), resultDoc.getStatementOrBundle().getFirst().getKind());
+        Bundle resultBundle = (Bundle) resultDoc.getStatementOrBundle().getFirst();
+        assertEquals(bundle.getId(), resultBundle.getId());
+        assertEquals(bundle.getStatement().size(), resultBundle.getStatement().size());
+        assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
     }
 
 

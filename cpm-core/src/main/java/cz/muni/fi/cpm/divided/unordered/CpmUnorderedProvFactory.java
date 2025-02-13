@@ -9,8 +9,11 @@ import org.openprovenance.prov.model.ProvFactory;
 import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.model.Statement;
 
+import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CpmUnorderedProvFactory implements ICpmFactory {
     private final ProvFactory pF;
@@ -35,9 +38,19 @@ public class CpmUnorderedProvFactory implements ICpmFactory {
     }
 
     @Override
+    public IEdge newEdgeWithoutCloning(Relation relation) {
+        return new UnorderedEdge(relation);
+    }
+
+    @Override
     public IEdge newEdge(IEdge edge) {
         Relation clonedRelation = pF.newStatement(edge.getRelation());
         return new UnorderedEdge(clonedRelation);
+    }
+
+    @Override
+    public IEdge newEdgeWithoutCloning(IEdge edge) {
+        return new UnorderedEdge(edge.getRelation());
     }
 
     @Override
@@ -59,7 +72,10 @@ public class CpmUnorderedProvFactory implements ICpmFactory {
                         return n.getElements().stream();
                     }
                     return ((IEdge) x).getRelations().stream();
-                }).distinct().toList();
+                }).collect(Collectors.collectingAndThen(
+                        Collectors.toCollection(() -> Collections.newSetFromMap(new IdentityHashMap<>())),
+                        List::copyOf
+                ));
     }
 
 }
