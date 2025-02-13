@@ -213,7 +213,7 @@ public class CpmDocument implements StatementAction {
             if (influences.getFirst().getEffect() != null && influences.getFirst().getCause() == null) {
                 // need to handle separately in order to not create duplicate edges
                 // since there is no cause edge, all other edges (1 or 2) will be the same
-                IEdge edge = cF.newEdge(influences.getFirst());
+                IEdge edge = cF.newEdgeWithoutCloning(influences.getFirst());
                 edge.setEffect(newNode);
                 newNode.getEffectEdges().add(edge);
                 influences.add(edge);
@@ -233,7 +233,7 @@ public class CpmDocument implements StatementAction {
                 // 2 - 2 4 + 2
                 // 2 - 3 6 + 3
                 for (INode causeNode : influences.stream().map(IEdge::getCause).distinct().toList()) {
-                    IEdge edge = cF.newEdge(influences.getFirst());
+                    IEdge edge = cF.newEdgeWithoutCloning(influences.getFirst());
                     edge.setEffect(newNode);
                     edge.setCause(causeNode);
                     newNode.getEffectEdges().add(edge);
@@ -271,7 +271,7 @@ public class CpmDocument implements StatementAction {
             if (influences.getFirst().getCause() != null && influences.getFirst().getEffect() == null) {
                 // need to handle separately in order to not create duplicate edges
                 // since there is no effect edge, all other edges (1 or 2) will be the same
-                IEdge edge = cF.newEdge(influences.getFirst());
+                IEdge edge = cF.newEdgeWithoutCloning(influences.getFirst());
                 edge.setCause(newNode);
                 newNode.getCauseEdges().add(edge);
                 influences.add(edge);
@@ -291,7 +291,7 @@ public class CpmDocument implements StatementAction {
                 // 2 - 2 4 + 2
                 // 2 - 3 6 + 3
                 for (INode effectNode : influences.stream().map(IEdge::getEffect).distinct().toList()) {
-                    IEdge edge = cF.newEdge(influences.getFirst());
+                    IEdge edge = cF.newEdgeWithoutCloning(influences.getFirst());
                     edge.setCause(newNode);
                     edge.setEffect(effectNode);
                     newNode.getCauseEdges().add(edge);
@@ -399,6 +399,7 @@ public class CpmDocument implements StatementAction {
         List<INode> effectNodes = new ArrayList<>();
         List<INode> causeNodes = new ArrayList<>();
         List<IEdge> finalEdges = new ArrayList<>();
+        WasInfluencedBy clonedInfluence = pF.newStatement(wasInfluencedBy);
 
         if (nodes.containsKey(effect)) {
             effectNodes.addAll(nodes.get(effect).values());
@@ -410,18 +411,18 @@ public class CpmDocument implements StatementAction {
         }
 
         if (effectNodes.isEmpty() && causeNodes.isEmpty()) {
-            IEdge edge = cF.newEdge(wasInfluencedBy);
+            IEdge edge = cF.newEdgeWithoutCloning(clonedInfluence);
             finalEdges.add(edge);
         } else if (effectNodes.isEmpty()) {
             for (INode causeNode : causeNodes) {
-                IEdge edge = cF.newEdge(wasInfluencedBy);
+                IEdge edge = cF.newEdgeWithoutCloning(clonedInfluence);
                 edge.setCause(causeNode);
                 causeNode.getCauseEdges().add(edge);
                 finalEdges.add(edge);
             }
         } else if (causeNodes.isEmpty()) {
             for (INode effectNode : effectNodes) {
-                IEdge edge = cF.newEdge(wasInfluencedBy);
+                IEdge edge = cF.newEdgeWithoutCloning(clonedInfluence);
                 edge.setEffect(effectNode);
                 effectNode.getEffectEdges().add(edge);
                 finalEdges.add(edge);
@@ -429,7 +430,7 @@ public class CpmDocument implements StatementAction {
         } else {
             for (INode effectNode : effectNodes) {
                 for (INode causeNode : causeNodes) {
-                    IEdge edge = cF.newEdge(wasInfluencedBy);
+                    IEdge edge = cF.newEdgeWithoutCloning(clonedInfluence);
                     edge.setEffect(effectNode);
                     effectNode.getEffectEdges().add(edge);
                     edge.setCause(causeNode);
@@ -492,8 +493,9 @@ public class CpmDocument implements StatementAction {
 
     @Override
     public void doAction(HadMember hadMember) {
+        HadMember clonedHadMember = pF.newStatement(hadMember);
         for (QualifiedName member : hadMember.getEntity()) {
-            addEdge(cF.newEdge(hadMember), hadMember.getCollection(), member);
+            addEdge(cF.newEdgeWithoutCloning(clonedHadMember), hadMember.getCollection(), member);
         }
     }
 

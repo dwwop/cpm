@@ -14,7 +14,7 @@ public class OrderedNode implements cz.muni.fi.cpm.model.INode, WithOrderedState
 
 
     public OrderedNode(Element element, CpmOrderedFactory cF) {
-        this.elements = new HashMap<>(Map.of(element, cF.getOrder()));
+        this.elements = new IdentityHashMap<>(Map.of(element, cF.getOrder()));
         this.effectEdges = new ArrayList<>();
         this.causeEdges = new ArrayList<>();
         this.cF = cF;
@@ -49,7 +49,8 @@ public class OrderedNode implements cz.muni.fi.cpm.model.INode, WithOrderedState
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         OrderedNode node = (OrderedNode) o;
-        return Objects.equals(elements.keySet(), node.elements.keySet()) && Objects.equals(effectEdges, node.effectEdges) && Objects.equals(causeEdges, node.causeEdges);
+        return Objects.equals(new HashSet<>(elements.keySet()), new HashSet<>(node.elements.keySet()))
+                && Objects.equals(effectEdges, node.effectEdges) && Objects.equals(causeEdges, node.causeEdges);
     }
 
     @Override

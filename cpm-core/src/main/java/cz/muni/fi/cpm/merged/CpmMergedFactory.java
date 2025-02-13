@@ -36,9 +36,19 @@ public class CpmMergedFactory implements ICpmFactory {
     }
 
     @Override
+    public IEdge newEdgeWithoutCloning(Relation relation) {
+        return new MergedEdge(relation);
+    }
+
+    @Override
     public IEdge newEdge(IEdge edge) {
         Relation clonedRelation = pF.newStatement(edge.getRelation());
         return new MergedEdge(clonedRelation);
+    }
+
+    @Override
+    public IEdge newEdgeWithoutCloning(IEdge edge) {
+        return new MergedEdge(edge.getRelation());
     }
 
     @Override

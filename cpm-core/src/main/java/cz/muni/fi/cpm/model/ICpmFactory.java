@@ -25,6 +25,15 @@ public interface ICpmFactory {
      */
     IEdge newEdge(Relation relation);
 
+
+    /**
+     * Creates a new edge based on the given relation.
+     *
+     * @param relation the relation to create the edge from
+     * @return a new IEdge
+     */
+    IEdge newEdgeWithoutCloning(Relation relation);
+
     /**
      * Creates a new edge based on the clone of the underlying relation of the given Edge.
      * Removes cause and effect nodes
@@ -33,6 +42,17 @@ public interface ICpmFactory {
      * @return a new IEdge
      */
     IEdge newEdge(IEdge edge);
+
+
+    /**
+     * Creates a new edge based on the underlying relation of the given Edge.
+     * Removes cause and effect nodes
+     *
+     * @param edge the relation to create the edge from
+     * @return a new IEdge
+     */
+    IEdge newEdgeWithoutCloning(IEdge edge);
+
 
     /**
      * Creates a new node based on the clone of the given element.
