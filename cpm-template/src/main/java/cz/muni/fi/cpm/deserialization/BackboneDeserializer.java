@@ -1,6 +1,5 @@
 package cz.muni.fi.cpm.deserialization;
 
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import cz.muni.fi.cpm.bindings.Backbone;
@@ -9,7 +8,6 @@ import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomQualifiedNameDeserializer;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.exception.UncheckedException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,13 +33,7 @@ public class BackboneDeserializer implements IBackboneDeserializer {
     public Backbone deserializeBackbone(InputStream in) throws IOException {
         getAttributes().get().remove(JSON_CONTEXT_KEY_NAMESPACE);
 
-        Backbone bb = null;
-        try {
-            return mapper.readValue(in, Backbone.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new UncheckedException(e);
-        }
+        return mapper.readValue(in, Backbone.class);
     }
 
     @Override
@@ -50,8 +42,7 @@ public class BackboneDeserializer implements IBackboneDeserializer {
     }
 
     private void customize(ObjectMapper mapper) {
-        SimpleModule module =
-                new SimpleModule("CustomKindSerializer", new Version(1, 0, 0, null, null, null));
+        SimpleModule module = new SimpleModule("CustomKindDeserializer");
 
         module.addDeserializer(QualifiedName.class, new CustomQualifiedNameDeserializer());
         mapper.registerModule(module);

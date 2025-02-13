@@ -1,6 +1,9 @@
 package cz.muni.fi.cpm.bindings;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
@@ -13,8 +16,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@JsonPropertyOrder({"prefixes"})
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Backbone {
-    @JsonProperty(required = true)
+    @JsonIgnore
     @JsonDeserialize(using = CustomNamespacePrefixDeserializer.class)
     private Namespace namespace = new Namespace();
     @JsonProperty(required = true)
