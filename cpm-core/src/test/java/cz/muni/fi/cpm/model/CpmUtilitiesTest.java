@@ -373,7 +373,30 @@ public class CpmUtilitiesTest {
 
 
     @Test
-    public void isBackbone_withGeneralizedNodeContainingCpmType_returnsTrue() {
+    public void isBackbone_withGeneralNodeContainingFW_returnsTrue() {
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+
+        Element element = pF.newEntity(id);
+        INode node = cF.newNode(element);
+
+        org.openprovenance.prov.model.QualifiedName genId = pF.newQualifiedName("uri", "genEntity", "ex");
+
+        Attribute cpmType = cPF.newCpmType(CpmType.FORWARD_CONNECTOR);
+        Element genElement = pF.newEntity(genId, Collections.singletonList(cpmType));
+        INode genNode = cF.newNode(genElement);
+
+        Relation rel = pF.newSpecializationOf(id, genId);
+        IEdge edge = cF.newEdge(rel);
+        edge.setCause(genNode);
+        genNode.getCauseEdges().add(edge);
+        edge.setEffect(node);
+        node.getEffectEdges().add(edge);
+
+        assertTrue(CpmUtilities.isBackbone(node));
+    }
+
+    @Test
+    public void isBackbone_withGeneralNodeContainingOtherCpmType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
@@ -392,11 +415,11 @@ public class CpmUtilitiesTest {
         edge.setEffect(node);
         node.getEffectEdges().add(edge);
 
-        assertTrue(CpmUtilities.isBackbone(node));
+        assertFalse(CpmUtilities.isBackbone(node));
     }
 
     @Test
-    public void isBackbone_withGeneralizedNodeContainingCpmTypeAndInvalidAttr_returnsFalse() {
+    public void isBackbone_withGeneralNodeContainingCpmTypeAndInvalidAttr_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
@@ -427,7 +450,7 @@ public class CpmUtilitiesTest {
 
 
     @Test
-    public void isBackbone_with2GeneralizedNodes_returnsTrue() {
+    public void isBackbone_with2GeneralNodes_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
@@ -458,7 +481,7 @@ public class CpmUtilitiesTest {
         edge2.setEffect(genNode);
         genNode.getEffectEdges().add(edge2);
 
-        assertTrue(CpmUtilities.isBackbone(node));
+        assertFalse(CpmUtilities.isBackbone(node));
     }
 
     @Test
