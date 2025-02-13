@@ -5,7 +5,6 @@ import cz.muni.fi.cpm.constants.CpmType;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.StatementOrBundle;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,20 +18,17 @@ public class CpmUtilities {
         if (!containsOnlyCPMAttributes(node)) return false;
 
         boolean hasAnyCpmType = hasAnyCpmType(node);
-        List<INode> generalizedNodes = new LinkedList<>(node.getEffectEdges().stream()
+
+        List<INode> generalNodes = node.getEffectEdges().stream()
                 .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getRelation().getKind()))
-                .map(IEdge::getCause).toList());
+                .map(IEdge::getCause).toList();
 
-        while (!generalizedNodes.isEmpty()) {
-            INode curNode = generalizedNodes.removeFirst();
-            if (!containsOnlyCPMAttributes(curNode)) return false;
-            hasAnyCpmType = hasAnyCpmType || hasAnyCpmType(curNode);
-            generalizedNodes.addAll(curNode.getEffectEdges().stream()
-                    .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getRelation().getKind()))
-                    .map(IEdge::getCause).toList());
-        }
+        if (generalNodes.isEmpty() && hasAnyCpmType) return true;
+        if (generalNodes.size() != 1) return false;
 
-        return hasAnyCpmType;
+        INode generalNode = generalNodes.getFirst();
+        if (!containsOnlyCPMAttributes(generalNode)) return false;
+        return hasCpmType(generalNode, CpmType.FORWARD_CONNECTOR);
     }
 
     public static boolean containsOnlyCPMAttributes(INode node) {
