@@ -11,12 +11,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import static cz.muni.fi.cpm.constants.PathConstants.TEST_RESOURCES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class BackboneSerializerTest {
     private static final String SERIALIZE_FOLDER = "serialization" + File.separator;
-    private static final String TEST_RESOURCES = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
 
     @Test
     public void serializeBackbone_pure_deserializesSuccessfully() {

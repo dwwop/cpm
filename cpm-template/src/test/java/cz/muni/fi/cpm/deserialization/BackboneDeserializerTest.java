@@ -15,15 +15,15 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
 
+import static cz.muni.fi.cpm.constants.PathConstants.TEST_RESOURCES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class BackboneDeserializerTest {
     private static final String DESERIALIZE_FOLDER = "deserialization" + File.separator;
-    private static final String TEST_RESOURCES = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
 
     @Test
-    public void deserializeBackbone_Pure_serialisesSuccessfully() {
+    public void deserializeBackbone_pure_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
         CpmProvFactory cF = new CpmProvFactory(pF);

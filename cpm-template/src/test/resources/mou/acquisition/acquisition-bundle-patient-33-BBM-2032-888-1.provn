@@ -1,0 +1,17 @@
+document
+default <cpm>
+prefix dct <http://purl.org/dc/terms/>
+prefix pbm <http://commonprovenancemodel.org/ns/pbm/>
+prefix bbmri <http://www.bbmri.cz/schemas/biobank/data>
+prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
+bundle bbmri:acquisition-bundle-patient-33-BBM:2032:888:1
+
+activity(bbmri:acquisition-patient-33-BBM:2032:888:1,-,-,[prov:type = 'cpm:mainActivity'])
+wasGeneratedBy(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:1,bbmri:acquisition-patient-33-BBM:2032:888:1,-)
+entity(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:1,[prov:type = 'cpm:forwardConnector'])
+wasAttributedTo(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:1, bbmri:MOU)
+agent(bbmri:MOU,[prov:type = 'cpm:receiverAgent'])
+entity(bbmri:sample-patient-33-BBM:2032:888:1,[prov:type = 'pbm:sample', bbmri:sampleId = "BBM:2032:888:1" %% xsd:string])
+specializationOf(bbmri:sample-patient-33-BBM:2032:888:1,bbmri:sampleAcqConnector-patient-33-BBM:2032:888:1)
+endBundle
+endDocument
