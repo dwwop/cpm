@@ -136,6 +136,7 @@ public class Backbone {
         namespace.getNamespaces().put(CpmNamespaceConstants.CPM_NS, CpmNamespaceConstants.CPM_PREFIX);
         namespace.getPrefixes().put(DctNamespaceConstants.DCT_PREFIX, DctNamespaceConstants.DCT_NS);
         namespace.getNamespaces().put(DctNamespaceConstants.DCT_NS, DctNamespaceConstants.DCT_PREFIX);
+        namespace.setDefaultNamespace(CpmNamespaceConstants.CPM_PREFIX);
     }
 
     public Document toDocument(ICpmProvFactory cF) {
