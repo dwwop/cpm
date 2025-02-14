@@ -1,4 +1,5 @@
 document
+default <cpm>
 prefix dct <http://purl.org/dc/terms/>
 prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
 prefix ex <test>
