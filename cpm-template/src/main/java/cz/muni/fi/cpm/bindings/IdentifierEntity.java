@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class IdentifierEntity implements ToStatements{
+public class IdentifierEntity implements ToStatements {
     private QualifiedName id;
     @JsonProperty(required = true)
     private QualifiedName externalId;
@@ -69,5 +69,14 @@ public class IdentifierEntity implements ToStatements{
         }
 
         return Collections.singletonList(cF.newCpmEntity(id, CpmType.IDENTIFIER, attributes));
+    }
+
+    public IdentifierEntity() {
+    }
+
+    public IdentifierEntity(String externalIdType, QualifiedName externalId, QualifiedName id) {
+        this.externalIdType = externalIdType;
+        this.externalId = externalId;
+        this.id = id;
     }
 }

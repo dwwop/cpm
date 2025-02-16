@@ -2,6 +2,7 @@ package cz.muni.fi.cpm.bindings;
 
 
 import cz.muni.fi.cpm.constants.CpmType;
+import org.openprovenance.prov.model.QualifiedName;
 
 public class BackwardConnector extends Connector {
 
@@ -10,4 +11,10 @@ public class BackwardConnector extends Connector {
         return CpmType.BACKWARD_CONNECTOR;
     }
 
+    public BackwardConnector() {
+    }
+
+    public BackwardConnector(QualifiedName id) {
+        super(id);
+    }
 }

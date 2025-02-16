@@ -60,5 +60,12 @@ public class CpmAgentTest {
         public CpmType getType() {
             return CpmType.SENDER_AGENT;
         }
+
+        public TestAgent() {
+        }
+
+        public TestAgent(org.openprovenance.prov.model.QualifiedName id) {
+            super(id);
+        }
     }
 }

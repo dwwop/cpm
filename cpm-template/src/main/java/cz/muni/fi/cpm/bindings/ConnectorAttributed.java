@@ -23,4 +23,16 @@ public class ConnectorAttributed {
     public void setAgentId(QualifiedName agentId) {
         this.agentId = agentId;
     }
+
+    public ConnectorAttributed() {
+    }
+
+    public ConnectorAttributed(QualifiedName agentId) {
+        this.agentId = agentId;
+    }
+
+    public ConnectorAttributed(QualifiedName id, QualifiedName agentId) {
+        this.id = id;
+        this.agentId = agentId;
+    }
 }

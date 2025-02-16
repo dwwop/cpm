@@ -2,30 +2,10 @@
   "type": "object",
   "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:Backbone",
   "properties": {
-    "namespace": {
+    "prefixes": {
       "type": "object",
-      "id": "urn:jsonschema:org:openprovenance:prov:model:Namespace",
-      "required": true,
-      "properties": {
-        "prefixes": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "namespaces": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "defaultNamespace": {
-          "type": "string"
-        },
-        "parent": {
-          "type": "object",
-          "$ref": "urn:jsonschema:org:openprovenance:prov:model:Namespace"
-        }
+      "additionalProperties": {
+        "type": "string"
       }
     },
     "mainActivity": {
@@ -147,7 +127,18 @@
           },
           "attributedTo": {
             "type": "object",
-            "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
+            "id": "urn:jsonschema:cz:muni:fi:cpm:bindings:ConnectorAttributed",
+            "properties": {
+              "id": {
+                "type": "object",
+                "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
+              },
+              "agentId": {
+                "type": "object",
+                "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName",
+                "required": true
+              }
+            }
           }
         }
       }
@@ -198,6 +189,10 @@
             }
           },
           "attributedTo": {
+            "type": "object",
+            "$ref": "urn:jsonschema:cz:muni:fi:cpm:bindings:ConnectorAttributed"
+          },
+          "specializationOf": {
             "type": "object",
             "$ref": "urn:jsonschema:org:openprovenance:prov:model:QualifiedName"
           }
@@ -262,13 +257,6 @@
           }
         }
       }
-    },
-    "prefixes": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "string"
-      }
     }
   }
 }
-
