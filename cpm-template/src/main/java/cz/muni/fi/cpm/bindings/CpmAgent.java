@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class CpmAgent implements ToStatements{
+public abstract class CpmAgent implements ToStatements {
 
     private QualifiedName id;
     private Object contactIdPid;
@@ -44,5 +44,17 @@ public abstract class CpmAgent implements ToStatements{
         }
 
         return Collections.singletonList(cF.newCpmAgent(id, getType(), attributes));
+    }
+
+    public CpmAgent() {
+    }
+
+    public CpmAgent(QualifiedName id) {
+        this.id = id;
+    }
+
+    public CpmAgent(QualifiedName id, Object contactIdPid) {
+        this.id = id;
+        this.contactIdPid = contactIdPid;
     }
 }

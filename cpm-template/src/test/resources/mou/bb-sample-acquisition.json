@@ -1,0 +1,23 @@
+{
+  "prefixes": {
+    "bbmri": "http://www.bbmri.cz/schemas/biobank/data"
+  },
+  "mainActivity": {
+    "id": "bbmri:acquisition",
+    "generated": [
+      "bbmri:sampleAcqConnector"
+    ]
+  },
+  "bundleName": "bbmri:acquisitionBundle",
+  "forwardConnectors": [
+    {
+      "id": "bbmri:sampleAcqConnector",
+      "attributedTo": "bbmri:MOU"
+    }
+  ],
+  "receiverAgents": [
+    {
+      "id": "bbmri:MOU"
+    }
+  ]
+}

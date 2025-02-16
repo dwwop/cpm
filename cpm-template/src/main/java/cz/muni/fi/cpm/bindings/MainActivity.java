@@ -112,4 +112,11 @@ public class MainActivity implements ToStatements {
 
         return statements;
     }
+
+    public MainActivity() {
+    }
+
+    public MainActivity(QualifiedName id) {
+        this.id = id;
+    }
 }

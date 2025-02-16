@@ -23,4 +23,16 @@ public class MainActivityUsed {
     public void setBcId(QualifiedName bcId) {
         this.bcId = bcId;
     }
+
+    public MainActivityUsed() {
+    }
+
+    public MainActivityUsed(QualifiedName bcId) {
+        this.bcId = bcId;
+    }
+
+    public MainActivityUsed(QualifiedName id, QualifiedName bcId) {
+        this.id = id;
+        this.bcId = bcId;
+    }
 }

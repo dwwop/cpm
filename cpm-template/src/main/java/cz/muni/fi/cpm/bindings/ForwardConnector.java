@@ -32,4 +32,11 @@ public class ForwardConnector extends Connector {
         }
         return statements;
     }
+
+    public ForwardConnector() {
+    }
+
+    public ForwardConnector(QualifiedName id) {
+        super(id);
+    }
 }

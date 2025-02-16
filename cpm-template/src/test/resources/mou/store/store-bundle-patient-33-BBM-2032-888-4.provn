@@ -1,0 +1,29 @@
+document
+default <cpm>
+prefix dct <http://purl.org/dc/terms/>
+prefix pbm <http://commonprovenancemodel.org/ns/pbm/>
+prefix bbmri <http://www.bbmri.cz/schemas/biobank/data>
+prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
+bundle bbmri:store-bundle-patient-33-BBM:2032:888:4
+
+activity(bbmri:store-patient-33-BBM:2032:888:4,-,-,[prov:type = 'cpm:mainActivity'])
+used(bbmri:store-patient-33-BBM:2032:888:4,bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4,-)
+wasGeneratedBy(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:4,bbmri:store-patient-33-BBM:2032:888:4,-)
+entity(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4,[prov:type = 'cpm:backwardConnector'])
+wasAttributedTo(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4, bbmri:MOU)
+entity(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:4,[prov:type = 'cpm:forwardConnector'])
+wasAttributedTo(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:4, bbmri:MOU)
+agent(bbmri:MOU,[prov:type = 'cpm:receiverAgent'])
+entity(bbmri:sample-patient-33-BBM:2032:888:4,[prov:type = 'pbm:sample', bbmri:sampleId = "BBM:2032:888:4" %% xsd:string])
+specializationOf(bbmri:sample-patient-33-BBM:2032:888:4,bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4)
+activity(bbmri:transport-patient-33-BBM:2032:888:4,-,-,[prov:type = 'pbm:transportActivity'])
+used(bbmri:transport-patient-33-BBM:2032:888:4,bbmri:sample-patient-33-BBM:2032:888:4,-)
+entity(bbmri:sample-trans-patient-33-BBM:2032:888:4,[prov:type = 'pbm:sample', bbmri:sampleId = "BBM:2032:888:4" %% xsd:string])
+wasGeneratedBy(bbmri:sample-trans-patient-33-BBM:2032:888:4,bbmri:transport-patient-33-BBM:2032:888:4,-)
+activity(bbmri:store-ac-patient-33-BBM:2032:888:4,-,-,[prov:type = 'pbm:storageActivity'])
+used(bbmri:store-ac-patient-33-BBM:2032:888:4,bbmri:sample-trans-patient-33-BBM:2032:888:4,-)
+entity(bbmri:sample-store-patient-33-BBM:2032:888:4,[prov:type = 'pbm:sample', prov:type = 'bbmri:tissue', bbmri:sampleId = "BBM:2032:888:4" %% xsd:string, bbmri:storageType = "LTS" %% xsd:string, bbmri:year = "2032" %% xsd:int, bbmri:samplesNo = "3" %% xsd:int, bbmri:availableSamplesNo = "3" %% xsd:int, bbmri:materialType = "4" %% xsd:int, bbmri:pTNM = "T4bN1M" %% xsd:string, bbmri:morphology = "8500/32" %% xsd:string, bbmri:diagnosis = "C61" %% xsd:string, bbmri:cutTime = "2032-11-23T09:40:00.000Z" %% xsd:dateTime, bbmri:freezeTime = "2032-11-23T10:08:00.000Z" %% xsd:dateTime, bbmri:retrieved = "operational" %% xsd:string])
+wasGeneratedBy(bbmri:sample-store-patient-33-BBM:2032:888:4,bbmri:store-ac-patient-33-BBM:2032:888:4,-)
+specializationOf(bbmri:sample-store-patient-33-BBM:2032:888:4,bbmri:sampleStoreConnector-patient-33-BBM:2032:888:4)
+endBundle
+endDocument

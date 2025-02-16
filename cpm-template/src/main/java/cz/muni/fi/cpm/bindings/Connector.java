@@ -141,4 +141,11 @@ public abstract class Connector implements ToStatements {
 
         return statements;
     }
+
+    public Connector() {
+    }
+
+    public Connector(QualifiedName id) {
+        this.id = id;
+    }
 }
