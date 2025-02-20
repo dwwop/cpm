@@ -24,18 +24,20 @@ public abstract class PatientTransformer {
     protected final ProvFactory pF;
     protected final ICpmProvFactory cPF;
     protected final PbmFactory pbmF;
+    protected final Patient patient;
 
-    public PatientTransformer(ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
+    public PatientTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
+        this.patient = patient;
         this.pF = pF;
         this.cPF = cPF;
         this.pbmF = pbmF;
     }
 
-    public List<Document> toDocuments(Patient patient) {
+    public List<Document> toDocuments() {
         List<Document> docs = new ArrayList<>();
         for (Tissue tissue : patient.getLts().getTissues()) {
             String suffix = String.format(SUFFIX_TEMPLATE, patient.getId(), tissue.getSampleId());
-            Document doc = createBB(patient, suffix);
+            Document doc = createBB(suffix);
 
             addTissueDSToDoc(doc, suffix, tissue);
             docs.add(doc);
@@ -43,7 +45,7 @@ public abstract class PatientTransformer {
 
         for (DiagnosisMaterial dM : patient.getSts().getDiagnosisMaterials()) {
             String suffix = String.format(SUFFIX_TEMPLATE, patient.getId(), dM.getSampleId());
-            Document doc = createBB(patient, suffix);
+            Document doc = createBB(suffix);
 
             addDMDSToDoc(doc, suffix, dM);
             docs.add(doc);
@@ -51,7 +53,7 @@ public abstract class PatientTransformer {
         return docs;
     }
 
-    protected abstract Document createBB(Patient patient, String suffix);
+    protected abstract Document createBB(String suffix);
 
     protected abstract void addTissueDSToDoc(Document doc, String suffix, Tissue tissue);
 

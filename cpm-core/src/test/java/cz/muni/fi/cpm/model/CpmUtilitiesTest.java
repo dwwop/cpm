@@ -44,7 +44,7 @@ public class CpmUtilitiesTest {
 
     @Test
     public void hasCpmType_nullElementAndNullType_returnsFalse() {
-        assertFalse(CpmUtilities.hasCpmType(null, null));
+        assertFalse(CpmUtilities.hasCpmType((INode) null, null));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class CpmUtilitiesTest {
 
     @Test
     public void hasCpmType_withNullElementAndValidType_returnsFalse() {
-        assertFalse(CpmUtilities.hasCpmType(null, CpmType.BACKWARD_CONNECTOR));
+        assertFalse(CpmUtilities.hasCpmType((INode) null, CpmType.BACKWARD_CONNECTOR));
     }
 
     @Test

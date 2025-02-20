@@ -62,7 +62,7 @@ public class MainActivityTest {
         MainActivity mainActivity = new MainActivity();
         mainActivity.setId(new QualifiedName("uri", "activityExample", "ex"));
         QualifiedName hasPart = new QualifiedName("uri", "hasPart", "ex");
-        mainActivity.setHasPart(hasPart);
+        mainActivity.setHasPart(List.of(hasPart));
 
         List<Statement> statements = mainActivity.toStatements(new CpmProvFactory());
         Activity activity = (Activity) statements.getFirst();

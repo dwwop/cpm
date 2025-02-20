@@ -20,7 +20,7 @@ public class MainActivity implements ToStatements {
     private XMLGregorianCalendar endTime;
     @JsonProperty(required = true)
     private QualifiedName referencedMetaBundleId;
-    private QualifiedName hasPart;
+    private List<QualifiedName> hasPart;
     private List<MainActivityUsed> used;
     private List<QualifiedName> generated;
 
@@ -56,11 +56,11 @@ public class MainActivity implements ToStatements {
         this.referencedMetaBundleId = referencedMetaBundleId;
     }
 
-    public QualifiedName getHasPart() {
+    public List<QualifiedName> getHasPart() {
         return hasPart;
     }
 
-    public void setHasPart(QualifiedName hasPart) {
+    public void setHasPart(List<QualifiedName> hasPart) {
         this.hasPart = hasPart;
     }
 
@@ -90,10 +90,12 @@ public class MainActivity implements ToStatements {
         }
 
         if (hasPart != null) {
-            attributes.add(cF.getProvFactory().newOther(
-                    cF.getProvFactory().newQualifiedName(DctNamespaceConstants.DCT_NS, DctAttributeConstants.HAS_PART, DctNamespaceConstants.DCT_PREFIX),
-                    hasPart,
-                    cF.getProvFactory().getName().PROV_QUALIFIED_NAME));
+            for (QualifiedName qn : hasPart) {
+                attributes.add(cF.getProvFactory().newOther(
+                        cF.getProvFactory().newQualifiedName(DctNamespaceConstants.DCT_NS, DctAttributeConstants.HAS_PART, DctNamespaceConstants.DCT_PREFIX),
+                        qn,
+                        cF.getProvFactory().getName().PROV_QUALIFIED_NAME));
+            }
         }
 
         statements.add(cF.newCpmActivity(id, startTime, endTime, CpmType.MAIN_ACTIVITY, attributes));

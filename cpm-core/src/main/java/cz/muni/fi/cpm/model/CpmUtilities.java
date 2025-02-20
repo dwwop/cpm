@@ -2,7 +2,9 @@ package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
+import org.openprovenance.prov.model.HasType;
 import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.Statement;
 
 import java.util.Objects;
 
@@ -43,12 +45,27 @@ public class CpmUtilities {
     public static boolean hasCpmType(INode node, CpmType type) {
         if (node == null) return false;
 
-        return node.getElements().stream().anyMatch(element ->
-                element != null && type != null && element.getType().stream().anyMatch(x ->
+        return node.getElements().stream().anyMatch(element -> hasCpmType(element, type));
+    }
+
+    /**
+     * Checks if the given {@link Statement} has a specific CPM type.
+     * This method verifies if the statement contains a type that matches
+     * the CPM namespace, prefix, and the specified {@link CpmType}.
+     *
+     * @param statement the {@link Statement} to check
+     * @param type      the {@link CpmType} to compare against
+     * @return {@code true} if the node has any element with the specified CPM type, {@code false} otherwise
+     */
+    public static boolean hasCpmType(Statement statement, CpmType type) {
+        if (statement == null || type == null) return false;
+
+        return statement instanceof HasType element &&
+                element.getType().stream().anyMatch(x ->
                         x.getValue() instanceof QualifiedName qN &&
                                 CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
                                 CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
-                                Objects.equals(type.toString(), qN.getLocalPart())));
+                                Objects.equals(type.toString(), qN.getLocalPart()));
     }
 
     /**

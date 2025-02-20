@@ -19,8 +19,8 @@ import static cz.muni.fi.cpm.deserialization.mou.constants.NameConstants.ACQUISI
 
 public class AcquisitionTransformer extends PatientTransformer {
 
-    public AcquisitionTransformer(ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
-        super(pF, cPF, pbmF);
+    public AcquisitionTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
+        super(patient, pF, cPF, pbmF);
     }
 
     private void addAcquisitionDSToDoc(Document doc, String suffix, String sampleId) {
@@ -38,7 +38,7 @@ public class AcquisitionTransformer extends PatientTransformer {
     }
 
     @Override
-    protected Document createBB(Patient patient, String suffix) {
+    protected Document createBB(String suffix) {
         Backbone bb = new Backbone();
 
         bb.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));

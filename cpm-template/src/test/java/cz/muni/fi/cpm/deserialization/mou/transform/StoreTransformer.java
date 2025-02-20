@@ -1,11 +1,13 @@
 package cz.muni.fi.cpm.deserialization.mou.transform;
 
 import cz.muni.fi.cpm.bindings.*;
+import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.deserialization.constants.PbmFactory;
 import cz.muni.fi.cpm.deserialization.constants.PbmType;
 import cz.muni.fi.cpm.deserialization.mou.schema.DiagnosisMaterial;
 import cz.muni.fi.cpm.deserialization.mou.schema.Patient;
 import cz.muni.fi.cpm.deserialization.mou.schema.Tissue;
+import cz.muni.fi.cpm.model.CpmUtilities;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.*;
 
@@ -13,17 +15,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+import static cz.muni.fi.cpm.constants.DctAttributeConstants.HAS_PART;
+import static cz.muni.fi.cpm.constants.DctNamespaceConstants.DCT_NS;
+import static cz.muni.fi.cpm.constants.DctNamespaceConstants.DCT_PREFIX;
 import static cz.muni.fi.cpm.deserialization.constants.PbmNamespaceConstants.PBM_NS;
 import static cz.muni.fi.cpm.deserialization.constants.PbmNamespaceConstants.PBM_PREFIX;
 import static cz.muni.fi.cpm.deserialization.mou.constants.NameConstants.*;
 
 public class StoreTransformer extends PatientTransformer {
-    public StoreTransformer(ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
-        super(pF, cPF, pbmF);
+    public StoreTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
+        super(patient, pF, cPF, pbmF);
     }
 
     @Override
-    protected Document createBB(Patient patient, String suffix) {
+    protected Document createBB(String suffix) {
         Backbone bb = new Backbone();
         bb.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));
         bb.setBundleName(bb.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "-bundle" + suffix, pF));
@@ -45,12 +50,10 @@ public class StoreTransformer extends PatientTransformer {
         ForwardConnector fC = new ForwardConnector(fcID);
         bb.getForwardConnectors().add(fC);
 
-        QualifiedName agentId = bb.getNamespace().qualifiedName(BBMRI_PREFIX, patient.getBiobank(), pF);
-        bb.setReceiverAgents(List.of(new ReceiverAgent(agentId)));
+        QualifiedName agentId = bb.getNamespace().qualifiedName(BBMRI_PREFIX, "UNI", pF);
+        bb.setSenderAgents(List.of(new SenderAgent(agentId)));
 
         bC.setAttributedTo(new ConnectorAttributed(agentId));
-
-        fC.setAttributedTo(new ConnectorAttributed(agentId));
 
         return bb.toDocument(cPF);
     }
@@ -58,21 +61,25 @@ public class StoreTransformer extends PatientTransformer {
     private void addStoreDSToDocument(Document doc, String suffix, String sampleId, Function<Entity, Void> populateStore) {
         Type sampleType = pbmF.newType(PbmType.SAMPLE);
 
-        Other sampleIdOther = newOther("sampleId", sampleId);
-        QualifiedName sampleQN = pF.newQualifiedName(BBMRI_NS, "sample" + suffix, BBMRI_PREFIX);
-        Entity sample = pF.newEntity(sampleQN, List.of(sampleType, sampleIdOther));
-
-        SpecializationOf bcSpec = pF.newSpecializationOf(sampleQN, doc.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF));
+        QualifiedName patientQN = pF.newQualifiedName(BBMRI_NS, "patient-" + patient.getId(), BBMRI_PREFIX);
+        Entity patientE = pF.newEntity(patientQN);
+        patientE.getOther().add(newOther("sex", patient.getSex()));
+        patientE.getOther().add(newOther("birthYear", patient.getYear()));
+        patientE.getOther().add(newOther("month", patient.getMonth()));
+        patientE.getOther().add(newOther("gaveConsent", patient.isConsent()));
+        patientE.getType().add(pbmF.newType(PbmType.SOURCE));
 
         QualifiedName transActivity = pF.newQualifiedName(BBMRI_NS, "transport" + suffix, BBMRI_PREFIX);
         Activity trans = pF.newActivity(transActivity);
         trans.getType().add(pbmF.newType(PbmType.TRANSPORT_ACTIVITY));
 
-        Used transUsed = pF.newUsed(transActivity, sampleQN);
-
         Other sampleIdTransOther = newOther("sampleId", sampleId);
         QualifiedName sampleTransQN = pF.newQualifiedName(BBMRI_NS, "sample-trans" + suffix, BBMRI_PREFIX);
         Entity sampleTrans = pF.newEntity(sampleTransQN, List.of(sampleType, sampleIdTransOther));
+
+        WasDerivedFrom sampleTransDer = pF.newWasDerivedFrom(sampleTransQN, patientQN);
+
+        SpecializationOf bcSpec = pF.newSpecializationOf(sampleTransQN, doc.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF));
 
         WasGeneratedBy transGeneratedBy = pF.newWasGeneratedBy(null, sampleTransQN, transActivity);
 
@@ -86,6 +93,8 @@ public class StoreTransformer extends PatientTransformer {
         QualifiedName sampleStoreQN = pF.newQualifiedName(BBMRI_NS, "sample-store" + suffix, BBMRI_PREFIX);
         Entity sampleStore = pF.newEntity(sampleStoreQN, List.of(sampleType, sampleIdStoreOther));
 
+        WasDerivedFrom sampleStoreDer = pF.newWasDerivedFrom(sampleStoreQN, patientQN);
+
         populateStore.apply(sampleStore);
 
         WasGeneratedBy storeGeneratedBy = pF.newWasGeneratedBy(null, sampleStoreQN, storeActivity);
@@ -93,7 +102,21 @@ public class StoreTransformer extends PatientTransformer {
         SpecializationOf fcSpec = pF.newSpecializationOf(sampleStoreQN, doc.getNamespace().qualifiedName(BBMRI_PREFIX, STORE_CON + suffix, pF));
 
         Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
-        bundle.getStatement().addAll(List.of(sample, bcSpec, trans, transUsed, sampleTrans, transGeneratedBy, storeAc, storeUsed, sampleStore, storeGeneratedBy, fcSpec));
+        bundle.getStatement().addAll(List.of(bcSpec, trans, sampleTrans, transGeneratedBy, storeAc, storeUsed, sampleStore, storeGeneratedBy, fcSpec, patientE, sampleTransDer, sampleStoreDer));
+
+        for (Statement s : bundle.getStatement()) {
+            if (CpmUtilities.hasCpmType(s, CpmType.MAIN_ACTIVITY)) {
+                Activity mainActivity = (Activity) s;
+                mainActivity.getOther().add(pF.newOther(
+                        pF.newQualifiedName(DCT_NS, HAS_PART, DCT_PREFIX),
+                        transActivity,
+                        pF.getName().PROV_QUALIFIED_NAME));
+                mainActivity.getOther().add(pF.newOther(
+                        pF.newQualifiedName(DCT_NS, HAS_PART, DCT_PREFIX),
+                        storeActivity,
+                        pF.getName().PROV_QUALIFIED_NAME));
+            }
+        }
     }
 
     @Override
