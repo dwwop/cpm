@@ -3,9 +3,7 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.StatementOrBundle;
 
-import java.util.List;
 import java.util.Objects;
 
 
@@ -13,40 +11,6 @@ import java.util.Objects;
  * Utilities for manipulating CPM Descriptions.
  */
 public class CpmUtilities {
-    public static boolean isBackbone(INode node) {
-        if (node == null) return false;
-        if (!containsOnlyCPMAttributes(node)) return false;
-
-        boolean hasAnyCpmType = hasAnyCpmType(node);
-
-        List<INode> generalNodes = node.getEffectEdges().stream()
-                .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getRelation().getKind()))
-                .map(IEdge::getCause).toList();
-
-        if (generalNodes.isEmpty() && hasAnyCpmType) return true;
-        if (generalNodes.size() != 1) return false;
-
-        INode generalNode = generalNodes.getFirst();
-        if (!containsOnlyCPMAttributes(generalNode)) return false;
-        return hasCpmType(generalNode, CpmType.FORWARD_CONNECTOR);
-    }
-
-    public static boolean containsOnlyCPMAttributes(INode node) {
-        if (node == null) return false;
-
-        return node.getElements().stream().allMatch(element ->
-                element != null &&
-                        element.getLocation().isEmpty() && element.getLabel().isEmpty() &&
-                        (element.getType().isEmpty() ||
-                                (element.getType().size() == 1 &&
-                                        element.getType().getFirst().getValue() instanceof QualifiedName qN &&
-                                        CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                                        CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()))) &&
-                        element.getOther().stream().allMatch(x ->
-                                x.getElementName() instanceof QualifiedName qN2 &&
-                                        CpmNamespaceConstants.CPM_NS.equals(qN2.getNamespaceURI()) &&
-                                        CpmNamespaceConstants.CPM_PREFIX.equals(qN2.getPrefix())));
-    }
 
     /**
      * Checks if the given {@link INode} has any supported CPM type.

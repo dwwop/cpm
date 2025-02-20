@@ -3,6 +3,7 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.constants.CpmExceptionConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.exception.NoSpecificKind;
+import cz.muni.fi.cpm.strategy.AttributeBackboneStrategy;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.model.extension.QualifiedAlternateOf;
 import org.openprovenance.prov.model.extension.QualifiedHadMember;
@@ -38,6 +39,8 @@ public class CpmDocument implements StatementAction {
     private final List<INode> listOfNodes = new ArrayList<>();
     private final List<IEdge> edges = new ArrayList<>();
     private QualifiedName bundleId;
+
+    private IBackboneStrategy bbStrategy = new AttributeBackboneStrategy();
 
     public CpmDocument(ProvFactory pF, ICpmProvFactory cPF, ICpmFactory cF) {
         this.pF = pF;
@@ -91,6 +94,10 @@ public class CpmDocument implements StatementAction {
         u.forAllStatement(backbone, this);
         u.forAllStatement(domainSpecificPart, this);
         u.forAllStatement(crossPartEdges, this);
+    }
+
+    public void setBBStrategy(IBackboneStrategy strategy) {
+        this.bbStrategy = strategy;
     }
 
     /**
@@ -576,7 +583,7 @@ public class CpmDocument implements StatementAction {
      */
     public INode getMainActivity() {
         for (INode node : listOfNodes) {
-            if (CpmUtilities.isBackbone(node) &&
+            if (bbStrategy.isBackbone(node) &&
                     CpmUtilities.hasCpmType(node, CpmType.MAIN_ACTIVITY)) {
                 return node;
             }
@@ -587,7 +594,7 @@ public class CpmDocument implements StatementAction {
     private List<INode> getConnectors(CpmType type) {
         List<INode> result = new ArrayList<>();
         for (INode node : listOfNodes) {
-            if (CpmUtilities.isBackbone(node) &&
+            if (bbStrategy.isBackbone(node) &&
                     CpmUtilities.hasCpmType(node, type)) {
                 result.add(node);
             }
@@ -640,7 +647,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of cloned backbone nodes
      */
     public List<INode> getBackbonePart() {
-        return getFilteredNodes(CpmUtilities::isBackbone);
+        return getFilteredNodes(n -> bbStrategy.isBackbone(n));
     }
 
     /**
@@ -649,7 +656,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of cloned domain specific nodes
      */
     public List<INode> getDomainSpecificPart() {
-        return getFilteredNodes(x -> !CpmUtilities.isBackbone(x));
+        return getFilteredNodes(n -> !bbStrategy.isBackbone(n));
     }
 
     /**
@@ -659,7 +666,7 @@ public class CpmDocument implements StatementAction {
      */
     public List<IEdge> getCrossPartEdges() {
         Map<INode, Boolean> nodeBackboneMap = listOfNodes.stream()
-                .collect(Collectors.toMap(node -> node, CpmUtilities::isBackbone));
+                .collect(Collectors.toMap(node -> node, n -> bbStrategy.isBackbone(n)));
 
         return edges.stream().filter(e -> {
             if (e.getEffect() == null || e.getCause() == null) {
