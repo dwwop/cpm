@@ -53,11 +53,16 @@ public class AcquisitionTransformer extends PatientTransformer {
         ForwardConnector fC = new ForwardConnector(fcID);
         bb.getForwardConnectors().add(fC);
 
+        QualifiedName fcSpecId = bb.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "-spec" + suffix, pF);
+        ForwardConnector fCSpec = new ForwardConnector(fcSpecId);
+        fCSpec.setSpecializationOf(fcID);
+        bb.getForwardConnectors().add(fCSpec);
+
         QualifiedName agentId = bb.getNamespace().qualifiedName(BBMRI_PREFIX, patient.getBiobank(), pF);
         ReceiverAgent rA = new ReceiverAgent(agentId);
         bb.setReceiverAgents(List.of(rA));
 
-        fC.setAttributedTo(new ConnectorAttributed(agentId));
+        fCSpec.setAttributedTo(new ConnectorAttributed(agentId));
 
         return bb.toDocument(cPF);
     }

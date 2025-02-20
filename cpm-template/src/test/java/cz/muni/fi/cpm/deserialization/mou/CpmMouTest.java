@@ -60,7 +60,7 @@ public class CpmMouTest {
         PatientTransformer aT = new AcquisitionTransformer(pF, cPF, pbmF);
         for (Document doc : aT.toDocuments(patient)) {
             CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
-            assertEquals(3, cpmDoc.getBackbonePart().size());
+            assertEquals(4, cpmDoc.getBackbonePart().size());
             assertEquals(1, cpmDoc.getDomainSpecificPart().size());
             assertEquals(1, cpmDoc.getCrossPartEdges().size());
 
@@ -76,13 +76,13 @@ public class CpmMouTest {
     public void toDocument_withMouTestDataStore_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
-        Patient patient = null;
+        Patient patient;
         try (InputStream inputStream = classLoader.getResourceAsStream(MOU_FOLDER + "test-data.xml")) {
             XmlMapper xmlMapper = new XmlMapper();
             patient = xmlMapper.readValue(inputStream, Patient.class);
         } catch (IOException e) {
-            e.printStackTrace();
             fail();
+            throw new RuntimeException(e);
         }
 
         InteropFramework interop = new InteropFramework();
