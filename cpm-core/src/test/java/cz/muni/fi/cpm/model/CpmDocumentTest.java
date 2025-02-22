@@ -510,8 +510,8 @@ public abstract class CpmDocumentTest {
 
         QualifiedName effectId = u.getEffect(relation);
         QualifiedName causeId = u.getCause(relation);
-        Element effect = getElement(ProvUtilities2.getEffectKind(relation), effectId);
-        Element cause = getElement(ProvUtilities2.getCauseKind(relation), causeId);
+        Element effect = getElement(ProvUtilities2.getEffectKind(relation.getKind()), effectId);
+        Element cause = getElement(ProvUtilities2.getCauseKind(relation.getKind()), causeId);
         bundle.getStatement().add(effect);
         bundle.getStatement().add(cause);
 

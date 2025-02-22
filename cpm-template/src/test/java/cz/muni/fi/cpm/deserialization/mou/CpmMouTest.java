@@ -67,7 +67,7 @@ public class CpmMouTest {
             Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
             String fileName = TEST_RESOURCES + MOU_FOLDER + ACQUISITION + File.separator + bundle.getId().getLocalPart().replace(":", "-");
             interop.writeDocument(fileName + ".provn", doc);
-            interop.writeDocument(fileName + ".jpg", doc);
+            interop.writeDocument(fileName + ".svg", doc);
         }
     }
 
@@ -96,7 +96,7 @@ public class CpmMouTest {
             Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
             String fileName = TEST_RESOURCES + MOU_FOLDER + STORE + File.separator + bundle.getId().getLocalPart().replace(":", "-");
             interop.writeDocument(fileName + ".provn", doc);
-            interop.writeDocument(fileName + ".jpg", doc);
+            interop.writeDocument(fileName + ".svg", doc);
         }
     }
 

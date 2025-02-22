@@ -20,94 +20,67 @@ public class ProvUtilities2 {
      * Retrieves the effect kind for the given relation.
      * This method returns the {@link StatementOrBundle.Kind} based on the type of the relation.
      *
-     * @param r the relation for which to determine the effect kind
+     * @param relKind the relation kind for which to determine the effect kind
      * @return the corresponding {@link StatementOrBundle.Kind} for the effect
      * @throws NoSpecificKind if the relation is not recognized or doesn't have a specific effect kind
      */
-    public static StatementOrBundle.Kind getEffectKind(Relation r) throws NoSpecificKind {
-        if (r instanceof Used) {
-            return StatementOrBundle.Kind.PROV_ACTIVITY;
-        } else if (r instanceof WasStartedBy) {
-            return StatementOrBundle.Kind.PROV_ACTIVITY;
-        } else if (r instanceof WasEndedBy) {
-            return StatementOrBundle.Kind.PROV_ACTIVITY;
-        } else if (r instanceof WasGeneratedBy) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasDerivedFrom) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasAssociatedWith) {
-            return StatementOrBundle.Kind.PROV_ACTIVITY;
-        } else if (r instanceof WasInvalidatedBy) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasAttributedTo) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof AlternateOf) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof SpecializationOf) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof HadMember) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasInformedBy) {
-            return StatementOrBundle.Kind.PROV_ACTIVITY;
-        } else if (r instanceof MentionOf) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasInfluencedBy) {
-            throw new NoSpecificKind();
-        } else if (r instanceof ActedOnBehalfOf) {
-            return StatementOrBundle.Kind.PROV_AGENT;
-        } else if (r instanceof DerivedByInsertionFrom) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else {
-            System.out.println("Unknown relation " + r);
-            throw new UnsupportedOperationException();
-        }
+    public static StatementOrBundle.Kind getEffectKind(StatementOrBundle.Kind relKind) throws NoSpecificKind {
+        return switch (relKind) {
+            case PROV_USAGE -> StatementOrBundle.Kind.PROV_ACTIVITY;
+            case PROV_START -> StatementOrBundle.Kind.PROV_ACTIVITY;
+            case PROV_END -> StatementOrBundle.Kind.PROV_ACTIVITY;
+            case PROV_GENERATION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_DERIVATION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_ASSOCIATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
+            case PROV_INVALIDATION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_ATTRIBUTION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_ALTERNATE -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_SPECIALIZATION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_MEMBERSHIP -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_COMMUNICATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
+            case PROV_MENTION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_INFLUENCE -> throw new NoSpecificKind();
+            case PROV_DELEGATION -> StatementOrBundle.Kind.PROV_AGENT;
+            case PROV_DICTIONARY_INSERTION -> StatementOrBundle.Kind.PROV_ENTITY;
+            default -> {
+                System.out.println("Unknown relation " + relKind);
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 
     /**
      * Retrieves the cause kind for the given relation.
      * This method returns the {@link StatementOrBundle.Kind} based on the type of the relation.
      *
-     * @param r the relation for which to determine the cause kind
+     * @param relKind the relation kind for which to determine the cause kind
      * @return the corresponding {@link StatementOrBundle.Kind} for the cause
      * @throws NoSpecificKind if the relation is not recognized or doesn't have a specific cause kind
      */
-    public static StatementOrBundle.Kind getCauseKind(Relation r) throws NoSpecificKind {
-        if (r instanceof Used) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasGeneratedBy) {
-            return StatementOrBundle.Kind.PROV_ACTIVITY;
-        } else if (r instanceof WasInvalidatedBy) {
-            return StatementOrBundle.Kind.PROV_ACTIVITY;
-        } else if (r instanceof WasStartedBy) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasEndedBy) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasDerivedFrom) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasInfluencedBy) {
-            throw new NoSpecificKind();
-        } else if (r instanceof WasAssociatedWith) {
-            return StatementOrBundle.Kind.PROV_AGENT;
-        } else if (r instanceof WasAttributedTo) {
-            return StatementOrBundle.Kind.PROV_AGENT;
-        } else if (r instanceof AlternateOf) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof SpecializationOf) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof HadMember) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof MentionOf) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else if (r instanceof WasInformedBy) {
-            return StatementOrBundle.Kind.PROV_ACTIVITY;
-        } else if (r instanceof ActedOnBehalfOf) {
-            return StatementOrBundle.Kind.PROV_AGENT;
-        } else if (r instanceof DerivedByInsertionFrom) {
-            return StatementOrBundle.Kind.PROV_ENTITY;
-        } else {
-            System.out.println("Unknown relation " + r);
-            throw new UnsupportedOperationException();
-        }
+    public static StatementOrBundle.Kind getCauseKind(StatementOrBundle.Kind relKind) throws NoSpecificKind {
+
+        return switch (relKind) {
+            case PROV_USAGE -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_GENERATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
+            case PROV_INVALIDATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
+            case PROV_START -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_END -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_DERIVATION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_INFLUENCE -> throw new NoSpecificKind();
+            case PROV_ASSOCIATION -> StatementOrBundle.Kind.PROV_AGENT;
+            case PROV_ATTRIBUTION -> StatementOrBundle.Kind.PROV_AGENT;
+            case PROV_ALTERNATE -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_SPECIALIZATION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_MEMBERSHIP -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_MENTION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_COMMUNICATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
+            case PROV_DELEGATION -> StatementOrBundle.Kind.PROV_AGENT;
+            case PROV_DICTIONARY_INSERTION -> StatementOrBundle.Kind.PROV_ENTITY;
+            default -> {
+                System.out.println("Unknown relation " + relKind);
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 
     /**

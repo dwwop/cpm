@@ -156,7 +156,7 @@ public class CpmDocument implements StatementAction {
         }
 
         try {
-            StatementOrBundle.Kind nodeKind = ProvUtilities2.getEffectKind(edge.getRelation());
+            StatementOrBundle.Kind nodeKind = ProvUtilities2.getEffectKind(edge.getRelation().getKind());
 
             if (nodes.containsKey(effect) && nodes.get(effect).containsKey(nodeKind)) {
                 Map<StatementOrBundle.Kind, INode> kindToNodeMap = nodes.get(effect);
@@ -174,7 +174,7 @@ public class CpmDocument implements StatementAction {
         }
 
         try {
-            StatementOrBundle.Kind nodeKind = ProvUtilities2.getCauseKind(edge.getRelation());
+            StatementOrBundle.Kind nodeKind = ProvUtilities2.getCauseKind(edge.getRelation().getKind());
 
             if (nodes.containsKey(cause) && nodes.get(cause).containsKey(nodeKind)) {
                 Map<StatementOrBundle.Kind, INode> kindToNodeMap = nodes.get(cause);
@@ -893,7 +893,7 @@ public class CpmDocument implements StatementAction {
             } else {
                 causeEdges.computeIfPresent(u.getCause(edge.getRelation()), (_, nodeKindMap) -> {
                     try {
-                        nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getRelation()), (_, edgeList) -> {
+                        nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getRelation().getKind()), (_, edgeList) -> {
                             edgeList.remove(edge);
                             return edgeList.isEmpty() ? null : edgeList;
                         });
@@ -908,7 +908,7 @@ public class CpmDocument implements StatementAction {
             } else {
                 effectEdges.computeIfPresent(u.getEffect(edge.getRelation()), (_, nodeKindMap) -> {
                     try {
-                        nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getRelation()), (_, edgeList) -> {
+                        nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getRelation().getKind()), (_, edgeList) -> {
                             edgeList.remove(edge);
                             return edgeList.isEmpty() ? null : edgeList;
                         });
