@@ -27,8 +27,6 @@ import static org.openprovenance.prov.core.jsonld11.serialization.Constants.*;
 
 public class EmbrcTransformer {
 
-    // TODO: influence (recurrent relation information), ns inference
-
     private final Map<String, String> EMBRC_REL_TYPE_TO_JSONLD = Map.ofEntries(
             Map.entry("used", PROPERTY_PROV_USED),
             Map.entry("generated", PROPERTY_PROV_GENERATION),
@@ -52,6 +50,8 @@ public class EmbrcTransformer {
             Map.entry(StatementOrBundle.Kind.PROV_AGENT, "agent"),
             Map.entry(StatementOrBundle.Kind.PROV_ACTIVITY, "activity")
     );
+    private final String INFLUENCER = "influencer";
+    private final String INFLUENCEE = "influencee";
 
     private final Set<String> ARRAY_OF_VALUES_ATTRIBUTES = Set.of("value", "location", "label", "role");
     private final String QN_PATTERN = "^[A-Za-z0-9_]+:(.*)$";
@@ -197,10 +197,6 @@ public class EmbrcTransformer {
             return childNode.get(JSONLD_ID);
         }
 
-//        if (childNode.size() == 2 && childNode.has(JSONLD_TYPE)) {
-//            return
-//        }
-
         if (childNode instanceof ValueNode) {
             return mapper.createObjectNode()
                     .set(JSONLD_VALUE, childNode);
@@ -320,17 +316,39 @@ public class EmbrcTransformer {
         }
         relation.putIfAbsent(JSONLD_TYPE, new TextNode(type));
 
-        String causeProperty = getCauseProperty(jsonLdType);
-        JsonNode causeId = childNode.has(causeProperty) ? childNode.get(causeProperty) : childNode.get(JSONLD_ID);
-        relation.putIfAbsent(causeProperty, new TextNode(causeId.asText()));
+        setCauseAndEffect(jsonLdType, node, childNode, relation);
 
-        relation.putIfAbsent(getEffectProperty(jsonLdType), new TextNode(node.get(JSONLD_ID).asText()));
         for (var entry : childNode.properties()) {
             if (!JSONLD_ID.equals(entry.getKey())) {
                 relation.putIfAbsent(entry.getKey(), entry.getValue());
             }
         }
         nodesToAdd.add(relation);
+    }
+
+    private void setCauseAndEffect(String jsonLdType, ObjectNode node, ObjectNode childNode, ObjectNode relation) {
+        String causeProperty = getCauseProperty(jsonLdType);
+        String effectProperty = getEffectProperty(jsonLdType);
+        if (isOfType(node, causeProperty)) {
+            relation.putIfAbsent(causeProperty, new TextNode(node.get(JSONLD_ID).asText()));
+            JsonNode effectId = childNode.has(effectProperty) ? childNode.get(effectProperty) : childNode.get(JSONLD_ID);
+            relation.putIfAbsent(effectProperty, new TextNode(effectId.asText()));
+        } else if (isOfType(node, effectProperty) || INFLUENCER.equals(causeProperty)) {
+            JsonNode causeId = childNode.has(causeProperty) ? childNode.get(causeProperty) : childNode.get(JSONLD_ID);
+            relation.putIfAbsent(causeProperty, new TextNode(causeId.asText()));
+            relation.putIfAbsent(effectProperty, new TextNode(node.get(JSONLD_ID).asText()));
+        } else {
+            throw new IllegalStateException("Node is not of required type");
+        }
+    }
+
+    private boolean isOfType(ObjectNode oNode, String type) {
+        if (!oNode.has(JSONLD_TYPE)) {
+            return false;
+        }
+
+        return StreamSupport.stream(oNode.get(JSONLD_TYPE).spliterator(), false)
+                .anyMatch(node -> node.isTextual() && node.asText().toLowerCase().equals(type));
     }
 
     private String hashSHA256(String input) {
@@ -369,8 +387,7 @@ public class EmbrcTransformer {
 
         ObjectNode relation = mapper.createObjectNode();
         relation.putIfAbsent(JSONLD_TYPE, new TextNode(jsonLdType));
-        relation.putIfAbsent(getCauseProperty(jsonLdType), new TextNode(childNode.get(JSONLD_ID).asText()));
-        relation.putIfAbsent(getEffectProperty(jsonLdType), new TextNode(node.get(JSONLD_ID).asText()));
+        setCauseAndEffect(jsonLdType, node, childNode, relation);
         nodesToAdd.add(relation);
     }
 
@@ -390,7 +407,7 @@ public class EmbrcTransformer {
         try {
             return KIND_TO_JSONLD_ATTRIBUTE.get(ProvUtilities2.getCauseKind(JSONLD_TYPE_TO_KIND.get(jsonLdType)));
         } catch (NoSpecificKind ignored) {
-            return "influencer";
+            return INFLUENCER;
         }
     }
 
@@ -398,7 +415,7 @@ public class EmbrcTransformer {
         try {
             return KIND_TO_JSONLD_ATTRIBUTE.get(ProvUtilities2.getEffectKind(JSONLD_TYPE_TO_KIND.get(jsonLdType)));
         } catch (NoSpecificKind ignored) {
-            return "influencee";
+            return INFLUENCEE;
         }
     }
 }
