@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset1Transformer;
 import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset2Transformer;
+import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset3Transformer;
 import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.DatasetTransformer;
 import cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.EmbrcTransformer;
 import cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.ProvContextManager;
@@ -38,6 +39,7 @@ public class CpmEmbrcTest {
 
     private static final String DATASET1_FOLDER = "dataset1" + File.separator;
     private static final String DATASET2_FOLDER = "dataset2" + File.separator;
+    private static final String DATASET3_FOLDER = "dataset3" + File.separator;
 
     private final ProvFactory pF;
     private final ICpmProvFactory cPF;
@@ -125,6 +127,29 @@ public class CpmEmbrcTest {
             assertEquals(2, cpmDoc.getCrossPartEdges().size());
 
             String fileName = TEST_RESOURCES + EMBRC_FOLDER + DATASET2_FOLDER + "Dataset2_cpm";
+            interop.writeDocument(fileName + ".provn", doc);
+            interop.writeDocument(fileName + ".svg", doc);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Test
+    public void toDocument_withEmbrcDataset3_serialisesSuccessfully() {
+        try (InputStream inputStream = new FileInputStream(TEST_RESOURCES + EMBRC_FOLDER + TRANSFORMED_FOLDER + "Dataset3_transformed.jsonld")) {
+            InteropFramework interop = new InteropFramework();
+            Document dsDoc = interop.readDocument(inputStream, Formats.ProvFormat.JSONLD);
+            DatasetTransformer dT = new Dataset3Transformer(pF, cPF);
+
+            Document doc = dT.toDocument(dsDoc);
+            CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
+
+            assertEquals(3, cpmDoc.getBackbonePart().size());
+            assertEquals(6, cpmDoc.getDomainSpecificPart().size());
+            assertEquals(2, cpmDoc.getCrossPartEdges().size());
+
+            String fileName = TEST_RESOURCES + EMBRC_FOLDER + DATASET3_FOLDER + "Dataset3_cpm";
             interop.writeDocument(fileName + ".provn", doc);
             interop.writeDocument(fileName + ".svg", doc);
         } catch (IOException e) {

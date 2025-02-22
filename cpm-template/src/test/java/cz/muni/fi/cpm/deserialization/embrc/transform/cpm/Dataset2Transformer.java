@@ -5,7 +5,6 @@ import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset1Transformer.STORED_SAMPLE_CON;
 
@@ -13,7 +12,7 @@ public class Dataset2Transformer extends DatasetTransformer {
     static final String PROCESSING = "processing";
     static final String PROCESSED_SAMPLE_CON = "processed-sample-con-r1";
 
-    static final String PROCESSING_ACTIVITY = "MaterialProcessing";
+    private static final String PROCESSING_ACTIVITY = "MaterialProcessing";
     private static final String SAMPLE_R1 = "BigProject_belgium_water_10m_1000um_r1";
     private static final String IMAGES = "5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7";
 
@@ -33,8 +32,7 @@ public class Dataset2Transformer extends DatasetTransformer {
     @Override
     protected Document createBB(IndexedDocument indexedDS) {
         Backbone bb = new Backbone();
-        bb.setPrefixes(Map.of(UNKNOWN_PREFIX, UNKNOWN_NS, GEN_PREFIX, GEN_NS));
-        bb.setBundleName(bb.getNamespace().qualifiedName(UNKNOWN_PREFIX, PROCESSING + "-bundle", pF));
+        bb.setBundleName(newQNWithUnknownNS(PROCESSING + "-bundle"));
 
         MainActivity mA = new MainActivity(newQNWithUnknownNS(PROCESSING));
         bb.setMainActivity(mA);

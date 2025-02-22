@@ -7,7 +7,6 @@ import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.*;
 
 import java.util.List;
-import java.util.Map;
 
 public class Dataset1Transformer extends DatasetTransformer {
     static final String SAMPLING = "sampling";
@@ -28,7 +27,6 @@ public class Dataset1Transformer extends DatasetTransformer {
     @Override
     protected Document createBB(IndexedDocument indexedDS) {
         Backbone bb = new Backbone();
-        bb.setPrefixes(Map.of(UNKNOWN_PREFIX, UNKNOWN_NS, GEN_PREFIX, GEN_NS));
         bb.setBundleName(newQNWithUnknownNS(SAMPLING + "-bundle"));
 
         MainActivity mA = new MainActivity(newQNWithUnknownNS(SAMPLING));
