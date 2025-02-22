@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class CpmMouTest {
     private static final String MOU_FOLDER = "mou" + File.separator;
 
-
     private final ProvFactory pF;
     private final ICpmProvFactory cPF;
     private final ICpmFactory cF;
