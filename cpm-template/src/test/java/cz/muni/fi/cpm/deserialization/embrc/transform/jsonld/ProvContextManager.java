@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.deserialization.embrc.transform;
+package cz.muni.fi.cpm.deserialization.embrc.transform.jsonld;
 
 import com.apicatalog.jsonld.JsonLd;
 import com.apicatalog.jsonld.JsonLdError;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.regex.Pattern;
 
-import static cz.muni.fi.cpm.deserialization.embrc.constants.JsonLDMetaConstants.JSONLD_CONTEXT;
+import static cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.constants.JsonLDMetaConstants.JSONLD_CONTEXT;
 
 public class ProvContextManager {
     private final ObjectMapper mapper;

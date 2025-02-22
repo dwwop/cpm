@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.deserialization.embrc.transform;
+package cz.muni.fi.cpm.deserialization.embrc.transform.jsonld;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import static cz.muni.fi.cpm.deserialization.embrc.constants.JsonLDMetaConstants.*;
+import static cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.constants.JsonLDMetaConstants.*;
 import static org.openprovenance.prov.core.jsonld11.serialization.Constants.*;
 
 

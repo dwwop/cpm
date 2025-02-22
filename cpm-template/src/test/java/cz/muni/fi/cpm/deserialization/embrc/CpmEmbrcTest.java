@@ -3,10 +3,12 @@ package cz.muni.fi.cpm.deserialization.embrc;
 import com.apicatalog.jsonld.JsonLdError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import cz.muni.fi.cpm.deserialization.constants.PbmFactory;
-import cz.muni.fi.cpm.deserialization.embrc.transform.Dataset1Transformer;
-import cz.muni.fi.cpm.deserialization.embrc.transform.EmbrcTransformer;
-import cz.muni.fi.cpm.deserialization.embrc.transform.ProvContextManager;
+import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset1Transformer;
+import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset2Transformer;
+import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.DatasetTransformer;
+import cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.EmbrcTransformer;
+import cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.ProvContextManager;
+import cz.muni.fi.cpm.deserialization.pbm.PbmFactory;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
 import cz.muni.fi.cpm.model.ICpmFactory;
@@ -35,6 +37,7 @@ public class CpmEmbrcTest {
     private static final String TRANSFORMED_FOLDER = "transformed" + File.separator;
 
     private static final String DATASET1_FOLDER = "dataset1" + File.separator;
+    private static final String DATASET2_FOLDER = "dataset2" + File.separator;
 
     private final ProvFactory pF;
     private final ICpmProvFactory cPF;
@@ -90,9 +93,9 @@ public class CpmEmbrcTest {
         try (InputStream inputStream = new FileInputStream(TEST_RESOURCES + EMBRC_FOLDER + TRANSFORMED_FOLDER + "Dataset1_transformed.jsonld")) {
             InteropFramework interop = new InteropFramework();
             Document dsDoc = interop.readDocument(inputStream, Formats.ProvFormat.JSONLD);
-            Dataset1Transformer d1T = new Dataset1Transformer(pF, cPF);
+            Dataset1Transformer dT = new Dataset1Transformer(pF, cPF);
 
-            Document doc = d1T.toDocument(dsDoc);
+            Document doc = dT.toDocument(dsDoc);
             CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
 
             assertEquals(3, cpmDoc.getBackbonePart().size());
@@ -100,6 +103,28 @@ public class CpmEmbrcTest {
             assertEquals(2, cpmDoc.getCrossPartEdges().size());
 
             String fileName = TEST_RESOURCES + EMBRC_FOLDER + DATASET1_FOLDER + "Dataset1_cpm";
+            interop.writeDocument(fileName + ".provn", doc);
+            interop.writeDocument(fileName + ".svg", doc);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void toDocument_withEmbrcDataset2_serialisesSuccessfully() {
+        try (InputStream inputStream = new FileInputStream(TEST_RESOURCES + EMBRC_FOLDER + TRANSFORMED_FOLDER + "Dataset2_transformed.jsonld")) {
+            InteropFramework interop = new InteropFramework();
+            Document dsDoc = interop.readDocument(inputStream, Formats.ProvFormat.JSONLD);
+            DatasetTransformer dT = new Dataset2Transformer(pF, cPF);
+
+            Document doc = dT.toDocument(dsDoc);
+            CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
+
+            assertEquals(3, cpmDoc.getBackbonePart().size());
+            assertEquals(9, cpmDoc.getDomainSpecificPart().size());
+            assertEquals(2, cpmDoc.getCrossPartEdges().size());
+
+            String fileName = TEST_RESOURCES + EMBRC_FOLDER + DATASET2_FOLDER + "Dataset2_cpm";
             interop.writeDocument(fileName + ".provn", doc);
             interop.writeDocument(fileName + ".svg", doc);
         } catch (IOException e) {

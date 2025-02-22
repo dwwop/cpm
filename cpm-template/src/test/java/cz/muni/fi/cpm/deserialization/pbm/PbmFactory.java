@@ -1,10 +1,10 @@
-package cz.muni.fi.cpm.deserialization.constants;
+package cz.muni.fi.cpm.deserialization.pbm;
 
 import org.openprovenance.prov.model.ProvFactory;
 import org.openprovenance.prov.model.Type;
 
-import static cz.muni.fi.cpm.deserialization.constants.PbmNamespaceConstants.PBM_NS;
-import static cz.muni.fi.cpm.deserialization.constants.PbmNamespaceConstants.PBM_PREFIX;
+import static cz.muni.fi.cpm.deserialization.pbm.PbmNamespaceConstants.PBM_NS;
+import static cz.muni.fi.cpm.deserialization.pbm.PbmNamespaceConstants.PBM_PREFIX;
 
 public class PbmFactory {
     private final ProvFactory pF;

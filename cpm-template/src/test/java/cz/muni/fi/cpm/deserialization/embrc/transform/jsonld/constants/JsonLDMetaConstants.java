@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.deserialization.embrc.constants;
+package cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.constants;
 
 public class JsonLDMetaConstants {
     public static final String JSONLD_GRAPH = "@graph";

@@ -1,11 +1,11 @@
 package cz.muni.fi.cpm.deserialization.mou;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import cz.muni.fi.cpm.deserialization.constants.PbmFactory;
 import cz.muni.fi.cpm.deserialization.mou.schema.Patient;
 import cz.muni.fi.cpm.deserialization.mou.transform.AcquisitionTransformer;
 import cz.muni.fi.cpm.deserialization.mou.transform.PatientTransformer;
 import cz.muni.fi.cpm.deserialization.mou.transform.StoreTransformer;
+import cz.muni.fi.cpm.deserialization.pbm.PbmFactory;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
 import cz.muni.fi.cpm.model.ICpmFactory;

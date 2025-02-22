@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.deserialization.constants;
+package cz.muni.fi.cpm.deserialization.pbm;
 
 public enum PbmType {
     SAMPLE("sample"),

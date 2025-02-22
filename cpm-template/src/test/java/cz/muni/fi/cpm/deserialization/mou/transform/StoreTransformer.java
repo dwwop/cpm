@@ -2,11 +2,11 @@ package cz.muni.fi.cpm.deserialization.mou.transform;
 
 import cz.muni.fi.cpm.bindings.*;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.deserialization.constants.PbmFactory;
-import cz.muni.fi.cpm.deserialization.constants.PbmType;
 import cz.muni.fi.cpm.deserialization.mou.schema.DiagnosisMaterial;
 import cz.muni.fi.cpm.deserialization.mou.schema.Patient;
 import cz.muni.fi.cpm.deserialization.mou.schema.Tissue;
+import cz.muni.fi.cpm.deserialization.pbm.PbmFactory;
+import cz.muni.fi.cpm.deserialization.pbm.PbmType;
 import cz.muni.fi.cpm.model.CpmUtilities;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.*;
@@ -18,9 +18,9 @@ import java.util.function.Function;
 import static cz.muni.fi.cpm.constants.DctAttributeConstants.HAS_PART;
 import static cz.muni.fi.cpm.constants.DctNamespaceConstants.DCT_NS;
 import static cz.muni.fi.cpm.constants.DctNamespaceConstants.DCT_PREFIX;
-import static cz.muni.fi.cpm.deserialization.constants.PbmNamespaceConstants.PBM_NS;
-import static cz.muni.fi.cpm.deserialization.constants.PbmNamespaceConstants.PBM_PREFIX;
 import static cz.muni.fi.cpm.deserialization.mou.constants.NameConstants.*;
+import static cz.muni.fi.cpm.deserialization.pbm.PbmNamespaceConstants.PBM_NS;
+import static cz.muni.fi.cpm.deserialization.pbm.PbmNamespaceConstants.PBM_PREFIX;
 
 public class StoreTransformer extends PatientTransformer {
     public StoreTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
