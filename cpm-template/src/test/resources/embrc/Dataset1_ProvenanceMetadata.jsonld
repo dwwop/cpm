@@ -88,8 +88,8 @@
         "prov:Entity",
         "sosa:Sample"
       ],
-      "@id": "_:BigProject_belgium_water_10m_1000um_r2_3um ",
-      "name": "BigProject_belgium_water_10m_1000um_r2_3um ",
+      "@id": "_:BigProject_belgium_water_10m_1000um_r2_3um",
+      "name": "BigProject_belgium_water_10m_1000um_r2_3um",
       "description": "water sample collected from 10m depth and filtered at 1000um and again 3um",
       "keywords": [
         "http://purl.obolibrary.org/obo/ENVO_00002150",
@@ -202,7 +202,7 @@
       "validIn": {
         "@id": "http://marineregions.org/mrgid/3293"
       },
-      "prov:wasAssociatedWith": {
+      "prov:wasAttributedTo": {
         "@id": "https://orcid.org/0000-0001-0001-0001"
       },
       "prov:qualifiedAttribution": {
