@@ -39,6 +39,7 @@ public class Dataset3Transformer extends DatasetTransformer {
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
         ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(IDENTIFIED_SPECIES_CON));
+        fC.setDerivedFrom(List.of(bC.getId()));
         bb.setForwardConnectors(List.of(fC));
 
         SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(RESULTS), fC.getId());

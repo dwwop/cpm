@@ -49,6 +49,7 @@ public class Dataset4Transformer extends DatasetTransformer {
         indexedDS.add(specBc);
 
         ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(FILTERED_SEQUENCES_CON));
+        fC.setDerivedFrom(List.of(bC.getId()));
         bb.setForwardConnectors(List.of(fC));
 
         SpecializationOf specFc = pF.newSpecializationOf(newQNWithUnknownNS(FILTERED_SEQUENCES), fC.getId());

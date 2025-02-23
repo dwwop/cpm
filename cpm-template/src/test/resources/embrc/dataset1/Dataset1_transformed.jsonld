@@ -370,6 +370,10 @@
       "@value" : "field and laboratory technician"
     } ]
   }, {
+    "@type" : "Generation",
+    "activity" : "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2",
+    "entity" : "_:BigProject_belgium_water_10m"
+  }, {
     "@type" : "Usage",
     "entity" : "_:BigProject_WaterSamples",
     "activity" : "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2"
@@ -378,20 +382,12 @@
     "entity" : "_:ABSPermit_ircc2345678",
     "activity" : "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2"
   }, {
-    "@type" : "Generation",
-    "activity" : "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2",
-    "entity" : "_:BigProject_belgium_water_10m"
-  }, {
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0001",
     "activity" : "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99",
     "dcat:hadRole" : [ {
       "@value" : "field and laboratory technician"
     } ]
-  }, {
-    "@type" : "Usage",
-    "entity" : "_:CTD_standard_procedure_2",
-    "activity" : "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99"
   }, {
     "@type" : "Entity",
     "sosa:hasFeatureOfInterest" : [ {
@@ -415,12 +411,24 @@
     "activity" : "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99",
     "entity" : "gen:4a86c49fc31d3ba9b8a8e3c961dc7d1ef6cb59769f75fbd2b92aa36ef71b1fa2"
   }, {
+    "@type" : "Usage",
+    "entity" : "_:CTD_standard_procedure_2",
+    "activity" : "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99"
+  }, {
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
     "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869",
     "dcat:hadRole" : [ {
       "@value" : "field and laboratory technician"
     } ]
+  }, {
+    "@type" : "Generation",
+    "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869",
+    "entity" : "_:BigProject_belgium_water_10m_1000um_r2"
+  }, {
+    "@type" : "Generation",
+    "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869",
+    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
   }, {
     "@type" : "Usage",
     "entity" : "_:BigProject_eDNAfiltering",
@@ -442,14 +450,6 @@
     "@type" : "Usage",
     "entity" : "gen:099a29d8ed93c3f7606eccad181b768b4778d7317beaf6c06175976a50d2a606",
     "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869"
-  }, {
-    "@type" : "Generation",
-    "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869",
-    "entity" : "_:BigProject_belgium_water_10m_1000um_r2"
-  }, {
-    "@type" : "Generation",
-    "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869",
-    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
   }, {
     "@type" : "Entity",
     "schema:name" : [ {

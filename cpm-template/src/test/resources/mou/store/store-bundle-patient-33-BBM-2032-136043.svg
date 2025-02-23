@@ -22,8 +22,8 @@
 <g id="node1" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/datastore&#45;patient&#45;33&#45;BBM:2032:136043</title>
 <g id="a_node1"><a xlink:href="http://www.bbmri.cz/schemas/biobank/datastore-patient-33-BBM:2032:136043" xlink:title="store&#45;patient&#45;33&#45;BBM:2032:136043">
-<polygon fill="#9fb1fc" stroke="#0000ff" points="435.88,-406.38 224.12,-406.38 224.12,-370.38 435.88,-370.38 435.88,-406.38"/>
-<text text-anchor="middle" x="330" y="-383.32" font-family="Times New Roman,serif" font-size="14.00">store&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<polygon fill="#9fb1fc" stroke="#0000ff" points="929.88,-406.38 718.12,-406.38 718.12,-370.38 929.88,-370.38 929.88,-406.38"/>
+<text text-anchor="middle" x="824" y="-383.32" font-family="Times New Roman,serif" font-size="14.00">store&#45;patient&#45;33&#45;BBM:2032:136043</text>
 </a>
 </g>
 </g>
@@ -32,8 +32,8 @@
 <g id="node7" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043</title>
 <g id="a_node7"><a xlink:href="http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector-patient-33-BBM:2032:136043" xlink:title="sampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043">
-<ellipse fill="#fffc87" stroke="#808080" cx="644" cy="-480.5" rx="206.94" ry="18"/>
-<text text-anchor="middle" x="644" y="-475.45" font-family="Times New Roman,serif" font-size="14.00">sampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<ellipse fill="#fffc87" stroke="#808080" cx="691" cy="-480.5" rx="206.94" ry="18"/>
+<text text-anchor="middle" x="691" y="-475.45" font-family="Times New Roman,serif" font-size="14.00">sampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043</text>
 </a>
 </g>
 </g>
@@ -41,61 +41,61 @@
 <!-- PROV_USAGE _:_ -->
 <g id="edge10" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datastore&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="black" d="M382.2,-406.86C401.83,-413.27 424.37,-420.43 445,-426.5 485.43,-438.4 530.81,-450.58 568.02,-460.25"/>
-<polygon fill="black" stroke="black" points="566.76,-463.54 577.32,-462.66 568.52,-456.77 566.76,-463.54"/>
-<text text-anchor="middle" x="393.36" y="-394.1" font-family="Times New Roman,serif" font-size="8.00">use</text>
+<path fill="none" stroke="black" d="M798.36,-406.75C777.75,-420.72 748.6,-440.47 725.87,-455.87"/>
+<polygon fill="black" stroke="black" points="724.13,-452.82 717.82,-461.33 728.06,-458.61 724.13,-452.82"/>
+<text text-anchor="middle" x="799.43" y="-418.99" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
 <!-- &#45;attrs0 -->
 <g id="node2" class="node">
 <title>&#45;attrs0</title>
-<polygon fill="none" stroke="gray" points="256.12,-314.25 15.88,-314.25 15.88,-264.5 262.12,-264.5 262.12,-308.25 256.12,-314.25"/>
-<polyline fill="none" stroke="gray" points="256.12,-314.25 256.12,-308.25"/>
-<polyline fill="none" stroke="gray" points="262.12,-308.25 256.12,-308.25"/>
-<text text-anchor="start" x="25.88" y="-298.75" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="60.12" y="-298.75" font-family="Times New Roman,serif" font-size="10.00">cpm:mainActivity</text>
-<text text-anchor="start" x="25.88" y="-285.5" font-family="Times New Roman,serif" font-size="10.00">hasPart:</text>
-<text text-anchor="start" x="60.12" y="-285.5" font-family="Times New Roman,serif" font-size="10.00">bbmri:transport&#45;patient&#45;33&#45;BBM:2032:136043</text>
-<text text-anchor="start" x="25.88" y="-272.25" font-family="Times New Roman,serif" font-size="10.00">hasPart:</text>
-<text text-anchor="start" x="60.12" y="-272.25" font-family="Times New Roman,serif" font-size="10.00">bbmri:store&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<polygon fill="none" stroke="gray" points="1120.12,-314.25 879.88,-314.25 879.88,-264.5 1126.12,-264.5 1126.12,-308.25 1120.12,-314.25"/>
+<polyline fill="none" stroke="gray" points="1120.12,-314.25 1120.12,-308.25"/>
+<polyline fill="none" stroke="gray" points="1126.12,-308.25 1120.12,-308.25"/>
+<text text-anchor="start" x="889.88" y="-298.75" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="924.12" y="-298.75" font-family="Times New Roman,serif" font-size="10.00">cpm:mainActivity</text>
+<text text-anchor="start" x="889.88" y="-285.5" font-family="Times New Roman,serif" font-size="10.00">hasPart:</text>
+<text text-anchor="start" x="924.12" y="-285.5" font-family="Times New Roman,serif" font-size="10.00">bbmri:transport&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<text text-anchor="start" x="889.88" y="-272.25" font-family="Times New Roman,serif" font-size="10.00">hasPart:</text>
+<text text-anchor="start" x="924.12" y="-272.25" font-family="Times New Roman,serif" font-size="10.00">bbmri:store&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043</text>
 </g>
 <!-- &#45;attrs0&#45;&gt;http://www.bbmri.cz/schemas/biobank/datastore&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- null _:_ -->
 <g id="edge1" class="edge">
 <title>&#45;attrs0&#45;&gt;http://www.bbmri.cz/schemas/biobank/datastore&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M186.7,-314.6C220.63,-331.83 265.39,-354.56 295.79,-370"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M958.29,-314.6C926.5,-331.83 884.55,-354.56 856.06,-370"/>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datatransport&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_ACTIVITY bbmri:transport&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <g id="node3" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/datatransport&#45;patient&#45;33&#45;BBM:2032:136043</title>
 <g id="a_node3"><a xlink:href="http://www.bbmri.cz/schemas/biobank/datatransport-patient-33-BBM:2032:136043" xlink:title="transport&#45;patient&#45;33&#45;BBM:2032:136043">
-<polygon fill="#9fb1fc" stroke="#0000ff" points="345.75,-498.5 112.25,-498.5 112.25,-462.5 345.75,-462.5 345.75,-498.5"/>
-<text text-anchor="middle" x="229" y="-475.45" font-family="Times New Roman,serif" font-size="14.00">transport&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<polygon fill="#9fb1fc" stroke="#0000ff" points="354.75,-498.5 121.25,-498.5 121.25,-462.5 354.75,-462.5 354.75,-498.5"/>
+<text text-anchor="middle" x="238" y="-475.45" font-family="Times New Roman,serif" font-size="14.00">transport&#45;patient&#45;33&#45;BBM:2032:136043</text>
 </a>
 </g>
 </g>
 <!-- &#45;attrs1 -->
 <g id="node4" class="node">
 <title>&#45;attrs1</title>
-<polygon fill="none" stroke="gray" points="200.25,-406.38 71.75,-406.38 71.75,-370.38 206.25,-370.38 206.25,-400.38 200.25,-406.38"/>
-<polyline fill="none" stroke="gray" points="200.25,-406.38 200.25,-400.38"/>
-<polyline fill="none" stroke="gray" points="206.25,-400.38 200.25,-400.38"/>
-<text text-anchor="start" x="81.75" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="104.75" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">pbm:transportActivity</text>
+<polygon fill="none" stroke="gray" points="144.25,-406.38 15.75,-406.38 15.75,-370.38 150.25,-370.38 150.25,-400.38 144.25,-406.38"/>
+<polyline fill="none" stroke="gray" points="144.25,-406.38 144.25,-400.38"/>
+<polyline fill="none" stroke="gray" points="150.25,-400.38 144.25,-400.38"/>
+<text text-anchor="start" x="25.75" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="48.75" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">pbm:transportActivity</text>
 </g>
 <!-- &#45;attrs1&#45;&gt;http://www.bbmri.cz/schemas/biobank/datatransport&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- null _:_ -->
 <g id="edge2" class="edge">
 <title>&#45;attrs1&#45;&gt;http://www.bbmri.cz/schemas/biobank/datatransport&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M156.35,-406.75C172.29,-422.71 195.78,-446.23 211.7,-462.18"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M112.89,-406.75C140.24,-422.66 180.53,-446.08 207.94,-462.02"/>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datastore&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_ACTIVITY bbmri:store&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <g id="node5" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/datastore&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043</title>
 <g id="a_node5"><a xlink:href="http://www.bbmri.cz/schemas/biobank/datastore-ac-patient-33-BBM:2032:136043" xlink:title="store&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043">
-<polygon fill="#9fb1fc" stroke="#0000ff" points="1126.12,-307.38 897.88,-307.38 897.88,-271.38 1126.12,-271.38 1126.12,-307.38"/>
-<text text-anchor="middle" x="1012" y="-284.32" font-family="Times New Roman,serif" font-size="14.00">store&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<polygon fill="#9fb1fc" stroke="#0000ff" points="422.12,-307.38 193.88,-307.38 193.88,-271.38 422.12,-271.38 422.12,-307.38"/>
+<text text-anchor="middle" x="308" y="-284.32" font-family="Times New Roman,serif" font-size="14.00">store&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043</text>
 </a>
 </g>
 </g>
@@ -104,41 +104,41 @@
 <g id="node11" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043</title>
 <g id="a_node11"><a xlink:href="http://www.bbmri.cz/schemas/biobank/datasample-trans-patient-33-BBM:2032:136043" xlink:title="sample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043">
-<ellipse fill="#fffc87" stroke="#808080" cx="628" cy="-388.38" rx="174.19" ry="18"/>
-<text text-anchor="middle" x="628" y="-383.32" font-family="Times New Roman,serif" font-size="14.00">sample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<ellipse fill="#fffc87" stroke="#808080" cx="342" cy="-388.38" rx="174.19" ry="18"/>
+<text text-anchor="middle" x="342" y="-383.32" font-family="Times New Roman,serif" font-size="14.00">sample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043</text>
 </a>
 </g>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datastore&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_USAGE _:_ -->
-<g id="edge15" class="edge">
+<g id="edge16" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datastore&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="black" d="M942.91,-307.83C875.27,-324.91 772.52,-350.87 702.94,-368.44"/>
-<polygon fill="black" stroke="black" points="702.38,-364.98 693.54,-370.82 704.09,-371.76 702.38,-364.98"/>
-<text text-anchor="middle" x="938.81" y="-319.54" font-family="Times New Roman,serif" font-size="8.00">use</text>
+<path fill="none" stroke="black" d="M314.08,-307.72C319.11,-322.06 326.35,-342.71 332.19,-359.4"/>
+<polygon fill="black" stroke="black" points="328.86,-360.48 335.47,-368.76 335.47,-358.16 328.86,-360.48"/>
+<text text-anchor="middle" x="328.82" y="-307.77" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
 <!-- &#45;attrs2 -->
 <g id="node6" class="node">
 <title>&#45;attrs2</title>
-<polygon fill="none" stroke="gray" points="773.88,-228.5 652.12,-228.5 652.12,-192.5 779.88,-192.5 779.88,-222.5 773.88,-228.5"/>
-<polyline fill="none" stroke="gray" points="773.88,-228.5 773.88,-222.5"/>
-<polyline fill="none" stroke="gray" points="779.88,-222.5 773.88,-222.5"/>
-<text text-anchor="start" x="662.12" y="-206.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="685.12" y="-206.62" font-family="Times New Roman,serif" font-size="10.00">pbm:storageActivity</text>
+<polygon fill="none" stroke="gray" points="365.88,-228.5 244.12,-228.5 244.12,-192.5 371.88,-192.5 371.88,-222.5 365.88,-228.5"/>
+<polyline fill="none" stroke="gray" points="365.88,-228.5 365.88,-222.5"/>
+<polyline fill="none" stroke="gray" points="371.88,-222.5 365.88,-222.5"/>
+<text text-anchor="start" x="254.12" y="-206.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="277.12" y="-206.62" font-family="Times New Roman,serif" font-size="10.00">pbm:storageActivity</text>
 </g>
 <!-- &#45;attrs2&#45;&gt;http://www.bbmri.cz/schemas/biobank/datastore&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- null _:_ -->
 <g id="edge3" class="edge">
 <title>&#45;attrs2&#45;&gt;http://www.bbmri.cz/schemas/biobank/datastore&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M780.23,-228.18C828.86,-240.81 895.48,-258.11 944.82,-270.93"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M308,-228.94C308,-241.53 308,-258.43 308,-271"/>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/dataUNI -->
 <!-- PROV_AGENT bbmri:UNI -->
 <g id="node17" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/dataUNI</title>
 <g id="a_node17"><a xlink:href="http://www.bbmri.cz/schemas/biobank/dataUNI" xlink:title="UNI">
-<polygon fill="#fdb266" stroke="black" points="891.74,-558.06 858,-570.5 824.26,-558.06 824.29,-537.94 891.71,-537.94 891.74,-558.06"/>
-<text text-anchor="middle" x="858" y="-547.45" font-family="Times New Roman,serif" font-size="14.00">UNI</text>
+<polygon fill="#fdb266" stroke="black" points="922.74,-558.06 889,-570.5 855.26,-558.06 855.29,-537.94 922.71,-537.94 922.74,-558.06"/>
+<text text-anchor="middle" x="889" y="-547.45" font-family="Times New Roman,serif" font-size="14.00">UNI</text>
 </a>
 </g>
 </g>
@@ -146,32 +146,32 @@
 <!-- PROV_ATTRIBUTION _:_ -->
 <g id="edge12" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/dataUNI</title>
-<path fill="none" stroke="black" d="M695.53,-498.36C731.47,-510.11 778.94,-525.64 813.28,-536.87"/>
-<polygon fill="black" stroke="black" points="811.91,-540.1 822.5,-539.89 814.08,-533.45 811.91,-540.1"/>
-<text text-anchor="middle" x="706.7" y="-485.62" font-family="Times New Roman,serif" font-size="8.00">att</text>
+<path fill="none" stroke="black" d="M738.93,-498.45C770.98,-509.77 812.85,-524.58 844.22,-535.67"/>
+<polygon fill="black" stroke="black" points="842.82,-538.89 853.42,-538.92 845.16,-532.29 842.82,-538.89"/>
+<text text-anchor="middle" x="750.33" y="-485.97" font-family="Times New Roman,serif" font-size="8.00">att</text>
 </g>
 <!-- &#45;attrs3 -->
 <g id="node8" class="node">
 <title>&#45;attrs3</title>
-<polygon fill="none" stroke="gray" points="959.88,-406.38 820.12,-406.38 820.12,-370.38 965.88,-370.38 965.88,-400.38 959.88,-406.38"/>
-<polyline fill="none" stroke="gray" points="959.88,-406.38 959.88,-400.38"/>
-<polyline fill="none" stroke="gray" points="965.88,-400.38 959.88,-400.38"/>
-<text text-anchor="start" x="830.12" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="853.12" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">cpm:backwardConnector</text>
+<polygon fill="none" stroke="gray" points="673.88,-406.38 534.12,-406.38 534.12,-370.38 679.88,-370.38 679.88,-400.38 673.88,-406.38"/>
+<polyline fill="none" stroke="gray" points="673.88,-406.38 673.88,-400.38"/>
+<polyline fill="none" stroke="gray" points="679.88,-400.38 673.88,-400.38"/>
+<text text-anchor="start" x="544.12" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="567.12" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">cpm:backwardConnector</text>
 </g>
 <!-- &#45;attrs3&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- null _:_ -->
 <g id="edge4" class="edge">
 <title>&#45;attrs3&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M857.06,-406.75C842.87,-413.32 826.32,-420.62 811,-426.5 775.5,-440.12 734.85,-453.07 702.55,-462.76"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M623.2,-406.75C638.07,-422.71 659.99,-446.23 674.85,-462.18"/>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_ENTITY bbmri:sampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <g id="node9" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043</title>
 <g id="a_node9"><a xlink:href="http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector-patient-33-BBM:2032:136043" xlink:title="sampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043">
-<ellipse fill="#fffc87" stroke="#808080" cx="491" cy="-289.38" rx="211.04" ry="18"/>
-<text text-anchor="middle" x="491" y="-284.32" font-family="Times New Roman,serif" font-size="14.00">sampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<ellipse fill="#fffc87" stroke="#808080" cx="651" cy="-289.38" rx="211.04" ry="18"/>
+<text text-anchor="middle" x="651" y="-284.32" font-family="Times New Roman,serif" font-size="14.00">sampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043</text>
 </a>
 </g>
 </g>
@@ -179,176 +179,184 @@
 <!-- PROV_GENERATION _:_ -->
 <g id="edge11" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datastore&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="black" d="M462.59,-307.49C436.5,-323.21 397.64,-346.63 368.72,-364.05"/>
-<polygon fill="black" stroke="black" points="367,-361 360.24,-369.16 370.61,-366.99 367,-361"/>
-<text text-anchor="middle" x="462.87" y="-319.77" font-family="Times New Roman,serif" font-size="8.00">gen</text>
+<path fill="none" stroke="black" d="M681.53,-307.49C709.8,-323.35 752.05,-347.04 783.21,-364.5"/>
+<polygon fill="black" stroke="black" points="781.15,-367.36 791.58,-369.2 784.57,-361.25 781.15,-367.36"/>
+<text text-anchor="middle" x="694.43" y="-297.11" font-family="Times New Roman,serif" font-size="8.00">gen</text>
+</g>
+<!-- http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043 -->
+<!-- PROV_DERIVATION _:_ -->
+<g id="edge13" class="edge">
+<title>http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043</title>
+<path fill="none" stroke="black" d="M665.64,-307.69C674.24,-319.01 684.31,-334.56 689,-350.25 699.03,-383.81 697.57,-424.5 694.91,-451.14"/>
+<polygon fill="black" stroke="black" points="691.46,-450.49 693.81,-460.82 698.42,-451.28 691.46,-450.49"/>
+<text text-anchor="middle" x="680.54" y="-303.24" font-family="Times New Roman,serif" font-size="8.00">der</text>
 </g>
 <!-- &#45;attrs4 -->
 <g id="node10" class="node">
 <title>&#45;attrs4</title>
-<polygon fill="none" stroke="gray" points="553.75,-228.5 422.25,-228.5 422.25,-192.5 559.75,-192.5 559.75,-222.5 553.75,-228.5"/>
-<polyline fill="none" stroke="gray" points="553.75,-228.5 553.75,-222.5"/>
-<polyline fill="none" stroke="gray" points="559.75,-222.5 553.75,-222.5"/>
-<text text-anchor="start" x="432.25" y="-206.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="455.25" y="-206.62" font-family="Times New Roman,serif" font-size="10.00">cpm:forwardConnector</text>
+<polygon fill="none" stroke="gray" points="930.75,-228.5 799.25,-228.5 799.25,-192.5 936.75,-192.5 936.75,-222.5 930.75,-228.5"/>
+<polyline fill="none" stroke="gray" points="930.75,-228.5 930.75,-222.5"/>
+<polyline fill="none" stroke="gray" points="936.75,-222.5 930.75,-222.5"/>
+<text text-anchor="start" x="809.25" y="-206.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="832.25" y="-206.62" font-family="Times New Roman,serif" font-size="10.00">cpm:forwardConnector</text>
 </g>
 <!-- &#45;attrs4&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- null _:_ -->
 <g id="edge5" class="edge">
 <title>&#45;attrs4&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M491,-228.94C491,-241.53 491,-258.43 491,-271"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M818.76,-228.94C782.87,-241.66 734.5,-258.79 698.93,-271.4"/>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datatransport&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_GENERATION _:_ -->
-<g id="edge14" class="edge">
+<g id="edge15" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datatransport&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="black" d="M557.59,-405.28C490.55,-420.42 389.45,-443.26 317.11,-459.6"/>
-<polygon fill="black" stroke="black" points="316.66,-456.11 307.68,-461.73 318.2,-462.94 316.66,-456.11"/>
-<text text-anchor="middle" x="553.13" y="-416.88" font-family="Times New Roman,serif" font-size="8.00">gen</text>
+<path fill="none" stroke="black" d="M321.95,-406.75C306.12,-420.47 283.85,-439.77 266.22,-455.04"/>
+<polygon fill="black" stroke="black" points="264.4,-451.99 259.13,-461.19 268.98,-457.28 264.4,-451.99"/>
+<text text-anchor="middle" x="324.79" y="-418.76" font-family="Times New Roman,serif" font-size="8.00">gen</text>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_SPECIALIZATION _:_ -->
-<g id="edge13" class="edge">
+<g id="edge14" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleAcqConnector&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="black" d="M631.08,-406.75C633.32,-419.34 636.39,-436.65 638.98,-451.22"/>
-<polygon fill="black" stroke="black" points="635.47,-451.45 640.66,-460.69 642.36,-450.23 635.47,-451.45"/>
-<text text-anchor="middle" x="645.19" y="-409.14" font-family="Times New Roman,serif" font-size="8.00">spe</text>
+<path fill="none" stroke="black" d="M404.8,-405.59C464.04,-420.89 552.92,-443.84 615.89,-460.1"/>
+<polygon fill="black" stroke="black" points="614.91,-463.47 625.47,-462.58 616.66,-456.69 614.91,-463.47"/>
+<text text-anchor="middle" x="415.31" y="-392.16" font-family="Times New Roman,serif" font-size="8.00">spe</text>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datapatient&#45;33 -->
 <!-- PROV_ENTITY bbmri:patient&#45;33 -->
 <g id="node15" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/datapatient&#45;33</title>
 <g id="a_node15"><a xlink:href="http://www.bbmri.cz/schemas/biobank/datapatient-33" xlink:title="patient&#45;33">
-<ellipse fill="#fffc87" stroke="#808080" cx="948" cy="-480.5" rx="48.28" ry="18"/>
-<text text-anchor="middle" x="948" y="-475.45" font-family="Times New Roman,serif" font-size="14.00">patient&#45;33</text>
+<ellipse fill="#fffc87" stroke="#808080" cx="964" cy="-480.5" rx="48.28" ry="18"/>
+<text text-anchor="middle" x="964" y="-475.45" font-family="Times New Roman,serif" font-size="14.00">patient&#45;33</text>
 </a>
 </g>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datapatient&#45;33 -->
 <!-- PROV_DERIVATION _:_ -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datapatient&#45;33</title>
-<path fill="none" stroke="black" d="M686.32,-405.8C747.5,-423.03 842.55,-449.8 899.68,-465.89"/>
-<polygon fill="black" stroke="black" points="898.55,-469.21 909.13,-468.55 900.45,-462.47 898.55,-469.21"/>
-<text text-anchor="middle" x="697.06" y="-392.6" font-family="Times New Roman,serif" font-size="8.00">der</text>
+<path fill="none" stroke="black" d="M411.65,-405.32C445.68,-412.64 487.32,-420.92 525,-426.5 693.69,-451.49 739.6,-429.97 907,-462.5 910.55,-463.19 914.19,-464.01 917.84,-464.91"/>
+<polygon fill="black" stroke="black" points="916.67,-468.22 927.23,-467.41 918.47,-461.45 916.67,-468.22"/>
+<text text-anchor="middle" x="421.69" y="-391.45" font-family="Times New Roman,serif" font-size="8.00">der</text>
 </g>
 <!-- &#45;attrs5 -->
 <g id="node12" class="node">
 <title>&#45;attrs5</title>
-<polygon fill="none" stroke="gray" points="874,-307.62 720,-307.62 720,-271.12 880,-271.12 880,-301.62 874,-307.62"/>
-<polyline fill="none" stroke="gray" points="874,-307.62 874,-301.62"/>
-<polyline fill="none" stroke="gray" points="880,-301.62 874,-301.62"/>
-<text text-anchor="start" x="730" y="-292.12" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="789" y="-292.12" font-family="Times New Roman,serif" font-size="10.00">pbm:sample</text>
-<text text-anchor="start" x="730" y="-278.88" font-family="Times New Roman,serif" font-size="10.00">datasampleId:</text>
-<text text-anchor="start" x="789" y="-278.88" font-family="Times New Roman,serif" font-size="10.00">BBM:2032:136043</text>
+<polygon fill="none" stroke="gray" points="170,-307.62 16,-307.62 16,-271.12 176,-271.12 176,-301.62 170,-307.62"/>
+<polyline fill="none" stroke="gray" points="170,-307.62 170,-301.62"/>
+<polyline fill="none" stroke="gray" points="176,-301.62 170,-301.62"/>
+<text text-anchor="start" x="26" y="-292.12" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="85" y="-292.12" font-family="Times New Roman,serif" font-size="10.00">pbm:sample</text>
+<text text-anchor="start" x="26" y="-278.88" font-family="Times New Roman,serif" font-size="10.00">datasampleId:</text>
+<text text-anchor="start" x="85" y="-278.88" font-family="Times New Roman,serif" font-size="10.00">BBM:2032:136043</text>
 </g>
 <!-- &#45;attrs5&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- null _:_ -->
 <g id="edge6" class="edge">
 <title>&#45;attrs5&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasample&#45;trans&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M768.85,-307.94C737.49,-325.63 689.41,-352.74 658.34,-370.27"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M140.83,-308.05C185.87,-325.81 254.79,-352.99 299.12,-370.47"/>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_ENTITY bbmri:sample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <g id="node13" class="node">
 <title>http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043</title>
 <g id="a_node13"><a xlink:href="http://www.bbmri.cz/schemas/biobank/datasample-store-patient-33-BBM:2032:136043" xlink:title="sample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043">
-<ellipse fill="#fffc87" stroke="#808080" cx="972" cy="-210.5" rx="174.19" ry="18"/>
-<text text-anchor="middle" x="972" y="-205.45" font-family="Times New Roman,serif" font-size="14.00">sample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043</text>
+<ellipse fill="#fffc87" stroke="#808080" cx="607" cy="-210.5" rx="174.19" ry="18"/>
+<text text-anchor="middle" x="607" y="-205.45" font-family="Times New Roman,serif" font-size="14.00">sample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043</text>
 </a>
 </g>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datastore&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_GENERATION _:_ -->
-<g id="edge16" class="edge">
+<g id="edge17" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datastore&#45;ac&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="black" d="M981.08,-228.94C985.99,-238.38 992.16,-250.25 997.7,-260.9"/>
-<polygon fill="black" stroke="black" points="994.54,-262.4 1002.26,-269.66 1000.75,-259.17 994.54,-262.4"/>
-<text text-anchor="middle" x="996.06" y="-226.88" font-family="Times New Roman,serif" font-size="8.00">gen</text>
+<path fill="none" stroke="black" d="M543.96,-227.71C498.16,-239.48 435.87,-255.5 386.8,-268.12"/>
+<polygon fill="black" stroke="black" points="386.18,-264.66 377.37,-270.54 387.92,-271.44 386.18,-264.66"/>
+<text text-anchor="middle" x="539.93" y="-239.43" font-family="Times New Roman,serif" font-size="8.00">gen</text>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- PROV_SPECIALIZATION _:_ -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasampleStoreConnector&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="black" d="M880.11,-226.19C799.87,-239.01 683.32,-257.64 598.71,-271.16"/>
-<polygon fill="black" stroke="black" points="598.33,-267.68 589,-272.71 599.43,-274.59 598.33,-267.68"/>
-<text text-anchor="middle" x="874.76" y="-237.47" font-family="Times New Roman,serif" font-size="8.00">spe</text>
+<path fill="none" stroke="black" d="M616.98,-228.94C622.44,-238.48 629.32,-250.5 635.46,-261.23"/>
+<polygon fill="black" stroke="black" points="632.3,-262.75 640.3,-269.69 638.37,-259.27 632.3,-262.75"/>
+<text text-anchor="middle" x="631.98" y="-226.28" font-family="Times New Roman,serif" font-size="8.00">spe</text>
 </g>
 <!-- http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datapatient&#45;33 -->
 <!-- PROV_DERIVATION _:_ -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043&#45;&gt;http://www.bbmri.cz/schemas/biobank/datapatient&#45;33</title>
-<path fill="none" stroke="black" d="M1077.78,-225.05C1100.11,-233 1121.1,-245.36 1135,-264.5 1147.99,-282.39 1148.55,-296.78 1135,-314.25 1095.63,-365.02 1040.54,-304.93 995,-350.25 970.17,-374.96 987.47,-393.76 975,-426.5 971.68,-435.22 967.34,-444.39 963.11,-452.61"/>
-<polygon fill="black" stroke="black" points="960.04,-450.93 958.42,-461.4 966.21,-454.22 960.04,-450.93"/>
-<text text-anchor="middle" x="1089.39" y="-212.83" font-family="Times New Roman,serif" font-size="8.00">der</text>
+<path fill="none" stroke="black" d="M731.29,-223.47C886.84,-238.52 1133.31,-262.63 1135,-264.5 1167.84,-300.8 1122.06,-401.92 1099,-426.5 1086.64,-439.67 1045.73,-454.73 1012.16,-465.42"/>
+<polygon fill="black" stroke="black" points="1011.51,-461.95 1003,-468.28 1013.59,-468.64 1011.51,-461.95"/>
+<text text-anchor="middle" x="740.01" y="-208.54" font-family="Times New Roman,serif" font-size="8.00">der</text>
 </g>
 <!-- &#45;attrs6 -->
 <g id="node14" class="node">
 <title>&#45;attrs6</title>
-<polygon fill="none" stroke="gray" points="1071.5,-156.5 866.5,-156.5 866.5,-40.5 1077.5,-40.5 1077.5,-150.5 1071.5,-156.5"/>
-<polyline fill="none" stroke="gray" points="1071.5,-156.5 1071.5,-150.5"/>
-<polyline fill="none" stroke="gray" points="1077.5,-150.5 1071.5,-150.5"/>
-<text text-anchor="start" x="876.5" y="-141" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="952" y="-141" font-family="Times New Roman,serif" font-size="10.00">pbm:sample</text>
-<text text-anchor="start" x="876.5" y="-127.75" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="952" y="-127.75" font-family="Times New Roman,serif" font-size="10.00">bbmri:diagnosticMaterial</text>
-<text text-anchor="start" x="876.5" y="-114.5" font-family="Times New Roman,serif" font-size="10.00">datasampleId:</text>
-<text text-anchor="start" x="952" y="-114.5" font-family="Times New Roman,serif" font-size="10.00">BBM:2032:136043</text>
-<text text-anchor="start" x="876.5" y="-101.25" font-family="Times New Roman,serif" font-size="10.00">datastorageType:</text>
-<text text-anchor="start" x="952" y="-101.25" font-family="Times New Roman,serif" font-size="10.00">STS</text>
-<text text-anchor="start" x="876.5" y="-88" font-family="Times New Roman,serif" font-size="10.00">datamaterialType:</text>
-<text text-anchor="start" x="952" y="-88" font-family="Times New Roman,serif" font-size="10.00">S</text>
-<text text-anchor="start" x="876.5" y="-74.75" font-family="Times New Roman,serif" font-size="10.00">datadiagnosis:</text>
-<text text-anchor="start" x="952" y="-74.75" font-family="Times New Roman,serif" font-size="10.00">C509</text>
-<text text-anchor="start" x="876.5" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">datatakingDate:</text>
-<text text-anchor="start" x="952" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">2032&#45;10&#45;04T10:02:00.000Z</text>
-<text text-anchor="start" x="876.5" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">dataretrieved:</text>
-<text text-anchor="start" x="952" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">unknown</text>
+<polygon fill="none" stroke="gray" points="706.5,-156.5 501.5,-156.5 501.5,-40.5 712.5,-40.5 712.5,-150.5 706.5,-156.5"/>
+<polyline fill="none" stroke="gray" points="706.5,-156.5 706.5,-150.5"/>
+<polyline fill="none" stroke="gray" points="712.5,-150.5 706.5,-150.5"/>
+<text text-anchor="start" x="511.5" y="-141" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="587" y="-141" font-family="Times New Roman,serif" font-size="10.00">pbm:sample</text>
+<text text-anchor="start" x="511.5" y="-127.75" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="587" y="-127.75" font-family="Times New Roman,serif" font-size="10.00">bbmri:diagnosticMaterial</text>
+<text text-anchor="start" x="511.5" y="-114.5" font-family="Times New Roman,serif" font-size="10.00">datasampleId:</text>
+<text text-anchor="start" x="587" y="-114.5" font-family="Times New Roman,serif" font-size="10.00">BBM:2032:136043</text>
+<text text-anchor="start" x="511.5" y="-101.25" font-family="Times New Roman,serif" font-size="10.00">datastorageType:</text>
+<text text-anchor="start" x="587" y="-101.25" font-family="Times New Roman,serif" font-size="10.00">STS</text>
+<text text-anchor="start" x="511.5" y="-88" font-family="Times New Roman,serif" font-size="10.00">datamaterialType:</text>
+<text text-anchor="start" x="587" y="-88" font-family="Times New Roman,serif" font-size="10.00">S</text>
+<text text-anchor="start" x="511.5" y="-74.75" font-family="Times New Roman,serif" font-size="10.00">datadiagnosis:</text>
+<text text-anchor="start" x="587" y="-74.75" font-family="Times New Roman,serif" font-size="10.00">C509</text>
+<text text-anchor="start" x="511.5" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">datatakingDate:</text>
+<text text-anchor="start" x="587" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">2032&#45;10&#45;04T10:02:00.000Z</text>
+<text text-anchor="start" x="511.5" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">dataretrieved:</text>
+<text text-anchor="start" x="587" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">unknown</text>
 </g>
 <!-- &#45;attrs6&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043 -->
 <!-- null _:_ -->
 <g id="edge7" class="edge">
 <title>&#45;attrs6&#45;&gt;http://www.bbmri.cz/schemas/biobank/datasample&#45;store&#45;patient&#45;33&#45;BBM:2032:136043</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M972,-156.76C972,-169.7 972,-182.48 972,-192.22"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M607,-156.76C607,-169.7 607,-182.48 607,-192.22"/>
 </g>
 <!-- &#45;attrs7 -->
 <g id="node16" class="node">
 <title>&#45;attrs7</title>
-<polygon fill="none" stroke="gray" points="1140.38,-426.5 1003.62,-426.5 1003.62,-350.25 1146.38,-350.25 1146.38,-420.5 1140.38,-426.5"/>
-<polyline fill="none" stroke="gray" points="1140.38,-426.5 1140.38,-420.5"/>
-<polyline fill="none" stroke="gray" points="1146.38,-420.5 1140.38,-420.5"/>
-<text text-anchor="start" x="1013.62" y="-411" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1089.12" y="-411" font-family="Times New Roman,serif" font-size="10.00">pbm:source</text>
-<text text-anchor="start" x="1013.62" y="-397.75" font-family="Times New Roman,serif" font-size="10.00">datasex:</text>
-<text text-anchor="start" x="1089.12" y="-397.75" font-family="Times New Roman,serif" font-size="10.00">female</text>
-<text text-anchor="start" x="1013.62" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">databirthYear:</text>
-<text text-anchor="start" x="1089.12" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">1999</text>
-<text text-anchor="start" x="1013.62" y="-371.25" font-family="Times New Roman,serif" font-size="10.00">datamonth:</text>
-<text text-anchor="start" x="1089.12" y="-371.25" font-family="Times New Roman,serif" font-size="10.00">&#45;&#45;01</text>
-<text text-anchor="start" x="1013.62" y="-358" font-family="Times New Roman,serif" font-size="10.00">datagaveConsent:</text>
-<text text-anchor="start" x="1089.12" y="-358" font-family="Times New Roman,serif" font-size="10.00">true</text>
+<polygon fill="none" stroke="gray" points="1084.38,-426.5 947.62,-426.5 947.62,-350.25 1090.38,-350.25 1090.38,-420.5 1084.38,-426.5"/>
+<polyline fill="none" stroke="gray" points="1084.38,-426.5 1084.38,-420.5"/>
+<polyline fill="none" stroke="gray" points="1090.38,-420.5 1084.38,-420.5"/>
+<text text-anchor="start" x="957.62" y="-411" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1033.12" y="-411" font-family="Times New Roman,serif" font-size="10.00">pbm:source</text>
+<text text-anchor="start" x="957.62" y="-397.75" font-family="Times New Roman,serif" font-size="10.00">datasex:</text>
+<text text-anchor="start" x="1033.12" y="-397.75" font-family="Times New Roman,serif" font-size="10.00">female</text>
+<text text-anchor="start" x="957.62" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">databirthYear:</text>
+<text text-anchor="start" x="1033.12" y="-384.5" font-family="Times New Roman,serif" font-size="10.00">1999</text>
+<text text-anchor="start" x="957.62" y="-371.25" font-family="Times New Roman,serif" font-size="10.00">datamonth:</text>
+<text text-anchor="start" x="1033.12" y="-371.25" font-family="Times New Roman,serif" font-size="10.00">&#45;&#45;01</text>
+<text text-anchor="start" x="957.62" y="-358" font-family="Times New Roman,serif" font-size="10.00">datagaveConsent:</text>
+<text text-anchor="start" x="1033.12" y="-358" font-family="Times New Roman,serif" font-size="10.00">true</text>
 </g>
 <!-- &#45;attrs7&#45;&gt;http://www.bbmri.cz/schemas/biobank/datapatient&#45;33 -->
 <!-- null _:_ -->
 <g id="edge8" class="edge">
 <title>&#45;attrs7&#45;&gt;http://www.bbmri.cz/schemas/biobank/datapatient&#45;33</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1022.24,-426.81C1003.84,-439.87 984.2,-453.81 969.75,-464.07"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M996.15,-426.81C988.6,-439.19 980.56,-452.37 974.41,-462.44"/>
 </g>
 <!-- &#45;attrs8 -->
 <g id="node18" class="node">
 <title>&#45;attrs8</title>
-<polygon fill="none" stroke="gray" points="1123.5,-498.5 1014.5,-498.5 1014.5,-462.5 1129.5,-462.5 1129.5,-492.5 1123.5,-498.5"/>
-<polyline fill="none" stroke="gray" points="1123.5,-498.5 1123.5,-492.5"/>
-<polyline fill="none" stroke="gray" points="1129.5,-492.5 1123.5,-492.5"/>
-<text text-anchor="start" x="1024.5" y="-476.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1047.5" y="-476.62" font-family="Times New Roman,serif" font-size="10.00">cpm:senderAgent</text>
+<polygon fill="none" stroke="gray" points="1139.5,-498.5 1030.5,-498.5 1030.5,-462.5 1145.5,-462.5 1145.5,-492.5 1139.5,-498.5"/>
+<polyline fill="none" stroke="gray" points="1139.5,-498.5 1139.5,-492.5"/>
+<polyline fill="none" stroke="gray" points="1145.5,-492.5 1139.5,-492.5"/>
+<text text-anchor="start" x="1040.5" y="-476.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1063.5" y="-476.62" font-family="Times New Roman,serif" font-size="10.00">cpm:senderAgent</text>
 </g>
 <!-- &#45;attrs8&#45;&gt;http://www.bbmri.cz/schemas/biobank/dataUNI -->
 <!-- null _:_ -->
 <g id="edge9" class="edge">
 <title>&#45;attrs8&#45;&gt;http://www.bbmri.cz/schemas/biobank/dataUNI</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1018.55,-498.98C978.93,-511.94 926.12,-529.22 892.09,-540.35"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1038.3,-498.98C1002.38,-511.62 954.8,-528.36 923.1,-539.5"/>
 </g>
 </g>
 </svg>

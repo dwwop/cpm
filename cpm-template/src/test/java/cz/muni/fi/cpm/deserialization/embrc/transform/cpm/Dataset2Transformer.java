@@ -48,6 +48,7 @@ public class Dataset2Transformer extends DatasetTransformer {
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
         ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(PROCESSED_SAMPLE_CON));
+        fC.setDerivedFrom(List.of(bC.getId()));
         bb.setForwardConnectors(List.of(fC));
 
         SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), fC.getId());

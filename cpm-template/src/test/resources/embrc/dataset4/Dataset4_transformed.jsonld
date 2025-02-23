@@ -294,6 +294,10 @@
       "@value" : "laboratory technician"
     } ]
   }, {
+    "@type" : "Generation",
+    "activity" : "_:StoringActivity",
+    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
+  }, {
     "@type" : "Entity",
     "schema:name" : [ {
       "@value" : "BigProject_eDNAstorage"
@@ -307,10 +311,6 @@
     "@type" : "Usage",
     "entity" : "gen:db6e9e476b5ea9b48c2846fb061dc1b683289c939ddc977059c761f69de45884",
     "activity" : "_:StoringActivity"
-  }, {
-    "@type" : "Generation",
-    "activity" : "_:StoringActivity",
-    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
   }, {
     "@type" : "Entity",
     "schema:name" : [ {
@@ -373,6 +373,10 @@
       "@value" : "laboratory technician"
     } ]
   }, {
+    "@type" : "Generation",
+    "activity" : "_:StoringActivity2",
+    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
+  }, {
     "@type" : "Entity",
     "schema:description" : [ {
       "@value" : "instructions for storage of filter membranes until further processing"
@@ -383,10 +387,6 @@
     "@type" : "Usage",
     "entity" : "gen:6a3784dc2ccf422d90e9407efe7739eadfa23af77cb0d1af4fcfca120379f7ef",
     "activity" : "_:StoringActivity2"
-  }, {
-    "@type" : "Generation",
-    "activity" : "_:StoringActivity2",
-    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",

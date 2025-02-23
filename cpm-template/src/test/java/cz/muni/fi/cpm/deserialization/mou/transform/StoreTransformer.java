@@ -48,6 +48,7 @@ public class StoreTransformer extends PatientTransformer {
         mA.setGenerated(List.of(fcID));
 
         ForwardConnector fC = new ForwardConnector(fcID);
+        fC.setDerivedFrom(List.of(bC.getId()));
         bb.getForwardConnectors().add(fC);
 
         QualifiedName agentId = bb.getNamespace().qualifiedName(BBMRI_PREFIX, "UNI", pF);

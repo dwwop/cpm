@@ -12,6 +12,7 @@ wasGeneratedBy(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:54,bbmri:store
 entity(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54,[prov:type = 'cpm:backwardConnector'])
 wasAttributedTo(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54, bbmri:UNI)
 entity(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:54,[prov:type = 'cpm:forwardConnector'])
+wasDerivedFrom(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:54, bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54)
 agent(bbmri:UNI,[prov:type = 'cpm:senderAgent'])
 specializationOf(bbmri:sample-trans-patient-33-BBM:2032:888:54,bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54)
 activity(bbmri:transport-patient-33-BBM:2032:888:54,-,-,[prov:type = 'pbm:transportActivity'])
