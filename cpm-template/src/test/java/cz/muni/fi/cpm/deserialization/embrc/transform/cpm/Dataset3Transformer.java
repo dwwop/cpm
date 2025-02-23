@@ -6,6 +6,7 @@ import org.openprovenance.prov.model.*;
 
 import java.util.List;
 
+import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset1Transformer.STORED_SAMPLE_CON_R1;
 import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset2Transformer.PROCESSED_SAMPLE_CON;
 
 public class Dataset3Transformer extends DatasetTransformer {
@@ -31,12 +32,16 @@ public class Dataset3Transformer extends DatasetTransformer {
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithUnknownNS(PROCESSED_SAMPLE_CON));
-        bb.setBackwardConnectors(List.of(bC));
 
         SpecializationOf specBc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), bC.getId());
         indexedDS.add(specBc);
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
+
+        BackwardConnector bcStored = new BackwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R1));
+        bC.setDerivedFrom(List.of(bcStored.getId()));
+
+        bb.setBackwardConnectors(List.of(bC, bcStored));
 
         ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(IDENTIFIED_SPECIES_CON));
         fC.setDerivedFrom(List.of(bC.getId()));

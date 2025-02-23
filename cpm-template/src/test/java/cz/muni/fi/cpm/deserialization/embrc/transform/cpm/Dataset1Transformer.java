@@ -8,6 +8,10 @@ import org.openprovenance.prov.model.*;
 
 import java.util.List;
 
+import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset2Transformer.PROCESSED_SAMPLE_CON;
+import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset3Transformer.IDENTIFIED_SPECIES_CON;
+import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset4Transformer.FILTERED_SEQUENCES_CON;
+
 public class Dataset1Transformer extends DatasetTransformer {
     static final String SAMPLING = "sampling";
     static final String STORED_SAMPLE = "stored-sample-";
@@ -37,18 +41,27 @@ public class Dataset1Transformer extends DatasetTransformer {
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         ForwardConnector fcR1 = new ForwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R1));
-        bb.getForwardConnectors().add(fcR1);
 
         SpecializationOf specR1 = pF.newSpecializationOf(newQNWithUnknownNS(STORED_SAMPLE + "r1"), fcR1.getId());
         indexedDS.add(specR1);
 
         ForwardConnector fcR23UM = new ForwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R2_3UM));
-        bb.getForwardConnectors().add(fcR23UM);
 
         SpecializationOf specR23UM = pF.newSpecializationOf(newQNWithUnknownNS(STORED_SAMPLE + "r2_3um"), fcR23UM.getId());
         indexedDS.add(specR23UM);
 
         mA.setGenerated(List.of(fcR1.getId(), fcR23UM.getId()));
+
+        ForwardConnector fCProc = new ForwardConnector(newQNWithUnknownNS(PROCESSED_SAMPLE_CON));
+        fCProc.setDerivedFrom(List.of(fcR1.getId()));
+
+        ForwardConnector fCIden = new ForwardConnector(newQNWithUnknownNS(IDENTIFIED_SPECIES_CON));
+        fCIden.setDerivedFrom(List.of(fCProc.getId()));
+
+        ForwardConnector fCFil = new ForwardConnector(newQNWithUnknownNS(FILTERED_SEQUENCES_CON));
+        fCFil.setDerivedFrom(List.of(fcR23UM.getId()));
+
+        bb.getForwardConnectors().addAll(List.of(fcR1, fcR23UM, fCProc, fCIden, fCFil));
 
         return bb.toDocument(cPF);
     }

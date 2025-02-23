@@ -8,6 +8,7 @@ import java.util.List;
 
 import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset1Transformer.SAMPLE_R1;
 import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset1Transformer.STORED_SAMPLE_CON_R1;
+import static cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset3Transformer.IDENTIFIED_SPECIES_CON;
 
 public class Dataset2Transformer extends DatasetTransformer {
     static final String PROCESSING = "processing";
@@ -18,15 +19,6 @@ public class Dataset2Transformer extends DatasetTransformer {
 
     public Dataset2Transformer(ProvFactory pF, ICpmProvFactory cPF) {
         super(pF, cPF);
-    }
-
-    @Override
-    protected void modifyDS(IndexedDocument indexedDS) {
-        Used sampleUsed = pF.newUsed(newQNWithUnknownNS(PROCESSING_ACTIVITY), newQNWithUnknownNS(SAMPLE_R1));
-        indexedDS.add(sampleUsed);
-
-        WasGeneratedBy imagesGen = pF.newWasGeneratedBy(null, newQnWithGenNS(IMAGES), newQNWithUnknownNS(PROCESSING_ACTIVITY));
-        indexedDS.add(imagesGen);
     }
 
     @Override
@@ -49,13 +41,26 @@ public class Dataset2Transformer extends DatasetTransformer {
 
         ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(PROCESSED_SAMPLE_CON));
         fC.setDerivedFrom(List.of(bC.getId()));
-        bb.setForwardConnectors(List.of(fC));
 
         SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), fC.getId());
         indexedDS.add(specFc);
 
         mA.setGenerated(List.of(fC.getId()));
 
+        ForwardConnector fCIden = new ForwardConnector(newQNWithUnknownNS(IDENTIFIED_SPECIES_CON));
+        fCIden.setDerivedFrom(List.of(fC.getId()));
+
+        bb.setForwardConnectors(List.of(fC, fCIden));
+
         return bb.toDocument(cPF);
+    }
+
+    @Override
+    protected void modifyDS(IndexedDocument indexedDS) {
+        Used sampleUsed = pF.newUsed(newQNWithUnknownNS(PROCESSING_ACTIVITY), newQNWithUnknownNS(SAMPLE_R1));
+        indexedDS.add(sampleUsed);
+
+        WasGeneratedBy imagesGen = pF.newWasGeneratedBy(null, newQnWithGenNS(IMAGES), newQNWithUnknownNS(PROCESSING_ACTIVITY));
+        indexedDS.add(imagesGen);
     }
 }

@@ -53,9 +53,9 @@ public class CpmEmbrcTest {
 
     private static Stream<Object[]> documentProvider() {
         return Stream.of(
-                new Object[]{Dataset1Transformer.class, 1, 3, 30, 2},
-                new Object[]{Dataset2Transformer.class, 2, 3, 9, 2},
-                new Object[]{Dataset3Transformer.class, 3, 3, 6, 2},
+                new Object[]{Dataset1Transformer.class, 1, 6, 30, 2},
+                new Object[]{Dataset2Transformer.class, 2, 4, 9, 2},
+                new Object[]{Dataset3Transformer.class, 3, 4, 6, 2},
                 new Object[]{Dataset4Transformer.class, 4, 3, 37, 2}
         );
     }
@@ -91,8 +91,8 @@ public class CpmEmbrcTest {
     @Order(1)
     @ParameterizedTest
     @MethodSource("documentProvider")
-    public void toDocument_withEmbrcDataset3_serialisesSuccessfully(Class<DatasetTransformer> dTClass,
-                                                                    int datasetNum, int bbCount, int dsCount, int cPCount) {
+    public void toDocument_withEmbrcDataset_serialisesSuccessfully(Class<DatasetTransformer> dTClass,
+                                                                   int datasetNum, int bbCount, int dsCount, int cPCount) {
         String datasetFolder = "dataset" + datasetNum + File.separator;
         try (InputStream inputStream = new FileInputStream(TEST_RESOURCES + EMBRC_FOLDER + datasetFolder + "Dataset" + datasetNum + "_transformed.jsonld")) {
             InteropFramework interop = new InteropFramework();

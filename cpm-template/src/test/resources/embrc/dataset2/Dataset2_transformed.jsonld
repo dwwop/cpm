@@ -116,6 +116,13 @@
     } ],
     "type" : [ "schema:Organization" ]
   }, {
+    "@type" : "Association",
+    "agent" : "orcid:0000-0001-0001-0002",
+    "activity" : "_:MaterialProcessing",
+    "dcat:hadRole" : [ {
+      "@value" : "lab technician"
+    } ]
+  }, {
     "@type" : "Usage",
     "entity" : "_:FlowCam_seawater_sop",
     "activity" : "_:MaterialProcessing"
@@ -123,13 +130,6 @@
     "@type" : "Usage",
     "entity" : "_:NMS_flowcam_2010",
     "activity" : "_:MaterialProcessing"
-  }, {
-    "@type" : "Association",
-    "agent" : "orcid:0000-0001-0001-0002",
-    "activity" : "_:MaterialProcessing",
-    "dcat:hadRole" : [ {
-      "@value" : "lab technician"
-    } ]
   }, {
     "@type" : "Entity",
     "schema:name" : [ {

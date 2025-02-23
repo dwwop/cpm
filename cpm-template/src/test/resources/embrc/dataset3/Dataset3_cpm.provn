@@ -12,6 +12,8 @@ activity(_:species-identification,-,-,[prov:type = 'cpm:mainActivity', dct:hasPa
 used(_:species-identification,_:processed-sample-con-r1,-)
 wasGeneratedBy(_:identified-species-con,_:species-identification,-)
 entity(_:processed-sample-con-r1,[prov:type = 'cpm:backwardConnector'])
+wasDerivedFrom(_:processed-sample-con-r1, _:stored-sample-con-r1)
+entity(_:stored-sample-con-r1,[prov:type = 'cpm:backwardConnector'])
 entity(_:identified-species-con,[prov:type = 'cpm:forwardConnector'])
 wasDerivedFrom(_:identified-species-con, _:processed-sample-con-r1)
 entity(_:VisualSpreadsheet_FlowCam,[prov:type = 'schema:SoftwareApplication', prov:type = 'schema:Thing', schema:name = "VisualSpreadsheet FlowCam Micro software" %% xsd:string, schema:description = "The software that comes with this FlowCam, bought in 2010" %% xsd:string, schema:accessibilitySummary = "file flowcam-settings.txt which comes with this dataset" %% xsd:string])
