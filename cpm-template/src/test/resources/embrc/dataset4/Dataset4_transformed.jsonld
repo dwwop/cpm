@@ -287,17 +287,6 @@
     } ],
     "type" : [ "schema:Organization" ]
   }, {
-    "@type" : "Association",
-    "agent" : "orcid:0000-0001-0001-0002",
-    "activity" : "_:StoringActivity",
-    "dcat:hadRole" : [ {
-      "@value" : "laboratory technician"
-    } ]
-  }, {
-    "@type" : "Generation",
-    "activity" : "_:StoringActivity",
-    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
-  }, {
     "@type" : "Entity",
     "schema:name" : [ {
       "@value" : "BigProject_eDNAstorage"
@@ -311,6 +300,17 @@
     "@type" : "Usage",
     "entity" : "gen:db6e9e476b5ea9b48c2846fb061dc1b683289c939ddc977059c761f69de45884",
     "activity" : "_:StoringActivity"
+  }, {
+    "@type" : "Generation",
+    "activity" : "_:StoringActivity",
+    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
+  }, {
+    "@type" : "Association",
+    "agent" : "orcid:0000-0001-0001-0002",
+    "activity" : "_:StoringActivity",
+    "dcat:hadRole" : [ {
+      "@value" : "laboratory technician"
+    } ]
   }, {
     "@type" : "Entity",
     "schema:name" : [ {
@@ -366,17 +366,6 @@
       "@value" : "requesting agent"
     } ]
   }, {
-    "@type" : "Association",
-    "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:StoringActivity2",
-    "dcat:hadRole" : [ {
-      "@value" : "laboratory technician"
-    } ]
-  }, {
-    "@type" : "Generation",
-    "activity" : "_:StoringActivity2",
-    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
-  }, {
     "@type" : "Entity",
     "schema:description" : [ {
       "@value" : "instructions for storage of filter membranes until further processing"
@@ -388,9 +377,13 @@
     "entity" : "gen:6a3784dc2ccf422d90e9407efe7739eadfa23af77cb0d1af4fcfca120379f7ef",
     "activity" : "_:StoringActivity2"
   }, {
+    "@type" : "Generation",
+    "activity" : "_:StoringActivity2",
+    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
+  }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialProcessingActivity",
+    "activity" : "_:StoringActivity2",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -430,7 +423,7 @@
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialProcessingActivity2",
+    "activity" : "_:MaterialProcessingActivity",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -462,7 +455,7 @@
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialProcessingActivity3",
+    "activity" : "_:MaterialProcessingActivity2",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -497,7 +490,7 @@
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialProcessingActivity4",
+    "activity" : "_:MaterialProcessingActivity3",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -552,7 +545,7 @@
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:DataProcessingActivity",
+    "activity" : "_:MaterialProcessingActivity4",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -570,5 +563,12 @@
     "@type" : "Usage",
     "entity" : "gen:0409e27f57bde5a8cc93bf36f615257ad3097967593591980b3d325b6e79897a",
     "activity" : "_:DataProcessingActivity"
+  }, {
+    "@type" : "Association",
+    "agent" : "_:DNATechnicianPerson",
+    "activity" : "_:DataProcessingActivity",
+    "dcat:hadRole" : [ {
+      "@value" : "laboratory technician"
+    } ]
   } ]
 }
