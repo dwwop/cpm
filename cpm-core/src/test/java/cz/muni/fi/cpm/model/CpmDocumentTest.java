@@ -1367,7 +1367,6 @@ public abstract class CpmDocumentTest {
         assertEquals(0, doc.getNodes(id2).size());
         assertEquals(1, doc.getNode(id1, StatementOrBundle.Kind.PROV_ENTITY).getEffectEdges().size());
         assertEquals(1, doc.getNode(id1, StatementOrBundle.Kind.PROV_AGENT).getEffectEdges().size());
-        ;
         assertFalse(doc.areAllRelationsMapped());
     }
 

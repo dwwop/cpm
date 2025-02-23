@@ -363,6 +363,13 @@
     "@id" : "gen:adce3387eb8007a065698738301a54b1c02cdc4e22b77356fe014f521dddc183",
     "type" : [ "schema:Organization" ]
   }, {
+    "@type" : "Association",
+    "agent" : "orcid:0000-0001-0001-0001",
+    "activity" : "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2",
+    "dcat:hadRole" : [ {
+      "@value" : "field and laboratory technician"
+    } ]
+  }, {
     "@type" : "Usage",
     "entity" : "_:BigProject_WaterSamples",
     "activity" : "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2"
@@ -377,7 +384,7 @@
   }, {
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0001",
-    "activity" : "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2",
+    "activity" : "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99",
     "dcat:hadRole" : [ {
       "@value" : "field and laboratory technician"
     } ]
@@ -409,8 +416,8 @@
     "entity" : "gen:4a86c49fc31d3ba9b8a8e3c961dc7d1ef6cb59769f75fbd2b92aa36ef71b1fa2"
   }, {
     "@type" : "Association",
-    "agent" : "orcid:0000-0001-0001-0001",
-    "activity" : "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99",
+    "agent" : "orcid:0000-0001-0001-0002",
+    "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869",
     "dcat:hadRole" : [ {
       "@value" : "field and laboratory technician"
     } ]
@@ -444,23 +451,12 @@
     "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869",
     "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
   }, {
-    "@type" : "Association",
-    "agent" : "orcid:0000-0001-0001-0002",
-    "activity" : "gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869",
-    "dcat:hadRole" : [ {
-      "@value" : "field and laboratory technician"
-    } ]
-  }, {
     "@type" : "Entity",
     "schema:name" : [ {
       "@value" : "RV OurBigShip on-board lab"
     } ],
     "@id" : "gen:7d38ee5a6e0fc3fc67a78988647227bc0f07befb48f8101e78f726fb0c31ec64",
     "type" : [ "schema:Place", "prov:Location" ]
-  }, {
-    "@type" : "Usage",
-    "entity" : "_:Johnson_Fridge_type_XYZ",
-    "activity" : "gen:51e9c9f29f9d1eb2343077ebc7a5217edc0d7769369daa907fa84f98ac529a65"
   }, {
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
@@ -470,8 +466,8 @@
     } ]
   }, {
     "@type" : "Usage",
-    "entity" : "_:Johnson_Freezer_type_XYZ",
-    "activity" : "gen:abd7abf4dec69163e3717d9e1e3332ecc07ba15fba3b4c27580b6e6cfc0075f4"
+    "entity" : "_:Johnson_Fridge_type_XYZ",
+    "activity" : "gen:51e9c9f29f9d1eb2343077ebc7a5217edc0d7769369daa907fa84f98ac529a65"
   }, {
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
@@ -479,5 +475,9 @@
     "dcat:hadRole" : [ {
       "@value" : "field and laboratory technician"
     } ]
+  }, {
+    "@type" : "Usage",
+    "entity" : "_:Johnson_Freezer_type_XYZ",
+    "activity" : "gen:abd7abf4dec69163e3717d9e1e3332ecc07ba15fba3b4c27580b6e6cfc0075f4"
   } ]
 }

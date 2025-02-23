@@ -3,10 +3,7 @@ package cz.muni.fi.cpm.deserialization.embrc;
 import com.apicatalog.jsonld.JsonLdError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset1Transformer;
-import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset2Transformer;
-import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.Dataset3Transformer;
-import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.DatasetTransformer;
+import cz.muni.fi.cpm.deserialization.embrc.transform.cpm.*;
 import cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.EmbrcTransformer;
 import cz.muni.fi.cpm.deserialization.embrc.transform.jsonld.ProvContextManager;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
@@ -58,7 +55,8 @@ public class CpmEmbrcTest {
         return Stream.of(
                 new Object[]{Dataset1Transformer.class, 1, 3, 30, 2},
                 new Object[]{Dataset2Transformer.class, 2, 3, 9, 2},
-                new Object[]{Dataset3Transformer.class, 3, 3, 6, 2}
+                new Object[]{Dataset3Transformer.class, 3, 3, 6, 2},
+                new Object[]{Dataset4Transformer.class, 4, 3, 37, 2}
         );
     }
 

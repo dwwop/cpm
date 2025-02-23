@@ -13,9 +13,9 @@ bundle _:sampling-bundle
 
 activity(_:sampling,-,-,[prov:type = 'cpm:mainActivity', dct:hasPart = 'gen:abd7abf4dec69163e3717d9e1e3332ecc07ba15fba3b4c27580b6e6cfc0075f4', dct:hasPart = 'gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2', dct:hasPart = 'gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99', dct:hasPart = 'gen:031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869', dct:hasPart = 'gen:51e9c9f29f9d1eb2343077ebc7a5217edc0d7769369daa907fa84f98ac529a65'])
 wasGeneratedBy(_:stored-sample-con-r1,_:sampling,-)
-wasGeneratedBy(_:stored-sample-con-r2_3um,_:sampling,-)
+wasGeneratedBy(_:stored-sample-con-r2-3um,_:sampling,-)
 entity(_:stored-sample-con-r1,[prov:type = 'cpm:forwardConnector'])
-entity(_:stored-sample-con-r2_3um,[prov:type = 'cpm:forwardConnector'])
+entity(_:stored-sample-con-r2-3um,[prov:type = 'cpm:forwardConnector'])
 entity(_:Johnson_Freezer_type_XYZ,[prov:type = 'schema:Thing', schema:name = "Johnson Freezer type XYZ" %% xsd:string, dct:type = "samples freezer" %% xsd:string, sosa:isHostedBy = "_:IMO_1234567" %% xsd:string])
 entity(_:BigProject_belgium_water_10m,[prov:type = 'sosa:Sample', prov:type = 'schema:Thins', schema:name = "BigProject_belgium_water_10m" %% xsd:string, schema:description = "Water sample to determine plankton community and extract DNA" %% xsd:string, schema:keywords = "http://purl.obolibrary.org/obo/ENVO_00002150" %% xsd:string, schema:keywords = "NCBI:txid1874687" %% xsd:string])
 entity(_:BigProject_WaterSamples,[prov:type = 'schema:Thing', prov:type = 'schema:CreativeWork', schema:name = "BigProject_WaterSamples" %% xsd:string, schema:description = "Collecting and pre-filtering (removal of larger particles) of water samples to be used later for FlowCam and eDNA work" %% xsd:string, schema:url = "https://www.protocols.io/BigProject_WaterSamples.pdf" %% xsd:string])
@@ -71,7 +71,7 @@ wasAssociatedWith(gen:51e9c9f29f9d1eb2343077ebc7a5217edc0d7769369daa907fa84f98ac
 wasAssociatedWith(gen:abd7abf4dec69163e3717d9e1e3332ecc07ba15fba3b4c27580b6e6cfc0075f4,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "field and laboratory technician" %% xsd:string])
 wasAttributedTo(_:ABSPermit_ircc2345678, orcid:0000-0001-0001-0001,[dcat:hadRole = "contact" %% xsd:string])
 specializationOf(_:stored-sample-r1,_:stored-sample-con-r1)
-specializationOf(_:stored-sample-r2_3um,_:stored-sample-con-r2_3um)
+specializationOf(_:stored-sample-r2_3um,_:stored-sample-con-r2-3um)
 wasInfluencedBy(_:ABSPermit_ircc2345678,_:BigProject_belgium_water_10m)
 endBundle
 endDocument

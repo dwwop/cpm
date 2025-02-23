@@ -12,13 +12,15 @@ public class Dataset1Transformer extends DatasetTransformer {
     static final String SAMPLING = "sampling";
     static final String STORED_SAMPLE = "stored-sample-";
     static final String STORED_SAMPLE_CON = "stored-sample-con-";
+    static final String STORED_SAMPLE_CON_R1 = STORED_SAMPLE_CON + "r1";
+    static final String STORED_SAMPLE_CON_R2_3UM = STORED_SAMPLE_CON + "r2-3um";
 
     private static final String SAMPLE_ACTIVITY = "031102cf5f8c83749fa2f8fe70e3ce29a71635bd5c25c09878f36b156f9dd869";
     private static final String STORING_ACTIVITY_R1 = "51e9c9f29f9d1eb2343077ebc7a5217edc0d7769369daa907fa84f98ac529a65";
     private static final String STORING_ACTIVITY_R2_3um = "abd7abf4dec69163e3717d9e1e3332ecc07ba15fba3b4c27580b6e6cfc0075f4";
     private static final String BASE_SAMPLE = "BigProject_belgium_water_10m";
-    private static final String SAMPLE_R1 = BASE_SAMPLE + "_1000um_r1";
-    private static final String SAMPLE_R2_3UM = BASE_SAMPLE + "_1000um_r2_3um";
+    static final String SAMPLE_R1 = BASE_SAMPLE + "_1000um_r1";
+    static final String SAMPLE_R2_3UM = BASE_SAMPLE + "_1000um_r2_3um";
 
     public Dataset1Transformer(ProvFactory pF, ICpmProvFactory cPF) {
         super(pF, cPF);
@@ -34,13 +36,13 @@ public class Dataset1Transformer extends DatasetTransformer {
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
-        ForwardConnector fcR1 = new ForwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON + "r1"));
+        ForwardConnector fcR1 = new ForwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R1));
         bb.getForwardConnectors().add(fcR1);
 
         SpecializationOf specR1 = pF.newSpecializationOf(newQNWithUnknownNS(STORED_SAMPLE + "r1"), fcR1.getId());
         indexedDS.add(specR1);
 
-        ForwardConnector fcR23UM = new ForwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON + "r2_3um"));
+        ForwardConnector fcR23UM = new ForwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R2_3UM));
         bb.getForwardConnectors().add(fcR23UM);
 
         SpecializationOf specR23UM = pF.newSpecializationOf(newQNWithUnknownNS(STORED_SAMPLE + "r2_3um"), fcR23UM.getId());
