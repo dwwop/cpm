@@ -4,6 +4,7 @@ prefix orcid <https://orcid.org/>
 prefix dct <http://purl.org/dc/terms/>
 prefix schema <https://schema.org/>
 prefix gen <gen>
+prefix dcat <http://www.w3.org/ns/dcat#>
 prefix seadatanet <https://edmo.seadatanet.org/report/>
 prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
 bundle _:species-identification-bundle
@@ -17,15 +18,17 @@ entity(_:stored-sample-con-r1,[prov:type = 'cpm:backwardConnector'])
 entity(_:identified-species-con,[prov:type = 'cpm:forwardConnector'])
 wasDerivedFrom(_:identified-species-con, _:processed-sample-con-r1)
 entity(_:VisualSpreadsheet_FlowCam,[prov:type = 'schema:SoftwareApplication', prov:type = 'schema:Thing', schema:name = "VisualSpreadsheet FlowCam Micro software" %% xsd:string, schema:description = "The software that comes with this FlowCam, bought in 2010" %% xsd:string, schema:accessibilitySummary = "file flowcam-settings.txt which comes with this dataset" %% xsd:string])
+entity(_:classification_QC,[prov:type = 'schema:Thing', prov:type = 'schema:CreativeWork', schema:name = "classification QC" %% xsd:string, schema:description = "Manual filtering of the flowcam outputs, to remove misidentifications. Method steps: (1) visual inspection of the classified images by a first plankton expert, who suggested reclassifications or removal of the images from the dataset (2) visual inspection and confirmation/rejection of suggestions by a second export (3) reclassification in the image metadata and the spreadsheet for those that both experts agreed on, and agreed rejected results removed from the dataset." %% xsd:string])
 entity(gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0,[prov:type = 'schema:MediaObject', schema:description = "raw images from /Users/NMSlab/flowcam/20210101/BigProject/raw, settings in file flowcam-settings.txt (see dataset), and reference library used was  FlowCam_ReferenceLibrary_2024" %% xsd:string])
 entity(gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4,[prov:type = 'schema:MediaObject', schema:description = "images in zip file Plankton_species_image.zip, results in Plankton_species_numbers.csv" %% xsd:string])
 activity(_:FlowCamSpeciesIdentification,2021-01-01T00:00:00.000+01:00,-,[prov:type = 'schema:Action', dct:type = "Data Processing, FlowCam species identification" %% xsd:string, schema:name = "FlowCam species identification" %% xsd:string, schema:description = "Identification of species on images from the FlowCam, using the FlowCam software" %% xsd:string, schema:object = "gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0" %% xsd:string, schema:result = "gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4" %% xsd:string])
-agent(seadatanet:00000,[prov:type = 'schema:Organization', schema:name = "Nice Marine Station" %% xsd:string, schema:identifier = "seadatanet:00000" %% xsd:string])
+agent(seadatanet:00000,[prov:type = 'schema:Organization', schema:name = "Nice Marine Station" %% xsd:string, schema:mainEntityOfPage = "https://NiceMarineStation.eu" %% xsd:string, schema:email = "info@nicemarinestation.eu" %% xsd:string, schema:identifier = "seadatanet:00000" %% xsd:string])
 agent(orcid:0000-0001-0001-0002,[prov:type = 'schema:Person', schema:name = "J. Gerschwin" %% xsd:string, schema:identifier = "orcid:0000-0001-0001-0002" %% xsd:string, schema:email = "jg@somewhere.com" %% xsd:string, schema:affiliation = "seadatanet:00000" %% xsd:string])
 used(_:FlowCamSpeciesIdentification,_:VisualSpreadsheet_FlowCam,-)
+used(_:FlowCamSpeciesIdentification,_:classification_QC,-)
 used(_:FlowCamSpeciesIdentification,gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0,-)
 wasGeneratedBy(gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4,_:FlowCamSpeciesIdentification,-)
-wasAssociatedWith(_:FlowCamSpeciesIdentification,orcid:0000-0001-0001-0002,-)
+wasAssociatedWith(_:FlowCamSpeciesIdentification,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "lab technician" %% xsd:string])
 specializationOf(gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0,_:processed-sample-con-r1)
 specializationOf(gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4,_:identified-species-con)
 endBundle

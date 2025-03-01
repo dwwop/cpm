@@ -9,7 +9,8 @@
     "gen" : "gen",
     "dcat" : "http://www.w3.org/ns/dcat#",
     "orcid" : "https://orcid.org/",
-    "seadatanet" : "https://edmo.seadatanet.org/report/"
+    "seadatanet" : "https://edmo.seadatanet.org/report/",
+    "obolibrary" : "http://purl.obolibrary.org/obo/"
   }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
   "@graph" : [ {
     "@type" : "Agent",
@@ -28,6 +29,22 @@
     } ],
     "type" : [ "schema:Person" ]
   }, {
+    "@type" : "Agent",
+    "@id" : "seadatanet:00000",
+    "schema:name" : [ {
+      "@value" : "Nice Marine Station"
+    } ],
+    "schema:mainEntityOfPage" : [ {
+      "@value" : "https://NiceMarineStation.eu"
+    } ],
+    "schema:email" : [ {
+      "@value" : "info@nicemarinestation.eu"
+    } ],
+    "schema:identifier" : [ {
+      "@value" : "seadatanet:00000"
+    } ],
+    "type" : [ "schema:Organization" ]
+  }, {
     "@type" : "Entity",
     "@id" : "_:BigProject_belgium_water_10m_1000um_r1",
     "schema:name" : [ {
@@ -36,11 +53,7 @@
     "schema:description" : [ {
       "@value" : "Water sample collected from 10m depth and filtered at 1000um"
     } ],
-    "schema:keywords" : [ {
-      "@value" : "http://purl.obolibrary.org/obo/ENVO_00002150"
-    }, {
-      "@value" : "NCBI:txid1874687"
-    } ],
+    "schema:keywords" : [ "obolibrary:ENVO_00002150", "_:NCBI_txid1874687" ],
     "type" : [ "schema:Thing", "sosa:Sample" ]
   }, {
     "@type" : "Entity",
@@ -83,15 +96,12 @@
     "schema:description" : [ {
       "@value" : "see file flowcam-settings.txt for software and hardware settings"
     } ],
-    "schema:software" : [ {
-      "@value" : "_:VisualSpreadsheet_FlowCam"
-    } ],
     "type" : [ "schema:Thing" ]
   }, {
     "@type" : "Activity",
     "@id" : "_:MaterialProcessing",
     "dct:type" : [ {
-      "@value" : "Material Processing; Processing water sample through FlowCam and producing images"
+      "@value" : "Material Processing; FlowCam imaging"
     } ],
     "schema:object" : [ {
       "@value" : "_:BigProject_belgium_water_10m_1000um_r1"
@@ -106,21 +116,31 @@
     } ],
     "type" : [ "schema:Action" ]
   }, {
-    "@type" : "Agent",
-    "@id" : "seadatanet:00000",
+    "@type" : "Entity",
+    "@id" : "obolibrary:ENVO_00002150",
     "schema:name" : [ {
-      "@value" : "Nice Marine Station"
+      "@value" : "coastal sea water"
     } ],
-    "schema:identifier" : [ {
-      "@value" : "seadatanet:00000"
+    "schema:termCode" : [ {
+      "@value" : "ENVO_00002150"
     } ],
-    "type" : [ "schema:Organization" ]
+    "type" : [ "schema:DefinedTerm" ]
   }, {
-    "@type" : "Association",
-    "agent" : "orcid:0000-0001-0001-0002",
-    "activity" : "_:MaterialProcessing",
-    "dcat:hadRole" : [ {
-      "@value" : "lab technician"
+    "@type" : "Entity",
+    "@id" : "_:NCBI_txid1874687",
+    "schema:name" : [ {
+      "@value" : "marine plaknton metagenome"
+    } ],
+    "schema:termCode" : [ {
+      "@value" : "NCBI:txid1874687"
+    } ],
+    "type" : [ "schema:DefinedTerm" ]
+  }, {
+    "@type" : "Influence",
+    "influencer" : "_:VisualSpreadsheet_FlowCam",
+    "influencee" : "_:NMS_flowcam_2010",
+    "schema:accessibilitySummary" : [ {
+      "@value" : "see file flowcam-settings.txt for software and hardware settings"
     } ]
   }, {
     "@type" : "Usage",
@@ -130,6 +150,13 @@
     "@type" : "Usage",
     "entity" : "_:NMS_flowcam_2010",
     "activity" : "_:MaterialProcessing"
+  }, {
+    "@type" : "Association",
+    "agent" : "orcid:0000-0001-0001-0002",
+    "activity" : "_:MaterialProcessing",
+    "dcat:hadRole" : [ {
+      "@value" : "lab technician"
+    } ]
   }, {
     "@type" : "Entity",
     "schema:name" : [ {

@@ -28,6 +28,22 @@
     } ],
     "type" : [ "schema:Person" ]
   }, {
+    "@type" : "Agent",
+    "@id" : "seadatanet:00000",
+    "schema:name" : [ {
+      "@value" : "Nice Marine Station"
+    } ],
+    "schema:mainEntityOfPage" : [ {
+      "@value" : "https://NiceMarineStation.eu"
+    } ],
+    "schema:email" : [ {
+      "@value" : "info@nicemarinestation.eu"
+    } ],
+    "schema:identifier" : [ {
+      "@value" : "seadatanet:00000"
+    } ],
+    "type" : [ "schema:Organization" ]
+  }, {
     "@type" : "Entity",
     "@id" : "_:VisualSpreadsheet_FlowCam",
     "schema:name" : [ {
@@ -40,6 +56,16 @@
       "@value" : "file flowcam-settings.txt which comes with this dataset"
     } ],
     "type" : [ "schema:Thing", "schema:SoftwareApplication" ]
+  }, {
+    "@type" : "Entity",
+    "@id" : "_:classification_QC",
+    "schema:name" : [ {
+      "@value" : "classification QC"
+    } ],
+    "schema:description" : [ {
+      "@value" : "Manual filtering of the flowcam outputs, to remove misidentifications. Method steps: (1) visual inspection of the classified images by a first plankton expert, who suggested reclassifications or removal of the images from the dataset (2) visual inspection and confirmation/rejection of suggestions by a second export (3) reclassification in the image metadata and the spreadsheet for those that both experts agreed on, and agreed rejected results removed from the dataset."
+    } ],
+    "type" : [ "schema:Thing", "schema:CreativeWork" ]
   }, {
     "@type" : "Activity",
     "@id" : "_:FlowCamSpeciesIdentification",
@@ -61,23 +87,20 @@
     "startTime" : "2021-01-01",
     "type" : [ "schema:Action" ]
   }, {
-    "@type" : "Agent",
-    "@id" : "seadatanet:00000",
-    "schema:name" : [ {
-      "@value" : "Nice Marine Station"
-    } ],
-    "schema:identifier" : [ {
-      "@value" : "seadatanet:00000"
-    } ],
-    "type" : [ "schema:Organization" ]
-  }, {
     "@type" : "Usage",
     "entity" : "_:VisualSpreadsheet_FlowCam",
     "activity" : "_:FlowCamSpeciesIdentification"
   }, {
+    "@type" : "Usage",
+    "entity" : "_:classification_QC",
+    "activity" : "_:FlowCamSpeciesIdentification"
+  }, {
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
-    "activity" : "_:FlowCamSpeciesIdentification"
+    "activity" : "_:FlowCamSpeciesIdentification",
+    "dcat:hadRole" : [ {
+      "@value" : "lab technician"
+    } ]
   }, {
     "@type" : "Entity",
     "schema:description" : [ {

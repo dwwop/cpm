@@ -13,11 +13,16 @@
       "identifier": "https://orcid.org/0000-0001-0001-0002",
       "email": "jg@somewhere.com",
       "affiliation": {
-        "@type": "Organization",
-        "@id": "https://edmo.seadatanet.org/report/00000",
-        "name": "Nice Marine Station",
-        "identifier": "https://edmo.seadatanet.org/report/00000"
+        "@id": "https://edmo.seadatanet.org/report/00000"
       }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://edmo.seadatanet.org/report/00000",
+      "name": "Nice Marine Station",
+      "mainEntityOfPage": "https://NiceMarineStation.eu",
+      "email": "info@nicemarinestation.eu",
+      "identifier": "https://edmo.seadatanet.org/report/00000"
     },
     {
       "@type": [
@@ -32,6 +37,16 @@
     },
     {
       "@type": [
+        "Thing",
+        "prov:Entity",
+        "CreativeWork"
+      ],
+      "@id": "_:classification_QC",
+      "name": "classification QC",
+      "description": "Manual filtering of the flowcam outputs, to remove misidentifications. Method steps: (1) visual inspection of the classified images by a first plankton expert, who suggested reclassifications or removal of the images from the dataset (2) visual inspection and confirmation/rejection of suggestions by a second export (3) reclassification in the image metadata and the spreadsheet for those that both experts agreed on, and agreed rejected results removed from the dataset."
+    },
+    {
+      "@type": [
         "Action",
         "prov:Activity"
       ],
@@ -42,6 +57,13 @@
       "startTime": "2021-01-01",
       "prov:wasAssociatedWith": {
         "@id": "https://orcid.org/0000-0001-0001-0002"
+      },
+      "prov:qualifiedAssociation": {
+        "@type": "prov:Association",
+        "prov:agent": {
+          "@id": "https://orcid.org/0000-0001-0001-0002"
+        },
+        "dcat:hadRole": "lab technician"
       },
       "object": {
         "@type": "MediaObject",
@@ -54,6 +76,9 @@
       "prov:used": [
         {
           "@id": "_:VisualSpreadsheet_FlowCam"
+        },
+        {
+          "@id": "_:classification_QC"
         }
       ]
     }

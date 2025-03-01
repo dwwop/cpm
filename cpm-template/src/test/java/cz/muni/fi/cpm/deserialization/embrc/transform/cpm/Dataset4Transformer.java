@@ -14,16 +14,16 @@ public class Dataset4Transformer extends DatasetTransformer {
     static final String FILTERED_SEQUENCES_CON = "filtered-sequences-con";
 
     private static final String TRANSPORTING_ACTIVITY = "TransportingDNAFiltersToSequencingIsUs";
-    private static final String ACQUIRING_ACTIVITY = "MaterialAcquiring_Sequencing";
-    private static final String M_PROCESSING_ACTIVITY = "MaterialProcessingActivity";
+    private static final String ACQUIRING_ACTIVITY = "MaterialAcquiringActivity1";
+    private static final String M_PROCESSING_ACTIVITY = "MaterialProcessingActivity1";
     private static final String M_PROCESSING_ACTIVITY_2 = "MaterialProcessingActivity2";
     private static final String M_PROCESSING_ACTIVITY_3 = "MaterialProcessingActivity3";
     private static final String M_PROCESSING_ACTIVITY_4 = "MaterialProcessingActivity4";
     private static final String D_PROCESSING_ACTIVITY = "DataProcessingActivity";
 
-    private static final String DNA_A = "SequencingIsUs_BigProject001_a";
-    private static final String DNA_B = "SequencingIsUs_BigProject001_b";
-    private static final String DNA_C = "SequencingIsUs_BigProject001_c";
+    private static final String DNA_A = "SiU_BP_0001_a";
+    private static final String DNA_B = "SiU_BP_0001_b";
+    private static final String DNA_C = "SiU_BP_0001_c";
     private static final String FILTERED_SEQUENCES = "filtered-sequences";
 
     public Dataset4Transformer(ProvFactory pF, ICpmProvFactory cPF) {

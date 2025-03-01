@@ -13,10 +13,7 @@
       "identifier": "https://orcid.org/0000-0001-0001-0002",
       "email": "f.lee@somewhere.com",
       "affiliation": {
-        "@type": "Organization",
-        "@id": "https://edmo.seadatanet.org/report/00000",
-        "name": "Nice Marine Station",
-        "identifier": "https://edmo.seadatanet.org/report/00000"
+        "@id": "https://edmo.seadatanet.org/report/00000"
       }
     },
     {
@@ -29,10 +26,19 @@
     },
     {
       "@type": "Organization",
+      "@id": "https://edmo.seadatanet.org/report/00000",
+      "name": "Nice Marine Station",
+      "mainEntityOfPage": "https://NiceMarineStation.eu",
+      "email": "info@nicemarinestation.eu",
+      "identifier": "https://edmo.seadatanet.org/report/00000"
+    },
+    {
+      "@type": "Organization",
       "@id": "_:SequencingIsUsHQ",
       "name": "SequencingIsUs HQ",
-      "address": "Paris, France"
+      "address": "Rue DNA 3311, Paris, France"
     },
+
     {
       "@type": [
         "Thing",
@@ -43,8 +49,12 @@
       "name": "BigProject_belgium_water_10m_1000um_r2_3um",
       "description": "Water sample collected from 10m depth and filtered between 3-1000um",
       "keywords": [
-        "http://purl.obolibrary.org/obo/ENVO_00002150",
-        "NCBI:txid1874687"
+        {
+          "@id": "http://purl.obolibrary.org/obo/ENVO_00002150"
+        },
+        {
+          "@id": "_:NCBI_txid1874687"
+        }
       ]
     },
     {
@@ -53,8 +63,26 @@
         "prov:Entity",
         "sosa:Sample"
       ],
-      "@id": "_:SequencingIsUs_BigProject001_a",
-      "name": "SequencingIsUs_BigProject001_a",
+      "@id": "_:SiU_BP_0001",
+      "name": "SiU_BP_0001",
+      "description": "water sample collected from 10m depth and filtered between 3-1000um. Note: is same as BigProject_belgium_water_10m_1000um_r2_3um",
+      "keywords": [
+        {
+          "@id": "http://purl.obolibrary.org/obo/ENVO_00002150"
+        },
+        {
+          "@id": "_:NCBI_txid1874687"
+        }
+      ]
+    },
+    {
+      "@type": [
+        "Thing",
+        "prov:Entity",
+        "sosa:Sample"
+      ],
+      "@id": "_:SiU_BP_0001_a",
+      "name": "SiU_BP_0001_a",
       "description": "DNA extracted from filter"
     },
     {
@@ -63,8 +91,8 @@
         "prov:Entity",
         "sosa:Sample"
       ],
-      "@id": "_:SequencingIsUs_BigProject001_b",
-      "name": "SequencingIsUs_BigProject001_b",
+      "@id": "_:SiU_BP_0001_b",
+      "name": "SiU_BP_0001_b",
       "description": "DNA extracted from filter after quantification"
     },
     {
@@ -73,10 +101,11 @@
         "prov:Entity",
         "sosa:Sample"
       ],
-      "@id": "_:SequencingIsUs_BigProject001_c",
-      "name": "SequencingIsUs_BigProject001_c",
+      "@id": "_:SiU_BP_0001_c",
+      "name": "SiU_BP_0001_c",
       "description": "DNA prepared for sequencing platform"
     },
+
     {
       "@type": [
         "Place",
@@ -86,13 +115,15 @@
       "name": "SequencingIsUs",
       "address": "Paris, France"
     },
+
     {
       "@type": [
         "Action",
         "prov:Activity"
       ],
       "@id": "_:StoringActivity",
-      "dct:type": "Storing, medium-term cold storage",
+      "dct:type": "Storing, cold storage at Nice Marine Station",
+      "additionalType": "medium-term storage",
       "prov:location": {
         "@type": [
           "Place",
@@ -122,12 +153,12 @@
         "name": "BigProject_eDNAstorage",
         "description": "filters to be stored in tubes at -80"
       },
-      "prov:generated": {
+      "object": {
         "@id": "_:BigProject_belgium_water_10m_1000um_r2_3um"
       },
       "descriptions": "-80 C",
       "storageDevice": {
-        "name": "Johnson Freezer type XYZ",
+        "name": "Johnson Freezer type XYZ", 
         "type": "freezer"
       }
     },
@@ -137,7 +168,7 @@
         "prov:Activity"
       ],
       "@id": "_:TransportingDNAFiltersToSequencingIsUs",
-      "dct:type": "Transporting, transporting DNA filters to SequencingIsUs",
+      "dct:type": "Transporting, transporting DNA filters",
       "startTime": "2021-06-01",
       "endTime": "2021-06-01",
       "object": {
@@ -172,7 +203,7 @@
           "prov:agent": {
             "@id": "_:DNATechnicianPerson"
           },
-          "dcat:hadRole": "requesting agent"
+          "dcat:hadRole": "receiving agent"
         }
       ],
       "fromLocation": {
@@ -192,14 +223,13 @@
         "Action",
         "prov:Activity"
       ],
-      "@id": "_:MaterialAcquiring_Sequencing",
-      "dct:type": "Material Acquiring, receiving DNA filter-samples from NiceMarineStation",
+      "@id": "_:MaterialAcquiringActivity1",
+      "dct:type": "Material Acquiring, transferring ownership of DNA filter",
       "startTime": "2021-06-01",
       "endTime": "2021-06-01",
       "object": {
         "@id": "_:BigProject_belgium_water_10m_1000um_r2_3um"
       },
-      "description": "water sample collected from 10m depth and filtered between 3-1000um",
       "prov:wasAssociatedWith": [
         {
           "@id": "https://orcid.org/0000-0001-0001-0002"
@@ -221,20 +251,9 @@
           "prov:agent": {
             "@id": "_:DNATechnicianPerson"
           },
-          "dcat:hadRole": "requesting agent"
+          "dcat:hadRole": "receiving agent"
         }
-      ],
-      "fromLocation": {
-        "@type": [
-          "Place",
-          "prov:Location"
-        ],
-        "name": "Nice Marine Station",
-        "address": "NiceMarineStation Rd, Ostend, Belgium"
-      },
-      "toLocation": {
-        "@id": "_:SequencingIsUsPlace"
-      }
+      ]
     },
     {
       "@type": [
@@ -242,7 +261,8 @@
         "prov:Activity"
       ],
       "@id": "_:StoringActivity2",
-      "dct:type": "Storing, long-term cold storage",
+      "dct:type": "Storing, cold storage at SequencingIsUs",
+      "additionalType": "medium-term storage",
       "prov:location": {
         "@id": "_:SequencingIsUsPlace"
       },
@@ -266,12 +286,12 @@
         ],
         "description": "instructions for storage of filter membranes until further processing"
       },
-      "prov:generated": {
+      "object": {
         "@id": "_:BigProject_belgium_water_10m_1000um_r2_3um"
       },
       "descriptions": "-80 C",
       "storageDevice": {
-        "name": "Johnson Freezer type XYZ",
+        "name": "Johnson Freezer type XYZ", 
         "type": "freezer"
       }
     },
@@ -280,7 +300,7 @@
         "Action",
         "prov:Activity"
       ],
-      "@id": "_:MaterialProcessingActivity",
+      "@id": "_:MaterialProcessingActivity1",
       "dct:type": "Material Processing, DNA extraction",
       "prov:location": {
         "@id": "_:SequencingIsUsPlace"
@@ -322,10 +342,10 @@
         }
       ],
       "object": {
-        "@id": "_:BigProject_belgium_water_10m_1000um_r2_3um"
+        "@id": "_:SiU_BP_0001"
       },
       "result": {
-        "@id": "_:SequencingIsUs_BigProject001_a"
+        "@id": "_:SiU_BP_0001_a"
       }
     },
     {
@@ -369,10 +389,10 @@
         }
       ],
       "object": {
-        "@id": "_:SequencingIsUs_BigProject001_a"
+        "@id": "_:SiU_BP_0001_a"
       },
       "result": {
-        "@id": "_:SequencingIsUs_BigProject001_b"
+        "@id": "_:SiU_BP_0001_b"
       }
     },
     {
@@ -413,14 +433,14 @@
             "prov:Entity"
           ],
           "name": "T100 Thermal Cycler (BIORAD)",
-          "dct:type": "thermocycler"
+          "dct:type": "https://vocab.nerc.ac.uk/collection/L05/current/LAB50/"
         }
       ],
       "object": {
-        "@id": "_:SequencingIsUs_BigProject001_b"
+        "@id": "_:SiU_BP_0001_b"
       },
       "result": {
-        "@id": "_:SequencingIsUs_BigProject001_c"
+        "@id": "_:SiU_BP_0001_c"
       }
     },
     {
@@ -472,9 +492,9 @@
         }
       ],
       "object": {
-        "@id": "_:SequencingIsUs_BigProject001_c"
+        "@id": "_:SiU_BP_0001_c"
       },
-      "result": "digital sequences, ready for QC. Data available upon request to BigProject (in folder BigProject_2021/fromSequencer)"
+      "result": "SiU_BP_0001_c_data. Digital sequences, ready for QC. Data available upon request to BigProject (in folder BigProject_2021/fromSequencer)"
     },
     {
       "@type": [
@@ -504,13 +524,25 @@
         "@type": [
           "Thing",
           "prov:Entity",
-          "ApplicationSoftware"
+          "CreativeWork"
         ],
         "name": "Illumina filtering with proprietary software",
         "description": "Filtering of raw data to remove clusters that have 'too much' intensity corresponding to bases other than the called base. By default, the purity of the signal from each cluster is examined over the first 25 cycles and calculated as Chastity = Highest_Intensity / (Highest_Intensity + Next_Highest_Intensity) for each cycle. The default filtering implemented at the base calling stage allows at most one cycle that is less than the Chastity threshold (0,6)."
       },
-      "object": "raw digital sequences produced by the sequencing step. See SEQUENCING. Data available upon request to BigProject (in folder BigProject_2021/fromSequencer)",
-      "result": "filtered digital sequences produced by the filtering step. Data available upon request to BigProject (in folder BigProject_2021/QC/fromIllumina)"
-    }
+      "object": "Raw digital sequences produced by the sequencing step. See SEQUENCING. Data available upon request to BigProject (in folder BigProject_2021/fromSequencer)",
+      "result": "Filtered digital sequences produced by the filtering step. Data available upon request to BigProject (in folder BigProject_2021/QC/fromIllumina)"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_00002150",
+      "name": "coastal sea water",
+      "termCode": "ENVO_00002150"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "_:NCBI_txid1874687",
+      "name": "marine plaknton metagenome",
+      "termCode": "NCBI:txid1874687"
+    } 
   ]
 }

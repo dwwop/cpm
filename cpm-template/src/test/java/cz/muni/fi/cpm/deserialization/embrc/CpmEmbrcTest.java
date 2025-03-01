@@ -11,7 +11,9 @@ import cz.muni.fi.cpm.model.CpmDocument;
 import cz.muni.fi.cpm.model.ICpmFactory;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openprovenance.prov.interop.InteropFramework;
@@ -29,6 +31,7 @@ import java.util.stream.Stream;
 import static cz.muni.fi.cpm.constants.PathConstants.TEST_RESOURCES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CpmEmbrcTest {
     private static final String EMBRC_FOLDER = "embrc" + File.separator;
 
@@ -53,10 +56,10 @@ public class CpmEmbrcTest {
 
     private static Stream<Object[]> documentProvider() {
         return Stream.of(
-                new Object[]{Dataset1Transformer.class, 1, 6, 30, 2},
-                new Object[]{Dataset2Transformer.class, 2, 4, 9, 2},
-                new Object[]{Dataset3Transformer.class, 3, 4, 6, 2},
-                new Object[]{Dataset4Transformer.class, 4, 3, 37, 2}
+                new Object[]{Dataset1Transformer.class, 1, 6, 35, 2},
+                new Object[]{Dataset2Transformer.class, 2, 4, 11, 2},
+                new Object[]{Dataset3Transformer.class, 3, 4, 7, 2},
+                new Object[]{Dataset4Transformer.class, 4, 3, 40, 2}
         );
     }
 

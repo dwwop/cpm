@@ -5,6 +5,7 @@ prefix dct <http://purl.org/dc/terms/>
 prefix schema <https://schema.org/>
 prefix gen <gen>
 prefix dcat <http://www.w3.org/ns/dcat#>
+prefix obolibrary <http://purl.obolibrary.org/obo/>
 prefix seadatanet <https://edmo.seadatanet.org/report/>
 prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
 prefix sosa <http://www.w3.org/ns/sosa/>
@@ -19,13 +20,15 @@ wasDerivedFrom(_:processed-sample-con-r1, _:stored-sample-con-r1)
 entity(_:identified-species-con,[prov:type = 'cpm:forwardConnector'])
 wasDerivedFrom(_:identified-species-con, _:processed-sample-con-r1)
 entity(_:FlowCam_seawater_sop,[prov:type = 'schema:Thing', prov:type = 'schema:CreativeWork', schema:name = "FlowCam_seawater_sop" %% xsd:string, schema:description = "Instructions for using FlowCam with seawater, including camera settings" %% xsd:string, schema:accessibilitySummary = "see file FlowCam_seawaterSOP.pdf which is part of this data package" %% xsd:string])
-entity(_:BigProject_belgium_water_10m_1000um_r1,[prov:type = 'sosa:Sample', prov:type = 'schema:Thing', schema:name = "BigProject_belgium_water_10m_1000um_r1" %% xsd:string, schema:description = "Water sample collected from 10m depth and filtered at 1000um" %% xsd:string, schema:keywords = "http://purl.obolibrary.org/obo/ENVO_00002150" %% xsd:string, schema:keywords = "NCBI:txid1874687" %% xsd:string])
+entity(_:BigProject_belgium_water_10m_1000um_r1,[prov:type = 'sosa:Sample', prov:type = 'schema:Thing', schema:name = "BigProject_belgium_water_10m_1000um_r1" %% xsd:string, schema:description = "Water sample collected from 10m depth and filtered at 1000um" %% xsd:string, schema:keywords = 'obolibrary:ENVO_00002150', schema:keywords = '_:NCBI_txid1874687'])
 entity(_:VisualSpreadsheet_FlowCam,[prov:type = 'schema:SoftwareApplication', prov:type = 'schema:Thing', schema:name = "VisualSpreadsheet FlowCam Micro software" %% xsd:string, schema:description = "The software that comes with this FlowCam, bought in 2010" %% xsd:string, schema:accessibilitySummary = "see file flowcam-settings.txt which is part of the data package" %% xsd:string])
-entity(_:NMS_flowcam_2010,[prov:type = 'schema:Thing', schema:identifier = "NMS_flowcam_2010" %% xsd:string, schema:name = "FlowCam Micro from CoolLabInstruments Corp., 2010" %% xsd:string, dct:type = "https://vocab.nerc.ac.uk/collection/L05/current/LAB27" %% xsd:string, schema:description = "see file flowcam-settings.txt for software and hardware settings" %% xsd:string, schema:software = "_:VisualSpreadsheet_FlowCam" %% xsd:string])
+entity(_:NMS_flowcam_2010,[prov:type = 'schema:Thing', schema:identifier = "NMS_flowcam_2010" %% xsd:string, schema:name = "FlowCam Micro from CoolLabInstruments Corp., 2010" %% xsd:string, dct:type = "https://vocab.nerc.ac.uk/collection/L05/current/LAB27" %% xsd:string, schema:description = "see file flowcam-settings.txt for software and hardware settings" %% xsd:string])
+entity(obolibrary:ENVO_00002150,[prov:type = 'schema:DefinedTerm', schema:name = "coastal sea water" %% xsd:string, schema:termCode = "ENVO_00002150" %% xsd:string])
+entity(_:NCBI_txid1874687,[prov:type = 'schema:DefinedTerm', schema:name = "marine plaknton metagenome" %% xsd:string, schema:termCode = "NCBI:txid1874687" %% xsd:string])
 entity(gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7,[prov:type = 'schema:Dataset', prov:type = 'schema:Thing', schema:description = "the first set of images taken by the flowcam are stored in /Users/NMSlab/flowcam/20210101/BigProject/raw" %% xsd:string])
 entity(gen:a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575,[prov:type = 'schema:Place', prov:type = 'prov:Location', schema:name = "Nice Marine Station" %% xsd:string, schema:address = "NiceMarineStation Rd, Ostend, Belgium" %% xsd:string])
-activity(_:MaterialProcessing,2021-01-01T00:00:00.000+01:00,2021-01-01T00:00:00.000+01:00,[prov:type = 'schema:Action', prov:location = "gen:a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575" %% xsd:string, dct:type = "Material Processing; Processing water sample through FlowCam and producing images" %% xsd:string, schema:object = "_:BigProject_belgium_water_10m_1000um_r1" %% xsd:string, schema:result = "gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7" %% xsd:string])
-agent(seadatanet:00000,[prov:type = 'schema:Organization', schema:name = "Nice Marine Station" %% xsd:string, schema:identifier = "seadatanet:00000" %% xsd:string])
+activity(_:MaterialProcessing,2021-01-01T00:00:00.000+01:00,2021-01-01T00:00:00.000+01:00,[prov:type = 'schema:Action', prov:location = "gen:a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575" %% xsd:string, dct:type = "Material Processing; FlowCam imaging" %% xsd:string, schema:object = "_:BigProject_belgium_water_10m_1000um_r1" %% xsd:string, schema:result = "gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7" %% xsd:string])
+agent(seadatanet:00000,[prov:type = 'schema:Organization', schema:name = "Nice Marine Station" %% xsd:string, schema:mainEntityOfPage = "https://NiceMarineStation.eu" %% xsd:string, schema:email = "info@nicemarinestation.eu" %% xsd:string, schema:identifier = "seadatanet:00000" %% xsd:string])
 agent(orcid:0000-0001-0001-0002,[prov:type = 'schema:Person', schema:name = "J. Gerschwin" %% xsd:string, schema:identifier = "orcid:0000-0001-0001-0002" %% xsd:string, schema:email = "jg@somewhere.com" %% xsd:string, schema:affiliation = "seadatanet:00000" %% xsd:string])
 used(_:MaterialProcessing,_:FlowCam_seawater_sop,-)
 used(_:MaterialProcessing,_:NMS_flowcam_2010,-)
@@ -34,5 +37,6 @@ wasGeneratedBy(gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e415
 wasAssociatedWith(_:MaterialProcessing,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "lab technician" %% xsd:string])
 specializationOf(_:BigProject_belgium_water_10m_1000um_r1,_:stored-sample-con-r1)
 specializationOf(gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7,_:processed-sample-con-r1)
+wasInfluencedBy(_:NMS_flowcam_2010,_:VisualSpreadsheet_FlowCam,[schema:accessibilitySummary = "see file flowcam-settings.txt for software and hardware settings" %% xsd:string])
 endBundle
 endDocument

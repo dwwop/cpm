@@ -9,7 +9,8 @@
     "gen" : "gen",
     "dcat" : "http://www.w3.org/ns/dcat#",
     "orcid" : "https://orcid.org/",
-    "seadatanet" : "https://edmo.seadatanet.org/report/"
+    "seadatanet" : "https://edmo.seadatanet.org/report/",
+    "obolibrary" : "http://purl.obolibrary.org/obo/"
   }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
   "@graph" : [ {
     "@type" : "Agent",
@@ -39,12 +40,28 @@
     "type" : [ "schema:Person" ]
   }, {
     "@type" : "Agent",
+    "@id" : "seadatanet:00000",
+    "schema:name" : [ {
+      "@value" : "Nice Marine Station"
+    } ],
+    "schema:mainEntityOfPage" : [ {
+      "@value" : "https://NiceMarineStation.eu"
+    } ],
+    "schema:email" : [ {
+      "@value" : "info@nicemarinestation.eu"
+    } ],
+    "schema:identifier" : [ {
+      "@value" : "seadatanet:00000"
+    } ],
+    "type" : [ "schema:Organization" ]
+  }, {
+    "@type" : "Agent",
     "@id" : "_:SequencingIsUsHQ",
     "schema:name" : [ {
       "@value" : "SequencingIsUs HQ"
     } ],
     "schema:address" : [ {
-      "@value" : "Paris, France"
+      "@value" : "Rue DNA 3311, Paris, France"
     } ],
     "type" : [ "schema:Organization" ]
   }, {
@@ -56,17 +73,24 @@
     "schema:description" : [ {
       "@value" : "Water sample collected from 10m depth and filtered between 3-1000um"
     } ],
-    "schema:keywords" : [ {
-      "@value" : "http://purl.obolibrary.org/obo/ENVO_00002150"
-    }, {
-      "@value" : "NCBI:txid1874687"
-    } ],
+    "schema:keywords" : [ "obolibrary:ENVO_00002150", "_:NCBI_txid1874687" ],
     "type" : [ "schema:Thing", "sosa:Sample" ]
   }, {
     "@type" : "Entity",
-    "@id" : "_:SequencingIsUs_BigProject001_a",
+    "@id" : "_:SiU_BP_0001",
     "schema:name" : [ {
-      "@value" : "SequencingIsUs_BigProject001_a"
+      "@value" : "SiU_BP_0001"
+    } ],
+    "schema:description" : [ {
+      "@value" : "water sample collected from 10m depth and filtered between 3-1000um. Note: is same as BigProject_belgium_water_10m_1000um_r2_3um"
+    } ],
+    "schema:keywords" : [ "obolibrary:ENVO_00002150", "_:NCBI_txid1874687" ],
+    "type" : [ "schema:Thing", "sosa:Sample" ]
+  }, {
+    "@type" : "Entity",
+    "@id" : "_:SiU_BP_0001_a",
+    "schema:name" : [ {
+      "@value" : "SiU_BP_0001_a"
     } ],
     "schema:description" : [ {
       "@value" : "DNA extracted from filter"
@@ -74,9 +98,9 @@
     "type" : [ "schema:Thing", "sosa:Sample" ]
   }, {
     "@type" : "Entity",
-    "@id" : "_:SequencingIsUs_BigProject001_b",
+    "@id" : "_:SiU_BP_0001_b",
     "schema:name" : [ {
-      "@value" : "SequencingIsUs_BigProject001_b"
+      "@value" : "SiU_BP_0001_b"
     } ],
     "schema:description" : [ {
       "@value" : "DNA extracted from filter after quantification"
@@ -84,9 +108,9 @@
     "type" : [ "schema:Thing", "sosa:Sample" ]
   }, {
     "@type" : "Entity",
-    "@id" : "_:SequencingIsUs_BigProject001_c",
+    "@id" : "_:SiU_BP_0001_c",
     "schema:name" : [ {
-      "@value" : "SequencingIsUs_BigProject001_c"
+      "@value" : "SiU_BP_0001_c"
     } ],
     "schema:description" : [ {
       "@value" : "DNA prepared for sequencing platform"
@@ -106,7 +130,13 @@
     "@type" : "Activity",
     "@id" : "_:StoringActivity",
     "dct:type" : [ {
-      "@value" : "Storing, medium-term cold storage"
+      "@value" : "Storing, cold storage at Nice Marine Station"
+    } ],
+    "schema:additionalType" : [ {
+      "@value" : "medium-term storage"
+    } ],
+    "schema:object" : [ {
+      "@value" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
     } ],
     "schema:descriptions" : [ {
       "@value" : "-80 C"
@@ -124,7 +154,7 @@
     "@type" : "Activity",
     "@id" : "_:TransportingDNAFiltersToSequencingIsUs",
     "dct:type" : [ {
-      "@value" : "Transporting, transporting DNA filters to SequencingIsUs"
+      "@value" : "Transporting, transporting DNA filters"
     } ],
     "schema:object" : [ {
       "@value" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
@@ -143,21 +173,12 @@
     "type" : [ "schema:Action" ]
   }, {
     "@type" : "Activity",
-    "@id" : "_:MaterialAcquiring_Sequencing",
+    "@id" : "_:MaterialAcquiringActivity1",
     "dct:type" : [ {
-      "@value" : "Material Acquiring, receiving DNA filter-samples from NiceMarineStation"
+      "@value" : "Material Acquiring, transferring ownership of DNA filter"
     } ],
     "schema:object" : [ {
       "@value" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
-    } ],
-    "schema:description" : [ {
-      "@value" : "water sample collected from 10m depth and filtered between 3-1000um"
-    } ],
-    "schema:fromLocation" : [ {
-      "@value" : "gen:a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575"
-    } ],
-    "schema:toLocation" : [ {
-      "@value" : "_:SequencingIsUsPlace"
     } ],
     "startTime" : "2021-06-01",
     "endTime" : "2021-06-01",
@@ -166,7 +187,13 @@
     "@type" : "Activity",
     "@id" : "_:StoringActivity2",
     "dct:type" : [ {
-      "@value" : "Storing, long-term cold storage"
+      "@value" : "Storing, cold storage at SequencingIsUs"
+    } ],
+    "schema:additionalType" : [ {
+      "@value" : "medium-term storage"
+    } ],
+    "schema:object" : [ {
+      "@value" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
     } ],
     "schema:descriptions" : [ {
       "@value" : "-80 C"
@@ -182,15 +209,15 @@
     "type" : [ "schema:Action" ]
   }, {
     "@type" : "Activity",
-    "@id" : "_:MaterialProcessingActivity",
+    "@id" : "_:MaterialProcessingActivity1",
     "dct:type" : [ {
       "@value" : "Material Processing, DNA extraction"
     } ],
     "schema:object" : [ {
-      "@value" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
+      "@value" : "_:SiU_BP_0001"
     } ],
     "schema:result" : [ {
-      "@value" : "_:SequencingIsUs_BigProject001_a"
+      "@value" : "_:SiU_BP_0001_a"
     } ],
     "startTime" : "2021-10-08",
     "endTime" : "2021-10-08",
@@ -205,10 +232,10 @@
       "@value" : "Material Processing, DNA quantification"
     } ],
     "schema:object" : [ {
-      "@value" : "_:SequencingIsUs_BigProject001_a"
+      "@value" : "_:SiU_BP_0001_a"
     } ],
     "schema:result" : [ {
-      "@value" : "_:SequencingIsUs_BigProject001_b"
+      "@value" : "_:SiU_BP_0001_b"
     } ],
     "startTime" : "2021-10-08",
     "endTime" : "2021-10-08",
@@ -223,10 +250,10 @@
       "@value" : "Material Processing, Library preparation (18S rRNA)"
     } ],
     "schema:object" : [ {
-      "@value" : "_:SequencingIsUs_BigProject001_b"
+      "@value" : "_:SiU_BP_0001_b"
     } ],
     "schema:result" : [ {
-      "@value" : "_:SequencingIsUs_BigProject001_c"
+      "@value" : "_:SiU_BP_0001_c"
     } ],
     "startTime" : "2021-10-08",
     "endTime" : "2021-10-08",
@@ -241,10 +268,10 @@
       "@value" : "Material Processing, sequencing"
     } ],
     "schema:object" : [ {
-      "@value" : "_:SequencingIsUs_BigProject001_c"
+      "@value" : "_:SiU_BP_0001_c"
     } ],
     "schema:result" : [ {
-      "@value" : "digital sequences, ready for QC. Data available upon request to BigProject (in folder BigProject_2021/fromSequencer)"
+      "@value" : "SiU_BP_0001_c_data. Digital sequences, ready for QC. Data available upon request to BigProject (in folder BigProject_2021/fromSequencer)"
     } ],
     "startTime" : "2021-10-08",
     "endTime" : "2021-10-08",
@@ -265,10 +292,10 @@
       "@value" : "QC: filtering of raw data to remove unwanted clusters and produce the final 18s sequences"
     } ],
     "schema:object" : [ {
-      "@value" : "raw digital sequences produced by the sequencing step. See SEQUENCING. Data available upon request to BigProject (in folder BigProject_2021/fromSequencer)"
+      "@value" : "Raw digital sequences produced by the sequencing step. See SEQUENCING. Data available upon request to BigProject (in folder BigProject_2021/fromSequencer)"
     } ],
     "schema:result" : [ {
-      "@value" : "filtered digital sequences produced by the filtering step. Data available upon request to BigProject (in folder BigProject_2021/QC/fromIllumina)"
+      "@value" : "Filtered digital sequences produced by the filtering step. Data available upon request to BigProject (in folder BigProject_2021/QC/fromIllumina)"
     } ],
     "startTime" : "2021-10-12",
     "endTime" : "2021-10-12",
@@ -277,22 +304,25 @@
     } ],
     "type" : [ "schema:Action" ]
   }, {
-    "@type" : "Agent",
-    "@id" : "seadatanet:00000",
+    "@type" : "Entity",
+    "@id" : "obolibrary:ENVO_00002150",
     "schema:name" : [ {
-      "@value" : "Nice Marine Station"
+      "@value" : "coastal sea water"
     } ],
-    "schema:identifier" : [ {
-      "@value" : "seadatanet:00000"
+    "schema:termCode" : [ {
+      "@value" : "ENVO_00002150"
     } ],
-    "type" : [ "schema:Organization" ]
+    "type" : [ "schema:DefinedTerm" ]
   }, {
-    "@type" : "Association",
-    "agent" : "orcid:0000-0001-0001-0002",
-    "activity" : "_:StoringActivity",
-    "dcat:hadRole" : [ {
-      "@value" : "laboratory technician"
-    } ]
+    "@type" : "Entity",
+    "@id" : "_:NCBI_txid1874687",
+    "schema:name" : [ {
+      "@value" : "marine plaknton metagenome"
+    } ],
+    "schema:termCode" : [ {
+      "@value" : "NCBI:txid1874687"
+    } ],
+    "type" : [ "schema:DefinedTerm" ]
   }, {
     "@type" : "Entity",
     "schema:name" : [ {
@@ -308,9 +338,12 @@
     "entity" : "gen:db6e9e476b5ea9b48c2846fb061dc1b683289c939ddc977059c761f69de45884",
     "activity" : "_:StoringActivity"
   }, {
-    "@type" : "Generation",
+    "@type" : "Association",
+    "agent" : "orcid:0000-0001-0001-0002",
     "activity" : "_:StoringActivity",
-    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
+    "dcat:hadRole" : [ {
+      "@value" : "laboratory technician"
+    } ]
   }, {
     "@type" : "Entity",
     "schema:name" : [ {
@@ -349,28 +382,21 @@
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:TransportingDNAFiltersToSequencingIsUs",
     "dcat:hadRole" : [ {
-      "@value" : "requesting agent"
+      "@value" : "receiving agent"
     } ]
   }, {
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
-    "activity" : "_:MaterialAcquiring_Sequencing",
+    "activity" : "_:MaterialAcquiringActivity1",
     "dcat:hadRole" : [ {
       "@value" : "providing agent"
     } ]
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialAcquiring_Sequencing",
+    "activity" : "_:MaterialAcquiringActivity1",
     "dcat:hadRole" : [ {
-      "@value" : "requesting agent"
-    } ]
-  }, {
-    "@type" : "Association",
-    "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:StoringActivity2",
-    "dcat:hadRole" : [ {
-      "@value" : "laboratory technician"
+      "@value" : "receiving agent"
     } ]
   }, {
     "@type" : "Entity",
@@ -384,13 +410,9 @@
     "entity" : "gen:6a3784dc2ccf422d90e9407efe7739eadfa23af77cb0d1af4fcfca120379f7ef",
     "activity" : "_:StoringActivity2"
   }, {
-    "@type" : "Generation",
-    "activity" : "_:StoringActivity2",
-    "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
-  }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialProcessingActivity",
+    "activity" : "_:StoringActivity2",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -404,7 +426,7 @@
   }, {
     "@type" : "Usage",
     "entity" : "gen:4396f6f885ec060efb7087cd36ba98f059f58fea9582c2f18456c0d3fc36c521",
-    "activity" : "_:MaterialProcessingActivity"
+    "activity" : "_:MaterialProcessingActivity1"
   }, {
     "@type" : "Entity",
     "schema:name" : [ {
@@ -415,7 +437,7 @@
   }, {
     "@type" : "Usage",
     "entity" : "gen:c3e8ef8cfb69fc43bf516701b584b015497939f83923f6a06722ccc1c91a04b4",
-    "activity" : "_:MaterialProcessingActivity"
+    "activity" : "_:MaterialProcessingActivity1"
   }, {
     "@type" : "Entity",
     "schema:name" : [ {
@@ -426,11 +448,11 @@
   }, {
     "@type" : "Usage",
     "entity" : "gen:bc0c02f720bbc1a23dabc680839d0ca8b7e95f8e4ced98ca66e916525cdc8ac8",
-    "activity" : "_:MaterialProcessingActivity"
+    "activity" : "_:MaterialProcessingActivity1"
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialProcessingActivity2",
+    "activity" : "_:MaterialProcessingActivity1",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -462,7 +484,7 @@
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialProcessingActivity3",
+    "activity" : "_:MaterialProcessingActivity2",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -486,18 +508,18 @@
       "@value" : "T100 Thermal Cycler (BIORAD)"
     } ],
     "dct:type" : [ {
-      "@value" : "thermocycler"
+      "@value" : "https://vocab.nerc.ac.uk/collection/L05/current/LAB50/"
     } ],
-    "@id" : "gen:48e4747a9ebc8ff2ad74bda73548e8362f12e21aa773e9259c467da36f0490bf",
+    "@id" : "gen:0e65a7073c1069eb2fd589f691a2b611b8767fb7b04d580abd854abf932774ef",
     "type" : [ "schema:Thing" ]
   }, {
     "@type" : "Usage",
-    "entity" : "gen:48e4747a9ebc8ff2ad74bda73548e8362f12e21aa773e9259c467da36f0490bf",
+    "entity" : "gen:0e65a7073c1069eb2fd589f691a2b611b8767fb7b04d580abd854abf932774ef",
     "activity" : "_:MaterialProcessingActivity3"
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:MaterialProcessingActivity4",
+    "activity" : "_:MaterialProcessingActivity3",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -552,7 +574,7 @@
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
-    "activity" : "_:DataProcessingActivity",
+    "activity" : "_:MaterialProcessingActivity4",
     "dcat:hadRole" : [ {
       "@value" : "laboratory technician"
     } ]
@@ -564,11 +586,18 @@
     "schema:description" : [ {
       "@value" : "Filtering of raw data to remove clusters that have 'too much' intensity corresponding to bases other than the called base. By default, the purity of the signal from each cluster is examined over the first 25 cycles and calculated as Chastity = Highest_Intensity / (Highest_Intensity + Next_Highest_Intensity) for each cycle. The default filtering implemented at the base calling stage allows at most one cycle that is less than the Chastity threshold (0,6)."
     } ],
-    "@id" : "gen:0409e27f57bde5a8cc93bf36f615257ad3097967593591980b3d325b6e79897a",
-    "type" : [ "schema:Thing", "schema:ApplicationSoftware" ]
+    "@id" : "gen:6de974e3039938b1f9491839521c28cdb6447bb7286ce3b2e705523a0bbbf0d7",
+    "type" : [ "schema:Thing", "schema:CreativeWork" ]
   }, {
     "@type" : "Usage",
-    "entity" : "gen:0409e27f57bde5a8cc93bf36f615257ad3097967593591980b3d325b6e79897a",
+    "entity" : "gen:6de974e3039938b1f9491839521c28cdb6447bb7286ce3b2e705523a0bbbf0d7",
     "activity" : "_:DataProcessingActivity"
+  }, {
+    "@type" : "Association",
+    "agent" : "_:DNATechnicianPerson",
+    "activity" : "_:DataProcessingActivity",
+    "dcat:hadRole" : [ {
+      "@value" : "laboratory technician"
+    } ]
   } ]
 }
