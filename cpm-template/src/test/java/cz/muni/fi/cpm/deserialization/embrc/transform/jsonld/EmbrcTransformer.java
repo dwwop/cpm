@@ -79,6 +79,7 @@ public class EmbrcTransformer {
             }
             removeDuplicateRelations(node);
             transformProvRelations(node, nodesToAdd);
+            inferUsedAndGenerated(node, nodesToAdd);
             extractCustomNodes(node, nodesToAdd);
         }
 
@@ -256,6 +257,36 @@ public class EmbrcTransformer {
             node.putIfAbsent(provName, node.remove(fieldName));
         }
     }
+
+
+    private void inferUsedAndGenerated(ObjectNode node, List<JsonNode> nodesToAdd) {
+        if (!isOfType(node, PROPERTY_PROV_ACTIVITY.toLowerCase())) {
+            return;
+        }
+
+        transformSchemaRelations(node, "schema:object", PROPERTY_PROV_USED, nodesToAdd);
+        transformSchemaRelations(node, "schema:result", PROPERTY_PROV_GENERATION, nodesToAdd);
+    }
+
+    private void transformSchemaRelations(ObjectNode node, String propertyName, String propertyProvGeneration, List<JsonNode> nodesToAdd) {
+        JsonNode resNode = node.get(propertyName);
+        if (resNode == null) {
+            return;
+        }
+        if (resNode instanceof ArrayNode aNode) {
+            for (JsonNode childNode : aNode) {
+                transformRelationWithElementInfo(propertyProvGeneration, node, nodesToAdd, (ObjectNode) childNode);
+            }
+        } else if (resNode instanceof ObjectNode childNode) {
+            transformRelationWithElementInfo(propertyProvGeneration, node, nodesToAdd, childNode);
+        }
+        if (resNode instanceof ValueNode vNode) {
+            ObjectNode oNode = mapper.createObjectNode();
+            oNode.putIfAbsent("schema:description", vNode);
+            transformRelationWithElementInfo(propertyProvGeneration, node, nodesToAdd, oNode);
+        }
+    }
+
 
     private void transformProvRelations(ObjectNode node, List<JsonNode> nodesToAdd) {
         ensurePresenceOfId(node);

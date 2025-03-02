@@ -87,6 +87,13 @@
     "startTime" : "2021-01-01",
     "type" : [ "schema:Action" ]
   }, {
+    "@type" : "Association",
+    "agent" : "orcid:0000-0001-0001-0002",
+    "activity" : "_:FlowCamSpeciesIdentification",
+    "dcat:hadRole" : [ {
+      "@value" : "lab technician"
+    } ]
+  }, {
     "@type" : "Usage",
     "entity" : "_:VisualSpreadsheet_FlowCam",
     "activity" : "_:FlowCamSpeciesIdentification"
@@ -95,13 +102,6 @@
     "entity" : "_:classification_QC",
     "activity" : "_:FlowCamSpeciesIdentification"
   }, {
-    "@type" : "Association",
-    "agent" : "orcid:0000-0001-0001-0002",
-    "activity" : "_:FlowCamSpeciesIdentification",
-    "dcat:hadRole" : [ {
-      "@value" : "lab technician"
-    } ]
-  }, {
     "@type" : "Entity",
     "schema:description" : [ {
       "@value" : "raw images from /Users/NMSlab/flowcam/20210101/BigProject/raw, settings in file flowcam-settings.txt (see dataset), and reference library used was  FlowCam_ReferenceLibrary_2024"
@@ -109,11 +109,19 @@
     "@id" : "gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0",
     "type" : [ "schema:MediaObject" ]
   }, {
+    "@type" : "Usage",
+    "entity" : "gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0",
+    "activity" : "_:FlowCamSpeciesIdentification"
+  }, {
     "@type" : "Entity",
     "schema:description" : [ {
       "@value" : "images in zip file Plankton_species_image.zip, results in Plankton_species_numbers.csv"
     } ],
     "@id" : "gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4",
     "type" : [ "schema:MediaObject" ]
+  }, {
+    "@type" : "Generation",
+    "activity" : "_:FlowCamSpeciesIdentification",
+    "entity" : "gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4"
   } ]
 }

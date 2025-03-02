@@ -103,15 +103,15 @@ public class CpmEmbrcTest {
             DatasetTransformer dT = dTClass.getDeclaredConstructor(ProvFactory.class, ICpmProvFactory.class).newInstance(pF, cPF);
 
             Document doc = dT.toDocument(dsDoc);
-            CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
-
-            assertEquals(bbCount, cpmDoc.getBackbonePart().size());
-            assertEquals(dsCount, cpmDoc.getDomainSpecificPart().size());
-            assertEquals(cPCount, cpmDoc.getCrossPartEdges().size());
 
             String fileName = TEST_RESOURCES + EMBRC_FOLDER + datasetFolder + "Dataset" + datasetNum + "_cpm";
             interop.writeDocument(fileName + ".provn", doc);
             interop.writeDocument(fileName + ".svg", doc);
+
+            CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
+            assertEquals(bbCount, cpmDoc.getBackbonePart().size());
+            assertEquals(dsCount, cpmDoc.getDomainSpecificPart().size());
+            assertEquals(cPCount, cpmDoc.getCrossPartEdges().size());
         } catch (IOException | InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
             throw new RuntimeException(e);

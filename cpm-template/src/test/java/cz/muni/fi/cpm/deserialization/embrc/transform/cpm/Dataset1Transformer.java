@@ -19,7 +19,6 @@ public class Dataset1Transformer extends DatasetTransformer {
     static final String STORED_SAMPLE_CON_R1 = STORED_SAMPLE_CON + "r1";
     static final String STORED_SAMPLE_CON_R2_3UM = STORED_SAMPLE_CON + "r2-3um";
 
-    private static final String SAMPLE_ACTIVITY = "324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a";
     private static final String STORING_ACTIVITY_R1 = "09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80";
     private static final String STORING_ACTIVITY_R2_3um = "67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925";
     private static final String BASE_SAMPLE = "BigProject_belgium_water_10m";
@@ -68,18 +67,6 @@ public class Dataset1Transformer extends DatasetTransformer {
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
-        Used samplingUse = pF.newUsed(newQnWithGenNS(SAMPLE_ACTIVITY), newQNWithUnknownNS(BASE_SAMPLE));
-        indexedDS.add(samplingUse);
-
-        WasGeneratedBy processingGen = pF.newWasGeneratedBy(null, newQNWithUnknownNS(SAMPLE_R1), newQnWithGenNS(SAMPLE_ACTIVITY));
-        indexedDS.add(processingGen);
-
-        Used storeR1 = pF.newUsed(newQnWithGenNS(STORING_ACTIVITY_R1), newQNWithUnknownNS(SAMPLE_R1));
-        indexedDS.add(storeR1);
-
-        Used storeR23UM = pF.newUsed(newQnWithGenNS(STORING_ACTIVITY_R2_3um), newQNWithUnknownNS(SAMPLE_R2_3UM));
-        indexedDS.add(storeR23UM);
-
         Entity storedR1 = pF.newEntity(newQNWithUnknownNS(STORED_SAMPLE + "r1"));
         storedR1.getType().addAll(indexedDS.getEntity(newQNWithUnknownNS(SAMPLE_R1)).getType());
         indexedDS.add(storedR1);

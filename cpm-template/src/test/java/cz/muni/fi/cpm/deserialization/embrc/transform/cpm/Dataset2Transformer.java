@@ -14,7 +14,6 @@ public class Dataset2Transformer extends DatasetTransformer {
     static final String PROCESSING = "processing";
     static final String PROCESSED_SAMPLE_CON = "processed-sample-con-r1";
 
-    private static final String PROCESSING_ACTIVITY = "MaterialProcessing";
     private static final String IMAGES = "5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7";
 
     public Dataset2Transformer(ProvFactory pF, ICpmProvFactory cPF) {
@@ -57,10 +56,5 @@ public class Dataset2Transformer extends DatasetTransformer {
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
-        Used sampleUsed = pF.newUsed(newQNWithUnknownNS(PROCESSING_ACTIVITY), newQNWithUnknownNS(SAMPLE_R1));
-        indexedDS.add(sampleUsed);
-
-        WasGeneratedBy imagesGen = pF.newWasGeneratedBy(null, newQnWithGenNS(IMAGES), newQNWithUnknownNS(PROCESSING_ACTIVITY));
-        indexedDS.add(imagesGen);
     }
 }

@@ -13,7 +13,6 @@ public class Dataset3Transformer extends DatasetTransformer {
     static final String SPECIES_IDENTIFICATION = "species-identification";
     static final String IDENTIFIED_SPECIES_CON = "identified-species-con";
 
-    private static final String IDENTIFICATION_ACTIVITY = "FlowCamSpeciesIdentification";
     private static final String IMAGES = "db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0";
     private static final String RESULTS = "ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4";
 
@@ -56,10 +55,5 @@ public class Dataset3Transformer extends DatasetTransformer {
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
-        Used sampleUsed = pF.newUsed(newQNWithUnknownNS(IDENTIFICATION_ACTIVITY), newQnWithGenNS(IMAGES));
-        indexedDS.add(sampleUsed);
-
-        WasGeneratedBy imagesGen = pF.newWasGeneratedBy(null, newQnWithGenNS(RESULTS), newQNWithUnknownNS(IDENTIFICATION_ACTIVITY));
-        indexedDS.add(imagesGen);
     }
 }
