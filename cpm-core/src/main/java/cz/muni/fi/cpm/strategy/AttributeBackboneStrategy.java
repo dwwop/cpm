@@ -50,17 +50,18 @@ public class AttributeBackboneStrategy implements IBackboneStrategy {
         if (node == null) return false;
         if (hasNonBackboneAttributes(node)) return false;
 
-        boolean hasAnyCpmType = hasAnyCpmType(node);
+        boolean hasNodeAnyCpmType = hasAnyCpmType(node);
 
         List<INode> generalNodes = node.getEffectEdges().stream()
                 .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getRelation().getKind()))
                 .map(IEdge::getCause).toList();
 
-        if (generalNodes.isEmpty() && hasAnyCpmType) return true;
+        if (generalNodes.isEmpty() && hasNodeAnyCpmType) return true;
         if (generalNodes.size() != 1) return false;
 
         INode generalNode = generalNodes.getFirst();
         if (hasNonBackboneAttributes(generalNode)) return false;
-        return hasCpmType(generalNode, CpmType.FORWARD_CONNECTOR);
+        return hasCpmType(generalNode, CpmType.FORWARD_CONNECTOR) &&
+                (!hasNodeAnyCpmType || hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }
 }
