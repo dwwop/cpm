@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.serialization;
 
-import cz.muni.fi.cpm.bindings.Backbone;
+import cz.muni.fi.cpm.template.Backbone;
 
 import java.io.File;
 import java.io.IOException;

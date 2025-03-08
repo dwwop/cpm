@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.bindings;
+package cz.muni.fi.cpm.template;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

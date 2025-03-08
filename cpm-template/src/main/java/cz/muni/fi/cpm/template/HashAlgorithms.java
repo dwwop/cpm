@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.bindings;
+package cz.muni.fi.cpm.template;
 
 public enum HashAlgorithms {
     MD5("MD5"),

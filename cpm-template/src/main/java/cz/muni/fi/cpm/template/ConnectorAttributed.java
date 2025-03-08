@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.bindings;
+package cz.muni.fi.cpm.template;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.openprovenance.prov.model.QualifiedName;

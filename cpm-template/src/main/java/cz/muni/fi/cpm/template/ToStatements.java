@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.bindings;
+package cz.muni.fi.cpm.template;
 
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import org.openprovenance.prov.model.Statement;

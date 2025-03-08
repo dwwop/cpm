@@ -1,8 +1,8 @@
 package cz.muni.fi.cpm.deserialization;
 
-import cz.muni.fi.cpm.bindings.Backbone;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
+import cz.muni.fi.cpm.template.Backbone;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.Document;

@@ -2,8 +2,8 @@ package cz.muni.fi.cpm.deserialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import cz.muni.fi.cpm.bindings.Backbone;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
+import cz.muni.fi.cpm.template.Backbone;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomQualifiedNameDeserializer;
 import org.openprovenance.prov.model.Document;

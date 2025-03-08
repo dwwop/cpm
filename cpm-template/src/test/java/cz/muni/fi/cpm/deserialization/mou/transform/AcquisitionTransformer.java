@@ -1,12 +1,12 @@
 package cz.muni.fi.cpm.deserialization.mou.transform;
 
-import cz.muni.fi.cpm.bindings.*;
 import cz.muni.fi.cpm.deserialization.mou.schema.DiagnosisMaterial;
 import cz.muni.fi.cpm.deserialization.mou.schema.Patient;
 import cz.muni.fi.cpm.deserialization.mou.schema.Tissue;
 import cz.muni.fi.cpm.deserialization.pbm.PbmFactory;
 import cz.muni.fi.cpm.deserialization.pbm.PbmType;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
+import cz.muni.fi.cpm.template.*;
 import org.openprovenance.prov.model.*;
 
 import java.util.List;

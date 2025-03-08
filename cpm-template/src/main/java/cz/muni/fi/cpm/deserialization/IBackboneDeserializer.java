@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.deserialization;
 
-import cz.muni.fi.cpm.bindings.Backbone;
+import cz.muni.fi.cpm.template.Backbone;
 import org.openprovenance.prov.model.Document;
 
 import java.io.IOException;

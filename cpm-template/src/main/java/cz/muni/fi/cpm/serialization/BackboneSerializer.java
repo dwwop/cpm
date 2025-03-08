@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.serialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import cz.muni.fi.cpm.bindings.Backbone;
+import cz.muni.fi.cpm.template.Backbone;
 import org.openprovenance.prov.core.json.serialization.serial.CustomDateSerializer;
 import org.openprovenance.prov.core.json.serialization.serial.CustomQualifiedNameSerializer;
 import org.openprovenance.prov.vanilla.QualifiedName;

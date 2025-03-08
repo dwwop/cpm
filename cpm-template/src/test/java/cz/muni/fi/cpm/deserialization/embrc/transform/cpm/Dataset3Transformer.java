@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.deserialization.embrc.transform.cpm;
 
-import cz.muni.fi.cpm.bindings.*;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
+import cz.muni.fi.cpm.template.*;
 import org.openprovenance.prov.model.*;
 
 import java.util.List;
