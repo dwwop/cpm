@@ -1,0 +1,247 @@
+{
+  "type": "object",
+  "id": "urn:jsonschema:cz:muni:fi:cpm:template:Backbone",
+  "properties": {
+    "prefixes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "mainActivity": {
+      "type": "object",
+      "id": "urn:jsonschema:cz:muni:fi:cpm:template:MainActivity",
+      "required": true,
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "referencedMetaBundleId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_]+:(.*)$",
+          "required": true
+        },
+        "hasPart": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          }
+        },
+        "used": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "id": "urn:jsonschema:cz:muni:fi:cpm:template:MainActivityUsed",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_]+:(.*)$"
+              },
+              "bcId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_]+:(.*)$",
+                "required": true
+              }
+            }
+          }
+        },
+        "generated": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          }
+        }
+      }
+    },
+    "bundleName": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_]+:(.*)$",
+      "required": true
+    },
+    "backwardConnectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:template:BackwardConnector",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "externalId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "referencedBundleId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "referencedMetaBundleId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "referencedBundleHashValue": {
+            "type": "object",
+            "id": "urn:jsonschema:java:lang:Object"
+          },
+          "hashAlg": {
+            "type": "string",
+            "enum": [
+              "MD5",
+              "SHA1",
+              "SHA256",
+              "SHA512"
+            ]
+          },
+          "provenanceServiceUri": {
+            "type": "string"
+          },
+          "derivedFrom": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            }
+          },
+          "attributedTo": {
+            "type": "object",
+            "id": "urn:jsonschema:cz:muni:fi:cpm:template:ConnectorAttributed",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_]+:(.*)$"
+              },
+              "agentId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_]+:(.*)$",
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "forwardConnectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:template:ForwardConnector",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "externalId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "referencedBundleId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "referencedMetaBundleId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "referencedBundleHashValue": {
+            "type": "object",
+            "$ref": "urn:jsonschema:java:lang:Object"
+          },
+          "hashAlg": {
+            "type": "string",
+            "enum": [
+              "MD5",
+              "SHA1",
+              "SHA256",
+              "SHA512"
+            ]
+          },
+          "provenanceServiceUri": {
+            "type": "string"
+          },
+          "derivedFrom": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            }
+          },
+          "attributedTo": {
+            "type": "object",
+            "$ref": "urn:jsonschema:cz:muni:fi:cpm:template:ConnectorAttributed"
+          },
+          "specializationOf": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          }
+        }
+      }
+    },
+    "senderAgents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:template:SenderAgent",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "contactIdPid": {
+            "type": "object",
+            "$ref": "urn:jsonschema:java:lang:Object"
+          }
+        }
+      }
+    },
+    "receiverAgents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:template:ReceiverAgent",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "contactIdPid": {
+            "type": "object",
+            "$ref": "urn:jsonschema:java:lang:Object"
+          }
+        }
+      }
+    },
+    "identifierEntities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "id": "urn:jsonschema:cz:muni:fi:cpm:template:IdentifierEntity",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "externalId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+:(.*)$",
+            "required": true
+          },
+          "externalIdType": {
+            "type": "string",
+            "required": true
+          },
+          "comment": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
