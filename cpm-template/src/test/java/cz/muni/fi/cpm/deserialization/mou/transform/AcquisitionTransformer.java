@@ -38,33 +38,33 @@ public class AcquisitionTransformer extends PatientTransformer {
     }
 
     @Override
-    protected Document createBB(String suffix) {
-        Backbone bb = new Backbone();
+    protected Document createTI(String suffix) {
+        TraversalInformation ti = new TraversalInformation();
 
-        bb.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));
-        bb.setBundleName(bb.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + "-bundle" + suffix, pF));
+        ti.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));
+        ti.setBundleName(ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + "-bundle" + suffix, pF));
 
-        MainActivity mA = new MainActivity(bb.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + suffix, pF));
-        bb.setMainActivity(mA);
+        MainActivity mA = new MainActivity(ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + suffix, pF));
+        ti.setMainActivity(mA);
 
-        QualifiedName fcID = bb.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF);
+        QualifiedName fcID = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF);
         mA.setGenerated(List.of(fcID));
 
         ForwardConnector fC = new ForwardConnector(fcID);
-        bb.getForwardConnectors().add(fC);
+        ti.getForwardConnectors().add(fC);
 
-        QualifiedName fcSpecId = bb.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "-spec" + suffix, pF);
+        QualifiedName fcSpecId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "-spec" + suffix, pF);
         ForwardConnector fCSpec = new ForwardConnector(fcSpecId);
         fCSpec.setSpecializationOf(fcID);
-        bb.getForwardConnectors().add(fCSpec);
+        ti.getForwardConnectors().add(fCSpec);
 
-        QualifiedName agentId = bb.getNamespace().qualifiedName(BBMRI_PREFIX, patient.getBiobank(), pF);
+        QualifiedName agentId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, patient.getBiobank(), pF);
         ReceiverAgent rA = new ReceiverAgent(agentId);
-        bb.setReceiverAgents(List.of(rA));
+        ti.setReceiverAgents(List.of(rA));
 
         fCSpec.setAttributedTo(new ConnectorAttributed(agentId));
 
-        return bb.toDocument(cPF);
+        return ti.toDocument(cPF);
     }
 
 

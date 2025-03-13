@@ -4,9 +4,9 @@ import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
-import cz.muni.fi.cpm.model.IBackboneStrategy;
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
+import cz.muni.fi.cpm.model.ITIStrategy;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.StatementOrBundle;
 
@@ -18,10 +18,11 @@ import static cz.muni.fi.cpm.model.CpmUtilities.hasCpmType;
 
 
 /**
- * Strategy to determine whether a node belongs to backbone based on the attributes present in the underlying element
+ * Strategy to determine whether a node belongs to traversal information part of a document based on the attributes
+ * present in the underlying element
  */
-public class AttributeBackboneStrategy implements IBackboneStrategy {
-    private static boolean hasNonBackboneAttributes(INode node) {
+public class AttributeTIStrategy implements ITIStrategy {
+    private static boolean hasNonTIAttributes(INode node) {
         if (node == null) return true;
 
         return !node.getElements().stream().allMatch(element ->
@@ -46,9 +47,9 @@ public class AttributeBackboneStrategy implements IBackboneStrategy {
     }
 
     @Override
-    public boolean isBackbone(INode node) {
+    public boolean belongsToTraversalInformation(INode node) {
         if (node == null) return false;
-        if (hasNonBackboneAttributes(node)) return false;
+        if (hasNonTIAttributes(node)) return false;
 
         boolean hasNodeAnyCpmType = hasAnyCpmType(node);
 
@@ -60,7 +61,7 @@ public class AttributeBackboneStrategy implements IBackboneStrategy {
         if (generalNodes.size() != 1) return false;
 
         INode generalNode = generalNodes.getFirst();
-        if (hasNonBackboneAttributes(generalNode)) return false;
+        if (hasNonTIAttributes(generalNode)) return false;
         return hasCpmType(generalNode, CpmType.FORWARD_CONNECTOR) &&
                 (!hasNodeAnyCpmType || hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }

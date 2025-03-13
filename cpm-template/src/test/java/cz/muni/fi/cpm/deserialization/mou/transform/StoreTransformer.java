@@ -28,35 +28,35 @@ public class StoreTransformer extends PatientTransformer {
     }
 
     @Override
-    protected Document createBB(String suffix) {
-        Backbone bb = new Backbone();
-        bb.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));
-        bb.setBundleName(bb.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "-bundle" + suffix, pF));
+    protected Document createTI(String suffix) {
+        TraversalInformation ti = new TraversalInformation();
+        ti.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));
+        ti.setBundleName(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "-bundle" + suffix, pF));
 
-        MainActivity mA = new MainActivity(bb.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + suffix, pF));
-        bb.setMainActivity(mA);
+        MainActivity mA = new MainActivity(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + suffix, pF));
+        ti.setMainActivity(mA);
 
-        QualifiedName aCID = bb.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF);
+        QualifiedName aCID = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF);
 
         BackwardConnector bC = new BackwardConnector(aCID);
-        bb.getBackwardConnectors().add(bC);
+        ti.getBackwardConnectors().add(bC);
 
         MainActivityUsed used = new MainActivityUsed(aCID);
         mA.setUsed(List.of(used));
 
-        QualifiedName fcID = bb.getNamespace().qualifiedName(BBMRI_PREFIX, STORE_CON + suffix, pF);
+        QualifiedName fcID = ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE_CON + suffix, pF);
         mA.setGenerated(List.of(fcID));
 
         ForwardConnector fC = new ForwardConnector(fcID);
         fC.setDerivedFrom(List.of(bC.getId()));
-        bb.getForwardConnectors().add(fC);
+        ti.getForwardConnectors().add(fC);
 
-        QualifiedName agentId = bb.getNamespace().qualifiedName(BBMRI_PREFIX, "UNI", pF);
-        bb.setSenderAgents(List.of(new SenderAgent(agentId)));
+        QualifiedName agentId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, "UNI", pF);
+        ti.setSenderAgents(List.of(new SenderAgent(agentId)));
 
         bC.setAttributedTo(new ConnectorAttributed(agentId));
 
-        return bb.toDocument(cPF);
+        return ti.toDocument(cPF);
     }
 
     private void addStoreDSToDocument(Document doc, String suffix, String sampleId, Function<Entity, Void> populateStore) {

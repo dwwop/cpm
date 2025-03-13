@@ -59,7 +59,7 @@ public class CpmMouTest {
         PatientTransformer aT = new AcquisitionTransformer(patient, pF, cPF, pbmF);
         for (Document doc : aT.toDocuments()) {
             CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
-            assertEquals(4, cpmDoc.getBackbonePart().size());
+            assertEquals(4, cpmDoc.getTraversalInformationPart().size());
             assertEquals(1, cpmDoc.getDomainSpecificPart().size());
             assertEquals(1, cpmDoc.getCrossPartEdges().size());
 
@@ -88,7 +88,7 @@ public class CpmMouTest {
         PatientTransformer sT = new StoreTransformer(patient, pF, cPF, pbmF);
         for (Document doc : sT.toDocuments()) {
             CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
-            assertEquals(4, cpmDoc.getBackbonePart().size());
+            assertEquals(4, cpmDoc.getTraversalInformationPart().size());
             assertEquals(5, cpmDoc.getDomainSpecificPart().size());
             assertEquals(2, cpmDoc.getCrossPartEdges().size());
 

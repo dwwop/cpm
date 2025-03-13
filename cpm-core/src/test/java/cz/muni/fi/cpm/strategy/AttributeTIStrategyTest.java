@@ -4,10 +4,10 @@ import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
-import cz.muni.fi.cpm.model.IBackboneStrategy;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
+import cz.muni.fi.cpm.model.ITIStrategy;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,8 +24,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AttributeBackboneStrategyTest {
-    IBackboneStrategy strategy;
+class AttributeTIStrategyTest {
+    ITIStrategy strategy;
 
     private ProvFactory pF;
     private CpmMergedFactory cF;
@@ -36,12 +36,12 @@ class AttributeBackboneStrategyTest {
         pF = new ProvFactory();
         cF = new CpmMergedFactory();
         cPF = new CpmProvFactory();
-        strategy = new AttributeBackboneStrategy();
+        strategy = new AttributeTIStrategy();
     }
 
-    private boolean hasNonBackboneAttributes(INode node) {
+    private boolean hasNonTIAttributes(INode node) {
         try {
-            Method method = AttributeBackboneStrategy.class.getDeclaredMethod("hasNonBackboneAttributes", INode.class);
+            Method method = AttributeTIStrategy.class.getDeclaredMethod("hasNonTIAttributes", INode.class);
             method.setAccessible(true);
             return (boolean) method.invoke(null, node);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -52,7 +52,7 @@ class AttributeBackboneStrategyTest {
 
 
     @Test
-    public void hasNonBackboneAttributes_returnsFalse() {
+    public void hasNonTIAttributes_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -64,11 +64,11 @@ class AttributeBackboneStrategyTest {
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
         INode node = cF.newNode(element);
 
-        assertFalse(hasNonBackboneAttributes(node));
+        assertFalse(hasNonTIAttributes(node));
     }
 
     @Test
-    public void hasNonBackboneAttributes_withInvalidUri_returnsTrue() {
+    public void hasNonTIAttributes_withInvalidUri_returnsTrue() {
 
         QualifiedName invalidNS = new QualifiedName(
                 "invalidUri",
@@ -81,11 +81,11 @@ class AttributeBackboneStrategyTest {
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
         INode node = cF.newNode(element);
 
-        assertTrue(hasNonBackboneAttributes(node));
+        assertTrue(hasNonTIAttributes(node));
     }
 
     @Test
-    public void hasNonBackboneAttributes_withInvalidPrefix_returnsTrue() {
+    public void hasNonTIAttributes_withInvalidPrefix_returnsTrue() {
 
         QualifiedName invalidPrefix = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
@@ -98,11 +98,11 @@ class AttributeBackboneStrategyTest {
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
         INode node = cF.newNode(element);
 
-        assertTrue(hasNonBackboneAttributes(node));
+        assertTrue(hasNonTIAttributes(node));
     }
 
     @Test
-    public void hasNonBackboneAttributes_withInvalidUriAndPrefix_returnsTrue() {
+    public void hasNonTIAttributes_withInvalidUriAndPrefix_returnsTrue() {
         QualifiedName invalidQualifiedName = new QualifiedName(
                 "invalidUri",
                 "invalidQualifiedName",
@@ -114,21 +114,21 @@ class AttributeBackboneStrategyTest {
         Element element = pF.newEntity(id, Collections.singletonList(attribute));
         INode node = cF.newNode(element);
 
-        assertTrue(hasNonBackboneAttributes(node));
+        assertTrue(hasNonTIAttributes(node));
     }
 
     @Test
-    public void hasNonBackboneAttributes_withoutType_returnsFalse() {
+    public void hasNonTIAttributes_withoutType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id, (List<Attribute>) null);
         INode node = cF.newNode(element);
 
-        assertFalse(hasNonBackboneAttributes(node));
+        assertFalse(hasNonTIAttributes(node));
     }
 
     @Test
-    public void hasNonBackboneAttributes_withInvalidOtherAttr_returnsTrue() {
+    public void hasNonTIAttributes_withInvalidOtherAttr_returnsTrue() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -147,11 +147,11 @@ class AttributeBackboneStrategyTest {
         Element element = pF.newEntity(id, List.of(attribute, other));
         INode node = cF.newNode(element);
 
-        assertTrue(hasNonBackboneAttributes(node));
+        assertTrue(hasNonTIAttributes(node));
     }
 
     @Test
-    public void hasNonBackboneAttributes_withValidOtherAttr_returnsFalse() {
+    public void hasNonTIAttributes_withValidOtherAttr_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -164,40 +164,40 @@ class AttributeBackboneStrategyTest {
         Element element = pF.newEntity(id, List.of(attribute, other));
         INode node = cF.newNode(element);
 
-        assertFalse(hasNonBackboneAttributes(node));
+        assertFalse(hasNonTIAttributes(node));
     }
 
 
     @Test
-    public void hasNonBackboneAttributes_nullElement_returnsFalse() {
-        assertFalse(strategy.isBackbone(null));
+    public void hasNonTIAttributes_nullElement_returnsFalse() {
+        assertFalse(strategy.belongsToTraversalInformation(null));
     }
 
     @Test
-    public void isBackbone_withoutCpmType_returnsFalse() {
+    public void belongsToTraversalInformation_withoutCpmType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
         INode node = cF.newNode(element);
 
-        assertFalse(strategy.isBackbone(node));
+        assertFalse(strategy.belongsToTraversalInformation(node));
     }
 
 
     @Test
-    public void isBackbone_withCpmType_returnsTrue() {
+    public void belongsToTraversalInformation_withCpmType_returnsTrue() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Attribute cpmType = cPF.newCpmType(CpmType.BACKWARD_CONNECTOR);
         Element element = pF.newEntity(id, Collections.singletonList(cpmType));
         INode node = cF.newNode(element);
 
-        assertTrue(strategy.isBackbone(node));
+        assertTrue(strategy.belongsToTraversalInformation(node));
     }
 
 
     @Test
-    public void isBackbone_withCpmTypeAndInvalidSecType_returnsFalse() {
+    public void belongsToTraversalInformation_withCpmTypeAndInvalidSecType_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -211,12 +211,12 @@ class AttributeBackboneStrategyTest {
         Element element = pF.newEntity(id, List.of(attribute, cpmType));
         INode node = cF.newNode(element);
 
-        assertFalse(strategy.isBackbone(node));
+        assertFalse(strategy.belongsToTraversalInformation(node));
     }
 
 
     @Test
-    public void isBackbone_withInvalidSecType_returnsFalse() {
+    public void belongsToTraversalInformation_withInvalidSecType_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 CpmNamespaceConstants.CPM_NS,
                 "validQualifiedName",
@@ -228,12 +228,12 @@ class AttributeBackboneStrategyTest {
         Element element = pF.newEntity(id, List.of(attribute));
         INode node = cF.newNode(element);
 
-        assertFalse(strategy.isBackbone(node));
+        assertFalse(strategy.belongsToTraversalInformation(node));
     }
 
 
     @Test
-    public void isBackbone_withGeneralNodeContainingFW_returnsTrue() {
+    public void belongsToTraversalInformation_withGeneralNodeContainingFW_returnsTrue() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
@@ -252,11 +252,11 @@ class AttributeBackboneStrategyTest {
         edge.setEffect(node);
         node.getEffectEdges().add(edge);
 
-        assertTrue(strategy.isBackbone(node));
+        assertTrue(strategy.belongsToTraversalInformation(node));
     }
 
     @Test
-    public void isBackbone_withGeneralNodeContainingOtherCpmType_returnsFalse() {
+    public void belongsToTraversalInformation_withGeneralNodeContainingOtherCpmType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
@@ -275,11 +275,11 @@ class AttributeBackboneStrategyTest {
         edge.setEffect(node);
         node.getEffectEdges().add(edge);
 
-        assertFalse(strategy.isBackbone(node));
+        assertFalse(strategy.belongsToTraversalInformation(node));
     }
 
     @Test
-    public void isBackbone_withGeneralNodeContainingCpmTypeAndInvalidAttr_returnsFalse() {
+    public void belongsToTraversalInformation_withGeneralNodeContainingCpmTypeAndInvalidAttr_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
@@ -305,12 +305,12 @@ class AttributeBackboneStrategyTest {
         edge.setEffect(node);
         node.getEffectEdges().add(edge);
 
-        assertFalse(strategy.isBackbone(node));
+        assertFalse(strategy.belongsToTraversalInformation(node));
     }
 
 
     @Test
-    public void isBackbone_with2GeneralNodes_returnsFalse() {
+    public void belongsToTraversalInformation_with2GeneralNodes_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
@@ -341,6 +341,6 @@ class AttributeBackboneStrategyTest {
         edge2.setEffect(genNode);
         genNode.getEffectEdges().add(edge2);
 
-        assertFalse(strategy.isBackbone(node));
+        assertFalse(strategy.belongsToTraversalInformation(node));
     }
 }

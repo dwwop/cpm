@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.serialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import cz.muni.fi.cpm.template.Backbone;
+import cz.muni.fi.cpm.template.TraversalInformation;
 import org.openprovenance.prov.core.json.serialization.serial.CustomDateSerializer;
 import org.openprovenance.prov.core.json.serialization.serial.CustomQualifiedNameSerializer;
 import org.openprovenance.prov.vanilla.QualifiedName;
@@ -14,22 +14,22 @@ import java.io.IOException;
 import static org.openprovenance.prov.core.json.serialization.deserial.CustomThreadConfig.JSON_CONTEXT_KEY_NAMESPACE;
 import static org.openprovenance.prov.core.json.serialization.deserial.CustomThreadConfig.getAttributes;
 
-public class BackboneSerializer implements IBackboneSerializer {
+public class TraversalInformationSerializer implements ITraversalInformationSerializer {
     private final ObjectMapper mapper;
 
-    public BackboneSerializer() {
+    public TraversalInformationSerializer() {
         this(new ObjectMapper());
     }
 
-    public BackboneSerializer(ObjectMapper mapper) {
+    public TraversalInformationSerializer(ObjectMapper mapper) {
         this.mapper = mapper;
         customize(mapper);
     }
 
     @Override
-    public void serializeBackbone(Backbone bb, File file) throws IOException {
+    public void serializeTI(TraversalInformation ti, File file) throws IOException {
         getAttributes().get().remove(JSON_CONTEXT_KEY_NAMESPACE);
-        mapper.writerWithDefaultPrettyPrinter().writeValue(file, bb);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(file, ti);
     }
 
     private void customize(ObjectMapper mapper) {

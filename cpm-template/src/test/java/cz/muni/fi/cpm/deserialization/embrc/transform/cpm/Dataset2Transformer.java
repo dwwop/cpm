@@ -21,17 +21,17 @@ public class Dataset2Transformer extends DatasetTransformer {
     }
 
     @Override
-    protected Document createBB(IndexedDocument indexedDS) {
-        Backbone bb = new Backbone();
-        bb.setBundleName(newQNWithUnknownNS(PROCESSING + "-bundle"));
+    protected Document createTI(IndexedDocument indexedDS) {
+        TraversalInformation ti = new TraversalInformation();
+        ti.setBundleName(newQNWithUnknownNS(PROCESSING + "-bundle"));
 
         MainActivity mA = new MainActivity(newQNWithUnknownNS(PROCESSING));
-        bb.setMainActivity(mA);
+        ti.setMainActivity(mA);
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R1));
-        bb.setBackwardConnectors(List.of(bC));
+        ti.setBackwardConnectors(List.of(bC));
 
         SpecializationOf specBc = pF.newSpecializationOf(newQNWithUnknownNS(SAMPLE_R1), bC.getId());
         indexedDS.add(specBc);
@@ -49,9 +49,9 @@ public class Dataset2Transformer extends DatasetTransformer {
         ForwardConnector fCIden = new ForwardConnector(newQNWithUnknownNS(IDENTIFIED_SPECIES_CON));
         fCIden.setDerivedFrom(List.of(fC.getId()));
 
-        bb.setForwardConnectors(List.of(fC, fCIden));
+        ti.setForwardConnectors(List.of(fC, fCIden));
 
-        return bb.toDocument(cPF);
+        return ti.toDocument(cPF);
     }
 
     @Override

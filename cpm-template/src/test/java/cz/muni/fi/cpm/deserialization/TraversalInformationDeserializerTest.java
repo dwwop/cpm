@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.deserialization;
 
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
-import cz.muni.fi.cpm.template.Backbone;
+import cz.muni.fi.cpm.template.TraversalInformation;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.Document;
@@ -19,20 +19,20 @@ import static cz.muni.fi.cpm.constants.PathConstants.TEST_RESOURCES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class BackboneDeserializerTest {
+public class TraversalInformationDeserializerTest {
     private static final String DESERIALIZE_FOLDER = "deserialization" + File.separator;
 
     @Test
-    public void deserializeBackbone_pure_serialisesSuccessfully() {
+    public void deserializeTI_pure_serialisesSuccessfully() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
         CpmProvFactory cF = new CpmProvFactory(pF);
 
         try (InputStream inputStream = classLoader.getResourceAsStream(DESERIALIZE_FOLDER + "test.json")) {
-            IBackboneDeserializer deserializer = new BackboneDeserializer();
-            Backbone bb = deserializer.deserializeBackbone(inputStream);
+            ITraversalInformationDeserializer deserializer = new TraversalInformationDeserializer();
+            TraversalInformation ti = deserializer.deserializeTI(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
-            Document doc = bb.toDocument(cF);
+            Document doc = ti.toDocument(cF);
 
             File outputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "output.provn");
             serialiser.serialiseDocument(new FileOutputStream(outputFile), doc, true);
@@ -57,7 +57,7 @@ public class BackboneDeserializerTest {
         CpmProvFactory cPF = new CpmProvFactory();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(DESERIALIZE_FOLDER + "test.json")) {
-            IBackboneDeserializer deserializer = new BackboneDeserializer();
+            ITraversalInformationDeserializer deserializer = new TraversalInformationDeserializer();
             Document doc = deserializer.deserializeDocument(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
             Document transDoc = new CpmDocument(doc, pF, cPF, cF).toDocument();

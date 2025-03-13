@@ -37,7 +37,7 @@ public abstract class PatientTransformer {
         List<Document> docs = new ArrayList<>();
         for (Tissue tissue : patient.getLts().getTissues()) {
             String suffix = String.format(SUFFIX_TEMPLATE, patient.getId(), tissue.getSampleId());
-            Document doc = createBB(suffix);
+            Document doc = createTI(suffix);
 
             addTissueDSToDoc(doc, suffix, tissue);
             docs.add(doc);
@@ -45,7 +45,7 @@ public abstract class PatientTransformer {
 
         for (DiagnosisMaterial dM : patient.getSts().getDiagnosisMaterials()) {
             String suffix = String.format(SUFFIX_TEMPLATE, patient.getId(), dM.getSampleId());
-            Document doc = createBB(suffix);
+            Document doc = createTI(suffix);
 
             addDMDSToDoc(doc, suffix, dM);
             docs.add(doc);
@@ -53,7 +53,7 @@ public abstract class PatientTransformer {
         return docs;
     }
 
-    protected abstract Document createBB(String suffix);
+    protected abstract Document createTI(String suffix);
 
     protected abstract void addTissueDSToDoc(Document doc, String suffix, Tissue tissue);
 

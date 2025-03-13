@@ -95,7 +95,7 @@ public class CpmEmbrcTest {
     @ParameterizedTest
     @MethodSource("documentProvider")
     public void toDocument_withEmbrcDataset_serialisesSuccessfully(Class<DatasetTransformer> dTClass,
-                                                                   int datasetNum, int bbCount, int dsCount, int cPCount) {
+                                                                   int datasetNum, int tiCount, int dsCount, int cPCount) {
         String datasetFolder = "dataset" + datasetNum + File.separator;
         try (InputStream inputStream = new FileInputStream(TEST_RESOURCES + EMBRC_FOLDER + datasetFolder + "Dataset" + datasetNum + "_transformed.jsonld")) {
             InteropFramework interop = new InteropFramework();
@@ -109,7 +109,7 @@ public class CpmEmbrcTest {
             interop.writeDocument(fileName + ".svg", doc);
 
             CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
-            assertEquals(bbCount, cpmDoc.getBackbonePart().size());
+            assertEquals(tiCount, cpmDoc.getTraversalInformationPart().size());
             assertEquals(dsCount, cpmDoc.getDomainSpecificPart().size());
             assertEquals(cPCount, cpmDoc.getCrossPartEdges().size());
         } catch (IOException | InstantiationException | IllegalAccessException | InvocationTargetException |

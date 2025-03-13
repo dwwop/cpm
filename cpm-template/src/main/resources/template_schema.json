@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "id": "urn:jsonschema:cz:muni:fi:cpm:template:Backbone",
+  "id": "urn:jsonschema:cz:muni:fi:cpm:template:TraversalInformation",
   "properties": {
     "prefixes": {
       "type": "object",

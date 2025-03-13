@@ -1,9 +1,9 @@
 package cz.muni.fi.cpm.deserialization.embrc.transform.cpm;
 
 import cz.muni.fi.cpm.model.ICpmProvFactory;
-import cz.muni.fi.cpm.template.Backbone;
 import cz.muni.fi.cpm.template.ForwardConnector;
 import cz.muni.fi.cpm.template.MainActivity;
+import cz.muni.fi.cpm.template.TraversalInformation;
 import org.openprovenance.prov.model.*;
 
 import java.util.List;
@@ -30,12 +30,12 @@ public class Dataset1Transformer extends DatasetTransformer {
     }
 
     @Override
-    protected Document createBB(IndexedDocument indexedDS) {
-        Backbone bb = new Backbone();
-        bb.setBundleName(newQNWithUnknownNS(SAMPLING + "-bundle"));
+    protected Document createTI(IndexedDocument indexedDS) {
+        TraversalInformation ti = new TraversalInformation();
+        ti.setBundleName(newQNWithUnknownNS(SAMPLING + "-bundle"));
 
         MainActivity mA = new MainActivity(newQNWithUnknownNS(SAMPLING));
-        bb.setMainActivity(mA);
+        ti.setMainActivity(mA);
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
@@ -60,9 +60,9 @@ public class Dataset1Transformer extends DatasetTransformer {
         ForwardConnector fCFil = new ForwardConnector(newQNWithUnknownNS(FILTERED_SEQUENCES_CON));
         fCFil.setDerivedFrom(List.of(fcR23UM.getId()));
 
-        bb.getForwardConnectors().addAll(List.of(fcR1, fcR23UM, fCProc, fCIden, fCFil));
+        ti.getForwardConnectors().addAll(List.of(fcR1, fcR23UM, fCProc, fCIden, fCFil));
 
-        return bb.toDocument(cPF);
+        return ti.toDocument(cPF);
     }
 
     @Override

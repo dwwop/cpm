@@ -21,15 +21,15 @@ public abstract class DatasetTransformer {
     public Document toDocument(Document dsDoc) {
         IndexedDocument indexedDS = new IndexedDocument(pF, dsDoc);
         modifyDS(indexedDS);
-        Document bb = createBB(indexedDS);
+        Document ti = createTI(indexedDS);
         Document updatedDs = indexedDS.toDocument();
 
-        ((Bundle) bb.getStatementOrBundle().getFirst()).getStatement().addAll(u.getStatement(updatedDs));
-        bb.getNamespace().extendWith(updatedDs.getNamespace());
-        return bb;
+        ((Bundle) ti.getStatementOrBundle().getFirst()).getStatement().addAll(u.getStatement(updatedDs));
+        ti.getNamespace().extendWith(updatedDs.getNamespace());
+        return ti;
     }
 
-    protected abstract Document createBB(IndexedDocument indexedDS);
+    protected abstract Document createTI(IndexedDocument indexedDS);
 
     protected abstract void modifyDS(IndexedDocument indexedDS);
 

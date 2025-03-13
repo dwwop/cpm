@@ -28,17 +28,17 @@ public class Dataset4Transformer extends DatasetTransformer {
     }
 
     @Override
-    protected Document createBB(IndexedDocument indexedDS) {
-        Backbone bb = new Backbone();
-        bb.setBundleName(newQNWithUnknownNS(DNA_SEQUENCING + "-bundle"));
+    protected Document createTI(IndexedDocument indexedDS) {
+        TraversalInformation ti = new TraversalInformation();
+        ti.setBundleName(newQNWithUnknownNS(DNA_SEQUENCING + "-bundle"));
 
         MainActivity mA = new MainActivity(newQNWithUnknownNS(DNA_SEQUENCING));
-        bb.setMainActivity(mA);
+        ti.setMainActivity(mA);
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R2_3UM));
-        bb.setBackwardConnectors(List.of(bC));
+        ti.setBackwardConnectors(List.of(bC));
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
@@ -47,14 +47,14 @@ public class Dataset4Transformer extends DatasetTransformer {
 
         ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(FILTERED_SEQUENCES_CON));
         fC.setDerivedFrom(List.of(bC.getId()));
-        bb.setForwardConnectors(List.of(fC));
+        ti.setForwardConnectors(List.of(fC));
 
         SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(FILTERED_SEQUENCES), fC.getId());
         indexedDS.add(specFc);
 
         mA.setGenerated(List.of(fC.getId()));
 
-        return bb.toDocument(cPF);
+        return ti.toDocument(cPF);
     }
 
     @Override

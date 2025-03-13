@@ -3,7 +3,7 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.constants.CpmExceptionConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.exception.NoSpecificKind;
-import cz.muni.fi.cpm.strategy.AttributeBackboneStrategy;
+import cz.muni.fi.cpm.strategy.AttributeTIStrategy;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.model.extension.QualifiedAlternateOf;
 import org.openprovenance.prov.model.extension.QualifiedHadMember;
@@ -40,7 +40,7 @@ public class CpmDocument implements StatementAction {
     private final List<IEdge> edges = new ArrayList<>();
     private QualifiedName bundleId;
 
-    private IBackboneStrategy bbStrategy = new AttributeBackboneStrategy();
+    private ITIStrategy tiStrategy = new AttributeTIStrategy();
 
     public CpmDocument(ProvFactory pF, ICpmProvFactory cPF, ICpmFactory cF) {
         this.pF = pF;
@@ -66,38 +66,38 @@ public class CpmDocument implements StatementAction {
         u.forAllStatement(docBundle.getStatement(), this);
     }
 
-    public CpmDocument(final QualifiedName bundleId, List<INode> backbone, List<INode> domainSpecificPart, List<IEdge> crossPartEdges, ProvFactory provFactory, ICpmProvFactory cPF, ICpmFactory cF) {
+    public CpmDocument(final QualifiedName bundleId, List<INode> traversalInformationPart, List<INode> domainSpecificPart, List<IEdge> crossPartEdges, ProvFactory provFactory, ICpmProvFactory cPF, ICpmFactory cF) {
         this.pF = provFactory;
         this.cF = cF;
         this.cPF = cPF;
         this.bundleId = bundleId;
 
-        if (bundleId == null || backbone == null || domainSpecificPart == null || crossPartEdges == null) {
+        if (bundleId == null || traversalInformationPart == null || domainSpecificPart == null || crossPartEdges == null) {
             throw new IllegalArgumentException(CpmExceptionConstants.NOT_NULL_PARTS);
         }
 
-        addNodes(backbone);
+        addNodes(traversalInformationPart);
         addNodes(domainSpecificPart);
         addEdges(crossPartEdges);
     }
 
-    public CpmDocument(List<Statement> backbone, List<Statement> domainSpecificPart, List<Statement> crossPartEdges, final QualifiedName bundleId, ProvFactory provFactory, ICpmProvFactory cPF, ICpmFactory cF) {
+    public CpmDocument(List<Statement> traversalInformationPart, List<Statement> domainSpecificPart, List<Statement> crossPartEdges, final QualifiedName bundleId, ProvFactory provFactory, ICpmProvFactory cPF, ICpmFactory cF) {
         this.pF = provFactory;
         this.cF = cF;
         this.cPF = cPF;
         this.bundleId = bundleId;
 
-        if (bundleId == null || backbone == null || domainSpecificPart == null || crossPartEdges == null) {
+        if (bundleId == null || traversalInformationPart == null || domainSpecificPart == null || crossPartEdges == null) {
             throw new IllegalArgumentException(CpmExceptionConstants.NOT_NULL_PARTS);
         }
 
-        u.forAllStatement(backbone, this);
+        u.forAllStatement(traversalInformationPart, this);
         u.forAllStatement(domainSpecificPart, this);
         u.forAllStatement(crossPartEdges, this);
     }
 
-    public void setBBStrategy(IBackboneStrategy strategy) {
-        this.bbStrategy = strategy;
+    public void setTIStrategy(ITIStrategy strategy) {
+        this.tiStrategy = strategy;
     }
 
     /**
@@ -575,15 +575,15 @@ public class CpmDocument implements StatementAction {
 
 
     /**
-     * Retrieves the main activity node from the backbone.
-     * This method iterates through the nodes in the backbone and returns the first node
+     * Retrieves the main activity node from the traversal information.
+     * This method iterates through the nodes in the traversal information and returns the first node
      * that has the {@link CpmType#MAIN_ACTIVITY} type. If no such node is found, it returns {@code null}.
      *
      * @return the main activity node, or {@code null} if not found
      */
     public INode getMainActivity() {
         for (INode node : listOfNodes) {
-            if (bbStrategy.isBackbone(node) &&
+            if (tiStrategy.belongsToTraversalInformation(node) &&
                     CpmUtilities.hasCpmType(node, CpmType.MAIN_ACTIVITY)) {
                 return node;
             }
@@ -594,7 +594,7 @@ public class CpmDocument implements StatementAction {
     private List<INode> getConnectors(CpmType type) {
         List<INode> result = new ArrayList<>();
         for (INode node : listOfNodes) {
-            if (bbStrategy.isBackbone(node) &&
+            if (tiStrategy.belongsToTraversalInformation(node) &&
                     CpmUtilities.hasCpmType(node, type)) {
                 result.add(node);
             }
@@ -603,7 +603,7 @@ public class CpmDocument implements StatementAction {
     }
 
     /**
-     * Retrieves a list of forward connector nodes from the backbone.
+     * Retrieves a list of forward connector nodes from the traversal information.
      *
      * @return a list of forward connector nodes
      */
@@ -612,7 +612,7 @@ public class CpmDocument implements StatementAction {
     }
 
     /**
-     * Retrieves a list of backward connector nodes from the backbone.
+     * Retrieves a list of backward connector nodes from the traversal information.
      *
      * @return a list of backward connector nodes
      */
@@ -642,12 +642,12 @@ public class CpmDocument implements StatementAction {
     }
 
     /**
-     * Creates a clone of each node in the backbone, keeping only relations that are between backbone nodes.
+     * Creates a clone of each node in the traversal information part of the document, keeping only relations that are between TI nodes.
      *
-     * @return a list of cloned backbone nodes
+     * @return a list of cloned TI nodes
      */
-    public List<INode> getBackbonePart() {
-        return getFilteredNodes(n -> bbStrategy.isBackbone(n));
+    public List<INode> getTraversalInformationPart() {
+        return getFilteredNodes(n -> tiStrategy.belongsToTraversalInformation(n));
     }
 
     /**
@@ -656,25 +656,25 @@ public class CpmDocument implements StatementAction {
      * @return a list of cloned domain specific nodes
      */
     public List<INode> getDomainSpecificPart() {
-        return getFilteredNodes(n -> !bbStrategy.isBackbone(n));
+        return getFilteredNodes(n -> !tiStrategy.belongsToTraversalInformation(n));
     }
 
     /**
-     * Retrieves all original edges that are between backbone nodes and domain specific nodes.
+     * Retrieves all original edges that are between traversal information nodes and domain specific nodes.
      *
      * @return a list of original cross part edges
      */
     public List<IEdge> getCrossPartEdges() {
-        Map<INode, Boolean> nodeBackboneMap = listOfNodes.stream()
-                .collect(Collectors.toMap(node -> node, n -> bbStrategy.isBackbone(n)));
+        Map<INode, Boolean> nodeTIMap = listOfNodes.stream()
+                .collect(Collectors.toMap(node -> node, n -> tiStrategy.belongsToTraversalInformation(n)));
 
         return edges.stream().filter(e -> {
             if (e.getEffect() == null || e.getCause() == null) {
                 return false;
             }
-            boolean isCauseBackbone = nodeBackboneMap.get(e.getCause());
-            boolean isEffectBackbone = nodeBackboneMap.get(e.getEffect());
-            return ((isCauseBackbone && !isEffectBackbone) || (!isCauseBackbone && isEffectBackbone));
+            boolean isCauseTI = nodeTIMap.get(e.getCause());
+            boolean isEffectTI = nodeTIMap.get(e.getEffect());
+            return ((isCauseTI && !isEffectTI) || (!isCauseTI && isEffectTI));
         }).toList();
     }
 

@@ -18,7 +18,7 @@ import java.util.Map;
 
 @JsonPropertyOrder({"prefixes"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Backbone {
+public class TraversalInformation {
     @JsonIgnore
     @JsonDeserialize(using = CustomNamespacePrefixDeserializer.class)
     private Namespace namespace = new Namespace();
@@ -163,8 +163,8 @@ public class Backbone {
 
         Namespace bundleNamespace = new Namespace();
         bundleNamespace.setParent(namespace);
-        Bundle bBBundle = cF.getProvFactory().newNamedBundle(bundleName, bundleNamespace, statements);
+        Bundle tiBundle = cF.getProvFactory().newNamedBundle(bundleName, bundleNamespace, statements);
 
-        return cF.getProvFactory().newDocument(namespace, Collections.singletonList(bBBundle));
+        return cF.getProvFactory().newDocument(namespace, Collections.singletonList(tiBundle));
     }
 }
