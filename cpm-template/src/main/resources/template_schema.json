@@ -4,6 +4,7 @@
   "properties": {
     "prefixes": {
       "type": "object",
+      "required": true,
       "additionalProperties": {
         "type": "string"
       }

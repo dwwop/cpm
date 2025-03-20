@@ -33,6 +33,7 @@ public class TraversalInformation {
     private List<IdentifierEntity> identifierEntities;
 
     @JsonDeserialize(using = CustomNamespacePrefixDeserializer.class)
+    @JsonProperty(required = true)
     public Map<String, String> getPrefixes() {
         return namespace.getPrefixes();
     }
