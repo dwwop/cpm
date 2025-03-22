@@ -1,6 +1,7 @@
 package cz.muni.fi.cpm.template;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Connector implements ToStatements {
-
+    @JsonProperty(required = true)
     private QualifiedName id;
     private QualifiedName externalId;
     private QualifiedName referencedBundleId;

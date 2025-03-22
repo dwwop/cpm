@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity implements ToStatements {
+    @JsonProperty(required = true)
     private QualifiedName id;
     private XMLGregorianCalendar startTime;
     private XMLGregorianCalendar endTime;
-    @JsonProperty(required = true)
     private QualifiedName referencedMetaBundleId;
     private List<QualifiedName> hasPart;
     private List<MainActivityUsed> used;

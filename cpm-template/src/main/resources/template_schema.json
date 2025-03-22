@@ -14,6 +14,11 @@
       "id": "urn:jsonschema:cz:muni:fi:cpm:template:MainActivity",
       "required": true,
       "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_]+:(.*)$",
+          "required": true
+        },
         "startTime": {
           "type": "string",
           "format": "date-time"
@@ -24,8 +29,7 @@
         },
         "referencedMetaBundleId": {
           "type": "string",
-          "pattern": "^[A-Za-z0-9_]+:(.*)$",
-          "required": true
+          "pattern": "^[A-Za-z0-9_]+:(.*)$"
         },
         "hasPart": {
           "type": "array",
@@ -74,7 +78,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            "pattern": "^[A-Za-z0-9_]+:(.*)$",
+            "required": true
           },
           "externalId": {
             "type": "string",
@@ -137,7 +142,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            "pattern": "^[A-Za-z0-9_]+:(.*)$",
+            "required": true
           },
           "externalId": {
             "type": "string",
@@ -193,7 +199,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            "pattern": "^[A-Za-z0-9_]+:(.*)$",
+            "required": true
           },
           "contactIdPid": {
             "type": "object",
@@ -210,7 +217,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            "pattern": "^[A-Za-z0-9_]+:(.*)$",
+            "required": true
           },
           "contactIdPid": {
             "type": "object",
@@ -227,16 +235,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[A-Za-z0-9_]+:(.*)$"
-          },
-          "externalId": {
-            "type": "string",
             "pattern": "^[A-Za-z0-9_]+:(.*)$",
             "required": true
           },
-          "externalIdType": {
+          "externalId": {
             "type": "string",
-            "required": true
+            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+          },
+          "externalIdType": {
+            "type": "string"
           },
           "comment": {
             "type": "string"

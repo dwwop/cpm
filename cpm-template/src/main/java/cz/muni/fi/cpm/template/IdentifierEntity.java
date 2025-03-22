@@ -13,11 +13,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class IdentifierEntity implements ToStatements {
+    @JsonProperty(required = true)
     private QualifiedName id;
-    @JsonProperty(required = true)
     private QualifiedName externalId;
-
-    @JsonProperty(required = true)
     private String externalIdType;
     private String comment;
 
