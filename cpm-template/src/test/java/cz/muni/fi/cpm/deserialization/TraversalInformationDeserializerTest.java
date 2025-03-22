@@ -1,5 +1,6 @@
 package cz.muni.fi.cpm.deserialization;
 
+import cz.muni.fi.cpm.divided.ordered.CpmOrderedFactory;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
 import cz.muni.fi.cpm.template.TraversalInformation;
@@ -82,7 +83,7 @@ public class TraversalInformationDeserializerTest {
     public void deserializeDocument_withCpmDocTransform_serialisesAndOrdersCorrectly() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
-        CpmMergedFactory cF = new CpmMergedFactory();
+        CpmOrderedFactory cF = new CpmOrderedFactory();
         CpmProvFactory cPF = new CpmProvFactory();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(DESERIALIZE_FOLDER + "expectedOutputOrdered.provn")) {

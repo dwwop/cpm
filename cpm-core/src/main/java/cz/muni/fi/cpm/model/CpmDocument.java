@@ -35,9 +35,7 @@ public class CpmDocument implements StatementAction {
     private final Map<QualifiedName, Map<QualifiedName, List<IEdge>>> causeInfluences = new HashMap<>();
     private final Map<QualifiedName, Map<QualifiedName, List<IEdge>>> effectInfluences = new HashMap<>();
 
-
     private final Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> nodes = new HashMap<>();
-    private final List<INode> listOfNodes = new ArrayList<>();
     private final List<IEdge> edges = new ArrayList<>();
     private QualifiedName bundleId;
 
@@ -113,7 +111,7 @@ public class CpmDocument implements StatementAction {
         Document document = pF.newDocument();
 
         List<Component> components = new ArrayList<>();
-        components.addAll(listOfNodes);
+        components.addAll(getNodes());
         components.addAll(edges);
 
         List<Statement> statements = cF.getComponentsTransformer().apply(components);
@@ -361,8 +359,6 @@ public class CpmDocument implements StatementAction {
 
         processCauseInfluence(id, newNode);
         processEffectInfluence(id, newNode);
-
-        listOfNodes.add(newNode);
     }
 
     @Override
@@ -554,7 +550,7 @@ public class CpmDocument implements StatementAction {
      */
     public Namespace getNamespaces() {
         List<StatementOrBundle> statements = new ArrayList<>();
-        statements.addAll(listOfNodes.stream().flatMap(x -> x.getElements().stream()).distinct().toList());
+        statements.addAll(getNodes().stream().flatMap(x -> x.getElements().stream()).distinct().toList());
         statements.addAll(edges.stream().flatMap(x -> x.getRelations().stream()).distinct().toList());
 
         NamespaceGatherer gatherer = new NamespaceGatherer();
@@ -583,7 +579,7 @@ public class CpmDocument implements StatementAction {
      * @return the main activity node, or {@code null} if not found
      */
     public INode getMainActivity() {
-        for (INode node : listOfNodes) {
+        for (INode node : getNodes()) {
             if (tiStrategy.belongsToTraversalInformation(node) &&
                     CpmUtilities.hasCpmType(node, CpmType.MAIN_ACTIVITY)) {
                 return node;
@@ -594,7 +590,7 @@ public class CpmDocument implements StatementAction {
 
     private List<INode> getConnectors(CpmType type) {
         List<INode> result = new ArrayList<>();
-        for (INode node : listOfNodes) {
+        for (INode node : getNodes()) {
             if (tiStrategy.belongsToTraversalInformation(node) &&
                     CpmUtilities.hasCpmType(node, type)) {
                 result.add(node);
@@ -623,7 +619,7 @@ public class CpmDocument implements StatementAction {
 
 
     private List<INode> getFilteredNodes(Predicate<INode> nodeFilter) {
-        Map<INode, INode> clonedNodeMap = listOfNodes.stream()
+        Map<INode, INode> clonedNodeMap = getNodes().stream()
                 .filter(nodeFilter)
                 .collect(Collectors.toMap(node -> node, cF::newNode));
 
@@ -667,7 +663,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of original cross part edges
      */
     public List<IEdge> getCrossPartEdges() {
-        Map<INode, Boolean> nodeTIMap = listOfNodes.stream()
+        Map<INode, Boolean> nodeTIMap = getNodes().stream()
                 .collect(Collectors.toMap(node -> node, n -> tiStrategy.belongsToTraversalInformation(n)));
 
         return edges.stream().filter(e -> {
@@ -709,7 +705,6 @@ public class CpmDocument implements StatementAction {
         });
 
         nodes.remove(id);
-        listOfNodes.remove(node);
         return true;
     }
 
@@ -785,8 +780,14 @@ public class CpmDocument implements StatementAction {
      * @return a {@link Map} where keys are {@link QualifiedName}s and values are maps of
      * {@link StatementOrBundle.Kind} to {@link INode}.
      */
-    public Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> getNodes() {
+    public Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> getNodesMap() {
         return nodes;
+    }
+
+    private List<INode> getNodes() {
+        return nodes.values().stream()
+                .flatMap(map -> map.values().stream())
+                .toList();
     }
 
     /**
