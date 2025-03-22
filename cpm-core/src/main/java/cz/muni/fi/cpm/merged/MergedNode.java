@@ -1,14 +1,17 @@
 package cz.muni.fi.cpm.merged;
 
 import cz.muni.fi.cpm.model.IEdge;
+import cz.muni.fi.cpm.model.INode;
 import cz.muni.fi.cpm.model.ProvUtilities2;
 import org.openprovenance.prov.model.Element;
+import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.StatementOrBundle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MergedNode implements cz.muni.fi.cpm.model.INode {
+public class MergedNode implements INode {
     Element element;
     List<IEdge> effectEdges;
     List<IEdge> causeEdges;
@@ -26,8 +29,18 @@ public class MergedNode implements cz.muni.fi.cpm.model.INode {
     }
 
     @Override
-    public Element getElement() {
+    public Element getAnyElement() {
         return element;
+    }
+
+    @Override
+    public QualifiedName getId() {
+        return element.getId();
+    }
+
+    @Override
+    public StatementOrBundle.Kind getKind() {
+        return element.getKind();
     }
 
     @Override
@@ -37,6 +50,7 @@ public class MergedNode implements cz.muni.fi.cpm.model.INode {
 
     @Override
     public void handleDuplicate(Element duplicateElement) {
+
         ProvUtilities2.mergeAttributes(this.element, duplicateElement);
     }
 

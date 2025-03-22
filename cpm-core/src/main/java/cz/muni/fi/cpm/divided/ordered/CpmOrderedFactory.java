@@ -45,13 +45,13 @@ public class CpmOrderedFactory implements ICpmFactory {
 
     @Override
     public IEdge newEdge(IEdge edge) {
-        Relation clonedRelation = pF.newStatement(edge.getRelation());
-        return new OrderedEdge(clonedRelation, this);
+        ;
+        return new OrderedEdge(edge.getRelations().stream().map(pF::newStatement).toList(), this);
     }
 
     @Override
     public IEdge newEdgeWithoutCloning(IEdge edge) {
-        return new OrderedEdge(edge.getRelation(), this);
+        return new OrderedEdge(edge.getRelations(), this);
     }
 
     @Override
@@ -61,8 +61,7 @@ public class CpmOrderedFactory implements ICpmFactory {
     }
 
     public INode newNode(INode node) {
-        Element clonedElement = pF.newStatement(node.getElement());
-        return new OrderedNode(clonedElement, this);
+        return new OrderedNode(node.getElements().stream().map(pF::newStatement).toList(), this);
     }
 
     public Long getOrder() {

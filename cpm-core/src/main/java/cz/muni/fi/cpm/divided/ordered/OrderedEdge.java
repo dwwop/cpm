@@ -1,15 +1,18 @@
 package cz.muni.fi.cpm.divided.ordered;
 
+import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Influence;
 import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.model.Statement;
+import org.openprovenance.prov.model.StatementOrBundle;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static cz.muni.fi.cpm.constants.CpmExceptionConstants.UNSUPPORTED_DUPLICATE_RELATION;
 
-public class OrderedEdge implements cz.muni.fi.cpm.model.IEdge, WithOrderedStatements {
+public class OrderedEdge implements IEdge, WithOrderedStatements {
     private final Map<Relation, Long> relations;
     private final CpmOrderedFactory cF;
     private INode effect;
@@ -20,14 +23,25 @@ public class OrderedEdge implements cz.muni.fi.cpm.model.IEdge, WithOrderedState
         this.cF = cF;
     }
 
+    public OrderedEdge(List<Relation> relations, CpmOrderedFactory cF) {
+        this.relations = new IdentityHashMap<>(relations.stream()
+                .collect(Collectors.toMap(r -> r, _ -> cF.getOrder())));
+        this.cF = cF;
+    }
+
     @Override
-    public Relation getRelation() {
+    public Relation getAnyRelation() {
         return relations.keySet().iterator().next();
     }
 
     @Override
     public List<Relation> getRelations() {
         return relations.keySet().stream().toList();
+    }
+
+    @Override
+    public StatementOrBundle.Kind getKind() {
+        return relations.keySet().iterator().next().getKind();
     }
 
     @Override

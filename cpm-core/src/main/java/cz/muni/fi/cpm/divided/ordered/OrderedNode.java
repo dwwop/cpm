@@ -1,12 +1,16 @@
 package cz.muni.fi.cpm.divided.ordered;
 
 import cz.muni.fi.cpm.model.IEdge;
+import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Element;
+import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
+import org.openprovenance.prov.model.StatementOrBundle;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class OrderedNode implements cz.muni.fi.cpm.model.INode, WithOrderedStatements {
+public class OrderedNode implements INode, WithOrderedStatements {
     final Map<Element, Long> elements;
     final List<IEdge> effectEdges;
     final List<IEdge> causeEdges;
@@ -20,9 +24,27 @@ public class OrderedNode implements cz.muni.fi.cpm.model.INode, WithOrderedState
         this.cF = cF;
     }
 
+    public OrderedNode(List<Element> elements, CpmOrderedFactory cF) {
+        this.elements = new IdentityHashMap<>(elements.stream()
+                .collect(Collectors.toMap(e -> e, _ -> cF.getOrder())));
+        this.effectEdges = new ArrayList<>();
+        this.causeEdges = new ArrayList<>();
+        this.cF = cF;
+    }
+
     @Override
-    public Element getElement() {
+    public Element getAnyElement() {
         return elements.keySet().iterator().next();
+    }
+
+    @Override
+    public QualifiedName getId() {
+        return elements.keySet().iterator().next().getId();
+    }
+
+    @Override
+    public StatementOrBundle.Kind getKind() {
+        return elements.keySet().iterator().next().getKind();
     }
 
     @Override

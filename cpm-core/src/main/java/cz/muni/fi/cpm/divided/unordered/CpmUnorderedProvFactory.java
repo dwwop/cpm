@@ -44,13 +44,12 @@ public class CpmUnorderedProvFactory implements ICpmFactory {
 
     @Override
     public IEdge newEdge(IEdge edge) {
-        Relation clonedRelation = pF.newStatement(edge.getRelation());
-        return new UnorderedEdge(clonedRelation);
+        return new UnorderedEdge(edge.getRelations().stream().map(pF::newStatement).toList());
     }
 
     @Override
     public IEdge newEdgeWithoutCloning(IEdge edge) {
-        return new UnorderedEdge(edge.getRelation());
+        return new UnorderedEdge(edge.getRelations());
     }
 
     @Override
@@ -60,8 +59,7 @@ public class CpmUnorderedProvFactory implements ICpmFactory {
     }
 
     public INode newNode(INode node) {
-        Element clonedElement = pF.newStatement(node.getElement());
-        return new UnorderedNode(clonedElement);
+        return new UnorderedNode(node.getElements().stream().map(pF::newStatement).toList());
     }
 
     @Override

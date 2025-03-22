@@ -1,16 +1,18 @@
 package cz.muni.fi.cpm.merged;
 
+import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import cz.muni.fi.cpm.model.ProvUtilities2;
 import org.openprovenance.prov.model.Influence;
 import org.openprovenance.prov.model.Relation;
+import org.openprovenance.prov.model.StatementOrBundle;
 
 import java.util.List;
 import java.util.Objects;
 
 import static cz.muni.fi.cpm.constants.CpmExceptionConstants.UNSUPPORTED_DUPLICATE_RELATION;
 
-public class MergedEdge implements cz.muni.fi.cpm.model.IEdge {
+public class MergedEdge implements IEdge {
     private final Relation relation;
     private INode effect;
     private INode cause;
@@ -26,13 +28,18 @@ public class MergedEdge implements cz.muni.fi.cpm.model.IEdge {
     }
 
     @Override
-    public Relation getRelation() {
+    public Relation getAnyRelation() {
         return relation;
     }
 
     @Override
     public List<Relation> getRelations() {
         return List.of(relation);
+    }
+
+    @Override
+    public StatementOrBundle.Kind getKind() {
+        return relation.getKind();
     }
 
     @Override
@@ -69,17 +76,17 @@ public class MergedEdge implements cz.muni.fi.cpm.model.IEdge {
         if (o == null || getClass() != o.getClass()) return false;
         MergedEdge edge = (MergedEdge) o;
         return Objects.equals(relation, edge.relation) &&
-                Objects.equals(effect != null ? effect.getElement() : null,
-                        edge.effect != null ? edge.effect.getElement() : null) &&
-                Objects.equals(cause != null ? cause.getElement() : null,
-                        edge.cause != null ? edge.cause.getElement() : null);
+                Objects.equals(effect != null ? effect.getElements() : null,
+                        edge.effect != null ? edge.effect.getElements() : null) &&
+                Objects.equals(cause != null ? cause.getElements() : null,
+                        edge.cause != null ? edge.cause.getElements() : null);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(relation,
-                effect != null ? effect.getElement() : null,
-                cause != null ? cause.getElement() : null
+                effect != null ? effect.getElements() : null,
+                cause != null ? cause.getElements() : null
         );
     }
 

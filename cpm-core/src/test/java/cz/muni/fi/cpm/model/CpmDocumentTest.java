@@ -346,7 +346,7 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getNode(activityId));
         assertFalse(doc.getTraversalInformationPart().isEmpty());
         assertNotNull(doc.getMainActivity());
-        assertEquals(activity, doc.getNode(activityId).getElement());
+        assertEquals(activity, doc.getNode(activityId).getAnyElement());
     }
 
 
@@ -391,7 +391,7 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getNode(entityId));
         assertFalse(doc.getTraversalInformationPart().isEmpty());
         assertFalse(doc.getForwardConnectors().isEmpty());
-        assertEquals(entity, doc.getNode(entityId).getElement());
+        assertEquals(entity, doc.getNode(entityId).getAnyElement());
     }
 
 
@@ -413,7 +413,7 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getNode(entityId));
         assertTrue(doc.getTraversalInformationPart().isEmpty());
         assertTrue(doc.getForwardConnectors().isEmpty());
-        assertEquals(entity, doc.getNode(entityId).getElement());
+        assertEquals(entity, doc.getNode(entityId).getAnyElement());
         assertNotNull(doc.getBundleId());
     }
 
@@ -439,8 +439,8 @@ public abstract class CpmDocumentTest {
 
         assertThrows(IllegalStateException.class, () -> doc.getNode(identicalId));
         assertEquals(2, doc.getNodes(identicalId).size());
-        assertEquals(entity, doc.getNode(identicalId, StatementOrBundle.Kind.PROV_ENTITY).getElement());
-        assertEquals(activity, doc.getNode(identicalId, StatementOrBundle.Kind.PROV_ACTIVITY).getElement());
+        assertEquals(entity, doc.getNode(identicalId, StatementOrBundle.Kind.PROV_ENTITY).getAnyElement());
+        assertEquals(activity, doc.getNode(identicalId, StatementOrBundle.Kind.PROV_ACTIVITY).getAnyElement());
     }
 
 
@@ -463,7 +463,7 @@ public abstract class CpmDocumentTest {
 
         assertNotNull(doc.getNode(agentId));
         assertFalse(doc.getTraversalInformationPart().isEmpty());
-        assertEquals(agent, doc.getNode(agentId).getElement());
+        assertEquals(agent, doc.getNode(agentId).getAnyElement());
     }
 
 
@@ -484,7 +484,7 @@ public abstract class CpmDocumentTest {
 
         assertNotNull(doc.getNode(agentId));
         assertTrue(doc.getTraversalInformationPart().isEmpty());
-        assertEquals(agent, doc.getNode(agentId).getElement());
+        assertEquals(agent, doc.getNode(agentId).getAnyElement());
     }
 
     private Element getElement(StatementOrBundle.Kind kind, QualifiedName id) {
@@ -522,19 +522,19 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getNode(effectId));
         assertNotNull(doc.getNode(causeId));
         assertNotNull(doc.getEdge(effectId, causeId));
-        assertEquals(relation, doc.getNode(effectId).getEffectEdges().getFirst().getRelation());
-        assertEquals(relation, doc.getNode(causeId).getCauseEdges().getFirst().getRelation());
+        assertEquals(relation, doc.getNode(effectId).getEffectEdges().getFirst().getAnyRelation());
+        assertEquals(relation, doc.getNode(causeId).getCauseEdges().getFirst().getAnyRelation());
         assertTrue(doc.areAllRelationsMapped());
 
         if (relation instanceof Identifiable relWithId) {
             assertNotNull(doc.getEdge(relWithId.getId()));
-            assertEquals(relation, doc.getEdge(relWithId.getId()).getRelation());
-            assertEquals(effect, doc.getEdge(relWithId.getId()).getEffect().getElement());
-            assertEquals(cause, doc.getEdge(relWithId.getId()).getCause().getElement());
+            assertEquals(relation, doc.getEdge(relWithId.getId()).getAnyRelation());
+            assertEquals(effect, doc.getEdge(relWithId.getId()).getEffect().getAnyElement());
+            assertEquals(cause, doc.getEdge(relWithId.getId()).getCause().getAnyElement());
         } else {
-            assertEquals(relation, doc.getEdge(effectId, causeId).getRelation());
-            assertEquals(effect, doc.getEdge(effectId, causeId).getEffect().getElement());
-            assertEquals(cause, doc.getEdge(effectId, causeId).getCause().getElement());
+            assertEquals(relation, doc.getEdge(effectId, causeId).getAnyRelation());
+            assertEquals(effect, doc.getEdge(effectId, causeId).getEffect().getAnyElement());
+            assertEquals(cause, doc.getEdge(effectId, causeId).getCause().getAnyElement());
         }
     }
 
@@ -567,9 +567,9 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getEdge(entityId1, entityId2));
         assertNull(doc.getEdge(entityId1, entityId2).getCause());
         assertNotNull(doc.getEdge(entityId1, entityId2).getEffect());
-        assertEquals(wasDerivedFrom, doc.getEdge(relationId).getRelation());
+        assertEquals(wasDerivedFrom, doc.getEdge(relationId).getAnyRelation());
         assertFalse(doc.areAllRelationsMapped());
-        assertEquals(entity1, doc.getEdge(relationId).getEffect().getElement());
+        assertEquals(entity1, doc.getEdge(relationId).getEffect().getAnyElement());
         assertNull(doc.getEdge(relationId).getCause());
 
         Entity entity2 = pF.newEntity(entityId2);
@@ -577,7 +577,7 @@ public abstract class CpmDocumentTest {
         doc.doAction(entity2);
 
         assertTrue(doc.areAllRelationsMapped());
-        assertEquals(entity2, doc.getEdge(relationId).getCause().getElement());
+        assertEquals(entity2, doc.getEdge(relationId).getCause().getAnyElement());
     }
 
 
@@ -608,9 +608,9 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getEdge(entityId1, entityId2));
         assertNotNull(doc.getEdge(entityId1, entityId2).getCause());
         assertNull(doc.getEdge(entityId1, entityId2).getEffect());
-        assertEquals(wasDerivedFrom, doc.getEdge(relationId).getRelation());
+        assertEquals(wasDerivedFrom, doc.getEdge(relationId).getAnyRelation());
         assertFalse(doc.areAllRelationsMapped());
-        assertEquals(entity2, doc.getEdge(relationId).getCause().getElement());
+        assertEquals(entity2, doc.getEdge(relationId).getCause().getAnyElement());
         assertNull(doc.getEdge(relationId).getEffect());
 
         Entity entity1 = pF.newEntity(entityId1);
@@ -618,7 +618,7 @@ public abstract class CpmDocumentTest {
         doc.doAction(entity1);
 
         assertTrue(doc.areAllRelationsMapped());
-        assertEquals(entity1, doc.getEdge(relationId).getEffect().getElement());
+        assertEquals(entity1, doc.getEdge(relationId).getEffect().getAnyElement());
     }
 
 
@@ -690,8 +690,8 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getNode(entityId1));
         assertNotNull(doc.getNode(entityId2));
         assertNotNull(doc.getEdge(collectionId, entityId2));
-        assertEquals(hadMember, doc.getEdge(collectionId, entityId1).getRelation());
-        assertEquals(hadMember, doc.getEdge(collectionId, entityId2).getRelation());
+        assertEquals(hadMember, doc.getEdge(collectionId, entityId1).getAnyRelation());
+        assertEquals(hadMember, doc.getEdge(collectionId, entityId2).getAnyRelation());
         assertTrue(doc.areAllRelationsMapped());
     }
 
@@ -724,8 +724,8 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getNode(entityId1));
         assertNotNull(doc.getNode(entityId2));
         assertNotNull(doc.getEdge(collectionId, entityId2));
-        assertEquals(hadMember, doc.getEdge(collectionId, entityId1).getRelation());
-        assertEquals(hadMember, doc.getEdge(collectionId, entityId2).getRelation());
+        assertEquals(hadMember, doc.getEdge(collectionId, entityId1).getAnyRelation());
+        assertEquals(hadMember, doc.getEdge(collectionId, entityId2).getAnyRelation());
         assertDoesNotThrow(() -> doc.getEdge(collectionId, collectionId));
         assertTrue(doc.areAllRelationsMapped());
     }
@@ -836,31 +836,31 @@ public abstract class CpmDocumentTest {
 
         List<INode> ti = doc.getTraversalInformationPart();
         assertEquals(2, ti.size());
-        assertTrue(ti.stream().anyMatch(x -> entity2.equals(x.getElement())));
-        assertTrue(ti.stream().anyMatch(x -> entity4.equals(x.getElement())));
-        INode first = ti.stream().filter(x -> Objects.equals(x.getElement(), entity4)).findAny().get();
-        INode last = ti.stream().filter(x -> Objects.equals(x.getElement(), entity2)).findAny().get();
+        assertTrue(ti.stream().anyMatch(x -> entity2.equals(x.getAnyElement())));
+        assertTrue(ti.stream().anyMatch(x -> entity4.equals(x.getAnyElement())));
+        INode first = ti.stream().filter(x -> Objects.equals(x.getAnyElement(), entity4)).findAny().get();
+        INode last = ti.stream().filter(x -> Objects.equals(x.getAnyElement(), entity2)).findAny().get();
         assertEquals(1, first.getCauseEdges().size());
         assertEquals(0, last.getCauseEdges().size());
-        assertEquals(relation2, first.getCauseEdges().getFirst().getRelation());
+        assertEquals(relation2, first.getCauseEdges().getFirst().getAnyRelation());
         assertSame(last, last.getEffectEdges().getLast().getEffect());
         assertSame(first, first.getCauseEdges().getFirst().getCause());
 
         List<INode> ds = doc.getDomainSpecificPart();
         assertEquals(2, ds.size());
-        assertTrue(ds.stream().anyMatch(x -> entity1.equals(x.getElement())));
-        assertTrue(ds.stream().anyMatch(x -> agent.equals(x.getElement())));
-        first = ds.stream().filter(x -> Objects.equals(x.getElement(), entity1)).findAny().get();
-        last = ds.stream().filter(x -> Objects.equals(x.getElement(), agent)).findAny().get();
+        assertTrue(ds.stream().anyMatch(x -> entity1.equals(x.getAnyElement())));
+        assertTrue(ds.stream().anyMatch(x -> agent.equals(x.getAnyElement())));
+        first = ds.stream().filter(x -> Objects.equals(x.getAnyElement(), entity1)).findAny().get();
+        last = ds.stream().filter(x -> Objects.equals(x.getAnyElement(), agent)).findAny().get();
         assertEquals(0, first.getCauseEdges().size());
         assertEquals(1, last.getCauseEdges().size());
-        assertEquals(relation1, first.getEffectEdges().getFirst().getRelation());
+        assertEquals(relation1, first.getEffectEdges().getFirst().getAnyRelation());
         assertSame(first, first.getEffectEdges().getFirst().getEffect());
         assertSame(last, last.getCauseEdges().getFirst().getCause());
 
         List<IEdge> crossPart = doc.getCrossPartEdges();
         assertEquals(1, crossPart.size());
-        assertEquals(relation3, crossPart.getFirst().getRelation());
+        assertEquals(relation3, crossPart.getFirst().getAnyRelation());
     }
 
 
@@ -896,17 +896,17 @@ public abstract class CpmDocumentTest {
 
         List<INode> precursors = doc.getPrecursors(id1);
         assertEquals(3, precursors.size());
-        assertTrue(precursors.stream().anyMatch(x -> entity2.equals(x.getElement())));
-        assertTrue(precursors.stream().anyMatch(x -> entity3.equals(x.getElement())));
-        assertTrue(precursors.stream().anyMatch(x -> entity4.equals(x.getElement())));
+        assertTrue(precursors.stream().anyMatch(x -> entity2.equals(x.getAnyElement())));
+        assertTrue(precursors.stream().anyMatch(x -> entity3.equals(x.getAnyElement())));
+        assertTrue(precursors.stream().anyMatch(x -> entity4.equals(x.getAnyElement())));
 
         assertEquals(0, doc.getPrecursors(id4).size());
 
         List<INode> successors = doc.getSuccessors(id4);
         assertEquals(3, successors.size());
-        assertTrue(successors.stream().anyMatch(x -> entity1.equals(x.getElement())));
-        assertTrue(successors.stream().anyMatch(x -> entity2.equals(x.getElement())));
-        assertTrue(successors.stream().anyMatch(x -> entity3.equals(x.getElement())));
+        assertTrue(successors.stream().anyMatch(x -> entity1.equals(x.getAnyElement())));
+        assertTrue(successors.stream().anyMatch(x -> entity2.equals(x.getAnyElement())));
+        assertTrue(successors.stream().anyMatch(x -> entity3.equals(x.getAnyElement())));
 
         assertEquals(0, doc.getSuccessors(id1).size());
     }
@@ -1006,9 +1006,9 @@ public abstract class CpmDocumentTest {
         doc.doAction(agent);
         assertTrue(doc.areAllRelationsMapped());
         assertNotNull(doc.getEdge(id1, id2).getEffect());
-        assertEquals(entity, doc.getEdge(id1, id2).getEffect().getElement());
+        assertEquals(entity, doc.getEdge(id1, id2).getEffect().getAnyElement());
         assertNotNull(doc.getEdge(id1, id2).getCause());
-        assertEquals(agent, doc.getEdge(id1, id2).getCause().getElement());
+        assertEquals(agent, doc.getEdge(id1, id2).getCause().getAnyElement());
     }
 
     @Test

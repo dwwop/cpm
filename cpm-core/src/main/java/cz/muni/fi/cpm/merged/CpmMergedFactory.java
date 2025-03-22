@@ -42,13 +42,13 @@ public class CpmMergedFactory implements ICpmFactory {
 
     @Override
     public IEdge newEdge(IEdge edge) {
-        Relation clonedRelation = pF.newStatement(edge.getRelation());
+        Relation clonedRelation = pF.newStatement(edge.getRelations().getFirst());
         return new MergedEdge(clonedRelation);
     }
 
     @Override
     public IEdge newEdgeWithoutCloning(IEdge edge) {
-        return new MergedEdge(edge.getRelation());
+        return new MergedEdge(edge.getRelations().getFirst());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CpmMergedFactory implements ICpmFactory {
     }
 
     public INode newNode(INode node) {
-        Element clonedElement = pF.newStatement(node.getElement());
+        Element clonedElement = pF.newStatement(node.getElements().getFirst());
         return new MergedNode(clonedElement);
     }
 
@@ -67,9 +67,9 @@ public class CpmMergedFactory implements ICpmFactory {
         return list -> list.stream()
                 .map(x -> {
                     if (x instanceof INode n) {
-                        return n.getElement();
+                        return n.getElements().getFirst();
                     }
-                    return ((IEdge) x).getRelation();
+                    return ((IEdge) x).getRelations().getFirst();
                 }).distinct().toList();
     }
 

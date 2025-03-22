@@ -1,14 +1,17 @@
 package cz.muni.fi.cpm.divided.unordered;
 
 import cz.muni.fi.cpm.model.IEdge;
+import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Element;
+import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.StatementOrBundle;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class UnorderedNode implements cz.muni.fi.cpm.model.INode {
+public class UnorderedNode implements INode {
     final List<Element> elements;
     final List<IEdge> effectEdges;
     final List<IEdge> causeEdges;
@@ -25,9 +28,25 @@ public class UnorderedNode implements cz.muni.fi.cpm.model.INode {
         this.causeEdges = new ArrayList<>();
     }
 
+    public UnorderedNode(List<Element> elements) {
+        this.elements = new ArrayList<>(elements);
+        this.effectEdges = new ArrayList<>();
+        this.causeEdges = new ArrayList<>();
+    }
+
     @Override
-    public Element getElement() {
+    public Element getAnyElement() {
         return elements.getFirst();
+    }
+
+    @Override
+    public QualifiedName getId() {
+        return elements.getFirst().getId();
+    }
+
+    @Override
+    public StatementOrBundle.Kind getKind() {
+        return elements.getFirst().getKind();
     }
 
     @Override

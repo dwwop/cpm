@@ -38,7 +38,7 @@ public class CpmMergedDocumentTest extends CpmDocumentTest {
         assertNotNull(doc.getNode(entityId));
         assertTrue(doc.getTraversalInformationPart().isEmpty());
         assertTrue(doc.getForwardConnectors().isEmpty());
-        assertFalse(doc.getNode(entityId).getElement().getType().isEmpty());
-        assertEquals(type, doc.getNode(entityId).getElement().getType().getFirst());
+        assertFalse(doc.getNode(entityId).getAnyElement().getType().isEmpty());
+        assertEquals(type, doc.getNode(entityId).getAnyElement().getType().getFirst());
     }
 }

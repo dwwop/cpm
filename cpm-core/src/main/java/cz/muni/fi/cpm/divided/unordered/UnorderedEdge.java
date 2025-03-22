@@ -1,8 +1,10 @@
 package cz.muni.fi.cpm.divided.unordered;
 
+import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Influence;
 import org.openprovenance.prov.model.Relation;
+import org.openprovenance.prov.model.StatementOrBundle;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +13,7 @@ import java.util.Objects;
 
 import static cz.muni.fi.cpm.constants.CpmExceptionConstants.UNSUPPORTED_DUPLICATE_RELATION;
 
-public class UnorderedEdge implements cz.muni.fi.cpm.model.IEdge {
+public class UnorderedEdge implements IEdge {
     private final List<Relation> relations;
     private INode effect;
     private INode cause;
@@ -26,14 +28,23 @@ public class UnorderedEdge implements cz.muni.fi.cpm.model.IEdge {
         this.relations = new ArrayList<>(List.of(relation));
     }
 
+    public UnorderedEdge(List<Relation> relations) {
+        this.relations = new ArrayList<>(relations);
+    }
+
     @Override
-    public Relation getRelation() {
+    public Relation getAnyRelation() {
         return relations.getFirst();
     }
 
     @Override
     public List<Relation> getRelations() {
         return Collections.unmodifiableList(relations);
+    }
+
+    @Override
+    public StatementOrBundle.Kind getKind() {
+        return relations.getFirst().getKind();
     }
 
     @Override
@@ -70,10 +81,10 @@ public class UnorderedEdge implements cz.muni.fi.cpm.model.IEdge {
         if (o == null || getClass() != o.getClass()) return false;
         UnorderedEdge edge = (UnorderedEdge) o;
         return Objects.equals(relations, edge.relations) &&
-                Objects.equals(effect != null ? effect.getElement() : null,
-                        edge.effect != null ? edge.effect.getElement() : null) &&
-                Objects.equals(cause != null ? cause.getElement() : null,
-                        edge.cause != null ? edge.cause.getElement() : null);
+                Objects.equals(effect != null ? effect.getElements() : null,
+                        edge.effect != null ? edge.effect.getElements() : null) &&
+                Objects.equals(cause != null ? cause.getElements() : null,
+                        edge.cause != null ? edge.cause.getElements() : null);
     }
 
     @Override

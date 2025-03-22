@@ -1,17 +1,18 @@
 package cz.muni.fi.cpm.model;
 
 import org.openprovenance.prov.model.Element;
+import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.StatementOrBundle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public interface INode extends Component {
-    /**
-     * Retrieves merged Element
-     *
-     * @return merged element
-     */
-    Element getElement();
+    Element getAnyElement();
+
+    QualifiedName getId();
+
+    StatementOrBundle.Kind getKind();
 
     /**
      * Retrieves all elements within node

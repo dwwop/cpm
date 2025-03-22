@@ -54,7 +54,7 @@ public class AttributeTIStrategy implements ITIStrategy {
         boolean hasNodeAnyCpmType = hasAnyCpmType(node);
 
         List<INode> generalNodes = node.getEffectEdges().stream()
-                .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getRelation().getKind()))
+                .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getKind()))
                 .map(IEdge::getCause).toList();
 
         if (generalNodes.isEmpty() && hasNodeAnyCpmType) return true;

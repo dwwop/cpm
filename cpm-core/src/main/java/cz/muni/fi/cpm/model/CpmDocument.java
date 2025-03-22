@@ -146,17 +146,17 @@ public class CpmDocument implements StatementAction {
 
 
     private void addEdge(IEdge edge, QualifiedName effect, QualifiedName cause) {
-        if (!StatementOrBundle.Kind.PROV_MEMBERSHIP.equals(edge.getRelation().getKind())) {
+        if (!StatementOrBundle.Kind.PROV_MEMBERSHIP.equals(edge.getKind())) {
             for (IEdge existingEdge : edges) {
-                if (ProvUtilities2.sameEdge(u, edge.getRelation(), existingEdge.getRelation())) {
-                    existingEdge.handleDuplicate(edge.getRelation());
+                if (ProvUtilities2.sameEdge(u, edge.getAnyRelation(), existingEdge.getAnyRelation())) {
+                    existingEdge.handleDuplicate(edge.getAnyRelation());
                     return;
                 }
             }
         }
 
         try {
-            StatementOrBundle.Kind nodeKind = ProvUtilities2.getEffectKind(edge.getRelation().getKind());
+            StatementOrBundle.Kind nodeKind = ProvUtilities2.getEffectKind(edge.getKind());
 
             if (nodes.containsKey(effect) && nodes.get(effect).containsKey(nodeKind)) {
                 Map<StatementOrBundle.Kind, INode> kindToNodeMap = nodes.get(effect);
@@ -174,7 +174,7 @@ public class CpmDocument implements StatementAction {
         }
 
         try {
-            StatementOrBundle.Kind nodeKind = ProvUtilities2.getCauseKind(edge.getRelation().getKind());
+            StatementOrBundle.Kind nodeKind = ProvUtilities2.getCauseKind(edge.getKind());
 
             if (nodes.containsKey(cause) && nodes.get(cause).containsKey(nodeKind)) {
                 Map<StatementOrBundle.Kind, INode> kindToNodeMap = nodes.get(cause);
@@ -724,7 +724,7 @@ public class CpmDocument implements StatementAction {
             return false;
         }
 
-        return removeNode(id, getNode(id).getElement().getKind());
+        return removeNode(id, getNode(id).getKind());
     }
 
     /**
@@ -797,7 +797,7 @@ public class CpmDocument implements StatementAction {
     public List<IEdge> getEdges(QualifiedName id) {
         List<IEdge> result = new ArrayList<>();
         for (IEdge edge : edges) {
-            if (edge.getRelation() instanceof Identifiable relWithId
+            if (edge.getAnyRelation() instanceof Identifiable relWithId
                     && Objects.equals(id, relWithId.getId())
             ) {
                 result.add(edge);
@@ -843,17 +843,17 @@ public class CpmDocument implements StatementAction {
     public List<IEdge> getEdges(QualifiedName effect, QualifiedName cause) {
         List<IEdge> result = new ArrayList<>();
         for (IEdge edge : edges) {
-            if (edge.getRelation() instanceof HadMember hM) {
+            if (edge.getAnyRelation() instanceof HadMember hM) {
                 if (Objects.equals(hM.getCollection(), effect) &&
                         hM.getEntity() != null && hM.getEntity().contains(cause) &&
-                        (edge.getCause() != null && Objects.equals(edge.getCause().getElement().getId(), cause) ||
+                        (edge.getCause() != null && Objects.equals(edge.getCause().getId(), cause) ||
                                 edge.getCause() == null && causeEdges.getOrDefault(cause, Map.of())
                                         .getOrDefault(StatementOrBundle.Kind.PROV_ENTITY, List.of())
                                         .stream().anyMatch(x -> x == edge))) {
                     result.add(edge);
                 }
-            } else if (Objects.equals(u.getCause(edge.getRelation()), cause) &&
-                    Objects.equals(u.getEffect(edge.getRelation()), effect)) {
+            } else if (Objects.equals(u.getCause(edge.getAnyRelation()), cause) &&
+                    Objects.equals(u.getEffect(edge.getAnyRelation()), effect)) {
                 result.add(edge);
             }
         }
@@ -891,9 +891,9 @@ public class CpmDocument implements StatementAction {
             if (edge.getCause() != null) {
                 edge.getCause().getCauseEdges().remove(edge);
             } else {
-                causeEdges.computeIfPresent(u.getCause(edge.getRelation()), (_, nodeKindMap) -> {
+                causeEdges.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, nodeKindMap) -> {
                     try {
-                        nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getRelation().getKind()), (_, edgeList) -> {
+                        nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getKind()), (_, edgeList) -> {
                             edgeList.remove(edge);
                             return edgeList.isEmpty() ? null : edgeList;
                         });
@@ -906,9 +906,9 @@ public class CpmDocument implements StatementAction {
             if (edge.getEffect() != null) {
                 edge.getEffect().getEffectEdges().remove(edge);
             } else {
-                effectEdges.computeIfPresent(u.getEffect(edge.getRelation()), (_, nodeKindMap) -> {
+                effectEdges.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, nodeKindMap) -> {
                     try {
-                        nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getRelation().getKind()), (_, edgeList) -> {
+                        nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getKind()), (_, edgeList) -> {
                             edgeList.remove(edge);
                             return edgeList.isEmpty() ? null : edgeList;
                         });
@@ -918,13 +918,13 @@ public class CpmDocument implements StatementAction {
                 });
             }
 
-            if (StatementOrBundle.Kind.PROV_INFLUENCE.equals(edge.getRelation().getKind())) {
-                causeInfluences.computeIfPresent(u.getCause(edge.getRelation()), (_, causeEdgeMap) -> {
-                    causeEdgeMap.computeIfPresent(u.getEffect(edge.getRelation()), (_, _) -> null);
+            if (StatementOrBundle.Kind.PROV_INFLUENCE.equals(edge.getKind())) {
+                causeInfluences.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, causeEdgeMap) -> {
+                    causeEdgeMap.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, _) -> null);
                     return causeEdgeMap.isEmpty() ? null : causeEdgeMap;
                 });
-                effectInfluences.computeIfPresent(u.getEffect(edge.getRelation()), (_, effectEdgeMap) -> {
-                    effectEdgeMap.computeIfPresent(u.getCause(edge.getRelation()), (_, _) -> null);
+                effectInfluences.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, effectEdgeMap) -> {
+                    effectEdgeMap.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, _) -> null);
                     return effectEdgeMap.isEmpty() ? null : effectEdgeMap;
                 });
             }
@@ -970,7 +970,7 @@ public class CpmDocument implements StatementAction {
             INode current = toProcess.removeFirst();
             result.add(current);
             toProcess.addAll(extractEdges.apply(current).stream()
-                    .filter(x -> StatementOrBundle.Kind.PROV_DERIVATION.equals(x.getRelation().getKind()))
+                    .filter(x -> StatementOrBundle.Kind.PROV_DERIVATION.equals(x.getKind()))
                     .map(extractNode)
                     .filter(x -> CpmUtilities.isConnector(x) && !result.contains(x))
                     .toList());
