@@ -11,6 +11,7 @@ import org.openprovenance.prov.model.extension.QualifiedSpecializationOf;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -621,8 +622,9 @@ public class CpmDocument implements StatementAction {
     }
 
 
-    private List<INode> getFilteredNodes(Function<INode, Boolean> nodeFilter) {
-        Map<INode, INode> clonedNodeMap = listOfNodes.stream().filter(nodeFilter::apply)
+    private List<INode> getFilteredNodes(Predicate<INode> nodeFilter) {
+        Map<INode, INode> clonedNodeMap = listOfNodes.stream()
+                .filter(nodeFilter)
                 .collect(Collectors.toMap(node -> node, cF::newNode));
 
         List<IEdge> edges = clonedNodeMap.keySet().stream()
@@ -647,7 +649,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of cloned TI nodes
      */
     public List<INode> getTraversalInformationPart() {
-        return getFilteredNodes(n -> tiStrategy.belongsToTraversalInformation(n));
+        return getFilteredNodes(tiStrategy::belongsToTraversalInformation);
     }
 
     /**
@@ -656,7 +658,7 @@ public class CpmDocument implements StatementAction {
      * @return a list of cloned domain specific nodes
      */
     public List<INode> getDomainSpecificPart() {
-        return getFilteredNodes(n -> !tiStrategy.belongsToTraversalInformation(n));
+        return getFilteredNodes(Predicate.not(tiStrategy::belongsToTraversalInformation));
     }
 
     /**
