@@ -229,7 +229,7 @@ public class CpmDocument implements StatementAction {
             }
             if (influences.getFirst().getCause() != null && influences.getFirst().getEffect() != null) {
                 // since we can have any situation between no. of effect nodes : no. of cause nodes
-                // we need to get all ca
+                // we need to get all causes and create a new edge between the new effect node and all causes
 
                 // effect - cause actual edges + edges to be added
                 // 1 - 1 1 + 1
@@ -287,7 +287,7 @@ public class CpmDocument implements StatementAction {
             }
             if (influences.getFirst().getCause() != null && influences.getFirst().getEffect() != null) {
                 // since we can have any situation between no. of cause nodes : no. of effect nodes
-                // we need to get all ca
+                // we need to get all effects and create a new edge between the new cause node and all effects
 
                 // effect - cause actual edges + edges to be added
                 // 1 - 1 1 + 1
@@ -989,7 +989,6 @@ public class CpmDocument implements StatementAction {
      * @return a list of precursor nodes, or {@code null} the node is not a connector or is {@code null}
      */
     public List<INode> getPrecursors(QualifiedName id) {
-        // look at david rypar thesis
         return getRelatedConnectors(id, IEdge::getEffect, INode::getCauseEdges);
     }
 
