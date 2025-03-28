@@ -37,16 +37,16 @@ public class ConnectorTest {
     public void toStatements_withExternalId_returnsCorrectExternalId() {
         TestConnector connector = new TestConnector();
         connector.setId(new QualifiedName("uri", "connectorExample", "ex"));
-        QualifiedName externalId = new QualifiedName("uri", "externalIdExample", "ex");
+        String externalId = "externalIdExample";
         connector.setExternalId(externalId);
 
         List<Statement> statements = connector.toStatements(new CpmProvFactory());
         Entity entity = (Entity) statements.getFirst();
 
         assertNotNull(entity.getOther());
-        assertEquals(1, entity.getOther().size());
-        assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getFirst().getElementName().getLocalPart());
-        assertEquals(externalId, entity.getOther().getFirst().getValue());
+        assertInstanceOf(LangString.class, entity.getOther().getLast().getValue());
+        assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getLast().getElementName().getLocalPart());
+        assertEquals(externalId, ((LangString) entity.getOther().getLast().getValue()).getValue());
     }
 
     @Test

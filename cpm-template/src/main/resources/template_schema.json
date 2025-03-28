@@ -82,8 +82,7 @@
             "required": true
           },
           "externalId": {
-            "type": "string",
-            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            "type": "string"
           },
           "referencedBundleId": {
             "type": "string",
@@ -146,8 +145,7 @@
             "required": true
           },
           "externalId": {
-            "type": "string",
-            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            "type": "string"
           },
           "referencedBundleId": {
             "type": "string",
@@ -239,8 +237,7 @@
             "required": true
           },
           "externalId": {
-            "type": "string",
-            "pattern": "^[A-Za-z0-9_]+:(.*)$"
+            "type": "string"
           },
           "externalIdType": {
             "type": "string"

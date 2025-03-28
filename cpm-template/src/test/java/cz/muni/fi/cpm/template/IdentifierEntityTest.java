@@ -44,7 +44,7 @@ public class IdentifierEntityTest {
     public void toStatements_withExternalId_returnsCorrectExternalId() {
         IdentifierEntity ie = new IdentifierEntity();
         ie.setId(new QualifiedName("uri", "example", "ex"));
-        QualifiedName qN = new QualifiedName("uri", "externalId", "ex");
+        String qN = "externalId";
         ie.setExternalId(qN);
 
         List<Statement> statements = ie.toStatements(new CpmProvFactory());
@@ -54,7 +54,7 @@ public class IdentifierEntityTest {
         assertNotNull(entity.getOther());
         assertEquals(1, entity.getOther().size());
         assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getFirst().getElementName().getLocalPart());
-        assertEquals(qN, entity.getOther().getFirst().getValue());
+        assertEquals(qN, ((LangString) entity.getOther().getFirst().getValue()).getValue());
     }
 
 

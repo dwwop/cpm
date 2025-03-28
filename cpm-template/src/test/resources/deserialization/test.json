@@ -49,7 +49,7 @@
   "forwardConnectors": [
     {
       "id": "ex:forwardConnector1",
-      "externalId": "ex:external2",
+      "externalId": "externalId1",
       "referencedBundleId": "ex:referencedBundle2",
       "referencedMetaBundleId": "ex:referencedMeta2",
       "referencedBundleHashValue": {

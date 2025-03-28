@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class Connector implements ToStatements {
     @JsonProperty(required = true)
     private QualifiedName id;
-    private QualifiedName externalId;
+    private String externalId;
     private QualifiedName referencedBundleId;
     private QualifiedName referencedMetaBundleId;
     private Object referencedBundleHashValue;
@@ -40,11 +40,11 @@ public abstract class Connector implements ToStatements {
         this.id = id;
     }
 
-    public QualifiedName getExternalId() {
+    public String getExternalId() {
         return externalId;
     }
 
-    public void setExternalId(QualifiedName externalId) {
+    public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 
@@ -105,7 +105,7 @@ public abstract class Connector implements ToStatements {
 
 
         if (externalId != null) {
-            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, externalId));
+            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, externalId, cF.getProvFactory().getName().XSD_STRING));
         }
 
         if (referencedBundleId != null) {

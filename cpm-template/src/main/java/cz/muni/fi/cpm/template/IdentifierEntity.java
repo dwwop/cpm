@@ -15,7 +15,7 @@ import java.util.List;
 public class IdentifierEntity implements ToStatements {
     @JsonProperty(required = true)
     private QualifiedName id;
-    private QualifiedName externalId;
+    private String externalId;
     private String externalIdType;
     private String comment;
 
@@ -27,12 +27,14 @@ public class IdentifierEntity implements ToStatements {
         this.id = id;
     }
 
-    public QualifiedName getExternalId() {
-        return externalId;
+    public IdentifierEntity(String externalIdType, String externalId, QualifiedName id) {
+        this.externalIdType = externalIdType;
+        this.externalId = externalId;
+        this.id = id;
     }
 
-    public void setExternalId(QualifiedName externalId) {
-        this.externalId = externalId;
+    public String getExternalId() {
+        return externalId;
     }
 
     public String getExternalIdType() {
@@ -51,11 +53,18 @@ public class IdentifierEntity implements ToStatements {
         this.comment = comment;
     }
 
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+    public IdentifierEntity() {
+    }
+
     public List<Statement> toStatements(ICpmProvFactory cF) {
         List<Attribute> attributes = new ArrayList<>();
 
         if (externalId != null) {
-            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, externalId));
+            attributes.add(cF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, externalId, cF.getProvFactory().getName().XSD_STRING));
         }
 
         if (externalIdType != null) {
@@ -67,14 +76,5 @@ public class IdentifierEntity implements ToStatements {
         }
 
         return Collections.singletonList(cF.newCpmEntity(id, CpmType.IDENTIFIER, attributes));
-    }
-
-    public IdentifierEntity() {
-    }
-
-    public IdentifierEntity(String externalIdType, QualifiedName externalId, QualifiedName id) {
-        this.externalIdType = externalIdType;
-        this.externalId = externalId;
-        this.id = id;
     }
 }
