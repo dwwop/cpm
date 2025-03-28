@@ -1039,7 +1039,7 @@ public abstract class CpmDocumentTest {
 
 
     @Test
-    public void removeEdge_mappedRelation_returnsTrue() {
+    public void removeEdges_mappedRelation_returnsTrue() {
         QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
         Entity entity = cPF.getProvFactory().newEntity(id1);
 
@@ -1053,7 +1053,7 @@ public abstract class CpmDocumentTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1), List.of(), bundleId, pF, cPF, cF);
 
-        assertTrue(doc.removeEdge(rel));
+        assertTrue(doc.removeEdges(rel));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.areAllRelationsMapped());
@@ -1065,7 +1065,7 @@ public abstract class CpmDocumentTest {
     }
 
     @Test
-    public void removeEdge_unmappedRelationCause_returnsTrue() {
+    public void removeEdges_unmappedRelationCause_returnsTrue() {
         QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
         Entity entity = cPF.getProvFactory().newEntity(id1);
 
@@ -1079,7 +1079,7 @@ public abstract class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, relation1), List.of(), bundleId, pF, cPF, cF);
 
         assertFalse(doc.areAllRelationsMapped());
-        assertTrue(doc.removeEdge(rel));
+        assertTrue(doc.removeEdges(rel));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.areAllRelationsMapped());
@@ -1092,7 +1092,7 @@ public abstract class CpmDocumentTest {
 
 
     @Test
-    public void removeEdge_unmappedRelationEffect_returnsTrue() {
+    public void removeEdges_unmappedRelationEffect_returnsTrue() {
         QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
 
         QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
@@ -1106,7 +1106,7 @@ public abstract class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(List.of(), List.of(agent, relation1), List.of(), bundleId, pF, cPF, cF);
 
         assertFalse(doc.areAllRelationsMapped());
-        assertTrue(doc.removeEdge(rel));
+        assertTrue(doc.removeEdges(rel));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.areAllRelationsMapped());
@@ -1119,7 +1119,7 @@ public abstract class CpmDocumentTest {
 
 
     @Test
-    public void removeEdge_nonExistentId_returnsFalse() {
+    public void removeEdges_nonExistentId_returnsFalse() {
         QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
 
         QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
@@ -1131,8 +1131,8 @@ public abstract class CpmDocumentTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(relation1), List.of(), bundleId, pF, cPF, cF);
 
-        assertFalse(doc.removeEdge(cPF.newCpmQualifiedName("nonExistentId")));
-        assertFalse(doc.removeEdge(cPF.newCpmQualifiedName("nonExistentId1"), cPF.newCpmQualifiedName("nonExistentId2")));
+        assertFalse(doc.removeEdges(cPF.newCpmQualifiedName("nonExistentId")));
+        assertFalse(doc.removeEdges(cPF.newCpmQualifiedName("nonExistentId1"), cPF.newCpmQualifiedName("nonExistentId2")));
     }
 
     @Test
@@ -1482,7 +1482,7 @@ public abstract class CpmDocumentTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(inf), List.of(), bundleId, pF, cPF, cF);
 
-        assertTrue(doc.removeEdge(rel));
+        assertTrue(doc.removeEdges(rel));
 
         doc.doAction(cause);
         assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());

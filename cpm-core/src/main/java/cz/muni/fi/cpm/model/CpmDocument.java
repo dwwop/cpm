@@ -886,7 +886,7 @@ public class CpmDocument implements StatementAction {
         return edges.getFirst();
     }
 
-    private boolean removeEdge(List<IEdge> edgesToRemove) {
+    private boolean removeEdges(List<IEdge> edgesToRemove) {
         if (edgesToRemove == null || edgesToRemove.isEmpty()) {
             return false;
         }
@@ -943,8 +943,8 @@ public class CpmDocument implements StatementAction {
      * @param id the unique identifier of the edge to be removed
      * @return {@code true} if the edge was successfully removed, {@code false} otherwise
      */
-    public boolean removeEdge(QualifiedName id) {
-        return removeEdge(getEdges(id));
+    public boolean removeEdges(QualifiedName id) {
+        return removeEdges(getEdges(id));
     }
 
     /**
@@ -954,8 +954,8 @@ public class CpmDocument implements StatementAction {
      * @param cause  the identifier of the cause node
      * @return {@code true} if the edge was successfully removed, {@code false} otherwise
      */
-    public boolean removeEdge(QualifiedName effect, QualifiedName cause) {
-        return removeEdge(getEdges(effect, cause));
+    public boolean removeEdges(QualifiedName effect, QualifiedName cause) {
+        return removeEdges(getEdges(effect, cause));
     }
 
     private List<INode> getRelatedConnectors(QualifiedName id, Function<IEdge, INode> extractNode, Function<INode, List<IEdge>> extractEdges) {
