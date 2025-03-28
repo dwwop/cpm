@@ -10,6 +10,7 @@ import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
 import cz.muni.fi.cpm.model.ICpmFactory;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
+import cz.muni.fi.cpm.util.GraphvizChecker;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.interop.InteropFramework;
@@ -66,7 +67,9 @@ public class CpmMouTest {
             Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
             String fileName = TEST_RESOURCES + MOU_FOLDER + ACQUISITION + File.separator + bundle.getId().getLocalPart().replace(":", "-");
             interop.writeDocument(fileName + ".provn", doc);
-            interop.writeDocument(fileName + ".svg", doc);
+            if (GraphvizChecker.isGraphvizInstalled()) {
+                interop.writeDocument(fileName + ".svg", doc);
+            }
         }
     }
 
@@ -95,7 +98,9 @@ public class CpmMouTest {
             Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
             String fileName = TEST_RESOURCES + MOU_FOLDER + STORE + File.separator + bundle.getId().getLocalPart().replace(":", "-");
             interop.writeDocument(fileName + ".provn", doc);
-            interop.writeDocument(fileName + ".svg", doc);
+            if (GraphvizChecker.isGraphvizInstalled()) {
+                interop.writeDocument(fileName + ".svg", doc);
+            }
         }
     }
 

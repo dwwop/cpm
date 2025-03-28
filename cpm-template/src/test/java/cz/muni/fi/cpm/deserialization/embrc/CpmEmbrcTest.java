@@ -10,6 +10,7 @@ import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
 import cz.muni.fi.cpm.model.ICpmFactory;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
+import cz.muni.fi.cpm.util.GraphvizChecker;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -85,7 +86,9 @@ public class CpmEmbrcTest {
         try (InputStream inputStream = new FileInputStream(outputFile + ".jsonld")) {
             InteropFramework interop = new InteropFramework();
             Document doc = interop.readDocument(inputStream, Formats.ProvFormat.JSONLD);
-            interop.writeDocument(outputFile + ".svg", doc);
+            if (GraphvizChecker.isGraphvizInstalled()) {
+                interop.writeDocument(outputFile + ".svg", doc);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -106,7 +109,9 @@ public class CpmEmbrcTest {
 
             String fileName = TEST_RESOURCES + EMBRC_FOLDER + datasetFolder + "Dataset" + datasetNum + "_cpm";
             interop.writeDocument(fileName + ".provn", doc);
-            interop.writeDocument(fileName + ".svg", doc);
+            if (GraphvizChecker.isGraphvizInstalled()) {
+                interop.writeDocument(fileName + ".svg", doc);
+            }
 
             CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
             assertEquals(tiCount, cpmDoc.getTraversalInformationPart().size());
