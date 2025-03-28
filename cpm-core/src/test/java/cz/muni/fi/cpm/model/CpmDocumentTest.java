@@ -1168,6 +1168,10 @@ public abstract class CpmDocumentTest {
         assertNotNull(doc.getEdge(id1, id2));
         assertEquals(doc.getNode(id1), doc.getEdge(id1, id2).getEffect());
         assertFalse(doc.areAllRelationsMapped());
+
+        QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
+        assertTrue(doc.setNewNodeIdentifier(id1, StatementOrBundle.Kind.PROV_ENTITY, newId1));
+        assertNotNull(doc.getEdge(id1, id2));
     }
 
 
@@ -1343,6 +1347,10 @@ public abstract class CpmDocumentTest {
         assertEquals(1, doc.getNode(id1, StatementOrBundle.Kind.PROV_ENTITY).getEffectEdges().size());
         assertEquals(1, doc.getNode(id1, StatementOrBundle.Kind.PROV_AGENT).getEffectEdges().size());
         assertTrue(doc.areAllRelationsMapped());
+
+        QualifiedName newId2 = cPF.newCpmQualifiedName("newQN2");
+        assertTrue(doc.setNewNodeIdentifier(id2, StatementOrBundle.Kind.PROV_ENTITY, newId2));
+        assertEquals(2, doc.getEdges(id1, id2).size());
     }
 
     @Test
@@ -1424,6 +1432,10 @@ public abstract class CpmDocumentTest {
         assertEquals(2, doc.getNode(id2, StatementOrBundle.Kind.PROV_AGENT).getCauseEdges().size());
         assertEquals(2, doc.getNode(id1, StatementOrBundle.Kind.PROV_AGENT).getEffectEdges().size());
         assertTrue(doc.areAllRelationsMapped());
+
+        QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
+        assertTrue(doc.setNewNodeIdentifier(id1, StatementOrBundle.Kind.PROV_ENTITY, newId1));
+        assertEquals(2, doc.getEdges(id1, id2).size());
     }
 
 
@@ -1439,7 +1451,6 @@ public abstract class CpmDocumentTest {
         Agent agent2 = pF.newAgent(id2);
         Activity activity1 = pF.newActivity(id1);
         Activity activity2 = pF.newActivity(id2);
-
 
         QualifiedName rel = cPF.newCpmQualifiedName("rel");
         WasInfluencedBy inf = pF.newWasInfluencedBy(rel, id1, id2);
@@ -1463,6 +1474,12 @@ public abstract class CpmDocumentTest {
         assertEquals(3, doc.getNode(id2, StatementOrBundle.Kind.PROV_AGENT).getCauseEdges().size());
         assertEquals(3, doc.getNode(id1, StatementOrBundle.Kind.PROV_ACTIVITY).getEffectEdges().size());
         assertEquals(3, doc.getNode(id2, StatementOrBundle.Kind.PROV_ACTIVITY).getCauseEdges().size());
+        assertTrue(doc.areAllRelationsMapped());
+
+        QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
+
+        assertTrue(doc.setNewNodeIdentifier(id1, StatementOrBundle.Kind.PROV_ENTITY, newId1));
+        assertEquals(6, doc.getEdges(id1, id2).size());
         assertTrue(doc.areAllRelationsMapped());
     }
 
@@ -1492,4 +1509,42 @@ public abstract class CpmDocumentTest {
         assertTrue(doc.getNode(id2).getEffectEdges().isEmpty());
         assertNull(doc.getEdge(id1, id2));
     }
+
+
+    @Test
+    public void setNodeIdentifier_nodeWithRelations_returnsTrue() {
+        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+        Entity entity = cPF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+        Agent agent = cPF.getProvFactory().newAgent(id2);
+
+        QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
+
+        Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
+        Relation relation2 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), newId1, id2);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1, relation2), List.of(), bundleId, pF, cPF, cF);
+
+        assertTrue(doc.setNewNodeIdentifier(id1, StatementOrBundle.Kind.PROV_ENTITY, newId1));
+
+        assertTrue(doc.getNodes(id1).isEmpty());
+        assertFalse(doc.areAllRelationsMapped());
+        assertNull(doc.getEdge(id1, id2).getEffect());
+
+        assertNotNull(doc.getNode(newId1));
+        assertNotNull(doc.getEdge(newId1, id2).getEffect());
+        assertEquals(2, doc.getDomainSpecificPart().size());
+
+        doc.doAction(entity);
+        assertTrue(doc.areAllRelationsMapped());
+        assertNotNull(doc.getEdge(id1, id2).getEffect());
+        assertEquals(entity, doc.getEdge(id1, id2).getEffect().getAnyElement());
+        assertNotNull(doc.getEdge(id1, id2).getCause());
+        assertEquals(agent, doc.getEdge(id1, id2).getCause().getAnyElement());
+        assertEquals(3, doc.getDomainSpecificPart().size());
+    }
+
 }

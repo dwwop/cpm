@@ -10,6 +10,7 @@ import org.openprovenance.prov.model.extension.QualifiedHadMember;
 import org.openprovenance.prov.model.extension.QualifiedSpecializationOf;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -322,17 +323,26 @@ public class CpmDocument implements StatementAction {
         QualifiedName id = element.getId();
         StatementOrBundle.Kind kind = element.getKind();
 
-        if (nodes.containsKey(id)) {
-            INode existingNode = nodes.get(id).get(kind);
-            if (existingNode != null) {
-                existingNode.handleDuplicate(element);
-                return;
-            }
+        INode existingNode = getNode(id, kind);
+        if (existingNode != null) {
+            existingNode.handleDuplicate(element);
+            return;
         }
 
+        addCompletelyNewNode(id, kind, newNode);
+    }
+
+    private void addCompletelyNewNode(QualifiedName id, StatementOrBundle.Kind kind, INode newNode) {
         nodes.computeIfAbsent(id, _ -> new HashMap<>())
                 .putIfAbsent(kind, newNode);
 
+        processCauseAndEffectEdges(id, kind, newNode);
+
+        processCauseInfluence(id, newNode);
+        processEffectInfluence(id, newNode);
+    }
+
+    private void processCauseAndEffectEdges(QualifiedName id, StatementOrBundle.Kind kind, INode newNode) {
         if (effectEdges.containsKey(id) && effectEdges.get(id).containsKey(kind)) {
             List<IEdge> edgesToUpdate = effectEdges.get(id).get(kind);
             for (IEdge edge : edgesToUpdate) {
@@ -356,9 +366,6 @@ public class CpmDocument implements StatementAction {
                 causeEdges.remove(id);
             }
         }
-
-        processCauseInfluence(id, newNode);
-        processEffectInfluence(id, newNode);
     }
 
     @Override
@@ -1010,6 +1017,77 @@ public class CpmDocument implements StatementAction {
     public void setBundleId(QualifiedName id) {
         this.bundleId = id;
     }
+
+    public boolean setNewNodeIdentifier(QualifiedName oldIdentifier, StatementOrBundle.Kind kind, QualifiedName newIdentifier) {
+        INode node = getNode(oldIdentifier, kind);
+        if (node == null) {
+            return false;
+        }
+
+        nodes.computeIfPresent(oldIdentifier, (_, kindNodeMap) -> {
+            kindNodeMap.computeIfPresent(kind, (_, _) -> null);
+            return kindNodeMap.isEmpty() ? null : kindNodeMap;
+        });
+
+        resetInfluences(node.getEffectEdges(), node.getId(), effectInfluences, causeInfluences, u::getCause, IEdge::setEffect);
+        resetInfluences(node.getCauseEdges(), node.getId(), causeInfluences, effectInfluences, u::getEffect, IEdge::setCause);
+
+        resetNonInfluenceEdges(node, node.getEffectEdges(), effectEdges, IEdge::setEffect);
+        resetNonInfluenceEdges(node, node.getCauseEdges(), causeEdges, IEdge::setCause);
+
+        node.getElements().forEach(e -> e.setId(newIdentifier));
+
+        INode existingNode = getNode(newIdentifier, kind);
+        if (existingNode != null) {
+            node.getElements().forEach(existingNode::handleDuplicate);
+            return true;
+        }
+
+        addCompletelyNewNode(newIdentifier, kind, node);
+
+        return true;
+    }
+
+    private void resetNonInfluenceEdges(INode node, List<IEdge> nodeEdges, Map<QualifiedName, Map<StatementOrBundle.Kind, List<IEdge>>> documentEdges, BiConsumer<IEdge, INode> edgeSetter) {
+        List<IEdge> oldEdges = nodeEdges.stream()
+                .filter(e -> e.getKind() != StatementOrBundle.Kind.PROV_INFLUENCE)
+                .toList();
+
+        documentEdges.computeIfAbsent(node.getId(), _ -> new HashMap<>())
+                .computeIfAbsent(node.getKind(), _ -> new ArrayList<>())
+                .addAll(oldEdges);
+
+        oldEdges.forEach(edge -> edgeSetter.accept(edge, null));
+        nodeEdges.clear();
+    }
+
+
+    private void resetInfluences(List<IEdge> nodeEdges, QualifiedName nodeIdentifier,
+                                 Map<QualifiedName, Map<QualifiedName, List<IEdge>>> documentInfluences,
+                                 Map<QualifiedName, Map<QualifiedName, List<IEdge>>> documentOtherInfluences,
+                                 Function<Relation, QualifiedName> extractOtherId,
+                                 BiConsumer<IEdge, INode> edgeSetter) {
+
+        Map<QualifiedName, List<IEdge>> influences = nodeEdges.stream()
+                .filter(x -> x.getKind() == StatementOrBundle.Kind.PROV_INFLUENCE)
+                .collect(Collectors.groupingBy(e -> extractOtherId.apply(e.getAnyRelation())));
+
+        for (QualifiedName otherId : influences.keySet()) {
+            List<IEdge> oldInfluences = influences.get(otherId);
+
+            if (oldInfluences.size() == documentInfluences.get(nodeIdentifier).get(otherId).size()) {
+                oldInfluences.forEach(e -> edgeSetter.accept(e, null));
+                return;
+            }
+
+            oldInfluences.forEach(e -> {
+                documentInfluences.get(nodeIdentifier).get(otherId).remove(e);
+                documentOtherInfluences.get(otherId).get(nodeIdentifier).remove(e);
+                edges.remove(e);
+            });
+        }
+    }
+
 
     @Override
     public boolean equals(Object o) {
