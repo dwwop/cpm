@@ -759,7 +759,7 @@ public class CpmDocument implements StatementAction {
      * Updates the identifier of an existing node, replacing the old identifier with a new one for each element in the node.
      * If the new identifier is {@code null} or the same as the old one, no changes are made.
      * If a node with the new identifier already exists, elements from the old node are merged into it.
-     * Updating node identifier does not update cause and effect identifiers in edges utilizing this identifier
+     * Updating node identifier does not update cause and effect identifiers in edges relations this identifier
      *
      * @param oldIdentifier the current identifier of the node
      * @param kind          the kind of the node
@@ -816,9 +816,7 @@ public class CpmDocument implements StatementAction {
 
     /**
      * Retrieves a single {@link INode} associated with the given {@link QualifiedName}, if exactly one exists.
-     *
-     * <p>This method should be used when exactly one node is expected. If multiple nodes exist for the given ID,
-     * an {@link IllegalStateException} is thrown. Use {@link #getNodes(QualifiedName)} to retrieve all nodes.</p>
+     * If multiple nodes are found, an {@link IllegalStateException} is thrown.
      *
      * @param id the {@link QualifiedName} to look up
      * @return the single {@link INode} for the given ID, or {@code null} if none exists
@@ -843,7 +841,7 @@ public class CpmDocument implements StatementAction {
      */
     public INode getNode(Element element) {
         INode node = getNode(element.getId(), element.getKind());
-        if (node != null && node.getElements().contains(element)) {
+        if (node != null && node.getElements().stream().anyMatch(e -> e == element)) {
             return node;
         }
         return null;
@@ -903,7 +901,6 @@ public class CpmDocument implements StatementAction {
 
     /**
      * Retrieves a single edge associated with a given relation identifier.
-     * This method searches for an edge whose relation ID matches the specified {@link QualifiedName}.
      * If multiple edges are found, an {@link IllegalStateException} is thrown.
      *
      * @param id the identifier of the relation to search for
@@ -925,8 +922,26 @@ public class CpmDocument implements StatementAction {
 
 
     /**
+     * Retrieves a single edge associated with a given relation identifier and kind.
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     *
+     * @param id   the identifier of the relation to search for
+     * @param kind the {@link StatementOrBundle.Kind} to look up
+     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     * @throws IllegalStateException if multiple edges are found with the same identifier
+     */
+    public IEdge getEdge(QualifiedName id, StatementOrBundle.Kind kind) {
+        IEdge edge = getEdge(id);
+        if (edge != null && Objects.equals(edge.getKind(), kind)) {
+            return edge;
+        }
+
+        return null;
+    }
+
+
+    /**
      * Retrieves all edges associated with a given relation identifier.
-     * This method searches through the list of edges and returns those whose relation ID matches the specified {@link QualifiedName}.
      *
      * @param id the identifier of the relation to search for
      * @return a list of {@link IEdge} objects matching the specified identifier, or an empty list if none are found
@@ -935,8 +950,7 @@ public class CpmDocument implements StatementAction {
         List<IEdge> result = new ArrayList<>();
         for (IEdge edge : edges) {
             if (edge.getAnyRelation() instanceof Identifiable relWithId
-                    && Objects.equals(id, relWithId.getId())
-            ) {
+                    && Objects.equals(id, relWithId.getId())) {
                 result.add(edge);
             }
         }
@@ -945,9 +959,7 @@ public class CpmDocument implements StatementAction {
 
 
     /**
-     * Retrieves a single edge associated with a given relation identifier.
-     * This method searches for an edge whose relation ID matches the specified {@link QualifiedName} and
-     * {@link StatementOrBundle.Kind}
+     * Retrieves all edges associated with a given relation identifier and kind
      *
      * @param id   the identifier of the relation to search for
      * @param kind the {@link StatementOrBundle.Kind} to look up
@@ -968,7 +980,6 @@ public class CpmDocument implements StatementAction {
 
     /**
      * Retrieves a single edge that matches the specified effect and cause identifiers.
-     * This method searches for an edge whose effect and cause match the specified {@link QualifiedName} values.
      * If multiple edges are found, an {@link IllegalStateException} is thrown.
      *
      * @param effect the identifier of the effect
@@ -987,6 +998,26 @@ public class CpmDocument implements StatementAction {
         }
 
         return edges.getFirst();
+    }
+
+    /**
+     * Retrieves a single edge that matches the specified kind, effect and cause identifiers.
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     *
+     * @param effect the identifier of the effect
+     * @param cause  the identifier of the cause
+     * @param kind   the {@link StatementOrBundle.Kind} to look up
+     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     * @throws IllegalStateException if multiple edges are found between the specified effect and cause
+     */
+    public IEdge getEdge(QualifiedName effect, QualifiedName cause, StatementOrBundle.Kind kind) {
+        IEdge edge = getEdge(effect, cause);
+
+        if (edge != null && Objects.equals(kind, edge.getKind())) {
+            return edge;
+        }
+
+        return null;
     }
 
 
@@ -1047,7 +1078,7 @@ public class CpmDocument implements StatementAction {
     public List<IEdge> getEdges(Relation relation) {
         List<IEdge> edges = getEdges(u.getEffect(relation), u.getCause(relation));
 
-        return edges.stream().filter(e -> e.getRelations().contains(relation)).toList();
+        return edges.stream().filter(e -> e.getRelations().stream().anyMatch(r -> r == relation)).toList();
     }
 
     /**
@@ -1064,61 +1095,102 @@ public class CpmDocument implements StatementAction {
         if (edgesToRemove == null || edgesToRemove.isEmpty()) {
             return false;
         }
-        for (IEdge edge : edgesToRemove) {
-            if (edge.getCause() != null) {
-                edge.getCause().getCauseEdges().remove(edge);
-            } else {
-                causeEdges.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, nodeKindMap) -> {
-                    try {
-                        nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getKind()), (_, edgeList) -> {
-                            edgeList.remove(edge);
-                            return edgeList.isEmpty() ? null : edgeList;
-                        });
-                    } catch (NoSpecificKind ignored) {
-                    }
-                    return nodeKindMap.isEmpty() ? null : nodeKindMap;
-                });
-            }
 
-            if (edge.getEffect() != null) {
-                edge.getEffect().getEffectEdges().remove(edge);
-            } else {
-                effectEdges.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, nodeKindMap) -> {
-                    try {
-                        nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getKind()), (_, edgeList) -> {
-                            edgeList.remove(edge);
-                            return edgeList.isEmpty() ? null : edgeList;
-                        });
-                    } catch (NoSpecificKind ignored) {
-                    }
-                    return nodeKindMap.isEmpty() ? null : nodeKindMap;
-                });
-            }
+        edgesToRemove.forEach(edges::remove);
+        return true;
+    }
 
-            if (StatementOrBundle.Kind.PROV_INFLUENCE.equals(edge.getKind())) {
-                causeInfluences.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, causeEdgeMap) -> {
-                    causeEdgeMap.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, _) -> null);
-                    return causeEdgeMap.isEmpty() ? null : causeEdgeMap;
-                });
-                effectInfluences.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, effectEdgeMap) -> {
-                    effectEdgeMap.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, _) -> null);
-                    return effectEdgeMap.isEmpty() ? null : effectEdgeMap;
-                });
-            }
-
-            edges.remove(edge);
+    private boolean removeEdge(IEdge edge) {
+        if (edge.getCause() != null) {
+            edge.getCause().getCauseEdges().remove(edge);
+        } else {
+            causeEdges.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, nodeKindMap) -> {
+                try {
+                    nodeKindMap.computeIfPresent(ProvUtilities2.getCauseKind(edge.getKind()), (_, edgeList) -> {
+                        edgeList.remove(edge);
+                        return edgeList.isEmpty() ? null : edgeList;
+                    });
+                } catch (NoSpecificKind ignored) {
+                }
+                return nodeKindMap.isEmpty() ? null : nodeKindMap;
+            });
         }
+
+        if (edge.getEffect() != null) {
+            edge.getEffect().getEffectEdges().remove(edge);
+        } else {
+            effectEdges.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, nodeKindMap) -> {
+                try {
+                    nodeKindMap.computeIfPresent(ProvUtilities2.getEffectKind(edge.getKind()), (_, edgeList) -> {
+                        edgeList.remove(edge);
+                        return edgeList.isEmpty() ? null : edgeList;
+                    });
+                } catch (NoSpecificKind ignored) {
+                }
+                return nodeKindMap.isEmpty() ? null : nodeKindMap;
+            });
+        }
+
+        if (StatementOrBundle.Kind.PROV_INFLUENCE.equals(edge.getKind())) {
+            causeInfluences.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, causeEdgeMap) -> {
+                causeEdgeMap.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, _) -> null);
+                return causeEdgeMap.isEmpty() ? null : causeEdgeMap;
+            });
+            effectInfluences.computeIfPresent(u.getEffect(edge.getAnyRelation()), (_, effectEdgeMap) -> {
+                effectEdgeMap.computeIfPresent(u.getCause(edge.getAnyRelation()), (_, _) -> null);
+                return effectEdgeMap.isEmpty() ? null : effectEdgeMap;
+            });
+        }
+
+        edges.remove(edge);
+
         return true;
     }
 
     /**
-     * Removes all edges identified by its unique ID.
+     * Removes a single edge identified by the specified identifier.
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     *
+     * @param id the unique identifier of the edge to be removed
+     * @return {@code true} if the edge was successfully removed, {@code false} otherwise
+     * @throws IllegalStateException if multiple edges are found between the specified effect and cause
+     */
+    public boolean removeEdge(QualifiedName id) {
+        return removeEdge(getEdge(id));
+    }
+
+    /**
+     * Removes a single edge identified by the specified identifier and kind
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     *
+     * @param id   the unique identifier of the edge to be removed
+     * @param kind the {@link StatementOrBundle.Kind} to look up
+     * @return {@code true} if the edge was successfully removed, {@code false} otherwise
+     * @throws IllegalStateException if multiple edges are found between the specified effect and cause
+     */
+    public boolean removeEdge(QualifiedName id, StatementOrBundle.Kind kind) {
+        return removeEdge(getEdge(id, kind));
+    }
+
+    /**
+     * Removes all edges identified by the specified identifier.
      *
      * @param id the unique identifier of the edge to be removed
      * @return {@code true} if the edge was successfully removed, {@code false} otherwise
      */
     public boolean removeEdges(QualifiedName id) {
         return removeEdges(getEdges(id));
+    }
+
+    /**
+     * Removes all edges identified by the specified identifier and kind.
+     *
+     * @param id   the unique identifier of the edge to be removed
+     * @param kind the {@link StatementOrBundle.Kind} to look up
+     * @return {@code true} if the edge was successfully removed, {@code false} otherwise
+     */
+    public boolean removeEdges(QualifiedName id, StatementOrBundle.Kind kind) {
+        return removeEdges(getEdges(id, kind));
     }
 
     /**
@@ -1131,6 +1203,48 @@ public class CpmDocument implements StatementAction {
     public boolean removeEdges(QualifiedName effect, QualifiedName cause) {
         return removeEdges(getEdges(effect, cause));
     }
+
+    /**
+     * Removes an edge based on its kind, effect and cause identifiers.
+     *
+     * @param effect the identifier of the effect node
+     * @param cause  the identifier of the cause node
+     * @param kind   the {@link StatementOrBundle.Kind} to look up
+     * @return {@code true} if the edge was successfully removed, {@code false} otherwise
+     */
+    public boolean removeEdges(QualifiedName effect, QualifiedName cause, StatementOrBundle.Kind kind) {
+        return removeEdges(getEdges(effect, cause, kind));
+    }
+
+
+    /**
+     * Removes the specified relation from the every edge it is present in
+     * The relation is removed only if it is the exact same object (using {@code ==} comparison),
+     * not just an equal object according to {@code equals()}.
+     * If the relation is the only one in the edge, the edge is removed entirely
+     *
+     * @param relation the relation to remove
+     * @return {@code true} if the relation was successfully removed,
+     * {@code false} if no edges containing the relation was not found
+     */
+    public boolean removeRelation(Relation relation) {
+        List<IEdge> edges = getEdges(relation);
+
+        if (edges.isEmpty()) {
+            return false;
+        }
+
+        boolean removed = false;
+        for (IEdge edge : edges) {
+            if (edge.getRelations().size() == 1 && edge.getAnyRelation() == relation) {
+                return removeEdges(u.getEffect(relation), u.getCause(relation), relation.getKind());
+            }
+
+            removed = removed || edge.remove(relation);
+        }
+        return removed;
+    }
+
 
     private List<INode> getRelatedConnectors(QualifiedName id, Function<IEdge, INode> extractNode, Function<INode, List<IEdge>> extractEdges) {
         INode node = getNode(id, StatementOrBundle.Kind.PROV_ENTITY);

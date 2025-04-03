@@ -168,11 +168,34 @@ public class CpmOrderedDocumentTest {
             assertEquals(2, id1Elements.size());
             assertFalse(doc.removeElement(entity));
             assertTrue(doc.removeElement(id1Elements.getFirst()));
-            assertEquals(1, doc.getNodes(id1).size());
+            assertNotNull(doc.getNode(id1));
             assertEquals(1, doc.getNode(id1).getElements().size());
             assertTrue(doc.areAllRelationsMapped());
             assertNotNull(doc.getEdge(id1, id2).getEffect());
             assertEquals(2, doc.getDomainSpecificPart().size());
+        }
+
+        @Test
+        public void removeRelation_twoRelationsWithSameId_returnsTrue() {
+            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+            Entity cause = pF.newEntity(id1);
+
+            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+            Entity effect = pF.newEntity(id2);
+
+            QualifiedName rel = cPF.newCpmQualifiedName("rel");
+            WasDerivedFrom inf1 = pF.newWasDerivedFrom(rel, id1, id2);
+            WasDerivedFrom inf2 = pF.newWasDerivedFrom(rel, id1, id2);
+
+            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+            CpmDocument doc = new CpmDocument(List.of(cause, effect), List.of(inf1, inf2), List.of(), bundleId, pF, cPF, cF);
+
+            assertEquals(2, doc.getEdge(rel).getRelations().size());
+            assertFalse(doc.removeRelation(inf1));
+            assertTrue(doc.removeRelation(doc.getEdge(rel).getAnyRelation()));
+            assertEquals(1, doc.getEdge(rel).getRelations().size());
+            assertTrue(doc.areAllRelationsMapped());
         }
     }
 }

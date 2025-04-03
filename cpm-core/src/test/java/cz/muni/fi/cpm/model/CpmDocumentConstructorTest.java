@@ -392,11 +392,11 @@ public abstract class CpmDocumentConstructorTest {
         CpmDocument doc = new CpmDocument(document, pF, cPF, cF);
 
         assertNotNull(doc.getNode(effectId));
-        assertNotNull(doc.getNode(effect));
+        assertNotNull(doc.getNode(doc.getNode(effectId).getAnyElement()));
         assertNotNull(doc.getNode(causeId));
-        assertNotNull(doc.getNode(cause));
+        assertNotNull(doc.getNode(causeId).getAnyElement());
         assertNotNull(doc.getEdge(effectId, causeId));
-        assertFalse(doc.getEdges(relation).isEmpty());
+        assertFalse(doc.getEdges(doc.getEdge(effectId, causeId).getAnyRelation()).isEmpty());
         assertEquals(relation, doc.getNode(effectId).getEffectEdges().getFirst().getAnyRelation());
         assertEquals(relation, doc.getNode(causeId).getCauseEdges().getFirst().getAnyRelation());
         assertTrue(doc.areAllRelationsMapped());

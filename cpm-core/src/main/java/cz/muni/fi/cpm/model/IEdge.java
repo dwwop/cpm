@@ -18,6 +18,8 @@ public interface IEdge extends Component {
      */
     void handleDuplicate(Relation duplicateRelation);
 
+    boolean remove(Relation relation);
+
     INode getEffect();
 
     void setEffect(INode effect);

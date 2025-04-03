@@ -13,7 +13,7 @@ import java.util.Objects;
 import static cz.muni.fi.cpm.constants.CpmExceptionConstants.UNSUPPORTED_DUPLICATE_RELATION;
 
 public class MergedEdge implements IEdge {
-    private final Relation relation;
+    private Relation relation;
     private INode effect;
     private INode cause;
 
@@ -49,6 +49,15 @@ public class MergedEdge implements IEdge {
         } else {
             throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
         }
+    }
+
+    @Override
+    public boolean remove(Relation relation) {
+        if (this.relation == relation) {
+            this.relation = null;
+            return true;
+        }
+        return false;
     }
 
     @Override

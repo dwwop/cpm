@@ -54,6 +54,11 @@ public class OrderedEdge implements IEdge, WithOrderedStatements {
     }
 
     @Override
+    public boolean remove(Relation relation) {
+        return relations.remove(relation) != null;
+    }
+
+    @Override
     public INode getEffect() {
         return effect;
     }

@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class MergedNode implements INode {
-    Element element;
-    List<IEdge> effectEdges;
-    List<IEdge> causeEdges;
+    private final List<IEdge> effectEdges;
+    private final List<IEdge> causeEdges;
+    private Element element;
 
     public MergedNode(Element element, List<IEdge> effectEdges, List<IEdge> causeEdges) {
         this.element = element;

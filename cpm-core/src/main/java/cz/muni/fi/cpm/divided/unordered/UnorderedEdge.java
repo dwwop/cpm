@@ -57,6 +57,11 @@ public class UnorderedEdge implements IEdge {
     }
 
     @Override
+    public boolean remove(Relation relation) {
+        return relations.removeIf(r -> r == relation);
+    }
+
+    @Override
     public INode getEffect() {
         return effect;
     }

@@ -167,7 +167,7 @@ public abstract class CpmDocumentRemovalTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1), List.of(), bundleId, pF, cPF, cF);
 
-        assertTrue(doc.removeEdges(rel));
+        assertTrue(doc.removeEdge(rel, StatementOrBundle.Kind.PROV_ATTRIBUTION));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.areAllRelationsMapped());
@@ -193,7 +193,7 @@ public abstract class CpmDocumentRemovalTest {
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, relation1), List.of(), bundleId, pF, cPF, cF);
 
         assertFalse(doc.areAllRelationsMapped());
-        assertTrue(doc.removeEdges(rel));
+        assertTrue(doc.removeEdge(rel));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.areAllRelationsMapped());
@@ -220,7 +220,8 @@ public abstract class CpmDocumentRemovalTest {
         CpmDocument doc = new CpmDocument(List.of(), List.of(agent, relation1), List.of(), bundleId, pF, cPF, cF);
 
         assertFalse(doc.areAllRelationsMapped());
-        assertTrue(doc.removeEdges(rel));
+        assertFalse(doc.removeEdges(rel, StatementOrBundle.Kind.PROV_ASSOCIATION));
+        assertTrue(doc.removeEdges(rel, StatementOrBundle.Kind.PROV_ATTRIBUTION));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.areAllRelationsMapped());
@@ -250,7 +251,7 @@ public abstract class CpmDocumentRemovalTest {
     }
 
     @Test
-    public void removeInfluence_removeThenAddCauseAndEffect_returnsMappedInfluence() {
+    public void removeInfluence_removeThenAddCauseAndEffect_returnsTrue() {
         QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
         Entity cause = pF.newEntity(id1);
 
@@ -273,6 +274,29 @@ public abstract class CpmDocumentRemovalTest {
         doc.doAction(effect);
         assertTrue(doc.getNode(id2).getEffectEdges().isEmpty());
         assertNull(doc.getEdge(id1, id2));
+    }
+
+    @Test
+    public void removeRelation_relationWithNodes_returnsTrue() {
+        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+        Entity entity = cPF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+        Agent agent = cPF.getProvFactory().newAgent(id2);
+
+        QualifiedName relId = cPF.newCpmQualifiedName("attr");
+        Relation relation1 = cPF.getProvFactory().newWasAttributedTo(relId, id1, id2);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1), List.of(), bundleId, pF, cPF, cF);
+
+        assertTrue(doc.removeRelation(doc.getEdge(relId).getAnyRelation()));
+        assertTrue(doc.getEdges(relId).isEmpty());
+        assertTrue(doc.areAllRelationsMapped());
+        assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());
+        assertTrue(doc.getNode(id2).getEffectEdges().isEmpty());
+        assertEquals(2, doc.getDomainSpecificPart().size());
     }
 
 }
