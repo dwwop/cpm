@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.divided.unordered;
 
-import cz.muni.fi.cpm.model.CpmDocument;
-import cz.muni.fi.cpm.model.CpmDocumentTest;
+import cz.muni.fi.cpm.model.*;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 
@@ -12,60 +12,106 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CpmUnorderedDocumentTest extends CpmDocumentTest {
-    public CpmUnorderedDocumentTest() throws Exception {
-        super(new CpmUnorderedProvFactory());
+public class CpmUnorderedDocumentTest {
+
+    @Nested
+    public class CpmUnorderedDocumentAdditionalTest extends CpmDocumentAdditionalTest {
+        public CpmUnorderedDocumentAdditionalTest() {
+            super(new CpmUnorderedFactory());
+        }
     }
 
-    @Test
-    public void toDocument_identicalObjects_keepsBothObjects() {
-        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
-        Entity entity1 = cPF.getProvFactory().newEntity(id1);
-        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
-        Entity entity2 = pF.newEntity(id2);
+    @Nested
+    public class CpmUnorderedDocumentConstructorTest extends CpmDocumentConstructorTest {
+        public CpmUnorderedDocumentConstructorTest() throws Exception {
+            super(new CpmUnorderedFactory());
+        }
 
-        Entity duplicate = pF.newEntity(id2);
-        Relation relation = cPF.getProvFactory().newWasDerivedFrom(id2, id1);
-        Relation duplicateRel = pF.newStatement(relation);
 
-        Document document = pF.newDocument();
-        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
-        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
-        document.getStatementOrBundle().add(bundle);
+        @Test
+        public void constructor_identicalObjects_keepsBothObjects() {
+            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+            Entity entity1 = cPF.getProvFactory().newEntity(id1);
+            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+            Entity entity2 = pF.newEntity(id2);
 
-        List<Statement> st = Arrays.asList(entity2, duplicate, entity1, relation, duplicateRel);
+            Entity duplicate = pF.newEntity(id2);
+            Relation relation = cPF.getProvFactory().newWasDerivedFrom(id2, id1);
+            Relation duplicateRel = pF.newStatement(relation);
 
-        bundle.getStatement().addAll(st);
+            Document document = pF.newDocument();
+            QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+            Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+            document.getStatementOrBundle().add(bundle);
 
-        Document docFromCpm = new CpmDocument(document, pF, cPF, cF).toDocument();
-        Bundle resultBundle = ((Bundle) docFromCpm.getStatementOrBundle().getFirst());
-        assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
+            List<Statement> st = Arrays.asList(entity2, duplicate, entity1, relation, duplicateRel);
+
+            bundle.getStatement().addAll(st);
+
+            Document docFromCpm = new CpmDocument(document, pF, cPF, cF).toDocument();
+            Bundle resultBundle = ((Bundle) docFromCpm.getStatementOrBundle().getFirst());
+            assertEquals(new HashSet<>(bundle.getStatement()), new HashSet<>(resultBundle.getStatement()));
+        }
     }
 
-    @Test
-    public void removeElement_nodeWithMultipleElements_returnsTrue() {
-        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
-        Entity entity = cPF.getProvFactory().newEntity(id1);
 
-        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
-        Agent agent = cPF.getProvFactory().newAgent(id2);
-
-        Entity entity2 = cPF.getProvFactory().newEntity(id1);
-
-        Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
-
-        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
-
-        CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, entity2, relation1), List.of(), bundleId, pF, cPF, cF);
-        List<Element> id1Elements = doc.getNode(id1).getElements();
-
-        assertEquals(2, id1Elements.size());
-        assertFalse(doc.removeElement(entity));
-        assertTrue(doc.removeElement(id1Elements.getFirst()));
-        assertEquals(1, doc.getNodes(id1).size());
-        assertEquals(1, doc.getNode(id1).getElements().size());
-        assertTrue(doc.areAllRelationsMapped());
-        assertNotNull(doc.getEdge(id1, id2).getEffect());
-        assertEquals(2, doc.getDomainSpecificPart().size());
+    @Nested
+    public class CpmUnorderedDocumentEqualsTest extends CpmDocumentEqualsTest {
+        public CpmUnorderedDocumentEqualsTest() {
+            super(new CpmUnorderedFactory());
+        }
     }
+
+
+    @Nested
+    public class CpmUnorderedDocumentInfluenceTest extends CpmDocumentInfluenceTest {
+        public CpmUnorderedDocumentInfluenceTest() {
+            super(new CpmUnorderedFactory());
+        }
+    }
+
+    @Nested
+    class CpmUnorderedDocumentModificationTest extends CpmDocumentModificationTest {
+        public CpmUnorderedDocumentModificationTest() {
+            super(new CpmUnorderedFactory());
+        }
+
+    }
+
+    @Nested
+    class CpmUnorderedDocumentRemovalTest extends CpmDocumentRemovalTest {
+        public CpmUnorderedDocumentRemovalTest() {
+            super(new CpmUnorderedFactory());
+        }
+
+
+        @Test
+        public void removeElement_nodeWithMultipleElements_returnsTrue() {
+            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+            Entity entity = cPF.getProvFactory().newEntity(id1);
+
+            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+            Agent agent = cPF.getProvFactory().newAgent(id2);
+
+            Entity entity2 = cPF.getProvFactory().newEntity(id1);
+
+            Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
+
+            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+            CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, entity2, relation1), List.of(), bundleId, pF, cPF, cF);
+            List<Element> id1Elements = doc.getNode(id1).getElements();
+
+            assertEquals(2, id1Elements.size());
+            assertFalse(doc.removeElement(entity));
+            assertTrue(doc.removeElement(id1Elements.getFirst()));
+            assertEquals(1, doc.getNodes(id1).size());
+            assertEquals(1, doc.getNode(id1).getElements().size());
+            assertTrue(doc.areAllRelationsMapped());
+            assertNotNull(doc.getEdge(id1, id2).getEffect());
+            assertEquals(2, doc.getDomainSpecificPart().size());
+        }
+    }
+
+
 }

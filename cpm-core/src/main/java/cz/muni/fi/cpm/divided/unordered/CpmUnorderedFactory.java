@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class CpmUnorderedProvFactory implements ICpmFactory {
+public class CpmUnorderedFactory implements ICpmFactory {
     private final ProvFactory pF;
 
-    public CpmUnorderedProvFactory() {
+    public CpmUnorderedFactory() {
         this.pF = new org.openprovenance.prov.vanilla.ProvFactory();
     }
 
-    public CpmUnorderedProvFactory(ProvFactory pF) {
+    public CpmUnorderedFactory(ProvFactory pF) {
         this.pF = pF;
     }
 
