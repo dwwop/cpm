@@ -60,6 +60,11 @@ public class UnorderedNode implements INode {
     }
 
     @Override
+    public boolean remove(Element element) {
+        return elements.removeIf(e -> element == e);
+    }
+
+    @Override
     public List<IEdge> getEffectEdges() {
         return effectEdges;
     }

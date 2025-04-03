@@ -58,6 +58,11 @@ public class OrderedNode implements INode, WithOrderedStatements {
     }
 
     @Override
+    public boolean remove(Element element) {
+        return elements.remove(element) != null;
+    }
+
+    @Override
     public List<IEdge> getEffectEdges() {
         return effectEdges;
     }

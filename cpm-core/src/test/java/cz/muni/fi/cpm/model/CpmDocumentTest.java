@@ -1015,6 +1015,76 @@ public abstract class CpmDocumentTest {
         assertEquals(agent, doc.getEdge(id1, id2).getCause().getAnyElement());
     }
 
+
+    @Test
+    public void removeNode_nodesWithSameId_returnsTrue() {
+        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+        Entity entity = cPF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+        Agent agent2 = cPF.getProvFactory().newAgent(id2);
+
+        Agent agent = cPF.getProvFactory().newAgent(id1);
+
+        Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, agent2, relation1), List.of(), bundleId, pF, cPF, cF);
+
+        assertFalse(doc.removeNode(id1));
+        assertTrue(doc.removeNode(id1, StatementOrBundle.Kind.PROV_ENTITY));
+        assertEquals(1, doc.getNodes(id1).size());
+        assertFalse(doc.areAllRelationsMapped());
+        assertNull(doc.getEdge(id1, id2).getEffect());
+        assertEquals(2, doc.getDomainSpecificPart().size());
+    }
+
+    @Test
+    public void removeNodes_nodesWithSameId_returnsTrue() {
+        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+        Entity entity = cPF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+        Agent agent2 = cPF.getProvFactory().newAgent(id2);
+
+        Agent agent = cPF.getProvFactory().newAgent(id1);
+
+        Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, agent2, relation1), List.of(), bundleId, pF, cPF, cF);
+
+        assertTrue(doc.removeNodes(id1));
+        assertTrue(doc.getNodes(id1).isEmpty());
+        assertFalse(doc.areAllRelationsMapped());
+        assertNull(doc.getEdge(id1, id2).getEffect());
+        assertEquals(1, doc.getDomainSpecificPart().size());
+    }
+
+
+    @Test
+    public void removeElement_nodeWithRelations_returnsTrue() {
+        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+        Entity entity = cPF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+        Agent agent = cPF.getProvFactory().newAgent(id2);
+
+        Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1), List.of(), bundleId, pF, cPF, cF);
+
+        assertTrue(doc.removeElement(doc.getNode(id1).getAnyElement()));
+        assertTrue(doc.getNodes(id1).isEmpty());
+        assertFalse(doc.areAllRelationsMapped());
+        assertNull(doc.getEdge(id1, id2).getEffect());
+        assertEquals(1, doc.getDomainSpecificPart().size());
+    }
+
     @Test
     public void removeNode_duplicateId_returnsFalse() {
         QualifiedName id1 = cPF.newCpmQualifiedName("qN1");

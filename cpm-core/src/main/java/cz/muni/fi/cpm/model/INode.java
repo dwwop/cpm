@@ -28,6 +28,11 @@ public interface INode extends Component {
     void handleDuplicate(Element duplicateElement);
 
     /**
+     * Method to remove element from the node
+     */
+    boolean remove(Element element);
+
+    /**
      * Retrieves all edges where the current node acts as the effect.
      *
      * @return a list of edges where this node is the effect node

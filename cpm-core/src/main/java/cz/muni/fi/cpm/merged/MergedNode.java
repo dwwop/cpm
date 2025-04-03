@@ -50,8 +50,16 @@ public class MergedNode implements INode {
 
     @Override
     public void handleDuplicate(Element duplicateElement) {
-
         ProvUtilities2.mergeAttributes(this.element, duplicateElement);
+    }
+
+    @Override
+    public boolean remove(Element element) {
+        if (element == this.element) {
+            this.element = null;
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -643,20 +643,18 @@ public class CpmDocument implements StatementAction {
         if (node == null) {
             return false;
         }
-        node.getEffectEdges().forEach(e -> {
-            e.setEffect(null);
-            effectEdges.computeIfAbsent(id, _ -> new HashMap<>())
-                    .computeIfAbsent(kind, _ -> new ArrayList<>())
-                    .add(e);
-        });
-        node.getCauseEdges().forEach(e -> {
-            e.setCause(null);
-            causeEdges.computeIfAbsent(id, _ -> new HashMap<>())
-                    .computeIfAbsent(kind, _ -> new ArrayList<>())
-                    .add(e);
+
+        nodes.computeIfPresent(id, (_, kindNodeMap) -> {
+            kindNodeMap.computeIfPresent(kind, (_, _) -> null);
+            return kindNodeMap.isEmpty() ? null : kindNodeMap;
         });
 
-        nodes.remove(id);
+        removeNodeFromInfluences(node.getEffectEdges(), node.getId(), effectInfluences, causeInfluences, u::getCause, IEdge::setEffect);
+        removeNodeFromInfluences(node.getCauseEdges(), node.getId(), causeInfluences, effectInfluences, u::getEffect, IEdge::setCause);
+
+        removeNodeFromNonInfluenceEdges(node, node.getEffectEdges(), effectEdges, IEdge::setEffect);
+        removeNodeFromNonInfluenceEdges(node, node.getCauseEdges(), causeEdges, IEdge::setCause);
+
         return true;
     }
 
@@ -674,6 +672,111 @@ public class CpmDocument implements StatementAction {
         }
 
         return removeNode(id, getNode(id).getKind());
+    }
+
+    /**
+     * Removes the specified element from the document.
+     * The element is removed only if it is the exact same object (using {@code ==} comparison),
+     * not just an equal object according to {@code equals()}.
+     * If the element is the only one in its associated node, the entire node is removed.
+     *
+     * @param element the element to remove
+     * @return {@code true} if the element was successfully removed,
+     * {@code false} if the node containing the element was not found
+     */
+    public boolean removeElement(Element element) {
+        INode node = getNode(element);
+
+        if (node == null) {
+            return false;
+        }
+
+        if (node.getElements().size() == 1 && element == node.getAnyElement()) {
+            return removeNode(element.getId(), element.getKind());
+        }
+
+        return node.remove(element);
+    }
+
+    /**
+     * Removes all nodes associated with the given qualified name.
+     *
+     * @param id the qualified name identifying the nodes to remove
+     * @return {@code true} if at least one node was removed, {@code false} if no nodes were found
+     */
+    public boolean removeNodes(QualifiedName id) {
+        List<INode> nodes = getNodes(id);
+        if (nodes.isEmpty()) {
+            return false;
+        }
+
+        nodes.forEach(n -> removeNode(n.getId(), n.getKind()));
+        return true;
+    }
+
+    private void removeNodeFromNonInfluenceEdges(INode node, List<IEdge> nodeEdges, Map<QualifiedName,
+            Map<StatementOrBundle.Kind, List<IEdge>>> documentEdges, BiConsumer<IEdge, INode> edgeSetter) {
+        List<IEdge> oldEdges = nodeEdges.stream()
+                .filter(e -> e.getKind() != StatementOrBundle.Kind.PROV_INFLUENCE)
+                .toList();
+
+        documentEdges.computeIfAbsent(node.getId(), _ -> new HashMap<>())
+                .computeIfAbsent(node.getKind(), _ -> new ArrayList<>())
+                .addAll(oldEdges);
+
+        oldEdges.forEach(edge -> edgeSetter.accept(edge, null));
+        nodeEdges.clear();
+    }
+
+
+    private void removeNodeFromInfluences(List<IEdge> nodeEdges, QualifiedName nodeIdentifier,
+                                          Map<QualifiedName, Map<QualifiedName, List<IEdge>>> documentInfluences,
+                                          Map<QualifiedName, Map<QualifiedName, List<IEdge>>> documentOtherInfluences,
+                                          Function<Relation, QualifiedName> extractOtherId,
+                                          BiConsumer<IEdge, INode> edgeSetter) {
+
+        Map<QualifiedName, List<IEdge>> influences = nodeEdges.stream()
+                .filter(x -> x.getKind() == StatementOrBundle.Kind.PROV_INFLUENCE)
+                .collect(Collectors.groupingBy(e -> extractOtherId.apply(e.getAnyRelation())));
+
+        for (QualifiedName otherId : influences.keySet()) {
+            List<IEdge> oldInfluences = influences.get(otherId);
+
+            if (oldInfluences.size() == documentInfluences.get(nodeIdentifier).get(otherId).size()) {
+                oldInfluences.forEach(e -> edgeSetter.accept(e, null));
+                return;
+            }
+
+            oldInfluences.forEach(e -> {
+                documentInfluences.get(nodeIdentifier).get(otherId).remove(e);
+                documentOtherInfluences.get(otherId).get(nodeIdentifier).remove(e);
+                edges.remove(e);
+            });
+        }
+    }
+
+    public boolean setNewNodeIdentifier(QualifiedName oldIdentifier, StatementOrBundle.Kind kind, QualifiedName newIdentifier) {
+        if (Objects.equals(oldIdentifier, newIdentifier)) {
+            return false;
+        }
+
+        INode node = getNode(oldIdentifier, kind);
+
+        if (!removeNode(oldIdentifier, kind)) {
+            return false;
+        }
+
+        node.getElements().forEach(e -> e.setId(newIdentifier));
+
+        INode existingNode = getNode(newIdentifier, kind);
+        if (existingNode != null) {
+            node.getElements().forEach(existingNode::handleDuplicate);
+            return true;
+        }
+
+        addCompletelyNewNode(newIdentifier, kind, node);
+
+        return true;
     }
 
     /**
@@ -1046,78 +1149,6 @@ public class CpmDocument implements StatementAction {
     public void setBundleId(QualifiedName id) {
         this.bundleId = id;
     }
-
-    public boolean setNewNodeIdentifier(QualifiedName oldIdentifier, StatementOrBundle.Kind kind, QualifiedName newIdentifier) {
-        INode node = getNode(oldIdentifier, kind);
-        if (node == null) {
-            return false;
-        }
-
-        nodes.computeIfPresent(oldIdentifier, (_, kindNodeMap) -> {
-            kindNodeMap.computeIfPresent(kind, (_, _) -> null);
-            return kindNodeMap.isEmpty() ? null : kindNodeMap;
-        });
-
-        resetInfluences(node.getEffectEdges(), node.getId(), effectInfluences, causeInfluences, u::getCause, IEdge::setEffect);
-        resetInfluences(node.getCauseEdges(), node.getId(), causeInfluences, effectInfluences, u::getEffect, IEdge::setCause);
-
-        resetNonInfluenceEdges(node, node.getEffectEdges(), effectEdges, IEdge::setEffect);
-        resetNonInfluenceEdges(node, node.getCauseEdges(), causeEdges, IEdge::setCause);
-
-        node.getElements().forEach(e -> e.setId(newIdentifier));
-
-        INode existingNode = getNode(newIdentifier, kind);
-        if (existingNode != null) {
-            node.getElements().forEach(existingNode::handleDuplicate);
-            return true;
-        }
-
-        addCompletelyNewNode(newIdentifier, kind, node);
-
-        return true;
-    }
-
-    private void resetNonInfluenceEdges(INode node, List<IEdge> nodeEdges, Map<QualifiedName,
-            Map<StatementOrBundle.Kind, List<IEdge>>> documentEdges, BiConsumer<IEdge, INode> edgeSetter) {
-        List<IEdge> oldEdges = nodeEdges.stream()
-                .filter(e -> e.getKind() != StatementOrBundle.Kind.PROV_INFLUENCE)
-                .toList();
-
-        documentEdges.computeIfAbsent(node.getId(), _ -> new HashMap<>())
-                .computeIfAbsent(node.getKind(), _ -> new ArrayList<>())
-                .addAll(oldEdges);
-
-        oldEdges.forEach(edge -> edgeSetter.accept(edge, null));
-        nodeEdges.clear();
-    }
-
-
-    private void resetInfluences(List<IEdge> nodeEdges, QualifiedName nodeIdentifier,
-                                 Map<QualifiedName, Map<QualifiedName, List<IEdge>>> documentInfluences,
-                                 Map<QualifiedName, Map<QualifiedName, List<IEdge>>> documentOtherInfluences,
-                                 Function<Relation, QualifiedName> extractOtherId,
-                                 BiConsumer<IEdge, INode> edgeSetter) {
-
-        Map<QualifiedName, List<IEdge>> influences = nodeEdges.stream()
-                .filter(x -> x.getKind() == StatementOrBundle.Kind.PROV_INFLUENCE)
-                .collect(Collectors.groupingBy(e -> extractOtherId.apply(e.getAnyRelation())));
-
-        for (QualifiedName otherId : influences.keySet()) {
-            List<IEdge> oldInfluences = influences.get(otherId);
-
-            if (oldInfluences.size() == documentInfluences.get(nodeIdentifier).get(otherId).size()) {
-                oldInfluences.forEach(e -> edgeSetter.accept(e, null));
-                return;
-            }
-
-            oldInfluences.forEach(e -> {
-                documentInfluences.get(nodeIdentifier).get(otherId).remove(e);
-                documentOtherInfluences.get(otherId).get(nodeIdentifier).remove(e);
-                edges.remove(e);
-            });
-        }
-    }
-
 
     @Override
     public boolean equals(Object o) {
