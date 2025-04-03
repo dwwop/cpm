@@ -3,7 +3,7 @@ package cz.muni.fi.cpm.merged;
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import cz.muni.fi.cpm.model.ProvUtilities2;
-import org.openprovenance.prov.model.Influence;
+import org.openprovenance.prov.model.QualifiedRelation;
 import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.model.StatementOrBundle;
 
@@ -44,8 +44,8 @@ public class MergedEdge implements IEdge {
 
     @Override
     public void handleDuplicate(Relation duplicateRelation) {
-        if (this.relation instanceof Influence i1 && duplicateRelation instanceof Influence i2) {
-            ProvUtilities2.mergeAttributes(i1, i2);
+        if (this.relation instanceof QualifiedRelation qR1 && duplicateRelation instanceof QualifiedRelation qR2) {
+            ProvUtilities2.mergeAttributes(qR1, qR2);
         } else {
             throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
         }

@@ -105,6 +105,47 @@ public class CpmOrderedDocumentTest {
         public CpmOrderedDocumentInfluenceTest() {
             super(new CpmOrderedFactory());
         }
+
+
+        @Test
+        public void addInfluence_twoIdenticalInfluences_keepsBothObjects() {
+            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+            Entity cause = pF.newEntity(id1);
+
+            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+            Entity effect = pF.newEntity(id2);
+
+            QualifiedName rel = cPF.newCpmQualifiedName("rel");
+            WasInfluencedBy inf = pF.newWasInfluencedBy(rel, id1, id2);
+            WasInfluencedBy inf2 = pF.newWasInfluencedBy(rel, id1, id2);
+
+            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+            CpmDocument doc = new CpmDocument(List.of(), List.of(effect, inf, inf2, cause), List.of(), bundleId, pF, cPF, cF);
+
+            assertNotNull(doc.getEdge(id1, id2));
+            assertEquals(2, doc.getEdge(id1, id2).getRelations().size());
+        }
+
+        @Test
+        public void addHadMember_twoIdenticalMemberships_keepsBothObjects() {
+            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+            Entity cause = pF.newEntity(id1);
+
+            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+            Entity effect = pF.newEntity(id2);
+
+            QualifiedName rel = cPF.newCpmQualifiedName("rel");
+            HadMember hM = pF.newQualifiedHadMember(rel, id1, List.of(id2), new ArrayList<>());
+            HadMember hM2 = pF.newQualifiedHadMember(rel, id1, List.of(id2), new ArrayList<>());
+
+            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+            CpmDocument doc = new CpmDocument(List.of(), List.of(effect, hM, hM2, cause), List.of(), bundleId, pF, cPF, cF);
+
+            assertNotNull(doc.getEdge(id1, id2));
+            assertEquals(2, doc.getEdge(id1, id2).getRelations().size());
+        }
     }
 
     @Nested

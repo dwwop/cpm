@@ -11,4 +11,5 @@ public class CpmExceptionConstants {
     public static final String MULTIPLE_EDGES_BETWEEN_NODES = "Multiple edges between specified nodes";
     public static final String NOT_NULL_PARTS = "Document parts cannot be null";
     public static final String UNSUPPORTED_DUPLICATE_RELATION = "Duplicate relation of unsupported kind";
+    public static final String MEMBERSHIP_MODIFICATION_NOT_SUPPORTED = "Modification of cause and effect not supported";
 }

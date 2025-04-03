@@ -353,10 +353,18 @@ public class CpmDocument implements StatementAction {
     public void doAction(WasInfluencedBy wasInfluencedBy) {
         QualifiedName effect = u.getEffect(wasInfluencedBy);
         QualifiedName cause = u.getCause(wasInfluencedBy);
+        WasInfluencedBy clonedInfluence = pF.newStatement(wasInfluencedBy);
+
+        for (IEdge existingEdge : edges) {
+            if (ProvUtilities2.sameEdge(u, clonedInfluence, existingEdge.getAnyRelation())) {
+                existingEdge.handleDuplicate(clonedInfluence);
+            }
+            return;
+        }
+
         List<INode> effectNodes = new ArrayList<>();
         List<INode> causeNodes = new ArrayList<>();
         List<IEdge> finalEdges = new ArrayList<>();
-        WasInfluencedBy clonedInfluence = pF.newStatement(wasInfluencedBy);
 
         if (nodes.containsKey(effect)) {
             effectNodes.addAll(nodes.get(effect).values());
@@ -450,6 +458,14 @@ public class CpmDocument implements StatementAction {
     @Override
     public void doAction(HadMember hadMember) {
         HadMember clonedHadMember = pF.newStatement(hadMember);
+
+        for (IEdge existingEdge : edges) {
+            if (ProvUtilities2.sameEdge(u, clonedHadMember, existingEdge.getAnyRelation())) {
+                existingEdge.handleDuplicate(clonedHadMember);
+            }
+            return;
+        }
+
         for (QualifiedName member : hadMember.getEntity()) {
             addEdge(cF.newEdgeWithoutCloning(clonedHadMember), hadMember.getCollection(), member);
         }
@@ -759,11 +775,11 @@ public class CpmDocument implements StatementAction {
      * Updates the identifier of an existing node, replacing the old identifier with a new one for each element in the node.
      * If the new identifier is {@code null} or the same as the old one, no changes are made.
      * If a node with the new identifier already exists, elements from the old node are merged into it.
-     * Updating node identifier does not update cause and effect identifiers in edges relations this identifier
+     * Updating node identifier does not update cause and effect identifiers in relations in edges
      *
-     * @param oldIdentifier the current identifier of the node
+     * @param oldIdentifier the current identifier of the element of a node
      * @param kind          the kind of the node
-     * @param newIdentifier the new identifier to assign to the node
+     * @param newIdentifier the new identifier to assign to the elements
      * @return {@code true} if the identifier was successfully updated, {@code false} otherwise
      */
     public boolean setNewNodeIdentifier(QualifiedName oldIdentifier, StatementOrBundle.Kind kind, QualifiedName newIdentifier) {
@@ -1090,13 +1106,63 @@ public class CpmDocument implements StatementAction {
         return new ArrayList<>(edges);
     }
 
+    /**
+     * Updates the cause and effect of existing edges, replacing the old identifiers with a new ones for each relation in the edges.
+     * If the new cause or effect is {@code null} or if they are the same as the old ones, no changes are made.
+     * If an edge with the new cause and effect already exists, relations from the old edges are merged into it.
+     * Updating causes and effects does not update identifiers in elements in nodes
+     *
+     * @param oldEffect the current effect identifier in the relation
+     * @param oldCause  the current cause identifier in the relation
+     * @param kind      the kind of the node
+     * @param newEffect the new effect identifier to assign to the relations
+     * @param newCause  the new cause identifier to assign to the relations
+     * @return {@code true} if the cause and effect were successfully updated, {@code false} otherwise
+     */
+    public boolean setNewCauseAndEffect(QualifiedName oldEffect, QualifiedName oldCause, StatementOrBundle.Kind kind,
+                                        QualifiedName newEffect, QualifiedName newCause) {
+        if ((Objects.equals(oldEffect, newEffect) && Objects.equals(oldCause, newCause)) ||
+                newEffect == null || newCause == null) {
+            return false;
+        }
+
+        if (StatementOrBundle.Kind.PROV_MEMBERSHIP.equals(kind)) {
+            throw new IllegalArgumentException(CpmExceptionConstants.MEMBERSHIP_MODIFICATION_NOT_SUPPORTED);
+        }
+
+        List<IEdge> edges = getEdges(oldEffect, oldCause, kind);
+        if (!removeEdges(oldEffect, oldCause, kind)) {
+            return false;
+        }
+
+        int effectSetter = StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(kind) ||
+                StatementOrBundle.Kind.PROV_ALTERNATE.equals(kind) ? 0 : 1;
+        int causeSetter = effectSetter + 1;
+
+        IEdge edge = edges.getFirst();
+        edge.getRelations().forEach(r -> {
+            u.setter(r, effectSetter, newEffect);
+            u.setter(r, causeSetter, newCause);
+        });
+
+        if (StatementOrBundle.Kind.PROV_INFLUENCE.equals(kind)) {
+            for (Relation r : edge.getRelations()) {
+                doAction((WasInfluencedBy) r);
+            }
+            return true;
+        }
+
+        addEdge(edge, newEffect, newCause);
+        return true;
+    }
+
 
     private boolean removeEdges(List<IEdge> edgesToRemove) {
         if (edgesToRemove == null || edgesToRemove.isEmpty()) {
             return false;
         }
 
-        edgesToRemove.forEach(edges::remove);
+        edgesToRemove.forEach(this::removeEdge);
         return true;
     }
 

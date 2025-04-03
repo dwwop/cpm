@@ -1,8 +1,11 @@
 package cz.muni.fi.cpm.model;
 
 import cz.muni.fi.cpm.constants.CpmType;
+import cz.muni.fi.cpm.exception.NoSpecificKind;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.openprovenance.prov.model.*;
 
 import java.util.ArrayList;
@@ -14,10 +17,12 @@ public abstract class CpmDocumentModificationTest {
     protected final ICpmFactory cF;
     protected final org.openprovenance.prov.model.ProvFactory pF;
     protected final ICpmProvFactory cPF;
+    protected final ProvUtilities u;
 
     public CpmDocumentModificationTest(ICpmFactory cF) {
         this.cF = cF;
         pF = cF.getProvFactory();
+        u = new ProvUtilities();
         cPF = new CpmProvFactory(pF);
     }
 
@@ -127,6 +132,63 @@ public abstract class CpmDocumentModificationTest {
         assertNotNull(doc.getNode(newId1));
         assertNotNull(doc.getEdge(newId1, id2).getEffect());
         assertEquals(2, doc.getDomainSpecificPart().size());
+    }
+
+
+    private Element getElement(StatementOrBundle.Kind kind, QualifiedName id) {
+        if (StatementOrBundle.Kind.PROV_ENTITY == kind) {
+            return pF.newEntity(id);
+        } else if (StatementOrBundle.Kind.PROV_AGENT == kind) {
+            return pF.newAgent(id);
+        } else if (StatementOrBundle.Kind.PROV_ACTIVITY == kind) {
+            return pF.newActivity(id);
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    @ParameterizedTest
+    @MethodSource("cz.muni.fi.cpm.RelationProvider#provideRelations")
+    public void setElementIdentifier_edgeWithNodes_returnsTrue(Relation relation) throws NoSpecificKind {
+        Document document = pF.newDocument();
+        document.setNamespace(cPF.newCpmNamespace());
+
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        QualifiedName effectId = u.getEffect(relation);
+        QualifiedName causeId = u.getCause(relation);
+        Element effect = getElement(ProvUtilities2.getEffectKind(relation.getKind()), effectId);
+        Element cause = getElement(ProvUtilities2.getCauseKind(relation.getKind()), causeId);
+        bundle.getStatement().add(effect);
+        bundle.getStatement().add(cause);
+
+        QualifiedName effectId2 = pF.newQualifiedName(effectId.getNamespaceURI(), effectId.getLocalPart() + "2", effectId.getPrefix());
+        QualifiedName causeId2 = pF.newQualifiedName(causeId.getNamespaceURI(), causeId.getLocalPart() + "2", causeId.getPrefix());
+        Element effect2 = getElement(ProvUtilities2.getEffectKind(relation.getKind()), effectId2);
+        Element cause2 = getElement(ProvUtilities2.getCauseKind(relation.getKind()), causeId2);
+        bundle.getStatement().add(effect2);
+        bundle.getStatement().add(cause2);
+
+        bundle.getStatement().add(relation);
+
+        CpmDocument doc = new CpmDocument(document, pF, cPF, cF);
+
+        assertTrue(doc.setNewCauseAndEffect(effectId, causeId, relation.getKind(), effectId2, causeId2));
+
+        assertTrue(doc.getEdges(effectId, causeId).isEmpty());
+        assertTrue(doc.areAllRelationsMapped());
+        assertTrue(doc.getNode(effectId).getEffectEdges().isEmpty());
+        assertTrue(doc.getNode(effectId).getCauseEdges().isEmpty());
+        assertTrue(doc.getNode(causeId).getEffectEdges().isEmpty());
+        assertTrue(doc.getNode(causeId).getCauseEdges().isEmpty());
+
+        assertNotNull(doc.getEdge(effectId2, causeId2));
+        assertFalse(doc.getNode(effectId2).getEffectEdges().isEmpty());
+        assertTrue(doc.getNode(effectId2).getCauseEdges().isEmpty());
+        assertTrue(doc.getNode(causeId2).getEffectEdges().isEmpty());
+        assertFalse(doc.getNode(causeId2).getCauseEdges().isEmpty());
+        assertEquals(1, doc.getEdges().size());
     }
 
 }

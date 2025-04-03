@@ -170,6 +170,8 @@ public abstract class CpmDocumentRemovalTest {
         assertTrue(doc.removeEdge(rel, StatementOrBundle.Kind.PROV_ATTRIBUTION));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
+        assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());
+        assertTrue(doc.getNode(id1).getEffectEdges().isEmpty());
         assertTrue(doc.areAllRelationsMapped());
 
         doc.doAction(relation1);
@@ -193,9 +195,11 @@ public abstract class CpmDocumentRemovalTest {
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, relation1), List.of(), bundleId, pF, cPF, cF);
 
         assertFalse(doc.areAllRelationsMapped());
-        assertTrue(doc.removeEdge(rel));
+        assertTrue(doc.removeEdges(rel));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
+        assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());
+        assertTrue(doc.getNode(id1).getEffectEdges().isEmpty());
         assertTrue(doc.areAllRelationsMapped());
 
         Agent agent = cPF.getProvFactory().newAgent(id2);

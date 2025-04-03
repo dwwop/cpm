@@ -2,15 +2,12 @@ package cz.muni.fi.cpm.divided.ordered;
 
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
-import org.openprovenance.prov.model.Influence;
 import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.model.Statement;
 import org.openprovenance.prov.model.StatementOrBundle;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static cz.muni.fi.cpm.constants.CpmExceptionConstants.UNSUPPORTED_DUPLICATE_RELATION;
 
 public class OrderedEdge implements IEdge, WithOrderedStatements {
     private final Map<Relation, Long> relations;
@@ -46,11 +43,11 @@ public class OrderedEdge implements IEdge, WithOrderedStatements {
 
     @Override
     public void handleDuplicate(Relation duplicateRelation) {
-        if (duplicateRelation instanceof Influence) {
+//        if (duplicateRelation instanceof Influence) {
             relations.put(duplicateRelation, cF.getOrder());
-        } else {
-            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
-        }
+//        } else {
+//            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
+//        }
     }
 
     @Override

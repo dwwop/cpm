@@ -2,7 +2,6 @@ package cz.muni.fi.cpm.divided.unordered;
 
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
-import org.openprovenance.prov.model.Influence;
 import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.model.StatementOrBundle;
 
@@ -10,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
-import static cz.muni.fi.cpm.constants.CpmExceptionConstants.UNSUPPORTED_DUPLICATE_RELATION;
 
 public class UnorderedEdge implements IEdge {
     private final List<Relation> relations;
@@ -49,11 +46,11 @@ public class UnorderedEdge implements IEdge {
 
     @Override
     public void handleDuplicate(Relation duplicateRelation) {
-        if (duplicateRelation instanceof Influence) {
+//        if (duplicateRelation instanceof Influence) {
             relations.add(duplicateRelation);
-        } else {
-            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
-        }
+//        } else {
+//            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
+//        }
     }
 
     @Override

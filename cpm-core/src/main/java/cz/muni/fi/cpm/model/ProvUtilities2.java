@@ -130,7 +130,7 @@ public class ProvUtilities2 {
         }
     }
 
-    public static void mergeAttributes(Influence existing, Influence newElement) {
+    public static void mergeAttributes(QualifiedRelation existing, QualifiedRelation newElement) {
         Set<LangString> set = new HashSet<>(newElement.getLabel());
         existing.getLabel().forEach(set::remove);
         existing.getLabel().addAll(set);
@@ -178,7 +178,7 @@ public class ProvUtilities2 {
         } else if (r1 instanceof WasEndedBy && r2 instanceof WasEndedBy) {
             return sameEdge(u, r1, r2, 4);
         } else if (r1 instanceof HadMember && r2 instanceof HadMember) {
-            return sameEdge(u, r1, r2, 2);
+            return sameEdge(u, r1, r2, 1);
         }
         return false;
     }
