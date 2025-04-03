@@ -1158,6 +1158,47 @@ public class CpmDocument implements StatementAction {
     }
 
 
+    /**
+     * Updates the cause and effect of the given relation to new cause and effect.
+     * The relation is first removed using identity-based comparison ({@code ==}) before updating its cause and effect.
+     * If the cause or effect is {@code null} or if they are the same as the current ones, no changes are made.
+     *
+     * @param relation  the element to update
+     * @param newEffect the new effect to assign to the relation
+     * @param newCause  the new cause to assign to the relation
+     * @return {@code true} if the cause and effect was successfully updated, {@code false} otherwise
+     */
+    public boolean setNewCauseAndEffect(Relation relation, QualifiedName newEffect, QualifiedName newCause) {
+        if ((Objects.equals(u.getEffect(relation), newEffect) && Objects.equals(u.getCause(relation), newCause)) ||
+                newEffect == null || newCause == null) {
+            return false;
+        }
+
+        if (Kind.PROV_MEMBERSHIP.equals(relation.getKind())) {
+            throw new IllegalArgumentException(CpmExceptionConstants.MEMBERSHIP_MODIFICATION_NOT_SUPPORTED);
+        }
+
+        if (!removeRelation(relation)) {
+            return false;
+        }
+
+        int effectSetter = Kind.PROV_SPECIALIZATION.equals(relation.getKind()) ||
+                Kind.PROV_ALTERNATE.equals(relation.getKind()) ? 0 : 1;
+        int causeSetter = effectSetter + 1;
+
+        u.setter(relation, effectSetter, newEffect);
+        u.setter(relation, causeSetter, newCause);
+
+        if (Kind.PROV_INFLUENCE.equals(relation.getKind())) {
+            doAction((WasInfluencedBy) relation);
+            return true;
+        }
+
+        addEdge(relation);
+        return true;
+    }
+
+
     private boolean removeEdges(List<IEdge> edgesToRemove) {
         if (edgesToRemove == null || edgesToRemove.isEmpty()) {
             return false;
