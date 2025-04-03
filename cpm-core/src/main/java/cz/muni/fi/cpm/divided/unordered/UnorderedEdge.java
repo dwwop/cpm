@@ -46,11 +46,7 @@ public class UnorderedEdge implements IEdge {
 
     @Override
     public void handleDuplicate(Relation duplicateRelation) {
-//        if (duplicateRelation instanceof Influence) {
-            relations.add(duplicateRelation);
-//        } else {
-//            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
-//        }
+        relations.add(duplicateRelation);
     }
 
     @Override

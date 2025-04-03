@@ -43,11 +43,7 @@ public class OrderedEdge implements IEdge, WithOrderedStatements {
 
     @Override
     public void handleDuplicate(Relation duplicateRelation) {
-//        if (duplicateRelation instanceof Influence) {
-            relations.put(duplicateRelation, cF.getOrder());
-//        } else {
-//            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
-//        }
+        relations.put(duplicateRelation, cF.getOrder());
     }
 
     @Override

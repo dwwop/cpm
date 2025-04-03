@@ -10,8 +10,6 @@ import org.openprovenance.prov.model.StatementOrBundle.Kind;
 import java.util.List;
 import java.util.Objects;
 
-import static cz.muni.fi.cpm.constants.CpmExceptionConstants.UNSUPPORTED_DUPLICATE_RELATION;
-
 public class MergedEdge implements IEdge {
     private Relation relation;
     private INode effect;
@@ -46,8 +44,8 @@ public class MergedEdge implements IEdge {
     public void handleDuplicate(Relation duplicateRelation) {
         if (this.relation instanceof QualifiedRelation qR1 && duplicateRelation instanceof QualifiedRelation qR2) {
             ProvUtilities2.mergeAttributes(qR1, qR2);
-        } else {
-            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
+//        } else {
+//            throw new UnsupportedOperationException(UNSUPPORTED_DUPLICATE_RELATION + ": " + duplicateRelation.getKind());
         }
     }
 
