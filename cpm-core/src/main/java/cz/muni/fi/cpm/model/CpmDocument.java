@@ -696,6 +696,21 @@ public class CpmDocument implements StatementAction {
         return null;
     }
 
+
+    /**
+     * Retrieves a single {@link INode} containing the given {@link Element}
+     *
+     * @param element the {@link Element} to look up
+     * @return the {@link INode} containing the given element, or {@code null} if none exists
+     */
+    public INode getNode(Element element) {
+        INode node = getNode(element.getId(), element.getKind());
+        if (node != null && node.getElements().contains(element)) {
+            return node;
+        }
+        return null;
+    }
+
     /**
      * Retrieves a single {@link INode} associated with the given {@link QualifiedName} and {@link StatementOrBundle.Kind}.
      *
@@ -733,32 +748,19 @@ public class CpmDocument implements StatementAction {
      * {@link StatementOrBundle.Kind} to {@link INode}.
      */
     public Map<QualifiedName, Map<StatementOrBundle.Kind, INode>> getNodesMap() {
-        return nodes;
+        return new HashMap<>(nodes);
     }
 
-    private List<INode> getNodes() {
+
+    /**
+     * Retrieves the list of all edges
+     *
+     * @return a {@link List} of all {@link IEdge}
+     */
+    public List<INode> getNodes() {
         return nodes.values().stream()
                 .flatMap(map -> map.values().stream())
                 .toList();
-    }
-
-    /**
-     * Retrieves all edges associated with a given relation identifier.
-     * This method searches through the list of edges and returns those whose relation ID matches the specified {@link QualifiedName}.
-     *
-     * @param id the identifier of the relation to search for
-     * @return a list of {@link IEdge} objects matching the specified identifier, or an empty list if none are found
-     */
-    public List<IEdge> getEdges(QualifiedName id) {
-        List<IEdge> result = new ArrayList<>();
-        for (IEdge edge : edges) {
-            if (edge.getAnyRelation() instanceof Identifiable relWithId
-                    && Objects.equals(id, relWithId.getId())
-            ) {
-                result.add(edge);
-            }
-        }
-        return result;
     }
 
     /**
@@ -782,6 +784,73 @@ public class CpmDocument implements StatementAction {
 
         return edges.getFirst();
     }
+
+
+    /**
+     * Retrieves all edges associated with a given relation identifier.
+     * This method searches through the list of edges and returns those whose relation ID matches the specified {@link QualifiedName}.
+     *
+     * @param id the identifier of the relation to search for
+     * @return a list of {@link IEdge} objects matching the specified identifier, or an empty list if none are found
+     */
+    public List<IEdge> getEdges(QualifiedName id) {
+        List<IEdge> result = new ArrayList<>();
+        for (IEdge edge : edges) {
+            if (edge.getAnyRelation() instanceof Identifiable relWithId
+                    && Objects.equals(id, relWithId.getId())
+            ) {
+                result.add(edge);
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * Retrieves a single edge associated with a given relation identifier.
+     * This method searches for an edge whose relation ID matches the specified {@link QualifiedName} and
+     * {@link StatementOrBundle.Kind}
+     *
+     * @param id   the identifier of the relation to search for
+     * @param kind the {@link StatementOrBundle.Kind} to look up
+     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     */
+    public List<IEdge> getEdges(QualifiedName id, StatementOrBundle.Kind kind) {
+        List<IEdge> result = new ArrayList<>();
+        for (IEdge edge : edges) {
+            if (Objects.equals(kind, edge.getKind())
+                    && edge.getAnyRelation() instanceof Identifiable relWithId
+                    && Objects.equals(id, relWithId.getId())) {
+                result.add(edge);
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * Retrieves a single edge that matches the specified effect and cause identifiers.
+     * This method searches for an edge whose effect and cause match the specified {@link QualifiedName} values.
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     *
+     * @param effect the identifier of the effect
+     * @param cause  the identifier of the cause
+     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
+     * @throws IllegalStateException if multiple edges are found between the specified effect and cause
+     */
+    public IEdge getEdge(QualifiedName effect, QualifiedName cause) {
+        List<IEdge> edges = getEdges(effect, cause);
+        if (edges.isEmpty()) {
+            return null;
+        }
+
+        if (edges.size() != 1) {
+            throw new IllegalStateException(CpmExceptionConstants.MULTIPLE_EDGES_BETWEEN_NODES);
+        }
+
+        return edges.getFirst();
+    }
+
 
     /**
      * Retrieves all edges that match the specified effect and cause identifiers.
@@ -815,28 +884,43 @@ public class CpmDocument implements StatementAction {
         return result;
     }
 
+
     /**
-     * Retrieves a single edge that matches the specified effect and cause identifiers.
-     * This method searches for an edge whose effect and cause match the specified {@link QualifiedName} values.
-     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     * Retrieves all edges that matches the specified effect and cause identifiers and {@link StatementOrBundle.Kind}.
      *
      * @param effect the identifier of the effect
      * @param cause  the identifier of the cause
-     * @return the matching {@link IEdge}, or {@code null} if no matching edge is found
-     * @throws IllegalStateException if multiple edges are found between the specified effect and cause
+     * @param kind   the {@link StatementOrBundle.Kind} to look up
+     * @return a list of {@link IEdge} objects matching the specified effect, cause and kind, or an empty list if none are found
      */
-    public IEdge getEdge(QualifiedName effect, QualifiedName cause) {
+    public List<IEdge> getEdges(QualifiedName effect, QualifiedName cause, StatementOrBundle.Kind kind) {
         List<IEdge> edges = getEdges(effect, cause);
-        if (edges.isEmpty()) {
-            return null;
-        }
 
-        if (edges.size() != 1) {
-            throw new IllegalStateException(CpmExceptionConstants.MULTIPLE_EDGES_BETWEEN_NODES);
-        }
-
-        return edges.getFirst();
+        return edges.stream().filter(e -> Objects.equals(kind, e.getKind())).toList();
     }
+
+
+    /**
+     * Retrieves list of all edges containing the given {@link Relation}
+     *
+     * @param relation the {@link Relation} to look up
+     * @return the {@link IEdge} containing the given element, or {@code null} if none exists
+     */
+    public List<IEdge> getEdges(Relation relation) {
+        List<IEdge> edges = getEdges(u.getEffect(relation), u.getCause(relation));
+
+        return edges.stream().filter(e -> e.getRelations().contains(relation)).toList();
+    }
+
+    /**
+     * Retrieves the list of all edges
+     *
+     * @return a {@link List} of all {@link IEdge}
+     */
+    public List<IEdge> getEdges() {
+        return new ArrayList<>(edges);
+    }
+
 
     private boolean removeEdges(List<IEdge> edgesToRemove) {
         if (edgesToRemove == null || edgesToRemove.isEmpty()) {
@@ -993,7 +1077,8 @@ public class CpmDocument implements StatementAction {
         return true;
     }
 
-    private void resetNonInfluenceEdges(INode node, List<IEdge> nodeEdges, Map<QualifiedName, Map<StatementOrBundle.Kind, List<IEdge>>> documentEdges, BiConsumer<IEdge, INode> edgeSetter) {
+    private void resetNonInfluenceEdges(INode node, List<IEdge> nodeEdges, Map<QualifiedName,
+            Map<StatementOrBundle.Kind, List<IEdge>>> documentEdges, BiConsumer<IEdge, INode> edgeSetter) {
         List<IEdge> oldEdges = nodeEdges.stream()
                 .filter(e -> e.getKind() != StatementOrBundle.Kind.PROV_INFLUENCE)
                 .toList();

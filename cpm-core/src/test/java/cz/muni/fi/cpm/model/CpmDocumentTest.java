@@ -520,14 +520,18 @@ public abstract class CpmDocumentTest {
         CpmDocument doc = new CpmDocument(document, pF, cPF, cF);
 
         assertNotNull(doc.getNode(effectId));
+        assertNotNull(doc.getNode(effect));
         assertNotNull(doc.getNode(causeId));
+        assertNotNull(doc.getNode(cause));
         assertNotNull(doc.getEdge(effectId, causeId));
+        assertFalse(doc.getEdges(relation).isEmpty());
         assertEquals(relation, doc.getNode(effectId).getEffectEdges().getFirst().getAnyRelation());
         assertEquals(relation, doc.getNode(causeId).getCauseEdges().getFirst().getAnyRelation());
         assertTrue(doc.areAllRelationsMapped());
 
         if (relation instanceof Identifiable relWithId) {
             assertNotNull(doc.getEdge(relWithId.getId()));
+            assertFalse(doc.getEdges(relWithId.getId(), relation.getKind()).isEmpty());
             assertEquals(relation, doc.getEdge(relWithId.getId()).getAnyRelation());
             assertEquals(effect, doc.getEdge(relWithId.getId()).getEffect().getAnyElement());
             assertEquals(cause, doc.getEdge(relWithId.getId()).getCause().getAnyElement());
@@ -1165,7 +1169,7 @@ public abstract class CpmDocumentTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(inf, entity), List.of(), bundleId, pF, cPF, cF);
 
-        assertNotNull(doc.getEdge(id1, id2));
+        assertFalse(doc.getEdges(id1, id2, StatementOrBundle.Kind.PROV_INFLUENCE).isEmpty());
         assertEquals(doc.getNode(id1), doc.getEdge(id1, id2).getEffect());
         assertFalse(doc.areAllRelationsMapped());
 
@@ -1503,7 +1507,7 @@ public abstract class CpmDocumentTest {
 
         doc.doAction(cause);
         assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());
-        assertNull(doc.getEdge(id1, id2));
+        assertTrue(doc.getEdges(id1, id2, StatementOrBundle.Kind.PROV_INFLUENCE).isEmpty());
 
         doc.doAction(effect);
         assertTrue(doc.getNode(id2).getEffectEdges().isEmpty());
