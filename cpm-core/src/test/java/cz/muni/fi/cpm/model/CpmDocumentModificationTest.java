@@ -100,4 +100,33 @@ public abstract class CpmDocumentModificationTest {
         assertEquals(3, doc.getDomainSpecificPart().size());
     }
 
+
+    @Test
+    public void setElementIdentifier_nodeWithRelations_returnsTrue() {
+        QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+        Entity entity = cPF.getProvFactory().newEntity(id1);
+
+        QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+        Agent agent = cPF.getProvFactory().newAgent(id2);
+
+        QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
+
+        Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
+        Relation relation2 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), newId1, id2);
+
+        QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+        CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1, relation2), List.of(), bundleId, pF, cPF, cF);
+
+        assertTrue(doc.setNewElementIdentifier(doc.getNode(id1).getAnyElement(), newId1));
+
+        assertTrue(doc.getNodes(id1).isEmpty());
+        assertFalse(doc.areAllRelationsMapped());
+        assertNull(doc.getEdge(id1, id2).getEffect());
+
+        assertNotNull(doc.getNode(newId1));
+        assertNotNull(doc.getEdge(newId1, id2).getEffect());
+        assertEquals(2, doc.getDomainSpecificPart().size());
+    }
+
 }

@@ -113,6 +113,33 @@ public class CpmOrderedDocumentTest {
             super(new CpmOrderedFactory());
         }
 
+        @Test
+        public void setElementIdentifier_twoElementsWithSameId_modifiesOnlyOne() {
+            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
+            Entity entity = cPF.getProvFactory().newEntity(id1);
+
+            Entity entity2 = cPF.getProvFactory().newEntity(id1);
+
+            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
+            Agent agent = cPF.getProvFactory().newAgent(id2);
+
+            QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
+
+            Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
+            Relation relation2 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), newId1, id2);
+
+            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
+
+            CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, entity2, relation1, relation2), List.of(), bundleId, pF, cPF, cF);
+
+            assertTrue(doc.setNewElementIdentifier(doc.getNode(id1).getAnyElement(), newId1));
+
+            assertNotNull(doc.getNode(id1));
+            assertEquals(1, doc.getNodes(id1).size());
+            assertNotNull(doc.getNode(newId1));
+            assertTrue(doc.areAllRelationsMapped());
+            assertNotNull(doc.getEdge(id1, id2).getEffect());
+        }
     }
 
     @Nested

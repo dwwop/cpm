@@ -755,8 +755,19 @@ public class CpmDocument implements StatementAction {
         }
     }
 
+    /**
+     * Updates the identifier of an existing node, replacing the old identifier with a new one for each element in the node.
+     * If the new identifier is {@code null} or the same as the old one, no changes are made.
+     * If a node with the new identifier already exists, elements from the old node are merged into it.
+     * Updating node identifier does not update cause and effect identifiers in edges utilizing this identifier
+     *
+     * @param oldIdentifier the current identifier of the node
+     * @param kind          the kind of the node
+     * @param newIdentifier the new identifier to assign to the node
+     * @return {@code true} if the identifier was successfully updated, {@code false} otherwise
+     */
     public boolean setNewNodeIdentifier(QualifiedName oldIdentifier, StatementOrBundle.Kind kind, QualifiedName newIdentifier) {
-        if (Objects.equals(oldIdentifier, newIdentifier)) {
+        if (Objects.equals(oldIdentifier, newIdentifier) || newIdentifier == null) {
             return false;
         }
 
@@ -776,6 +787,30 @@ public class CpmDocument implements StatementAction {
 
         addCompletelyNewNode(newIdentifier, kind, node);
 
+        return true;
+    }
+
+    /**
+     * Updates the identifier of the given element to a new identifier.
+     * The element is first removed using identity-based comparison ({@code ==}) before updating its ID.
+     * If the new identifier is {@code null} or the same as the current one, no changes are made.
+     *
+     * @param element       the element to update
+     * @param newIdentifier the new identifier to assign to the element
+     * @return {@code true} if the identifier was successfully updated, {@code false} otherwise
+     */
+    public boolean setNewElementIdentifier(Element element, QualifiedName newIdentifier) {
+        if (Objects.equals(element, newIdentifier) || newIdentifier == null) {
+            return false;
+        }
+
+        if (!removeElement(element)) {
+            return false;
+        }
+
+        element.setId(newIdentifier);
+
+        addNode(element);
         return true;
     }
 
