@@ -5,7 +5,7 @@ import cz.muni.fi.cpm.model.INode;
 import cz.muni.fi.cpm.model.ProvUtilities2;
 import org.openprovenance.prov.model.QualifiedRelation;
 import org.openprovenance.prov.model.Relation;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class MergedEdge implements IEdge {
     }
 
     @Override
-    public StatementOrBundle.Kind getKind() {
+    public Kind getKind() {
         return relation.getKind();
     }
 

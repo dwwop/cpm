@@ -4,7 +4,7 @@ import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +45,7 @@ public class UnorderedNode implements INode {
     }
 
     @Override
-    public StatementOrBundle.Kind getKind() {
+    public Kind getKind() {
         return elements.getFirst().getKind();
     }
 

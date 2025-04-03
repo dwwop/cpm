@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.model;
 
 import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public interface INode extends Component {
 
     QualifiedName getId();
 
-    StatementOrBundle.Kind getKind();
+    Kind getKind();
 
     /**
      * Retrieves all elements within node

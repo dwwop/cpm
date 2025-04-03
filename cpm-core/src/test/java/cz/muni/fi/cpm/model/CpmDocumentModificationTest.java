@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openprovenance.prov.model.*;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,7 @@ public abstract class CpmDocumentModificationTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1, relation2), List.of(), bundleId, pF, cPF, cF);
 
-        assertTrue(doc.setNewNodeIdentifier(id1, StatementOrBundle.Kind.PROV_ENTITY, newId1));
+        assertTrue(doc.setNewNodeIdentifier(id1, Kind.PROV_ENTITY, newId1));
 
         assertTrue(doc.getNodes(id1).isEmpty());
         assertFalse(doc.areAllRelationsMapped());
@@ -135,12 +136,12 @@ public abstract class CpmDocumentModificationTest {
     }
 
 
-    private Element getElement(StatementOrBundle.Kind kind, QualifiedName id) {
-        if (StatementOrBundle.Kind.PROV_ENTITY == kind) {
+    private Element getElement(Kind kind, QualifiedName id) {
+        if (Kind.PROV_ENTITY == kind) {
             return pF.newEntity(id);
-        } else if (StatementOrBundle.Kind.PROV_AGENT == kind) {
+        } else if (Kind.PROV_AGENT == kind) {
             return pF.newAgent(id);
-        } else if (StatementOrBundle.Kind.PROV_ACTIVITY == kind) {
+        } else if (Kind.PROV_ACTIVITY == kind) {
             return pF.newActivity(id);
         }
         throw new UnsupportedOperationException();

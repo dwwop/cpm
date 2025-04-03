@@ -3,6 +3,7 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public abstract class CpmDocumentRemovalTest {
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, agent2, relation1), List.of(), bundleId, pF, cPF, cF);
 
         assertFalse(doc.removeNode(id1));
-        assertTrue(doc.removeNode(id1, StatementOrBundle.Kind.PROV_ENTITY));
+        assertTrue(doc.removeNode(id1, Kind.PROV_ENTITY));
         assertEquals(1, doc.getNodes(id1).size());
         assertFalse(doc.areAllRelationsMapped());
         assertNull(doc.getEdge(id1, id2).getEffect());
@@ -167,7 +168,7 @@ public abstract class CpmDocumentRemovalTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1), List.of(), bundleId, pF, cPF, cF);
 
-        assertTrue(doc.removeEdge(rel, StatementOrBundle.Kind.PROV_ATTRIBUTION));
+        assertTrue(doc.removeEdge(rel, Kind.PROV_ATTRIBUTION));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());
@@ -224,8 +225,8 @@ public abstract class CpmDocumentRemovalTest {
         CpmDocument doc = new CpmDocument(List.of(), List.of(agent, relation1), List.of(), bundleId, pF, cPF, cF);
 
         assertFalse(doc.areAllRelationsMapped());
-        assertFalse(doc.removeEdges(rel, StatementOrBundle.Kind.PROV_ASSOCIATION));
-        assertTrue(doc.removeEdges(rel, StatementOrBundle.Kind.PROV_ATTRIBUTION));
+        assertFalse(doc.removeEdges(rel, Kind.PROV_ASSOCIATION));
+        assertTrue(doc.removeEdges(rel, Kind.PROV_ATTRIBUTION));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.areAllRelationsMapped());
@@ -273,7 +274,7 @@ public abstract class CpmDocumentRemovalTest {
 
         doc.doAction(cause);
         assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());
-        assertTrue(doc.getEdges(id1, id2, StatementOrBundle.Kind.PROV_INFLUENCE).isEmpty());
+        assertTrue(doc.getEdges(id1, id2, Kind.PROV_INFLUENCE).isEmpty());
 
         doc.doAction(effect);
         assertTrue(doc.getNode(id2).getEffectEdges().isEmpty());

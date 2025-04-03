@@ -5,7 +5,7 @@ import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -43,7 +43,7 @@ public class OrderedNode implements INode, WithOrderedStatements {
     }
 
     @Override
-    public StatementOrBundle.Kind getKind() {
+    public Kind getKind() {
         return elements.keySet().iterator().next().getKind();
     }
 

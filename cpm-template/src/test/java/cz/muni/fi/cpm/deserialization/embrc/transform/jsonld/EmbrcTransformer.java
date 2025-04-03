@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import com.fasterxml.jackson.databind.node.ValueNode;
 import cz.muni.fi.cpm.exception.NoSpecificKind;
 import cz.muni.fi.cpm.model.ProvUtilities2;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -37,18 +37,18 @@ public class EmbrcTransformer {
             Map.entry("wasInfluencedBy", PROPERTY_PROV_INFLUENCE)
     );
 
-    private final Map<String, StatementOrBundle.Kind> JSONLD_TYPE_TO_KIND = Map.ofEntries(
-            Map.entry(PROPERTY_PROV_USED, StatementOrBundle.Kind.PROV_USAGE),
-            Map.entry(PROPERTY_PROV_GENERATION, StatementOrBundle.Kind.PROV_GENERATION),
-            Map.entry(PROPERTY_PROV_ASSOCIATION, StatementOrBundle.Kind.PROV_ASSOCIATION),
-            Map.entry(PROPERTY_PROV_ATTRIBUTION, StatementOrBundle.Kind.PROV_ATTRIBUTION),
-            Map.entry(PROPERTY_PROV_INFLUENCE, StatementOrBundle.Kind.PROV_INFLUENCE)
+    private final Map<String, Kind> JSONLD_TYPE_TO_KIND = Map.ofEntries(
+            Map.entry(PROPERTY_PROV_USED, Kind.PROV_USAGE),
+            Map.entry(PROPERTY_PROV_GENERATION, Kind.PROV_GENERATION),
+            Map.entry(PROPERTY_PROV_ASSOCIATION, Kind.PROV_ASSOCIATION),
+            Map.entry(PROPERTY_PROV_ATTRIBUTION, Kind.PROV_ATTRIBUTION),
+            Map.entry(PROPERTY_PROV_INFLUENCE, Kind.PROV_INFLUENCE)
     );
 
-    private final Map<StatementOrBundle.Kind, String> KIND_TO_JSONLD_ATTRIBUTE = Map.ofEntries(
-            Map.entry(StatementOrBundle.Kind.PROV_ENTITY, "entity"),
-            Map.entry(StatementOrBundle.Kind.PROV_AGENT, "agent"),
-            Map.entry(StatementOrBundle.Kind.PROV_ACTIVITY, "activity")
+    private final Map<Kind, String> KIND_TO_JSONLD_ATTRIBUTE = Map.ofEntries(
+            Map.entry(Kind.PROV_ENTITY, "entity"),
+            Map.entry(Kind.PROV_AGENT, "agent"),
+            Map.entry(Kind.PROV_ACTIVITY, "activity")
     );
     private final String INFLUENCER = "influencer";
     private final String INFLUENCEE = "influencee";

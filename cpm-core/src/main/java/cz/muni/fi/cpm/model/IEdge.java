@@ -1,7 +1,7 @@
 package cz.muni.fi.cpm.model;
 
 import org.openprovenance.prov.model.Relation;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface IEdge extends Component {
 
     List<Relation> getRelations();
 
-    StatementOrBundle.Kind getKind();
+    Kind getKind();
 
     /**
      * Method to handle duplicate relation of the same kind

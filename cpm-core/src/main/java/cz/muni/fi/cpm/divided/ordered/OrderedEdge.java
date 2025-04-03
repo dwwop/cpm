@@ -4,7 +4,7 @@ import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.model.Statement;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,7 +37,7 @@ public class OrderedEdge implements IEdge, WithOrderedStatements {
     }
 
     @Override
-    public StatementOrBundle.Kind getKind() {
+    public Kind getKind() {
         return relations.keySet().iterator().next().getKind();
     }
 

@@ -3,6 +3,7 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.exception.NoSpecificKind;
 import cz.muni.fi.cpm.exception.ValueConflict;
 import org.openprovenance.prov.model.*;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,30 +19,30 @@ public class ProvUtilities2 {
 
     /**
      * Retrieves the effect kind for the given relation.
-     * This method returns the {@link StatementOrBundle.Kind} based on the type of the relation.
+     * This method returns the {@link Kind} based on the type of the relation.
      *
      * @param relKind the relation kind for which to determine the effect kind
-     * @return the corresponding {@link StatementOrBundle.Kind} for the effect
+     * @return the corresponding {@link Kind} for the effect
      * @throws NoSpecificKind if the relation is not recognized or doesn't have a specific effect kind
      */
-    public static StatementOrBundle.Kind getEffectKind(StatementOrBundle.Kind relKind) throws NoSpecificKind {
+    public static Kind getEffectKind(Kind relKind) throws NoSpecificKind {
         return switch (relKind) {
-            case PROV_USAGE -> StatementOrBundle.Kind.PROV_ACTIVITY;
-            case PROV_START -> StatementOrBundle.Kind.PROV_ACTIVITY;
-            case PROV_END -> StatementOrBundle.Kind.PROV_ACTIVITY;
-            case PROV_GENERATION -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_DERIVATION -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_ASSOCIATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
-            case PROV_INVALIDATION -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_ATTRIBUTION -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_ALTERNATE -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_SPECIALIZATION -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_MEMBERSHIP -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_COMMUNICATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
-            case PROV_MENTION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_USAGE -> Kind.PROV_ACTIVITY;
+            case PROV_START -> Kind.PROV_ACTIVITY;
+            case PROV_END -> Kind.PROV_ACTIVITY;
+            case PROV_GENERATION -> Kind.PROV_ENTITY;
+            case PROV_DERIVATION -> Kind.PROV_ENTITY;
+            case PROV_ASSOCIATION -> Kind.PROV_ACTIVITY;
+            case PROV_INVALIDATION -> Kind.PROV_ENTITY;
+            case PROV_ATTRIBUTION -> Kind.PROV_ENTITY;
+            case PROV_ALTERNATE -> Kind.PROV_ENTITY;
+            case PROV_SPECIALIZATION -> Kind.PROV_ENTITY;
+            case PROV_MEMBERSHIP -> Kind.PROV_ENTITY;
+            case PROV_COMMUNICATION -> Kind.PROV_ACTIVITY;
+            case PROV_MENTION -> Kind.PROV_ENTITY;
             case PROV_INFLUENCE -> throw new NoSpecificKind();
-            case PROV_DELEGATION -> StatementOrBundle.Kind.PROV_AGENT;
-            case PROV_DICTIONARY_INSERTION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_DELEGATION -> Kind.PROV_AGENT;
+            case PROV_DICTIONARY_INSERTION -> Kind.PROV_ENTITY;
             default -> {
                 System.out.println("Unknown relation " + relKind);
                 throw new UnsupportedOperationException();
@@ -51,31 +52,31 @@ public class ProvUtilities2 {
 
     /**
      * Retrieves the cause kind for the given relation.
-     * This method returns the {@link StatementOrBundle.Kind} based on the type of the relation.
+     * This method returns the {@link Kind} based on the type of the relation.
      *
      * @param relKind the relation kind for which to determine the cause kind
-     * @return the corresponding {@link StatementOrBundle.Kind} for the cause
+     * @return the corresponding {@link Kind} for the cause
      * @throws NoSpecificKind if the relation is not recognized or doesn't have a specific cause kind
      */
-    public static StatementOrBundle.Kind getCauseKind(StatementOrBundle.Kind relKind) throws NoSpecificKind {
+    public static Kind getCauseKind(Kind relKind) throws NoSpecificKind {
 
         return switch (relKind) {
-            case PROV_USAGE -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_GENERATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
-            case PROV_INVALIDATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
-            case PROV_START -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_END -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_DERIVATION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_USAGE -> Kind.PROV_ENTITY;
+            case PROV_GENERATION -> Kind.PROV_ACTIVITY;
+            case PROV_INVALIDATION -> Kind.PROV_ACTIVITY;
+            case PROV_START -> Kind.PROV_ENTITY;
+            case PROV_END -> Kind.PROV_ENTITY;
+            case PROV_DERIVATION -> Kind.PROV_ENTITY;
             case PROV_INFLUENCE -> throw new NoSpecificKind();
-            case PROV_ASSOCIATION -> StatementOrBundle.Kind.PROV_AGENT;
-            case PROV_ATTRIBUTION -> StatementOrBundle.Kind.PROV_AGENT;
-            case PROV_ALTERNATE -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_SPECIALIZATION -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_MEMBERSHIP -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_MENTION -> StatementOrBundle.Kind.PROV_ENTITY;
-            case PROV_COMMUNICATION -> StatementOrBundle.Kind.PROV_ACTIVITY;
-            case PROV_DELEGATION -> StatementOrBundle.Kind.PROV_AGENT;
-            case PROV_DICTIONARY_INSERTION -> StatementOrBundle.Kind.PROV_ENTITY;
+            case PROV_ASSOCIATION -> Kind.PROV_AGENT;
+            case PROV_ATTRIBUTION -> Kind.PROV_AGENT;
+            case PROV_ALTERNATE -> Kind.PROV_ENTITY;
+            case PROV_SPECIALIZATION -> Kind.PROV_ENTITY;
+            case PROV_MEMBERSHIP -> Kind.PROV_ENTITY;
+            case PROV_MENTION -> Kind.PROV_ENTITY;
+            case PROV_COMMUNICATION -> Kind.PROV_ACTIVITY;
+            case PROV_DELEGATION -> Kind.PROV_AGENT;
+            case PROV_DICTIONARY_INSERTION -> Kind.PROV_ENTITY;
             default -> {
                 System.out.println("Unknown relation " + relKind);
                 throw new UnsupportedOperationException();

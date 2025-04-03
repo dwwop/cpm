@@ -3,7 +3,7 @@ package cz.muni.fi.cpm.divided.unordered;
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Relation;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,7 +40,7 @@ public class UnorderedEdge implements IEdge {
     }
 
     @Override
-    public StatementOrBundle.Kind getKind() {
+    public Kind getKind() {
         return relations.getFirst().getKind();
     }
 

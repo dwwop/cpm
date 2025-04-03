@@ -8,7 +8,7 @@ import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import cz.muni.fi.cpm.model.ITIStrategy;
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.List;
 import java.util.Objects;
@@ -54,7 +54,7 @@ public class AttributeTIStrategy implements ITIStrategy {
         boolean hasNodeAnyCpmType = hasAnyCpmType(node);
 
         List<INode> generalNodes = node.getEffectEdges().stream()
-                .filter(x -> StatementOrBundle.Kind.PROV_SPECIALIZATION.equals(x.getKind()))
+                .filter(x -> Kind.PROV_SPECIALIZATION.equals(x.getKind()))
                 .map(IEdge::getCause).toList();
 
         if (generalNodes.isEmpty() && hasNodeAnyCpmType) return true;

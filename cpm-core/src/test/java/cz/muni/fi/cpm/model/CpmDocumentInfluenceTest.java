@@ -3,6 +3,7 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.HashSet;
 import java.util.List;
@@ -50,12 +51,12 @@ public abstract class CpmDocumentInfluenceTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(inf, entity), List.of(), bundleId, pF, cPF, cF);
 
-        assertFalse(doc.getEdges(id1, id2, StatementOrBundle.Kind.PROV_INFLUENCE).isEmpty());
+        assertFalse(doc.getEdges(id1, id2, Kind.PROV_INFLUENCE).isEmpty());
         assertEquals(doc.getNode(id1), doc.getEdge(id1, id2).getEffect());
         assertFalse(doc.areAllRelationsMapped());
 
         QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
-        assertTrue(doc.setNewNodeIdentifier(id1, StatementOrBundle.Kind.PROV_ENTITY, newId1));
+        assertTrue(doc.setNewNodeIdentifier(id1, Kind.PROV_ENTITY, newId1));
         assertNotNull(doc.getEdge(id1, id2));
     }
 
@@ -171,8 +172,8 @@ public abstract class CpmDocumentInfluenceTest {
         assertEquals(2, doc.getEdges(id1, id2).size());
         assertEquals(2, doc.getNodes(id2).size());
         assertEquals(2, doc.getNode(id1).getEffectEdges().size());
-        assertEquals(1, doc.getNode(id2, StatementOrBundle.Kind.PROV_ENTITY).getCauseEdges().size());
-        assertEquals(1, doc.getNode(id2, StatementOrBundle.Kind.PROV_AGENT).getCauseEdges().size());
+        assertEquals(1, doc.getNode(id2, Kind.PROV_ENTITY).getCauseEdges().size());
+        assertEquals(1, doc.getNode(id2, Kind.PROV_AGENT).getCauseEdges().size());
         assertTrue(doc.areAllRelationsMapped());
     }
 
@@ -229,12 +230,12 @@ public abstract class CpmDocumentInfluenceTest {
         assertEquals(2, doc.getEdges(id1, id2).size());
         assertEquals(2, doc.getNodes(id1).size());
         assertEquals(2, doc.getNode(id2).getCauseEdges().size());
-        assertEquals(1, doc.getNode(id1, StatementOrBundle.Kind.PROV_ENTITY).getEffectEdges().size());
-        assertEquals(1, doc.getNode(id1, StatementOrBundle.Kind.PROV_AGENT).getEffectEdges().size());
+        assertEquals(1, doc.getNode(id1, Kind.PROV_ENTITY).getEffectEdges().size());
+        assertEquals(1, doc.getNode(id1, Kind.PROV_AGENT).getEffectEdges().size());
         assertTrue(doc.areAllRelationsMapped());
 
         QualifiedName newId2 = cPF.newCpmQualifiedName("newQN2");
-        assertTrue(doc.setNewNodeIdentifier(id2, StatementOrBundle.Kind.PROV_ENTITY, newId2));
+        assertTrue(doc.setNewNodeIdentifier(id2, Kind.PROV_ENTITY, newId2));
         assertEquals(2, doc.getEdges(id1, id2).size());
     }
 
@@ -258,8 +259,8 @@ public abstract class CpmDocumentInfluenceTest {
         assertEquals(2, doc.getEdges(id1, id2).size());
         assertEquals(2, doc.getNodes(id1).size());
         assertEquals(0, doc.getNodes(id2).size());
-        assertEquals(1, doc.getNode(id1, StatementOrBundle.Kind.PROV_ENTITY).getEffectEdges().size());
-        assertEquals(1, doc.getNode(id1, StatementOrBundle.Kind.PROV_AGENT).getEffectEdges().size());
+        assertEquals(1, doc.getNode(id1, Kind.PROV_ENTITY).getEffectEdges().size());
+        assertEquals(1, doc.getNode(id1, Kind.PROV_AGENT).getEffectEdges().size());
         assertFalse(doc.areAllRelationsMapped());
     }
 
@@ -284,8 +285,8 @@ public abstract class CpmDocumentInfluenceTest {
         assertEquals(2, doc.getEdges(id1, id2).size());
         assertEquals(0, doc.getNodes(id1).size());
         assertEquals(2, doc.getNodes(id2).size());
-        assertEquals(1, doc.getNode(id2, StatementOrBundle.Kind.PROV_ENTITY).getCauseEdges().size());
-        assertEquals(1, doc.getNode(id2, StatementOrBundle.Kind.PROV_AGENT).getCauseEdges().size());
+        assertEquals(1, doc.getNode(id2, Kind.PROV_ENTITY).getCauseEdges().size());
+        assertEquals(1, doc.getNode(id2, Kind.PROV_AGENT).getCauseEdges().size());
         assertFalse(doc.areAllRelationsMapped());
     }
 
@@ -312,14 +313,14 @@ public abstract class CpmDocumentInfluenceTest {
         assertEquals(4, doc.getEdges(id1, id2).size());
         assertEquals(2, doc.getNodes(id1).size());
         assertEquals(2, doc.getNodes(id2).size());
-        assertEquals(2, doc.getNode(id2, StatementOrBundle.Kind.PROV_ENTITY).getCauseEdges().size());
-        assertEquals(2, doc.getNode(id1, StatementOrBundle.Kind.PROV_ENTITY).getEffectEdges().size());
-        assertEquals(2, doc.getNode(id2, StatementOrBundle.Kind.PROV_AGENT).getCauseEdges().size());
-        assertEquals(2, doc.getNode(id1, StatementOrBundle.Kind.PROV_AGENT).getEffectEdges().size());
+        assertEquals(2, doc.getNode(id2, Kind.PROV_ENTITY).getCauseEdges().size());
+        assertEquals(2, doc.getNode(id1, Kind.PROV_ENTITY).getEffectEdges().size());
+        assertEquals(2, doc.getNode(id2, Kind.PROV_AGENT).getCauseEdges().size());
+        assertEquals(2, doc.getNode(id1, Kind.PROV_AGENT).getEffectEdges().size());
         assertTrue(doc.areAllRelationsMapped());
 
         QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
-        assertTrue(doc.setNewNodeIdentifier(id1, StatementOrBundle.Kind.PROV_ENTITY, newId1));
+        assertTrue(doc.setNewNodeIdentifier(id1, Kind.PROV_ENTITY, newId1));
         assertEquals(2, doc.getEdges(id1, id2).size());
     }
 
@@ -353,17 +354,17 @@ public abstract class CpmDocumentInfluenceTest {
         assertEquals(9, doc.getEdges(id1, id2).stream().distinct().toList().size());
         assertEquals(3, doc.getNodes(id1).size());
         assertEquals(3, doc.getNodes(id2).size());
-        assertEquals(3, doc.getNode(id1, StatementOrBundle.Kind.PROV_ENTITY).getEffectEdges().size());
-        assertEquals(3, doc.getNode(id2, StatementOrBundle.Kind.PROV_ENTITY).getCauseEdges().size());
-        assertEquals(3, doc.getNode(id1, StatementOrBundle.Kind.PROV_AGENT).getEffectEdges().size());
-        assertEquals(3, doc.getNode(id2, StatementOrBundle.Kind.PROV_AGENT).getCauseEdges().size());
-        assertEquals(3, doc.getNode(id1, StatementOrBundle.Kind.PROV_ACTIVITY).getEffectEdges().size());
-        assertEquals(3, doc.getNode(id2, StatementOrBundle.Kind.PROV_ACTIVITY).getCauseEdges().size());
+        assertEquals(3, doc.getNode(id1, Kind.PROV_ENTITY).getEffectEdges().size());
+        assertEquals(3, doc.getNode(id2, Kind.PROV_ENTITY).getCauseEdges().size());
+        assertEquals(3, doc.getNode(id1, Kind.PROV_AGENT).getEffectEdges().size());
+        assertEquals(3, doc.getNode(id2, Kind.PROV_AGENT).getCauseEdges().size());
+        assertEquals(3, doc.getNode(id1, Kind.PROV_ACTIVITY).getEffectEdges().size());
+        assertEquals(3, doc.getNode(id2, Kind.PROV_ACTIVITY).getCauseEdges().size());
         assertTrue(doc.areAllRelationsMapped());
 
         QualifiedName newId1 = cPF.newCpmQualifiedName("newQN1");
 
-        assertTrue(doc.setNewNodeIdentifier(id1, StatementOrBundle.Kind.PROV_ENTITY, newId1));
+        assertTrue(doc.setNewNodeIdentifier(id1, Kind.PROV_ENTITY, newId1));
         assertEquals(6, doc.getEdges(id1, id2).size());
         assertTrue(doc.areAllRelationsMapped());
     }

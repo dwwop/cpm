@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openprovenance.prov.model.*;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 import org.openprovenance.prov.model.extension.QualifiedHadMember;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -278,8 +279,8 @@ public abstract class CpmDocumentConstructorTest {
 
         assertThrows(IllegalStateException.class, () -> doc.getNode(identicalId));
         assertEquals(2, doc.getNodes(identicalId).size());
-        assertEquals(entity, doc.getNode(identicalId, StatementOrBundle.Kind.PROV_ENTITY).getAnyElement());
-        assertEquals(activity, doc.getNode(identicalId, StatementOrBundle.Kind.PROV_ACTIVITY).getAnyElement());
+        assertEquals(entity, doc.getNode(identicalId, Kind.PROV_ENTITY).getAnyElement());
+        assertEquals(activity, doc.getNode(identicalId, Kind.PROV_ACTIVITY).getAnyElement());
     }
 
 
@@ -326,12 +327,12 @@ public abstract class CpmDocumentConstructorTest {
         assertEquals(agent, doc.getNode(agentId).getAnyElement());
     }
 
-    private Element getElement(StatementOrBundle.Kind kind, QualifiedName id) {
-        if (StatementOrBundle.Kind.PROV_ENTITY == kind) {
+    private Element getElement(Kind kind, QualifiedName id) {
+        if (Kind.PROV_ENTITY == kind) {
             return pF.newEntity(id);
-        } else if (StatementOrBundle.Kind.PROV_AGENT == kind) {
+        } else if (Kind.PROV_AGENT == kind) {
             return pF.newAgent(id);
-        } else if (StatementOrBundle.Kind.PROV_ACTIVITY == kind) {
+        } else if (Kind.PROV_ACTIVITY == kind) {
             return pF.newActivity(id);
         }
         throw new UnsupportedOperationException();

@@ -5,7 +5,7 @@ import cz.muni.fi.cpm.model.INode;
 import cz.muni.fi.cpm.model.ProvUtilities2;
 import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.StatementOrBundle;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class MergedNode implements INode {
     }
 
     @Override
-    public StatementOrBundle.Kind getKind() {
+    public Kind getKind() {
         return element.getKind();
     }
 
