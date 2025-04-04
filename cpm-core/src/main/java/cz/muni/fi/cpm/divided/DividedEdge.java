@@ -1,54 +1,57 @@
-package cz.muni.fi.cpm.divided.ordered;
+package cz.muni.fi.cpm.divided;
 
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import org.openprovenance.prov.model.Relation;
-import org.openprovenance.prov.model.Statement;
 import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
-public class OrderedEdge implements IEdge, WithOrderedStatements {
-    private final Map<Relation, Long> relations;
-    private final CpmOrderedFactory cF;
+public class DividedEdge implements IEdge {
+    private final List<Relation> relations;
     private INode effect;
     private INode cause;
 
-    public OrderedEdge(Relation relation, CpmOrderedFactory cF) {
-        this.relations = new IdentityHashMap<>(Map.of(relation, cF.getOrder()));
-        this.cF = cF;
+    public DividedEdge(Relation relation, INode effect, INode cause) {
+        this.relations = new ArrayList<>(List.of(relation));
+        this.effect = effect;
+        this.cause = cause;
     }
 
-    public OrderedEdge(List<Relation> relations, CpmOrderedFactory cF) {
-        this.relations = new IdentityHashMap<>(relations.stream()
-                .collect(Collectors.toMap(r -> r, _ -> cF.getOrder())));
-        this.cF = cF;
+    public DividedEdge(Relation relation) {
+        this.relations = new ArrayList<>(List.of(relation));
+    }
+
+    public DividedEdge(List<Relation> relations) {
+        this.relations = new ArrayList<>(relations);
     }
 
     @Override
     public Relation getAnyRelation() {
-        return relations.keySet().iterator().next();
+        return relations.getFirst();
     }
 
     @Override
     public List<Relation> getRelations() {
-        return relations.keySet().stream().toList();
+        return Collections.unmodifiableList(relations);
     }
 
     @Override
     public Kind getKind() {
-        return relations.keySet().iterator().next().getKind();
+        return relations.getFirst().getKind();
     }
 
     @Override
     public void handleDuplicate(Relation duplicateRelation) {
-        relations.put(duplicateRelation, cF.getOrder());
+        relations.add(duplicateRelation);
     }
 
     @Override
     public boolean remove(Relation relation) {
-        return relations.remove(relation) != null;
+        return relations.removeIf(r -> r == relation);
     }
 
     @Override
@@ -74,8 +77,8 @@ public class OrderedEdge implements IEdge, WithOrderedStatements {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        OrderedEdge edge = (OrderedEdge) o;
-        return Objects.equals(new HashSet<>(relations.keySet()), new HashSet<>(edge.relations.keySet())) &&
+        DividedEdge edge = (DividedEdge) o;
+        return Objects.equals(relations, edge.relations) &&
                 Objects.equals(effect != null ? effect.getElements() : null,
                         edge.effect != null ? edge.effect.getElements() : null) &&
                 Objects.equals(cause != null ? cause.getElements() : null,
@@ -84,15 +87,10 @@ public class OrderedEdge implements IEdge, WithOrderedStatements {
 
     @Override
     public int hashCode() {
-        return Objects.hash(new HashSet<>(relations.keySet()),
+        return Objects.hash(relations,
                 effect != null ? effect.getElements() : null,
                 cause != null ? cause.getElements() : null
         );
     }
 
-
-    @Override
-    public Map<Statement, Long> getStatementsWithOrder() {
-        return Collections.unmodifiableMap(relations);
-    }
 }

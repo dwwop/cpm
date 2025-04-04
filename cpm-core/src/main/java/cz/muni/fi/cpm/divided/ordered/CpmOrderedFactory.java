@@ -1,83 +1,57 @@
 package cz.muni.fi.cpm.divided.ordered;
 
+import cz.muni.fi.cpm.divided.AbstractDividedFactory;
 import cz.muni.fi.cpm.model.Component;
-import cz.muni.fi.cpm.model.ICpmFactory;
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
-import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.model.ProvFactory;
-import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.model.Statement;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class CpmOrderedFactory implements ICpmFactory {
-    private final ProvFactory pF;
-    private long order = 0;
+public class CpmOrderedFactory extends AbstractDividedFactory {
+    private final OrderManager oM;
 
     public CpmOrderedFactory() {
-        this.pF = new org.openprovenance.prov.vanilla.ProvFactory();
+        this(new org.openprovenance.prov.vanilla.ProvFactory());
     }
 
     public CpmOrderedFactory(ProvFactory pF) {
-        this.pF = pF;
+        super(pF);
+        this.oM = new OrderManager();
     }
 
     @Override
-    public ProvFactory getProvFactory() {
-        return pF;
+    protected IEdge processEdge(IEdge edge) {
+        edge.getRelations().forEach(oM::assignOrder);
+        return edge;
     }
 
     @Override
-    public IEdge newEdge(Relation relation) {
-        Relation clonedRelation = pF.newStatement(relation);
-        return new OrderedEdge(clonedRelation, this);
-    }
-
-    @Override
-    public IEdge newEdgeWithoutCloning(Relation relation) {
-        return new OrderedEdge(relation, this);
-    }
-
-    @Override
-    public IEdge newEdge(IEdge edge) {
-        ;
-        return new OrderedEdge(edge.getRelations().stream().map(pF::newStatement).toList(), this);
-    }
-
-    @Override
-    public IEdge newEdgeWithoutCloning(IEdge edge) {
-        return new OrderedEdge(edge.getRelations(), this);
-    }
-
-    @Override
-    public INode newNode(Element element) {
-        Element clonedElement = pF.newStatement(element);
-        return new OrderedNode(clonedElement, this);
-    }
-
-    public INode newNode(INode node) {
-        return new OrderedNode(node.getElements().stream().map(pF::newStatement).toList(), this);
-    }
-
-    public Long getOrder() {
-        order++;
-        return order;
+    protected INode processNode(INode node) {
+        node.getElements().forEach(oM::assignOrder);
+        return node;
     }
 
     @Override
     public Function<List<Component>, List<Statement>> getComponentsTransformer() {
         return statements -> statements.stream()
-                .map(c -> ((WithOrderedStatements) c).getStatementsWithOrder())
-                .flatMap(map -> map.entrySet().stream())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Long::min, IdentityHashMap::new))
-                .entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
+                .flatMap(x -> {
+                    if (x instanceof INode n) {
+                        return n.getElements().stream();
+                    }
+                    return ((IEdge) x).getRelations().stream();
+                })
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toCollection(() -> Collections.newSetFromMap(new IdentityHashMap<>())),
+                        Collection::stream
+                ))
+                .sorted((s1, s2) -> Integer.compare(oM.getOrder(s1), oM.getOrder(s2)))
                 .toList();
     }
 }

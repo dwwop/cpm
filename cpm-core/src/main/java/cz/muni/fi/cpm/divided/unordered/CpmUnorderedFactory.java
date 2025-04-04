@@ -1,12 +1,10 @@
 package cz.muni.fi.cpm.divided.unordered;
 
+import cz.muni.fi.cpm.divided.AbstractDividedFactory;
 import cz.muni.fi.cpm.model.Component;
-import cz.muni.fi.cpm.model.ICpmFactory;
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
-import org.openprovenance.prov.model.Element;
 import org.openprovenance.prov.model.ProvFactory;
-import org.openprovenance.prov.model.Relation;
 import org.openprovenance.prov.model.Statement;
 
 import java.util.Collections;
@@ -15,51 +13,24 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class CpmUnorderedFactory implements ICpmFactory {
-    private final ProvFactory pF;
+public class CpmUnorderedFactory extends AbstractDividedFactory {
 
     public CpmUnorderedFactory() {
-        this.pF = new org.openprovenance.prov.vanilla.ProvFactory();
+        this(new org.openprovenance.prov.vanilla.ProvFactory());
     }
 
     public CpmUnorderedFactory(ProvFactory pF) {
-        this.pF = pF;
+        super(pF);
     }
 
     @Override
-    public ProvFactory getProvFactory() {
-        return pF;
+    protected IEdge processEdge(IEdge edge) {
+        return edge;
     }
 
     @Override
-    public IEdge newEdge(Relation relation) {
-        Relation clonedRelation = pF.newStatement(relation);
-        return new UnorderedEdge(clonedRelation);
-    }
-
-    @Override
-    public IEdge newEdgeWithoutCloning(Relation relation) {
-        return new UnorderedEdge(relation);
-    }
-
-    @Override
-    public IEdge newEdge(IEdge edge) {
-        return new UnorderedEdge(edge.getRelations().stream().map(pF::newStatement).toList());
-    }
-
-    @Override
-    public IEdge newEdgeWithoutCloning(IEdge edge) {
-        return new UnorderedEdge(edge.getRelations());
-    }
-
-    @Override
-    public INode newNode(Element element) {
-        Element clonedElement = pF.newStatement(element);
-        return new UnorderedNode(clonedElement);
-    }
-
-    public INode newNode(INode node) {
-        return new UnorderedNode(node.getElements().stream().map(pF::newStatement).toList());
+    protected INode processNode(INode node) {
+        return node;
     }
 
     @Override

@@ -72,6 +72,14 @@ public interface ICpmFactory {
     INode newNode(INode node);
 
     /**
+     * Creates a new node based on the element without cloning it
+     *
+     * @param element the element to create the node from
+     * @return a new INode
+     */
+    INode newNodeWithoutCloning(Element element);
+
+    /**
      * Returns a function that transforms a list of CPM components into a list of {@link Statement} objects.
      * Primary usage in conversion from {@link CpmDocument} back to {@link org.openprovenance.prov.model.Document}
      *

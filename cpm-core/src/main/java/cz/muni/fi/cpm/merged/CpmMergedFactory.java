@@ -63,6 +63,11 @@ public class CpmMergedFactory implements ICpmFactory {
     }
 
     @Override
+    public INode newNodeWithoutCloning(Element element) {
+        return new MergedNode(element);
+    }
+
+    @Override
     public Function<List<Component>, List<Statement>> getComponentsTransformer() {
         return list -> list.stream()
                 .map(x -> {

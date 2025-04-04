@@ -1,7 +1,8 @@
 package cz.muni.fi.cpm.divided.ordered;
 
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.model.*;
+import cz.muni.fi.cpm.divided.CpmDividedDocumentTest;
+import cz.muni.fi.cpm.model.CpmDocument;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -14,17 +15,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CpmOrderedDocumentTest {
+public class CpmOrderedDocumentTest extends CpmDividedDocumentTest {
 
     @Nested
-    public class CpmOrderedDocumentAdditionalTest extends CpmDocumentAdditionalTest {
+    public class CpmOrderedDocumentAdditionalTest extends CpmDividedDocumentAdditionalTest {
         public CpmOrderedDocumentAdditionalTest() {
             super(new CpmOrderedFactory());
         }
     }
 
     @Nested
-    public class CpmOrderedDocumentConstructorTest extends CpmDocumentConstructorTest {
+    public class CpmOrderedDocumentConstructorTest extends CpmDividedDocumentConstructorTest {
         public CpmOrderedDocumentConstructorTest() throws Exception {
             super(new CpmOrderedFactory());
         }
@@ -93,7 +94,7 @@ public class CpmOrderedDocumentTest {
 
 
     @Nested
-    public class CpmOrderedDocumentEqualsTest extends CpmDocumentEqualsTest {
+    public class CpmOrderedDocumentEqualsTest extends CpmDividedDocumentEqualsTest {
         public CpmOrderedDocumentEqualsTest() {
             super(new CpmOrderedFactory());
         }
@@ -101,55 +102,16 @@ public class CpmOrderedDocumentTest {
 
 
     @Nested
-    public class CpmOrderedDocumentInfluenceTest extends CpmDocumentInfluenceTest {
+    public class CpmOrderedDocumentInfluenceTest extends CpmDividedDocumentInfluenceTest {
         public CpmOrderedDocumentInfluenceTest() {
             super(new CpmOrderedFactory());
         }
 
 
-        @Test
-        public void addInfluence_twoIdenticalInfluences_keepsBothObjects() {
-            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
-            Entity cause = pF.newEntity(id1);
-
-            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
-            Entity effect = pF.newEntity(id2);
-
-            QualifiedName rel = cPF.newCpmQualifiedName("rel");
-            WasInfluencedBy inf = pF.newWasInfluencedBy(rel, id1, id2);
-            WasInfluencedBy inf2 = pF.newWasInfluencedBy(rel, id1, id2);
-
-            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
-
-            CpmDocument doc = new CpmDocument(List.of(), List.of(effect, inf, inf2, cause), List.of(), bundleId, pF, cPF, cF);
-
-            assertNotNull(doc.getEdge(id1, id2));
-            assertEquals(2, doc.getEdge(id1, id2).getRelations().size());
-        }
-
-        @Test
-        public void addHadMember_twoIdenticalMemberships_keepsBothObjects() {
-            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
-            Entity cause = pF.newEntity(id1);
-
-            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
-            Entity effect = pF.newEntity(id2);
-
-            QualifiedName rel = cPF.newCpmQualifiedName("rel");
-            HadMember hM = pF.newQualifiedHadMember(rel, id1, List.of(id2), new ArrayList<>());
-            HadMember hM2 = pF.newQualifiedHadMember(rel, id1, List.of(id2), new ArrayList<>());
-
-            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
-
-            CpmDocument doc = new CpmDocument(List.of(), List.of(effect, hM, hM2, cause), List.of(), bundleId, pF, cPF, cF);
-
-            assertNotNull(doc.getEdge(id1, id2));
-            assertEquals(2, doc.getEdge(id1, id2).getRelations().size());
-        }
     }
 
     @Nested
-    class CpmOrderedDocumentModificationTest extends CpmDocumentModificationTest {
+    class CpmOrderedDocumentModificationTest extends CpmDividedDocumentModificationTest {
         public CpmOrderedDocumentModificationTest() {
             super(new CpmOrderedFactory());
         }
@@ -181,6 +143,10 @@ public class CpmOrderedDocumentTest {
             assertNotNull(doc.getNode(newId1));
             assertTrue(doc.areAllRelationsMapped());
             assertNotNull(doc.getEdge(id1, id2).getEffect());
+
+            List<Statement> stsAfterChange = ((Bundle) doc.toDocument().getStatementOrBundle().getFirst()).getStatement();
+            assertEquals(newId1, ((Identifiable) stsAfterChange.get(0)).getId());
+            assertEquals(id1, ((Identifiable) stsAfterChange.get(2)).getId());
         }
 
 
@@ -212,63 +178,18 @@ public class CpmOrderedDocumentTest {
             assertTrue(doc.areAllRelationsMapped());
             assertFalse(doc.getNode(id1).getEffectEdges().isEmpty());
             assertFalse(doc.getNode(newId1).getEffectEdges().isEmpty());
+
+            List<Statement> stsAfterChange = ((Bundle) doc.toDocument().getStatementOrBundle().getFirst()).getStatement();
+            assertEquals(newId1, u.getEffect((Relation) stsAfterChange.get(3)));
+            assertEquals(id1, u.getEffect((Relation) stsAfterChange.get(4)));
         }
     }
 
     @Nested
-    class CpmOrderedDocumentRemovalTest extends CpmDocumentRemovalTest {
+    class CpmOrderedDocumentRemovalTest extends CpmDividedDocumentRemovalTest {
         public CpmOrderedDocumentRemovalTest() {
             super(new CpmOrderedFactory());
         }
 
-        @Test
-        public void removeElement_nodeWithMultipleElements_returnsTrue() {
-            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
-            Entity entity = cPF.getProvFactory().newEntity(id1);
-
-            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
-            Agent agent = cPF.getProvFactory().newAgent(id2);
-
-            Entity entity2 = cPF.getProvFactory().newEntity(id1);
-
-            Relation relation1 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id1, id2);
-
-            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
-
-            CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, entity2, relation1), List.of(), bundleId, pF, cPF, cF);
-
-            List<Element> id1Elements = doc.getNode(id1).getElements();
-            assertEquals(2, id1Elements.size());
-            assertFalse(doc.removeElement(entity));
-            assertTrue(doc.removeElement(id1Elements.getFirst()));
-            assertNotNull(doc.getNode(id1));
-            assertEquals(1, doc.getNode(id1).getElements().size());
-            assertTrue(doc.areAllRelationsMapped());
-            assertNotNull(doc.getEdge(id1, id2).getEffect());
-            assertEquals(2, doc.getDomainSpecificPart().size());
-        }
-
-        @Test
-        public void removeRelation_twoRelationsWithSameId_returnsTrue() {
-            QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
-            Entity cause = pF.newEntity(id1);
-
-            QualifiedName id2 = cPF.newCpmQualifiedName("qN2");
-            Entity effect = pF.newEntity(id2);
-
-            QualifiedName rel = cPF.newCpmQualifiedName("rel");
-            WasDerivedFrom inf1 = pF.newWasDerivedFrom(rel, id1, id2);
-            WasDerivedFrom inf2 = pF.newWasDerivedFrom(rel, id1, id2);
-
-            QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
-
-            CpmDocument doc = new CpmDocument(List.of(cause, effect), List.of(inf1, inf2), List.of(), bundleId, pF, cPF, cF);
-
-            assertEquals(2, doc.getEdge(rel).getRelations().size());
-            assertFalse(doc.removeRelation(inf1));
-            assertTrue(doc.removeRelation(doc.getEdge(rel).getAnyRelation()));
-            assertEquals(1, doc.getEdge(rel).getRelations().size());
-            assertTrue(doc.areAllRelationsMapped());
-        }
     }
 }

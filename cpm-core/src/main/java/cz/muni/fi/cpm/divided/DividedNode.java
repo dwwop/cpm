@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.divided.unordered;
+package cz.muni.fi.cpm.divided;
 
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
@@ -11,24 +11,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class UnorderedNode implements INode {
+public class DividedNode implements INode {
     final List<Element> elements;
     final List<IEdge> effectEdges;
     final List<IEdge> causeEdges;
 
-    public UnorderedNode(Element element, List<IEdge> effectEdges, List<IEdge> causeEdges) {
+    public DividedNode(Element element, List<IEdge> effectEdges, List<IEdge> causeEdges) {
         this.elements = new ArrayList<>(List.of(element));
         this.effectEdges = effectEdges;
         this.causeEdges = causeEdges;
     }
 
-    public UnorderedNode(Element element) {
+    public DividedNode(Element element) {
         this.elements = new ArrayList<>(List.of(element));
         this.effectEdges = new ArrayList<>();
         this.causeEdges = new ArrayList<>();
     }
 
-    public UnorderedNode(List<Element> elements) {
+    public DividedNode(List<Element> elements) {
         this.elements = new ArrayList<>(elements);
         this.effectEdges = new ArrayList<>();
         this.causeEdges = new ArrayList<>();
@@ -77,7 +77,7 @@ public class UnorderedNode implements INode {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        UnorderedNode node = (UnorderedNode) o;
+        DividedNode node = (DividedNode) o;
         return Objects.equals(elements, node.elements) && Objects.equals(effectEdges, node.effectEdges) && Objects.equals(causeEdges, node.causeEdges);
     }
 

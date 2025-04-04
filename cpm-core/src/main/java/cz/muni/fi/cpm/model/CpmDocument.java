@@ -272,7 +272,7 @@ public class CpmDocument implements StatementAction {
 
         INode existingNode = getNode(id, kind);
         if (existingNode != null) {
-            existingNode.handleDuplicate(element);
+            existingNode.handleDuplicate(newNode.getAnyElement());
             return;
         }
 
@@ -827,7 +827,13 @@ public class CpmDocument implements StatementAction {
 
         element.setId(newIdentifier);
 
-        addNode(element);
+        INode existingNode = getNode(newIdentifier, element.getKind());
+        if (existingNode != null) {
+            existingNode.handleDuplicate(element);
+            return true;
+        }
+
+        addCompletelyNewNode(newIdentifier, element.getKind(), cF.newNodeWithoutCloning(element));
         return true;
     }
 
@@ -1194,7 +1200,7 @@ public class CpmDocument implements StatementAction {
             return true;
         }
 
-        addEdge(relation);
+        addEdge(cF.newEdgeWithoutCloning(relation), newEffect, newCause);
         return true;
     }
 
