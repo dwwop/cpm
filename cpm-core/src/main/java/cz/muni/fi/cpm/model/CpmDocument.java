@@ -1102,8 +1102,6 @@ public class CpmDocument implements StatementAction {
      * @return the {@link IEdge} containing the given element, or {@code null} if none exists
      */
     public List<IEdge> getEdges(Relation relation) {
-        List<IEdge> edges = getEdges(u.getEffect(relation), u.getCause(relation));
-
         return edges.stream().filter(e -> e.getRelations().stream().anyMatch(r -> r == relation)).toList();
     }
 
@@ -1127,8 +1125,8 @@ public class CpmDocument implements StatementAction {
      * @param kind      the kind of the node
      * @param newEffect the new effect identifier to assign to the relations
      * @param newCause  the new cause identifier to assign to the relations
-     * @throws IllegalArgumentException if the method is called for the {@code PROV_MEMBERSHIP} kind
      * @return {@code true} if the cause and effect were successfully updated, {@code false} otherwise
+     * @throws IllegalArgumentException if the method is called for the {@code PROV_MEMBERSHIP} kind
      */
     public boolean setNewCauseAndEffect(QualifiedName oldEffect, QualifiedName oldCause, Kind kind,
                                         QualifiedName newEffect, QualifiedName newCause) {
@@ -1258,6 +1256,9 @@ public class CpmDocument implements StatementAction {
     }
 
     private boolean removeEdge(IEdge edge) {
+        if (edge == null) {
+            return false;
+        }
         if (edge.getCause() != null) {
             edge.getCause().getCauseEdges().remove(edge);
         } else {
@@ -1329,6 +1330,35 @@ public class CpmDocument implements StatementAction {
         return removeEdge(getEdge(id, kind));
     }
 
+
+    /**
+     * Removes a single edge identified by the specified cause and effect identifiers.
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     *
+     * @param effect the identifier of the effect
+     * @param cause  the identifier of the cause
+     * @return {@code true} if the edge was successfully removed, {@code false} otherwise
+     * @throws IllegalStateException if multiple edges are found between the specified effect and cause
+     */
+    public boolean removeEdge(QualifiedName effect, QualifiedName cause) {
+        return removeEdge(getEdge(effect, cause));
+    }
+
+
+    /**
+     * Removes a single edge identified by the specified cause and effect identifiers and kind.
+     * If multiple edges are found, an {@link IllegalStateException} is thrown.
+     *
+     * @param effect the identifier of the effect
+     * @param cause  the identifier of the cause
+     * @param kind   the {@link Kind} to look up
+     * @return {@code true} if the edge was successfully removed, {@code false} otherwise
+     * @throws IllegalStateException if multiple edges are found between the specified effect and cause
+     */
+    public boolean removeEdge(QualifiedName effect, QualifiedName cause, Kind kind) {
+        return removeEdge(getEdge(effect, cause, kind));
+    }
+
     /**
      * Removes all edges identified by the specified identifier.
      *
@@ -1394,7 +1424,7 @@ public class CpmDocument implements StatementAction {
         boolean removed = false;
         for (IEdge edge : edges) {
             if (edge.getRelations().size() == 1 && edge.getAnyRelation() == relation) {
-                return removeEdges(u.getEffect(relation), u.getCause(relation), relation.getKind());
+                return removeEdges(edges);
             }
 
             removed = removed || edge.remove(relation);

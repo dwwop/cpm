@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -168,6 +169,7 @@ public abstract class CpmDocumentRemovalTest {
 
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, agent, relation1), List.of(), bundleId, pF, cPF, cF);
 
+        assertFalse(doc.removeEdge(rel, Kind.PROV_ASSOCIATION));
         assertTrue(doc.removeEdge(rel, Kind.PROV_ATTRIBUTION));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
@@ -196,7 +198,8 @@ public abstract class CpmDocumentRemovalTest {
         CpmDocument doc = new CpmDocument(List.of(), List.of(entity, relation1), List.of(), bundleId, pF, cPF, cF);
 
         assertFalse(doc.areAllRelationsMapped());
-        assertTrue(doc.removeEdges(rel));
+        assertFalse(doc.removeEdge(id1, id2, Kind.PROV_SPECIALIZATION));
+        assertTrue(doc.removeEdge(id1, id2));
         assertNull(doc.getEdge(rel));
         assertNull(doc.getEdge(id1, id2));
         assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());
@@ -302,6 +305,38 @@ public abstract class CpmDocumentRemovalTest {
         assertTrue(doc.getNode(id1).getCauseEdges().isEmpty());
         assertTrue(doc.getNode(id2).getEffectEdges().isEmpty());
         assertEquals(2, doc.getDomainSpecificPart().size());
+    }
+
+
+    @Test
+    public void removeRelation_hadMember_returnsTrue() {
+        Document document = pF.newDocument();
+        document.setNamespace(cPF.newCpmNamespace());
+
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        QualifiedName collectionId = pF.newQualifiedName("uri", "collection", "ex");
+        Entity collection = pF.newEntity(collectionId);
+        bundle.getStatement().add(collection);
+
+        QualifiedName entityId1 = pF.newQualifiedName("uri", "entity", "ex");
+        Entity entity1 = pF.newEntity(entityId1);
+        bundle.getStatement().add(entity1);
+
+        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
+        Entity entity2 = pF.newEntity(entityId2);
+        bundle.getStatement().add(entity2);
+
+        HadMember hadMember = pF.newHadMember(collectionId, entityId1, entityId2);
+        bundle.getStatement().add(hadMember);
+
+        CpmDocument doc = new CpmDocument(document, pF, cPF, cF);
+
+        assertTrue(doc.removeRelation(doc.getEdge(collectionId, entityId1).getAnyRelation()));
+        assertNull(doc.getEdge(collectionId, entityId1));
+        assertNull(doc.getEdge(collectionId, entityId2));
     }
 
 }
