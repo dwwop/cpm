@@ -192,4 +192,43 @@ public abstract class CpmDocumentModificationTest {
         assertEquals(1, doc.getEdges().size());
     }
 
+    @Test
+    public void setCollectionMembers_hadMember_returnsTrue() {
+        Document document = pF.newDocument();
+        document.setNamespace(cPF.newCpmNamespace());
+
+        QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+        Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+        document.getStatementOrBundle().add(bundle);
+
+        QualifiedName collectionId = pF.newQualifiedName("uri", "collection", "ex");
+        Entity collection = pF.newEntity(collectionId);
+        bundle.getStatement().add(collection);
+
+        QualifiedName newId = pF.newQualifiedName("uri", "newId", "ex");
+
+        QualifiedName entityId1 = pF.newQualifiedName("uri", "entity", "ex");
+        Entity entity1 = pF.newEntity(entityId1);
+        bundle.getStatement().add(entity1);
+
+        QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
+        Entity entity2 = pF.newEntity(entityId2);
+        bundle.getStatement().add(entity2);
+
+        HadMember hadMember = pF.newHadMember(collectionId, entityId1, entityId2);
+        bundle.getStatement().add(hadMember);
+
+        CpmDocument doc = new CpmDocument(document, pF, cPF, cF);
+
+        assertTrue(doc.setCollectionMembers(collectionId, List.of(entityId1, entityId2),
+                newId, List.of(entityId1)));
+
+        assertNull(doc.getEdge(collectionId, entityId1));
+        assertNull(doc.getEdge(collectionId, entityId2));
+        assertNotNull(doc.getEdge(newId, entityId1));
+        assertNull(doc.getEdge(newId, entityId2));
+        assertFalse(doc.getNode(entityId1).getCauseEdges().isEmpty());
+        assertTrue(doc.getNode(entityId2).getCauseEdges().isEmpty());
+    }
+
 }

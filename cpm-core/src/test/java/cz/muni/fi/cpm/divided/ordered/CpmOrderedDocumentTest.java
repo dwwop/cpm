@@ -183,6 +183,43 @@ public class CpmOrderedDocumentTest extends CpmDividedDocumentTest {
             assertEquals(newId1, u.getEffect((Relation) stsAfterChange.get(3)));
             assertEquals(id1, u.getEffect((Relation) stsAfterChange.get(4)));
         }
+
+
+        @Test
+        public void setCollectionMembers_hadMemberOrder_returnsTrue() {
+            Document document = pF.newDocument();
+            document.setNamespace(cPF.newCpmNamespace());
+
+            QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
+            Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
+            document.getStatementOrBundle().add(bundle);
+
+            QualifiedName collectionId = pF.newQualifiedName("uri", "collection", "ex");
+            Entity collection = pF.newEntity(collectionId);
+            bundle.getStatement().add(collection);
+
+            QualifiedName newId = pF.newQualifiedName("uri", "newId", "ex");
+
+            QualifiedName entityId1 = pF.newQualifiedName("uri", "entity", "ex");
+            Entity entity1 = pF.newEntity(entityId1);
+
+            QualifiedName entityId2 = pF.newQualifiedName("uri", "entity2", "ex");
+            Entity entity2 = pF.newEntity(entityId2);
+
+            HadMember hadMember = pF.newHadMember(collectionId, entityId1, entityId2);
+            bundle.getStatement().add(hadMember);
+            bundle.getStatement().add(entity1);
+            bundle.getStatement().add(entity2);
+
+            CpmDocument doc = new CpmDocument(document, pF, cPF, cF);
+
+            assertTrue(doc.setCollectionMembers(collectionId, List.of(entityId1, entityId2),
+                    newId, List.of(entityId1)));
+
+            List<Statement> stsAfterChange = ((Bundle) doc.toDocument().getStatementOrBundle().getFirst()).getStatement();
+            assertEquals(newId, ((HadMember) stsAfterChange.get(1)).getCollection());
+        }
+
     }
 
     @Nested

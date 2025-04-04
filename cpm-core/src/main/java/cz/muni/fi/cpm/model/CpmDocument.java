@@ -145,6 +145,18 @@ public class CpmDocument implements StatementAction {
         addEdge(cF.newEdge(relation), u.getEffect(relation), u.getCause(relation));
     }
 
+    private void addEdge(HadMember hadMember) {
+        for (IEdge existingEdge : edges) {
+            if (ProvUtilities2.sameEdge(u, hadMember, existingEdge.getAnyRelation())) {
+                existingEdge.handleDuplicate(hadMember);
+            }
+            return;
+        }
+
+        for (QualifiedName member : hadMember.getEntity()) {
+            addEdge(cF.newEdgeWithoutCloning(hadMember), hadMember.getCollection(), member);
+        }
+    }
 
     private void addEdge(IEdge edge, QualifiedName effect, QualifiedName cause) {
         if (!Kind.PROV_MEMBERSHIP.equals(edge.getKind())) {
@@ -460,16 +472,7 @@ public class CpmDocument implements StatementAction {
     public void doAction(HadMember hadMember) {
         HadMember clonedHadMember = pF.newStatement(hadMember);
 
-        for (IEdge existingEdge : edges) {
-            if (ProvUtilities2.sameEdge(u, clonedHadMember, existingEdge.getAnyRelation())) {
-                existingEdge.handleDuplicate(clonedHadMember);
-            }
-            return;
-        }
-
-        for (QualifiedName member : hadMember.getEntity()) {
-            addEdge(cF.newEdgeWithoutCloning(clonedHadMember), hadMember.getCollection(), member);
-        }
+        addEdge(clonedHadMember);
     }
 
     @Override
@@ -1124,6 +1127,7 @@ public class CpmDocument implements StatementAction {
      * @param kind      the kind of the node
      * @param newEffect the new effect identifier to assign to the relations
      * @param newCause  the new cause identifier to assign to the relations
+     * @throws IllegalArgumentException if the method is called for the {@code PROV_MEMBERSHIP} kind
      * @return {@code true} if the cause and effect were successfully updated, {@code false} otherwise
      */
     public boolean setNewCauseAndEffect(QualifiedName oldEffect, QualifiedName oldCause, Kind kind,
@@ -1163,6 +1167,45 @@ public class CpmDocument implements StatementAction {
         return true;
     }
 
+    /**
+     * Updates the {@link HadMember} relations by replacing an old collection id and members with new ones.
+     * If the new collection id and members are the same as the old ones, or if the new parameters are {@code null},
+     * the operation is not performed.
+     * Updating collection id and members does not update identifiers in elements in nodes
+     *
+     * @param oldCollectionId The current collection identifier in relations
+     * @param oldMembers      The list of members currently in the collection.
+     * @param newCollectionId The identifier of the new collection.
+     * @param newMembers      The list of members to be assigned to the new collection.
+     * @return {@code true} if the update was successful, {@code false} otherwise.
+     */
+    public boolean setCollectionMembers(QualifiedName oldCollectionId, List<QualifiedName> oldMembers,
+                                        QualifiedName newCollectionId, List<QualifiedName> newMembers) {
+        if ((Objects.equals(oldCollectionId, newCollectionId) && Objects.equals(oldMembers, newMembers)) ||
+                newCollectionId == null || newMembers == null) {
+            return false;
+        }
+
+        List<IEdge> hadMemberEdges = edges.stream()
+                .filter(e -> e.getAnyRelation() instanceof HadMember hM &&
+                        Objects.equals(hM.getCollection(), oldCollectionId) &&
+                        Objects.equals(hM.getEntity(), oldMembers))
+                .toList();
+
+        if (!removeEdges(hadMemberEdges)) {
+            return false;
+        }
+
+        List<Relation> relations = hadMemberEdges.getFirst().getRelations();
+        for (Relation r : relations) {
+            HadMember hM = (HadMember) r;
+            hM.setCollection(newCollectionId);
+            hM.getEntity().clear();
+            hM.getEntity().addAll(newMembers);
+            addEdge(hM);
+        }
+        return true;
+    }
 
     /**
      * Updates the cause and effect of the given relation to new cause and effect.
