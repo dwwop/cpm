@@ -596,7 +596,7 @@ public class CpmDocument implements StatementAction {
                 .collect(Collectors.toMap(node -> node, cF::newNode));
 
         List<IEdge> edges = clonedNodeMap.keySet().stream()
-                .flatMap(x -> x.getCauseEdges().stream()
+                .flatMap(n -> n.getCauseEdges().stream()
                         .filter(e -> clonedNodeMap.containsKey(e.getEffect())))
                 .toList();
 
@@ -1435,7 +1435,7 @@ public class CpmDocument implements StatementAction {
 
     private List<INode> getRelatedConnectors(QualifiedName id, Function<IEdge, INode> extractNode, Function<INode, List<IEdge>> extractEdges) {
         INode node = getNode(id, Kind.PROV_ENTITY);
-        if (!CpmUtilities.isConnector(node)) {
+        if (!CpmUtilities.isConnector(node) || !tiStrategy.belongsToTraversalInformation(node)) {
             return null;
         }
 
@@ -1448,9 +1448,10 @@ public class CpmDocument implements StatementAction {
             INode current = toProcess.removeFirst();
             result.add(current);
             toProcess.addAll(extractEdges.apply(current).stream()
-                    .filter(x -> Kind.PROV_DERIVATION.equals(x.getKind()))
+                    .filter(e -> Kind.PROV_DERIVATION.equals(e.getKind()))
                     .map(extractNode)
-                    .filter(x -> CpmUtilities.isConnector(x) && !result.contains(x))
+                    .filter(n -> node != n && !result.contains(n) &&
+                            CpmUtilities.isConnector(n) && tiStrategy.belongsToTraversalInformation(node))
                     .toList());
         }
         return result;
