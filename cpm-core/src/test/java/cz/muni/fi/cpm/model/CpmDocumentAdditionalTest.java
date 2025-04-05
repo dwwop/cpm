@@ -43,13 +43,16 @@ public abstract class CpmDocumentAdditionalTest {
 
         Relation relation3 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr"), id2, id3);
 
+        Relation relation4 = cPF.getProvFactory().newWasAttributedTo(cPF.newCpmQualifiedName("attr2"), id2,
+                cPF.newCpmQualifiedName("nonExistent"));
+
         Document document = pF.newDocument();
         QualifiedName id = pF.newQualifiedName("uri", "bundle", "ex");
         Bundle bundle = pF.newNamedBundle(id, new ArrayList<>());
         document.getStatementOrBundle().add(bundle);
 
         bundle.getStatement().addAll(List.of(entity1, agent, entity2, entity4));
-        bundle.getStatement().addAll(List.of(relation1, relation2, relation3));
+        bundle.getStatement().addAll(List.of(relation1, relation2, relation3, relation4));
         document.setNamespace(Namespace.gatherNamespaces(document));
         bundle.setNamespace(Namespace.gatherNamespaces(document));
 
