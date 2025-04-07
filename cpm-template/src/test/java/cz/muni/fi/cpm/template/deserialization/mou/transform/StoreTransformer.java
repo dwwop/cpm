@@ -8,7 +8,7 @@ import cz.muni.fi.cpm.template.deserialization.mou.schema.Patient;
 import cz.muni.fi.cpm.template.deserialization.mou.schema.Tissue;
 import cz.muni.fi.cpm.template.deserialization.pbm.PbmFactory;
 import cz.muni.fi.cpm.template.deserialization.pbm.PbmType;
-import cz.muni.fi.cpm.template.schema.*;
+import cz.muni.fi.cpm.template.schema.v1_0.*;
 import org.openprovenance.prov.model.*;
 
 import java.util.List;

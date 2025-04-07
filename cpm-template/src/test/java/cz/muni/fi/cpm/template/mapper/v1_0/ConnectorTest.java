@@ -1,11 +1,11 @@
-package cz.muni.fi.cpm.template.mapper;
+package cz.muni.fi.cpm.template.mapper.v1_0;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.template.schema.BackwardConnector;
-import cz.muni.fi.cpm.template.schema.ConnectorAttributed;
-import cz.muni.fi.cpm.template.schema.ForwardConnector;
-import cz.muni.fi.cpm.template.schema.HashAlgorithms;
+import cz.muni.fi.cpm.template.schema.v1_0.BackwardConnector;
+import cz.muni.fi.cpm.template.schema.v1_0.ConnectorAttributed;
+import cz.muni.fi.cpm.template.schema.v1_0.ForwardConnector;
+import cz.muni.fi.cpm.template.schema.v1_0.HashAlgorithms;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

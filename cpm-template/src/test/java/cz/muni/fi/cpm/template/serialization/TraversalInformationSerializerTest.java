@@ -2,9 +2,9 @@ package cz.muni.fi.cpm.template.serialization;
 
 import cz.muni.fi.cpm.template.deserialization.ITraversalInformationDeserializer;
 import cz.muni.fi.cpm.template.deserialization.TraversalInformationDeserializer;
-import cz.muni.fi.cpm.template.mapper.ITemplateProvMapper;
-import cz.muni.fi.cpm.template.mapper.TemplateProvMapper;
-import cz.muni.fi.cpm.template.schema.TraversalInformation;
+import cz.muni.fi.cpm.template.mapper.v1_0.TemplateProvMapper;
+import cz.muni.fi.cpm.template.schema.ITraversalInformation;
+import cz.muni.fi.cpm.template.schema.v1_0.TraversalInformation;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.vanilla.ProvFactory;
@@ -25,18 +25,18 @@ class TraversalInformationSerializerTest {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
         CpmProvFactory cF = new CpmProvFactory(pF);
-        ITemplateProvMapper mapper = new TemplateProvMapper(cF);
+        TemplateProvMapper mapper = new TemplateProvMapper(cF);
 
         try (InputStream inputStream = classLoader.getResourceAsStream(SERIALIZE_FOLDER + "test.json")) {
             ITraversalInformationDeserializer deserializer = new TraversalInformationDeserializer();
-            TraversalInformation ti = deserializer.deserializeTI(inputStream);
+            ITraversalInformation ti = deserializer.deserializeTI(inputStream);
 
             ITraversalInformationSerializer ser = new TraversalInformationSerializer();
             File output = new File(TEST_RESOURCES + SERIALIZE_FOLDER + "output.json");
             ser.serializeTI(ti, output);
-            TraversalInformation serTI = deserializer.deserializeTI(new FileInputStream(output));
+            ITraversalInformation serTI = deserializer.deserializeTI(new FileInputStream(output));
 
-            assertEquals(mapper.map(ti), mapper.map(ti));
+            assertEquals(mapper.map((TraversalInformation) ti), mapper.map((TraversalInformation) serTI));
         } catch (Exception e) {
             e.printStackTrace();
             fail();

@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.template.serialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import cz.muni.fi.cpm.template.schema.TraversalInformation;
+import cz.muni.fi.cpm.template.schema.ITraversalInformation;
 import org.openprovenance.prov.core.json.serialization.serial.CustomDateSerializer;
 import org.openprovenance.prov.core.json.serialization.serial.CustomQualifiedNameSerializer;
 import org.openprovenance.prov.vanilla.QualifiedName;
@@ -27,7 +27,7 @@ public class TraversalInformationSerializer implements ITraversalInformationSeri
     }
 
     @Override
-    public void serializeTI(TraversalInformation ti, File file) throws IOException {
+    public void serializeTI(ITraversalInformation ti, File file) throws IOException {
         getAttributes().get().remove(JSON_CONTEXT_KEY_NAMESPACE);
         mapper.writerWithDefaultPrettyPrinter().writeValue(file, ti);
     }

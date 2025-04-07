@@ -6,7 +6,7 @@ import cz.muni.fi.cpm.template.deserialization.mou.schema.Patient;
 import cz.muni.fi.cpm.template.deserialization.mou.schema.Tissue;
 import cz.muni.fi.cpm.template.deserialization.pbm.PbmFactory;
 import cz.muni.fi.cpm.template.mapper.ITemplateProvMapper;
-import cz.muni.fi.cpm.template.mapper.TemplateProvMapper;
+import cz.muni.fi.cpm.template.mapper.v1_0.TemplateProvMapper;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.Other;
 import org.openprovenance.prov.model.ProvFactory;

@@ -1,9 +1,9 @@
-package cz.muni.fi.cpm.template.mapper;
+package cz.muni.fi.cpm.template.mapper.v1_0;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import cz.muni.fi.cpm.template.schema.ReceiverAgent;
-import cz.muni.fi.cpm.template.schema.SenderAgent;
+import cz.muni.fi.cpm.template.schema.v1_0.ReceiverAgent;
+import cz.muni.fi.cpm.template.schema.v1_0.SenderAgent;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

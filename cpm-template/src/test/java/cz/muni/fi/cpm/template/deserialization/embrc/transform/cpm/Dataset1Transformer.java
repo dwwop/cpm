@@ -1,9 +1,9 @@
 package cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm;
 
 import cz.muni.fi.cpm.model.ICpmProvFactory;
-import cz.muni.fi.cpm.template.schema.ForwardConnector;
-import cz.muni.fi.cpm.template.schema.MainActivity;
-import cz.muni.fi.cpm.template.schema.TraversalInformation;
+import cz.muni.fi.cpm.template.schema.v1_0.ForwardConnector;
+import cz.muni.fi.cpm.template.schema.v1_0.MainActivity;
+import cz.muni.fi.cpm.template.schema.v1_0.TraversalInformation;
 import org.openprovenance.prov.model.*;
 
 import java.util.List;

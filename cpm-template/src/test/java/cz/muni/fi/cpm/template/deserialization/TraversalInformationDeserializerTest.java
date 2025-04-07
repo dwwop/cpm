@@ -3,9 +3,9 @@ package cz.muni.fi.cpm.template.deserialization;
 import cz.muni.fi.cpm.divided.ordered.CpmOrderedFactory;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
 import cz.muni.fi.cpm.model.CpmDocument;
-import cz.muni.fi.cpm.template.mapper.ITemplateProvMapper;
-import cz.muni.fi.cpm.template.mapper.TemplateProvMapper;
-import cz.muni.fi.cpm.template.schema.TraversalInformation;
+import cz.muni.fi.cpm.template.mapper.v1_0.TemplateProvMapper;
+import cz.muni.fi.cpm.template.schema.ITraversalInformation;
+import cz.muni.fi.cpm.template.schema.v1_0.TraversalInformation;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.model.Document;
@@ -30,13 +30,13 @@ public class TraversalInformationDeserializerTest {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ProvFactory pF = new ProvFactory();
         CpmProvFactory cF = new CpmProvFactory(pF);
-        ITemplateProvMapper mapper = new TemplateProvMapper(cF);
+        TemplateProvMapper mapper = new TemplateProvMapper(cF);
 
         try (InputStream inputStream = classLoader.getResourceAsStream(DESERIALIZE_FOLDER + "test.json")) {
             ITraversalInformationDeserializer deserializer = new TraversalInformationDeserializer();
-            TraversalInformation ti = deserializer.deserializeTI(inputStream);
+            ITraversalInformation ti = deserializer.deserializeTI(inputStream);
             ProvSerialiser serialiser = new ProvSerialiser(pF);
-            Document doc = mapper.map(ti);
+            Document doc = mapper.map((TraversalInformation) ti);
 
             File outputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "output.provn");
             serialiser.serialiseDocument(new FileOutputStream(outputFile), doc, true);

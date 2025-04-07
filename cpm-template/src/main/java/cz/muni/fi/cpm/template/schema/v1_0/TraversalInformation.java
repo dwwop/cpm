@@ -1,10 +1,12 @@
-package cz.muni.fi.cpm.template.schema;
+package cz.muni.fi.cpm.template.schema.v1_0;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import cz.muni.fi.cpm.template.constants.VersionConstants;
+import cz.muni.fi.cpm.template.schema.ITraversalInformation;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomNamespacePrefixDeserializer;
 import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.QualifiedName;
@@ -13,9 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@JsonPropertyOrder({"prefixes"})
+@JsonPropertyOrder({VersionConstants.VERSION, "prefixes"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class TraversalInformation {
+public class TraversalInformation implements ITraversalInformation {
+    private String version;
     @JsonIgnore
     @JsonDeserialize(using = CustomNamespacePrefixDeserializer.class)
     private Namespace namespace = new Namespace();
@@ -118,5 +121,14 @@ public class TraversalInformation {
 
     public void setIdentifierEntities(List<IdentifierEntity> identifierEntities) {
         this.identifierEntities = identifierEntities;
+    }
+
+    @Override
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

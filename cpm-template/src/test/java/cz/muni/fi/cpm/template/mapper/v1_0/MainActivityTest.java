@@ -1,10 +1,10 @@
-package cz.muni.fi.cpm.template.mapper;
+package cz.muni.fi.cpm.template.mapper.v1_0;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
-import cz.muni.fi.cpm.template.schema.MainActivity;
-import cz.muni.fi.cpm.template.schema.MainActivityUsed;
+import cz.muni.fi.cpm.template.schema.v1_0.MainActivity;
+import cz.muni.fi.cpm.template.schema.v1_0.MainActivityUsed;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

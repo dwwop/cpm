@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.template.schema;
+package cz.muni.fi.cpm.template.schema.v1_0;
 
 import cz.muni.fi.cpm.constants.CpmType;
 import org.openprovenance.prov.model.QualifiedName;

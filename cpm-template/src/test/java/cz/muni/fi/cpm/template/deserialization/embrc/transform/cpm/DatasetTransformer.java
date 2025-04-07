@@ -2,7 +2,7 @@ package cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm;
 
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.template.mapper.ITemplateProvMapper;
-import cz.muni.fi.cpm.template.mapper.TemplateProvMapper;
+import cz.muni.fi.cpm.template.mapper.v1_0.TemplateProvMapper;
 import org.openprovenance.prov.model.*;
 
 public abstract class DatasetTransformer {

@@ -1,4 +1,5 @@
 {
+  "version" : "1.0",
   "prefixes" : {
     "_" : "https://openprovenance.org/blank#",
     "ex" : "test"

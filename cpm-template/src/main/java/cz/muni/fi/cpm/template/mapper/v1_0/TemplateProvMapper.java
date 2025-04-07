@@ -1,18 +1,19 @@
-package cz.muni.fi.cpm.template.mapper;
+package cz.muni.fi.cpm.template.mapper.v1_0;
 
 import cz.muni.fi.cpm.constants.CpmAttributeConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
-import cz.muni.fi.cpm.template.schema.*;
+import cz.muni.fi.cpm.template.mapper.ITemplateProvMapper;
+import cz.muni.fi.cpm.template.schema.v1_0.*;
 import org.openprovenance.prov.model.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TemplateProvMapper implements ITemplateProvMapper {
+public class TemplateProvMapper implements ITemplateProvMapper<TraversalInformation> {
     private final ICpmProvFactory cPF;
 
     public TemplateProvMapper(ICpmProvFactory cPF) {
