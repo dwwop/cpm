@@ -6,14 +6,18 @@ prefix bbmri <http://www.bbmri.cz/schemas/biobank/data>
 prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
 bundle bbmri:acquisition-bundle-patient-33-BBM:2032:888:4
 
-activity(bbmri:acquisition-patient-33-BBM:2032:888:4,-,-,[prov:type = 'cpm:mainActivity'])
+activity(bbmri:acquisition-patient-33-BBM:2032:888:4,-,-,[prov:type = 'cpm:mainActivity', dct:hasPart = 'bbmri:acquisition-ac-patient-33-BBM:2032:888:4'])
 wasGeneratedBy(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4,bbmri:acquisition-patient-33-BBM:2032:888:4,-)
 entity(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4,[prov:type = 'cpm:forwardConnector'])
+entity(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:4,[prov:type = 'cpm:forwardConnector'])
+wasDerivedFrom(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:4, bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4)
 entity(bbmri:sampleAcqConnector-spec-patient-33-BBM:2032:888:4,[prov:type = 'cpm:forwardConnector'])
 wasAttributedTo(bbmri:sampleAcqConnector-spec-patient-33-BBM:2032:888:4, bbmri:MOU)
 specializationOf(bbmri:sampleAcqConnector-spec-patient-33-BBM:2032:888:4,bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4)
 agent(bbmri:MOU,[prov:type = 'cpm:receiverAgent'])
 entity(bbmri:sample-patient-33-BBM:2032:888:4,[prov:type = 'pbm:sample', bbmri:sampleId = "BBM:2032:888:4" %% xsd:string])
 specializationOf(bbmri:sample-patient-33-BBM:2032:888:4,bbmri:sampleAcqConnector-patient-33-BBM:2032:888:4)
+activity(bbmri:acquisition-ac-patient-33-BBM:2032:888:4,-,-,[prov:type = 'pbm:acquisitionActivity'])
+wasGeneratedBy(bbmri:sample-patient-33-BBM:2032:888:4,bbmri:acquisition-ac-patient-33-BBM:2032:888:4,-)
 endBundle
 endDocument

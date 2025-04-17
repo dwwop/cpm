@@ -60,8 +60,8 @@ public class CpmMouTest {
         PatientTransformer aT = new AcquisitionTransformer(patient, pF, cPF, pbmF);
         for (Document doc : aT.toDocuments()) {
             CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
-            assertEquals(4, cpmDoc.getTraversalInformationPart().size());
-            assertEquals(1, cpmDoc.getDomainSpecificPart().size());
+            assertEquals(5, cpmDoc.getTraversalInformationPart().size());
+            assertEquals(2, cpmDoc.getDomainSpecificPart().size());
             assertEquals(1, cpmDoc.getCrossPartEdges().size());
 
             Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();

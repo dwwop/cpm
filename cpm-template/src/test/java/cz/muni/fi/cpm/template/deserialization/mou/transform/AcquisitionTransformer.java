@@ -1,5 +1,7 @@
 package cz.muni.fi.cpm.template.deserialization.mou.transform;
 
+import cz.muni.fi.cpm.constants.CpmType;
+import cz.muni.fi.cpm.model.CpmUtilities;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.template.deserialization.mou.schema.DiagnosisMaterial;
 import cz.muni.fi.cpm.template.deserialization.mou.schema.Patient;
@@ -12,8 +14,10 @@ import org.openprovenance.prov.model.*;
 import java.util.List;
 import java.util.Map;
 
-import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstants.ACQUISITION;
-import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstants.ACQUISITION_CON;
+import static cz.muni.fi.cpm.constants.DctAttributeConstants.HAS_PART;
+import static cz.muni.fi.cpm.constants.DctNamespaceConstants.DCT_NS;
+import static cz.muni.fi.cpm.constants.DctNamespaceConstants.DCT_PREFIX;
+import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstants.*;
 import static cz.muni.fi.cpm.template.deserialization.pbm.PbmNamespaceConstants.PBM_NS;
 import static cz.muni.fi.cpm.template.deserialization.pbm.PbmNamespaceConstants.PBM_PREFIX;
 
@@ -32,9 +36,27 @@ public class AcquisitionTransformer extends PatientTransformer {
 
         SpecializationOf spec = pF.newSpecializationOf(sampleQN, doc.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF));
 
+        QualifiedName acqActivity = pF.newQualifiedName(BBMRI_NS, "acquisition-ac" + suffix, BBMRI_PREFIX);
+        Activity acq = pF.newActivity(acqActivity);
+        acq.getType().add(pbmF.newType(PbmType.ACQUISITION_ACTIVITY));
+
+        WasGeneratedBy acqGeneratedBy = pF.newWasGeneratedBy(null, sampleQN, acqActivity);
+
         Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
         bundle.getStatement().add(sample);
         bundle.getStatement().add(spec);
+        bundle.getStatement().add(acq);
+        bundle.getStatement().add(acqGeneratedBy);
+
+        for (Statement s : bundle.getStatement()) {
+            if (CpmUtilities.hasCpmType(s, CpmType.MAIN_ACTIVITY)) {
+                Activity mainActivity = (Activity) s;
+                mainActivity.getOther().add(pF.newOther(
+                        pF.newQualifiedName(DCT_NS, HAS_PART, DCT_PREFIX),
+                        acqActivity,
+                        pF.getName().PROV_QUALIFIED_NAME));
+            }
+        }
     }
 
     @Override
@@ -52,6 +74,10 @@ public class AcquisitionTransformer extends PatientTransformer {
 
         ForwardConnector fC = new ForwardConnector(fcID);
         ti.getForwardConnectors().add(fC);
+
+        ForwardConnector fC2 = new ForwardConnector(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE_CON + suffix, pF));
+        fC2.setDerivedFrom(List.of(fC.getId()));
+        ti.getForwardConnectors().add(fC2);
 
         QualifiedName fcSpecId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "-spec" + suffix, pF);
         ForwardConnector fCSpec = new ForwardConnector(fcSpecId);
