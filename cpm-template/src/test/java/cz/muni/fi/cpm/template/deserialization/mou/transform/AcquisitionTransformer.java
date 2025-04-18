@@ -75,20 +75,22 @@ public class AcquisitionTransformer extends PatientTransformer {
         ForwardConnector fC = new ForwardConnector(fcID);
         ti.getForwardConnectors().add(fC);
 
-        ForwardConnector fC2 = new ForwardConnector(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE_CON + suffix, pF));
-        fC2.setDerivedFrom(List.of(fC.getId()));
-        ti.getForwardConnectors().add(fC2);
+        QualifiedName fcSpec1Id = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "-spec-1" + suffix, pF);
+        ForwardConnector fCSpec1 = new ForwardConnector(fcSpec1Id);
+        fCSpec1.setSpecializationOf(fcID);
+        ti.getForwardConnectors().add(fCSpec1);
 
-        QualifiedName fcSpecId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "-spec" + suffix, pF);
-        ForwardConnector fCSpec = new ForwardConnector(fcSpecId);
-        fCSpec.setSpecializationOf(fcID);
-        ti.getForwardConnectors().add(fCSpec);
+        QualifiedName fcSpec2Id = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "-spec-2" + suffix, pF);
+        ForwardConnector fCSpec2 = new ForwardConnector(fcSpec2Id);
+        fCSpec2.setSpecializationOf(fcID);
+        fCSpec2.setReferencedBundleId(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "-bundle" + suffix, pF));
+        ti.getForwardConnectors().add(fCSpec2);
 
         QualifiedName agentId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, patient.getBiobank(), pF);
         ReceiverAgent rA = new ReceiverAgent(agentId);
         ti.setReceiverAgents(List.of(rA));
 
-        fCSpec.setAttributedTo(new ConnectorAttributed(agentId));
+        fCSpec1.setAttributedTo(new ConnectorAttributed(agentId));
 
         return mapper.map(ti);
     }

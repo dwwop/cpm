@@ -9,7 +9,7 @@ bundle bbmri:store-bundle-patient-33-BBM:2032:888:54
 activity(bbmri:store-patient-33-BBM:2032:888:54,-,-,[prov:type = 'cpm:mainActivity', dct:hasPart = 'bbmri:transport-patient-33-BBM:2032:888:54', dct:hasPart = 'bbmri:store-ac-patient-33-BBM:2032:888:54'])
 used(bbmri:store-patient-33-BBM:2032:888:54,bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54,-)
 wasGeneratedBy(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:54,bbmri:store-patient-33-BBM:2032:888:54,-)
-entity(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54,[prov:type = 'cpm:backwardConnector'])
+entity(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54,[prov:type = 'cpm:backwardConnector', cpm:referencedBundleId = 'bbmri:acquisition-bundle-patient-33-BBM:2032:888:54'])
 wasAttributedTo(bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54, bbmri:UNI)
 entity(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:54,[prov:type = 'cpm:forwardConnector'])
 wasDerivedFrom(bbmri:sampleStoreConnector-patient-33-BBM:2032:888:54, bbmri:sampleAcqConnector-patient-33-BBM:2032:888:54)

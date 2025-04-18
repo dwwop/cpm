@@ -39,6 +39,7 @@ public class StoreTransformer extends PatientTransformer {
         QualifiedName aCID = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF);
 
         BackwardConnector bC = new BackwardConnector(aCID);
+        bC.setReferencedBundleId(ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + "-bundle" + suffix, pF));
         ti.getBackwardConnectors().add(bC);
 
         MainActivityUsed used = new MainActivityUsed(aCID);
