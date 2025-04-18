@@ -6,9 +6,10 @@ import cz.muni.fi.cpm.model.CpmDocument;
 import cz.muni.fi.cpm.model.ICpmFactory;
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.template.deserialization.mou.schema.Patient;
-import cz.muni.fi.cpm.template.deserialization.mou.transform.AcquisitionTransformer;
-import cz.muni.fi.cpm.template.deserialization.mou.transform.PatientTransformer;
-import cz.muni.fi.cpm.template.deserialization.mou.transform.StoreTransformer;
+import cz.muni.fi.cpm.template.deserialization.mou.transform.acquisition.CpmAcquisitionTransformer;
+import cz.muni.fi.cpm.template.deserialization.mou.transform.acquisition.ProvAcquisitionTransformer;
+import cz.muni.fi.cpm.template.deserialization.mou.transform.store.CpmStoreTransformer;
+import cz.muni.fi.cpm.template.deserialization.mou.transform.store.ProvStoreTransformer;
 import cz.muni.fi.cpm.template.deserialization.pbm.PbmFactory;
 import cz.muni.fi.cpm.template.util.GraphvizChecker;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
@@ -21,6 +22,8 @@ import org.openprovenance.prov.model.ProvFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.List;
 
 import static cz.muni.fi.cpm.template.constants.PathConstants.TEST_RESOURCES;
 import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstants.ACQUISITION;
@@ -57,22 +60,34 @@ public class CpmMouTest {
         }
 
         InteropFramework interop = new InteropFramework();
-        PatientTransformer aT = new AcquisitionTransformer(patient, pF, cPF, pbmF);
-        for (Document doc : aT.toDocuments()) {
-            CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
-            assertEquals(5, cpmDoc.getTraversalInformationPart().size());
-            assertEquals(2, cpmDoc.getDomainSpecificPart().size());
-            assertEquals(1, cpmDoc.getCrossPartEdges().size());
+        List<Document> pATDocs = new ProvAcquisitionTransformer(patient, pF, cPF, pbmF).toDocuments();
+        List<Document> cATDocs = new CpmAcquisitionTransformer(patient, pF, cPF, pbmF).toDocuments();
+        for (int i = 0; i < pATDocs.size(); i++) {
+            Document pATDoc = pATDocs.get(i);
+            assertAcquisition(pATDoc);
 
-            Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
+            Document cATDoc = cATDocs.get(i);
+            assertAcquisition(cATDoc);
+
+            Bundle pATBundle = (Bundle) pATDoc.getStatementOrBundle().getFirst();
+            Bundle cATBundle = (Bundle) cATDoc.getStatementOrBundle().getFirst();
+            assertEquals(new HashSet<>(pATBundle.getStatement()), new HashSet<>(cATBundle.getStatement()));
+
+            Bundle bundle = (Bundle) cATDoc.getStatementOrBundle().getFirst();
             String fileName = TEST_RESOURCES + MOU_FOLDER + ACQUISITION + File.separator + bundle.getId().getLocalPart().replace(":", "-");
-            interop.writeDocument(fileName + ".provn", doc);
+            interop.writeDocument(fileName + ".provn", cATDoc);
             if (GraphvizChecker.isGraphvizInstalled()) {
-                interop.writeDocument(fileName + ".svg", doc);
+                interop.writeDocument(fileName + ".svg", cATDoc);
             }
         }
     }
 
+    private void assertAcquisition(Document doc) {
+        CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
+        assertEquals(4, cpmDoc.getTraversalInformationPart().size());
+        assertEquals(2, cpmDoc.getDomainSpecificPart().size());
+        assertEquals(1, cpmDoc.getCrossPartEdges().size());
+    }
 
     @Test
     public void toDocument_withMouTestDataStore_serialisesSuccessfully() {
@@ -88,20 +103,33 @@ public class CpmMouTest {
         }
 
         InteropFramework interop = new InteropFramework();
-        PatientTransformer sT = new StoreTransformer(patient, pF, cPF, pbmF);
-        for (Document doc : sT.toDocuments()) {
-            CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
-            assertEquals(4, cpmDoc.getTraversalInformationPart().size());
-            assertEquals(5, cpmDoc.getDomainSpecificPart().size());
-            assertEquals(2, cpmDoc.getCrossPartEdges().size());
+        List<Document> pATDocs = new ProvStoreTransformer(patient, pF, cPF, pbmF).toDocuments();
+        List<Document> cATDocs = new CpmStoreTransformer(patient, pF, cPF, pbmF).toDocuments();
+        for (int i = 0; i < pATDocs.size(); i++) {
+            Document pATDoc = pATDocs.get(i);
+            assertStore(pATDoc);
 
-            Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
+            Document cATDoc = cATDocs.get(i);
+            assertStore(cATDoc);
+
+            Bundle pATBundle = (Bundle) pATDoc.getStatementOrBundle().getFirst();
+            Bundle cATBundle = (Bundle) cATDoc.getStatementOrBundle().getFirst();
+            assertEquals(new HashSet<>(pATBundle.getStatement()), new HashSet<>(cATBundle.getStatement()));
+
+            Bundle bundle = (Bundle) cATDoc.getStatementOrBundle().getFirst();
             String fileName = TEST_RESOURCES + MOU_FOLDER + STORE + File.separator + bundle.getId().getLocalPart().replace(":", "-");
-            interop.writeDocument(fileName + ".provn", doc);
+            interop.writeDocument(fileName + ".provn", cATDoc);
             if (GraphvizChecker.isGraphvizInstalled()) {
-                interop.writeDocument(fileName + ".svg", doc);
+                interop.writeDocument(fileName + ".svg", cATDoc);
             }
         }
+    }
+
+    private void assertStore(Document doc) {
+        CpmDocument cpmDoc = new CpmDocument(doc, pF, cPF, cF);
+        assertEquals(4, cpmDoc.getTraversalInformationPart().size());
+        assertEquals(5, cpmDoc.getDomainSpecificPart().size());
+        assertEquals(2, cpmDoc.getCrossPartEdges().size());
     }
 
 
