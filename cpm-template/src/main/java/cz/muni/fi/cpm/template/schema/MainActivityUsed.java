@@ -1,8 +1,10 @@
 package cz.muni.fi.cpm.template.schema;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.openprovenance.prov.model.QualifiedName;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MainActivityUsed {
     private QualifiedName id;
     @JsonProperty(required = true)

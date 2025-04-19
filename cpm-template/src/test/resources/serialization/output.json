@@ -13,7 +13,6 @@
       "id" : "ex:id1",
       "bcId" : "ex:input1"
     }, {
-      "id" : null,
       "bcId" : "ex:input2"
     } ],
     "generated" : [ "ex:output1", "ex:output2" ]

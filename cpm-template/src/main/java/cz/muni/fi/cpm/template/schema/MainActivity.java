@@ -1,11 +1,13 @@
 package cz.muni.fi.cpm.template.schema;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.openprovenance.prov.model.QualifiedName;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MainActivity {
     @JsonProperty(required = true)
     private QualifiedName id;
