@@ -1,0 +1,31 @@
+{
+  "prefixes": {
+    "pbm": "http://commonprovenancemodel.org/ns/pbm/",
+    "bbmri": "http://www.bbmri.cz/schemas/biobank/data"
+  },
+  "mainActivity": {
+    "id": "bbmri:acquisition-patient-33-BBM:2032:136043",
+    "generated": [
+      "bbmri:sampleAcqConnector-patient-33-BBM:2032:136043"
+    ]
+  },
+  "bundleName": "bbmri:acquisition-bundle-patient-33-BBM:2032:136043",
+  "forwardConnectors": [
+    {
+      "id": "bbmri:sampleAcqConnector-patient-33-BBM:2032:136043"
+    },
+    {
+      "id": "bbmri:sampleAcqConnector-spec-patient-33-BBM:2032:136043",
+      "referencedBundleId": "bbmri:store-bundle-patient-33-BBM:2032:136043",
+      "attributedTo": {
+        "agentId": "bbmri:MOU"
+      },
+      "specializationOf": "bbmri:sampleAcqConnector-patient-33-BBM:2032:136043"
+    }
+  ],
+  "receiverAgents": [
+    {
+      "id": "bbmri:MOU"
+    }
+  ]
+}
