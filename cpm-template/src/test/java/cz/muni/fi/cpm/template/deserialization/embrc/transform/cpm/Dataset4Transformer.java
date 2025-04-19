@@ -14,6 +14,8 @@ public class Dataset4Transformer extends DatasetTransformer {
     static final String DNA_SEQUENCING = "dna-sequencing";
     static final String FILTERED_SEQUENCES_CON = "filtered-sequences-con";
 
+    private static final String STORING_ACTIVITY_1 = "StoringActivity";
+    private static final String STORING_ACTIVITY_2 = "StoringActivity2";
     private static final String TRANSPORTING_ACTIVITY = "TransportingDNAFiltersToSequencingIsUs";
     private static final String ACQUIRING_ACTIVITY = "MaterialAcquiringActivity1";
     private static final String M_PROCESSING_ACTIVITY = "MaterialProcessingActivity1";
@@ -59,7 +61,6 @@ public class Dataset4Transformer extends DatasetTransformer {
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
-
         Entity r23um_transported = pF.newEntity(newQNWithUnknownNS(SAMPLE_R2_3UM + "_transported"));
         indexedDS.add(r23um_transported);
 
@@ -79,7 +80,20 @@ public class Dataset4Transformer extends DatasetTransformer {
         WasGeneratedBy genAcq = pF.newWasGeneratedBy(null, r23um_acquired.getId(), newQNWithUnknownNS(ACQUIRING_ACTIVITY));
         indexedDS.add(genAcq);
 
-        Used usedProc1 = pF.newUsed(newQNWithUnknownNS(M_PROCESSING_ACTIVITY), r23um_acquired.getId());
+        Used usedStore2 = pF.newUsed(newQNWithUnknownNS(STORING_ACTIVITY_2), r23um_acquired.getId());
+        indexedDS.add(usedStore2);
+
+        Entity r23um_stored = pF.newEntity(newQNWithUnknownNS(SAMPLE_R2_3UM + "_stored"));
+        indexedDS.add(r23um_stored);
+
+        WasGeneratedBy genStored2 = pF.newWasGeneratedBy(null, r23um_stored.getId(), newQNWithUnknownNS(STORING_ACTIVITY_2));
+        indexedDS.add(genStored2);
+
+        indexedDS.getUsed().removeIf(u ->
+                Objects.equals(u.getEntity(), newQNWithUnknownNS(SAMPLE_R2_3UM))
+                        && Objects.equals(u.getActivity(), newQNWithUnknownNS(STORING_ACTIVITY_2)));
+
+        Used usedProc1 = pF.newUsed(newQNWithUnknownNS(M_PROCESSING_ACTIVITY), r23um_stored.getId());
         indexedDS.add(usedProc1);
 
         Entity rawSequencesRes = indexedDS.getEntity(newQnWithGenNS(DIGITAL_SEQUENCES_RES));
