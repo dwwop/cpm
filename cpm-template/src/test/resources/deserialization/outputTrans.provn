@@ -1,7 +1,6 @@
 document
-default <cpm>
 prefix dct <http://purl.org/dc/terms/>
-prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
+prefix cpm <https://www.commonprovenancemodel.org/cpm-namespace-v1-0/>
 prefix ex <test>
 bundle ex:bundle1
 

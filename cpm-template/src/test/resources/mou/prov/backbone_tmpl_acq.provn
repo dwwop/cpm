@@ -2,7 +2,7 @@ document
  default <cpm>
  prefix tmpl <http://openprovenance.org/tmpl#>
  prefix var <http://openprovenance.org/var#>
- prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
+ prefix cpm <https://www.commonprovenancemodel.org/cpm-namespace-v1-0/>
 
  bundle var:bndl
   activity(var:main_activity_id, [prov:type='cpm:mainActivity'])

@@ -1,9 +1,8 @@
 document
-default <cpm>
 prefix dct <http://purl.org/dc/terms/>
 prefix pbm <http://commonprovenancemodel.org/ns/pbm/>
 prefix bbmri <http://www.bbmri.cz/schemas/biobank/data#>
-prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
+prefix cpm <https://www.commonprovenancemodel.org/cpm-namespace-v1-0/>
 bundle bbmri:storeBundle-33-BBM:2032:888:54
 
 activity(bbmri:store-33-BBM:2032:888:54,-,-,[prov:type = 'cpm:mainActivity', dct:hasPart = 'bbmri:transport-33-BBM:2032:888:54', dct:hasPart = 'bbmri:storeAct-33-BBM:2032:888:54'])

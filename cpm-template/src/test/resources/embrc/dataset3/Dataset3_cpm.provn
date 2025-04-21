@@ -1,12 +1,11 @@
 document
-default <cpm>
 prefix orcid <https://orcid.org/>
 prefix dct <http://purl.org/dc/terms/>
 prefix schema <https://schema.org/>
 prefix gen <gen>
 prefix dcat <http://www.w3.org/ns/dcat#>
 prefix seadatanet <https://edmo.seadatanet.org/report/>
-prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
+prefix cpm <https://www.commonprovenancemodel.org/cpm-namespace-v1-0/>
 bundle _:species-identification-bundle
 
 activity(_:species-identification,-,-,[prov:type = 'cpm:mainActivity', dct:hasPart = '_:FlowCamSpeciesIdentification'])
