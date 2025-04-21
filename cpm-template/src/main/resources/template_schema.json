@@ -201,8 +201,7 @@
             "required": true
           },
           "contactIdPid": {
-            "type": "object",
-            "$ref": "urn:jsonschema:java:lang:Object"
+            "type": "string"
           }
         }
       }
@@ -219,8 +218,7 @@
             "required": true
           },
           "contactIdPid": {
-            "type": "object",
-            "$ref": "urn:jsonschema:java:lang:Object"
+            "type": "string"
           }
         }
       }

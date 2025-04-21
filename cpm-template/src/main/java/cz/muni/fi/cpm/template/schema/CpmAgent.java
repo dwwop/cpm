@@ -10,7 +10,7 @@ import org.openprovenance.prov.model.QualifiedName;
 public abstract class CpmAgent {
     @JsonProperty(required = true)
     private QualifiedName id;
-    private Object contactIdPid;
+    private String contactIdPid;
 
     public QualifiedName getId() {
         return id;
@@ -24,7 +24,8 @@ public abstract class CpmAgent {
         return contactIdPid;
     }
 
-    public void setContactIdPid(Object contactIdPid) {
+    public CpmAgent(QualifiedName id, String contactIdPid) {
+        this.id = id;
         this.contactIdPid = contactIdPid;
     }
 
@@ -38,8 +39,7 @@ public abstract class CpmAgent {
         this.id = id;
     }
 
-    public CpmAgent(QualifiedName id, Object contactIdPid) {
-        this.id = id;
+    public void setContactIdPid(String contactIdPid) {
         this.contactIdPid = contactIdPid;
     }
 }

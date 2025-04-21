@@ -17,7 +17,7 @@ public class SenderAgent extends CpmAgent {
         return CpmType.SENDER_AGENT;
     }
 
-    public SenderAgent(QualifiedName id, Object contactIdPid) {
+    public SenderAgent(QualifiedName id, String contactIdPid) {
         super(id, contactIdPid);
     }
 }
