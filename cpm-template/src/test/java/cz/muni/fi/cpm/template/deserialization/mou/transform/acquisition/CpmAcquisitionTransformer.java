@@ -26,7 +26,7 @@ public class CpmAcquisitionTransformer extends AcquisitionTransformer {
         TraversalInformation ti = new TraversalInformation();
 
         ti.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));
-        ti.setBundleName(ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + "-bundle" + suffix, pF));
+        ti.setBundleName(ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + "Bundle" + suffix, pF));
 
         MainActivity mA = new MainActivity(ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + suffix, pF));
         ti.setMainActivity(mA);
@@ -37,10 +37,10 @@ public class CpmAcquisitionTransformer extends AcquisitionTransformer {
         ForwardConnector fC = new ForwardConnector(fcID);
         ti.getForwardConnectors().add(fC);
 
-        QualifiedName fcSpecId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "-spec" + suffix, pF);
+        QualifiedName fcSpecId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "Spec" + suffix, pF);
         ForwardConnector fCSpec = new ForwardConnector(fcSpecId);
         fCSpec.setSpecializationOf(fcID);
-        fCSpec.setReferencedBundleId(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "-bundle" + suffix, pF));
+        fCSpec.setReferencedBundleId(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "Bundle" + suffix, pF));
         ti.getForwardConnectors().add(fCSpec);
 
         QualifiedName agentId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, patient.getBiobank(), pF);

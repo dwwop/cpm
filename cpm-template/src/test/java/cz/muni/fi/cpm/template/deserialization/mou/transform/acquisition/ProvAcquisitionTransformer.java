@@ -29,9 +29,9 @@ public class ProvAcquisitionTransformer extends AcquisitionTransformer implement
                 "main_activity_id", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION + suffix),
                 "forward_conn_id", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION_CON + suffix),
                 "receiver_id", newQDescriptor(BBMRI_PREFIX + ":" + patient.getBiobank()),
-                "forward_conn_id_spec", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION_CON + "-spec" + suffix),
-                "bndl", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION + "-bundle" + suffix),
-                "ref_id", newQDescriptor(BBMRI_PREFIX + ":" + STORE + "-bundle" + suffix)
+                "forward_conn_id_spec", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION_CON + "Spec" + suffix),
+                "bndl", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION + "Bundle" + suffix),
+                "ref_id", newQDescriptor(BBMRI_PREFIX + ":" + STORE + "Bundle" + suffix)
         );
 
         bindings.context = Map.of(

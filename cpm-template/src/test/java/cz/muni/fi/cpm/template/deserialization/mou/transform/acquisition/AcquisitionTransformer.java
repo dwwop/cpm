@@ -33,7 +33,7 @@ public abstract class AcquisitionTransformer extends PatientTransformer {
 
         SpecializationOf spec = pF.newSpecializationOf(sampleQN, doc.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF));
 
-        QualifiedName acqActivity = pF.newQualifiedName(BBMRI_NS, "acquisition-ac" + suffix, BBMRI_PREFIX);
+        QualifiedName acqActivity = pF.newQualifiedName(BBMRI_NS, "acquisitionAct" + suffix, BBMRI_PREFIX);
         Activity acq = pF.newActivity(acqActivity);
         acq.getType().add(pbmF.newType(PbmType.ACQUISITION_ACTIVITY));
 

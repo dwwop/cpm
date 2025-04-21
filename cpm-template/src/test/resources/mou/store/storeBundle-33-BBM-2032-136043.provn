@@ -1,0 +1,30 @@
+document
+default <cpm>
+prefix dct <http://purl.org/dc/terms/>
+prefix pbm <http://commonprovenancemodel.org/ns/pbm/>
+prefix bbmri <http://www.bbmri.cz/schemas/biobank/data#>
+prefix cpm <https://commonprovenancemodel.org/ns/cpm/>
+bundle bbmri:storeBundle-33-BBM:2032:136043
+
+activity(bbmri:store-33-BBM:2032:136043,-,-,[prov:type = 'cpm:mainActivity', dct:hasPart = 'bbmri:transport-33-BBM:2032:136043', dct:hasPart = 'bbmri:storeAct-33-BBM:2032:136043'])
+used(bbmri:store-33-BBM:2032:136043,bbmri:sampleAcqConnector-33-BBM:2032:136043,-)
+wasGeneratedBy(bbmri:sampleStoreConnector-33-BBM:2032:136043,bbmri:store-33-BBM:2032:136043,-)
+entity(bbmri:sampleAcqConnector-33-BBM:2032:136043,[prov:type = 'cpm:backwardConnector', cpm:referencedBundleId = 'bbmri:acquisitionBundle-33-BBM:2032:136043'])
+wasAttributedTo(bbmri:sampleAcqConnector-33-BBM:2032:136043, bbmri:UNI)
+entity(bbmri:sampleStoreConnector-33-BBM:2032:136043,[prov:type = 'cpm:forwardConnector'])
+wasDerivedFrom(bbmri:sampleStoreConnector-33-BBM:2032:136043, bbmri:sampleAcqConnector-33-BBM:2032:136043)
+agent(bbmri:UNI,[prov:type = 'cpm:senderAgent'])
+specializationOf(bbmri:sampleTrans-33-BBM:2032:136043,bbmri:sampleAcqConnector-33-BBM:2032:136043)
+activity(bbmri:transport-33-BBM:2032:136043,-,-,[prov:type = 'pbm:transportActivity'])
+entity(bbmri:sampleTrans-33-BBM:2032:136043,[prov:type = 'pbm:sample', bbmri:sampleId = "BBM:2032:136043" %% xsd:string])
+wasGeneratedBy(bbmri:sampleTrans-33-BBM:2032:136043,bbmri:transport-33-BBM:2032:136043,-)
+activity(bbmri:storeAct-33-BBM:2032:136043,-,-,[prov:type = 'pbm:storageActivity'])
+used(bbmri:storeAct-33-BBM:2032:136043,bbmri:sampleTrans-33-BBM:2032:136043,-)
+entity(bbmri:sampleStore-33-BBM:2032:136043,[prov:type = 'pbm:sample', prov:type = 'bbmri:diagnosticMaterial', bbmri:sampleId = "BBM:2032:136043" %% xsd:string, bbmri:storageType = "STS" %% xsd:string, bbmri:materialType = "S" %% xsd:string, bbmri:diagnosis = "C509" %% xsd:string, bbmri:takingDate = "2032-10-04T10:02:00.000Z" %% xsd:dateTime, bbmri:retrieved = "unknown" %% xsd:string])
+wasGeneratedBy(bbmri:sampleStore-33-BBM:2032:136043,bbmri:storeAct-33-BBM:2032:136043,-)
+specializationOf(bbmri:sampleStore-33-BBM:2032:136043,bbmri:sampleStoreConnector-33-BBM:2032:136043)
+entity(bbmri:patient-33,[prov:type = 'pbm:source', bbmri:sex = "female" %% xsd:string, bbmri:birthYear = "1999" %% xsd:int, bbmri:month = "--01" %% xsd:string, bbmri:gaveConsent = "true" %% xsd:boolean])
+wasDerivedFrom(bbmri:sampleTrans-33-BBM:2032:136043, bbmri:patient-33)
+wasDerivedFrom(bbmri:sampleStore-33-BBM:2032:136043, bbmri:patient-33)
+endBundle
+endDocument

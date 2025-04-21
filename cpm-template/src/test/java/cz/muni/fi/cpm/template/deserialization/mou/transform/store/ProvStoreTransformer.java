@@ -29,8 +29,8 @@ public class ProvStoreTransformer extends StoreTransformer {
                 "forward_conn_id", newQDescriptor(BBMRI_PREFIX + ":" + STORE_CON + suffix),
                 "sender_id", newQDescriptor(BBMRI_PREFIX + ":UNI"),
                 "backward_conn_id", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION_CON + suffix),
-                "bndl", newQDescriptor(BBMRI_PREFIX + ":" + STORE + "-bundle" + suffix),
-                "ref_id", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION + "-bundle" + suffix)
+                "bndl", newQDescriptor(BBMRI_PREFIX + ":" + STORE + "Bundle" + suffix),
+                "ref_id", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION + "Bundle" + suffix)
         );
 
         bindings.context = Map.of(

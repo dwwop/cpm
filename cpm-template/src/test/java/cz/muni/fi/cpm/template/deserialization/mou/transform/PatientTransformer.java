@@ -18,10 +18,10 @@ import java.util.List;
 
 public abstract class PatientTransformer {
 
-    public static final String BBMRI_NS = "http://www.bbmri.cz/schemas/biobank/data";
+    public static final String BBMRI_NS = "http://www.bbmri.cz/schemas/biobank/data#";
     public static final String BBMRI_PREFIX = "bbmri";
 
-    public static final String SUFFIX_TEMPLATE = "-patient-%s-%s";
+    public static final String SUFFIX_TEMPLATE = "-%s-%s";
 
     protected final ProvFactory pF;
     protected final ICpmProvFactory cPF;

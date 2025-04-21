@@ -24,7 +24,7 @@ public class CpmStoreTransformer extends StoreTransformer {
     protected Document createTI(String suffix) {
         TraversalInformation ti = new TraversalInformation();
         ti.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));
-        ti.setBundleName(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "-bundle" + suffix, pF));
+        ti.setBundleName(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "Bundle" + suffix, pF));
 
         MainActivity mA = new MainActivity(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + suffix, pF));
         ti.setMainActivity(mA);
@@ -32,7 +32,7 @@ public class CpmStoreTransformer extends StoreTransformer {
         QualifiedName aCID = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF);
 
         BackwardConnector bC = new BackwardConnector(aCID);
-        bC.setReferencedBundleId(ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + "-bundle" + suffix, pF));
+        bC.setReferencedBundleId(ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION + "Bundle" + suffix, pF));
         ti.getBackwardConnectors().add(bC);
 
         MainActivityUsed used = new MainActivityUsed(aCID);

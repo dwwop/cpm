@@ -42,7 +42,7 @@ public abstract class StoreTransformer extends PatientTransformer implements Pro
         trans.getType().add(pbmF.newType(PbmType.TRANSPORT_ACTIVITY));
 
         Other sampleIdTransOther = newOther("sampleId", sampleId);
-        QualifiedName sampleTransQN = pF.newQualifiedName(BBMRI_NS, "sample-trans" + suffix, BBMRI_PREFIX);
+        QualifiedName sampleTransQN = pF.newQualifiedName(BBMRI_NS, "sampleTrans" + suffix, BBMRI_PREFIX);
         Entity sampleTrans = pF.newEntity(sampleTransQN, List.of(sampleType, sampleIdTransOther));
 
         WasDerivedFrom sampleTransDer = pF.newWasDerivedFrom(sampleTransQN, patientQN);
@@ -51,14 +51,14 @@ public abstract class StoreTransformer extends PatientTransformer implements Pro
 
         WasGeneratedBy transGeneratedBy = pF.newWasGeneratedBy(null, sampleTransQN, transActivity);
 
-        QualifiedName storeActivity = pF.newQualifiedName(BBMRI_NS, "store-ac" + suffix, BBMRI_PREFIX);
+        QualifiedName storeActivity = pF.newQualifiedName(BBMRI_NS, "storeAct" + suffix, BBMRI_PREFIX);
         Activity storeAc = pF.newActivity(storeActivity);
         storeAc.getType().add(pbmF.newType(PbmType.STORAGE_ACTIVITY));
 
         Used storeUsed = pF.newUsed(storeActivity, sampleTransQN);
 
         Other sampleIdStoreOther = newOther("sampleId", sampleId);
-        QualifiedName sampleStoreQN = pF.newQualifiedName(BBMRI_NS, "sample-store" + suffix, BBMRI_PREFIX);
+        QualifiedName sampleStoreQN = pF.newQualifiedName(BBMRI_NS, "sampleStore" + suffix, BBMRI_PREFIX);
         Entity sampleStore = pF.newEntity(sampleStoreQN, List.of(sampleType, sampleIdStoreOther));
 
         WasDerivedFrom sampleStoreDer = pF.newWasDerivedFrom(sampleStoreQN, patientQN);
