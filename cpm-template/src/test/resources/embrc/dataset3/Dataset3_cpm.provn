@@ -3,7 +3,6 @@ prefix orcid <https://orcid.org/>
 prefix dct <http://purl.org/dc/terms/>
 prefix schema <https://schema.org/>
 prefix gen <gen>
-prefix dcat <http://www.w3.org/ns/dcat#>
 prefix seadatanet <https://edmo.seadatanet.org/report/>
 prefix cpm <https://www.commonprovenancemodel.org/cpm-namespace-v1-0/>
 bundle _:species-identification-bundle
@@ -27,7 +26,7 @@ used(_:FlowCamSpeciesIdentification,_:VisualSpreadsheet_FlowCam,-)
 used(_:FlowCamSpeciesIdentification,_:classification_QC,-)
 used(_:FlowCamSpeciesIdentification,gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0,-)
 wasGeneratedBy(gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4,_:FlowCamSpeciesIdentification,-)
-wasAssociatedWith(_:FlowCamSpeciesIdentification,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "lab technician" %% xsd:string])
+wasAssociatedWith(_:FlowCamSpeciesIdentification,orcid:0000-0001-0001-0002,-,[prov:role = "lab technician" %% xsd:string])
 specializationOf(gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0,_:processed-sample-con-r1)
 specializationOf(gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4,_:identified-species-con)
 endBundle

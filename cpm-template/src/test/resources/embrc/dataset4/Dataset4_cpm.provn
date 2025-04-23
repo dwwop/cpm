@@ -3,7 +3,6 @@ prefix orcid <https://orcid.org/>
 prefix dct <http://purl.org/dc/terms/>
 prefix schema <https://schema.org/>
 prefix gen <gen>
-prefix dcat <http://www.w3.org/ns/dcat#>
 prefix obolibrary <http://purl.obolibrary.org/obo/>
 prefix seadatanet <https://edmo.seadatanet.org/report/>
 prefix cpm <https://www.commonprovenancemodel.org/cpm-namespace-v1-0/>
@@ -87,18 +86,18 @@ wasGeneratedBy(_:BigProject_belgium_water_10m_1000um_r2_3um_transported,_:Transp
 wasGeneratedBy(_:BigProject_belgium_water_10m_1000um_r2_3um_acquired,_:MaterialAcquiringActivity1,-)
 wasGeneratedBy(_:BigProject_belgium_water_10m_1000um_r2_3um_stored,_:StoringActivity2,-)
 wasGeneratedBy(gen:9f1c2750a08dc77b9fdb815d05a476f27af1131e3af5003b73d5d7d6c3503b47,_:MaterialProcessingActivity4,-)
-wasAssociatedWith(_:StoringActivity,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "laboratory technician" %% xsd:string])
-wasAssociatedWith(_:TransportingDNAFiltersToSequencingIsUs,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "laboratory technician" %% xsd:string])
-wasAssociatedWith(_:TransportingDNAFiltersToSequencingIsUs,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "providing agent" %% xsd:string])
-wasAssociatedWith(_:TransportingDNAFiltersToSequencingIsUs,_:DNATechnicianPerson,-,[dcat:hadRole = "receiving agent" %% xsd:string])
-wasAssociatedWith(_:MaterialAcquiringActivity1,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "providing agent" %% xsd:string])
-wasAssociatedWith(_:MaterialAcquiringActivity1,_:DNATechnicianPerson,-,[dcat:hadRole = "receiving agent" %% xsd:string])
-wasAssociatedWith(_:StoringActivity2,_:DNATechnicianPerson,-,[dcat:hadRole = "laboratory technician" %% xsd:string])
-wasAssociatedWith(_:MaterialProcessingActivity1,_:DNATechnicianPerson,-,[dcat:hadRole = "laboratory technician" %% xsd:string])
-wasAssociatedWith(_:MaterialProcessingActivity2,_:DNATechnicianPerson,-,[dcat:hadRole = "laboratory technician" %% xsd:string])
-wasAssociatedWith(_:MaterialProcessingActivity3,_:DNATechnicianPerson,-,[dcat:hadRole = "laboratory technician" %% xsd:string])
-wasAssociatedWith(_:MaterialProcessingActivity4,_:DNATechnicianPerson,-,[dcat:hadRole = "laboratory technician" %% xsd:string])
-wasAssociatedWith(_:DataProcessingActivity,_:DNATechnicianPerson,-,[dcat:hadRole = "laboratory technician" %% xsd:string])
+wasAssociatedWith(_:StoringActivity,orcid:0000-0001-0001-0002,-,[prov:role = "laboratory technician" %% xsd:string])
+wasAssociatedWith(_:TransportingDNAFiltersToSequencingIsUs,orcid:0000-0001-0001-0002,-,[prov:role = "laboratory technician" %% xsd:string])
+wasAssociatedWith(_:TransportingDNAFiltersToSequencingIsUs,orcid:0000-0001-0001-0002,-,[prov:role = "providing agent" %% xsd:string])
+wasAssociatedWith(_:TransportingDNAFiltersToSequencingIsUs,_:DNATechnicianPerson,-,[prov:role = "receiving agent" %% xsd:string])
+wasAssociatedWith(_:MaterialAcquiringActivity1,orcid:0000-0001-0001-0002,-,[prov:role = "providing agent" %% xsd:string])
+wasAssociatedWith(_:MaterialAcquiringActivity1,_:DNATechnicianPerson,-,[prov:role = "receiving agent" %% xsd:string])
+wasAssociatedWith(_:StoringActivity2,_:DNATechnicianPerson,-,[prov:role = "laboratory technician" %% xsd:string])
+wasAssociatedWith(_:MaterialProcessingActivity1,_:DNATechnicianPerson,-,[prov:role = "laboratory technician" %% xsd:string])
+wasAssociatedWith(_:MaterialProcessingActivity2,_:DNATechnicianPerson,-,[prov:role = "laboratory technician" %% xsd:string])
+wasAssociatedWith(_:MaterialProcessingActivity3,_:DNATechnicianPerson,-,[prov:role = "laboratory technician" %% xsd:string])
+wasAssociatedWith(_:MaterialProcessingActivity4,_:DNATechnicianPerson,-,[prov:role = "laboratory technician" %% xsd:string])
+wasAssociatedWith(_:DataProcessingActivity,_:DNATechnicianPerson,-,[prov:role = "laboratory technician" %% xsd:string])
 specializationOf(_:BigProject_belgium_water_10m_1000um_r2_3um,_:stored-sample-con-r2-3um)
 specializationOf(gen:6dff3f85a8f1fc9ddb2b58fd748861080efab7de4e1360c39d24feb8050a297c,_:filtered-sequences-con)
 wasInfluencedBy(gen:e52905692cf1e9e08079fcc8bdc9f9f760f4399e75f6ee6c93138435f91be76b,gen:f39c7c5314f78e7f1fada89ae5a4c8f2373bcd9fafc4f5d26c881e23d3175c5d)

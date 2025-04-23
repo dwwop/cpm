@@ -341,7 +341,7 @@
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
     "activity" : "_:StoringActivity",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "laboratory technician"
     } ]
   }, {
@@ -371,21 +371,21 @@
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
     "activity" : "_:TransportingDNAFiltersToSequencingIsUs",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "laboratory technician"
     } ]
   }, {
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
     "activity" : "_:TransportingDNAFiltersToSequencingIsUs",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "providing agent"
     } ]
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:TransportingDNAFiltersToSequencingIsUs",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "receiving agent"
     } ]
   }, {
@@ -396,14 +396,14 @@
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
     "activity" : "_:MaterialAcquiringActivity1",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "providing agent"
     } ]
   }, {
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:MaterialAcquiringActivity1",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "receiving agent"
     } ]
   }, {
@@ -425,7 +425,7 @@
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:StoringActivity2",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "laboratory technician"
     } ]
   }, {
@@ -469,7 +469,7 @@
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:MaterialProcessingActivity1",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "laboratory technician"
     } ]
   }, {
@@ -509,7 +509,7 @@
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:MaterialProcessingActivity2",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "laboratory technician"
     } ]
   }, {
@@ -552,7 +552,7 @@
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:MaterialProcessingActivity3",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "laboratory technician"
     } ]
   }, {
@@ -615,7 +615,7 @@
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:MaterialProcessingActivity4",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "laboratory technician"
     } ]
   }, {
@@ -650,7 +650,7 @@
     "@type" : "Association",
     "agent" : "_:DNATechnicianPerson",
     "activity" : "_:DataProcessingActivity",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "laboratory technician"
     } ]
   }, {

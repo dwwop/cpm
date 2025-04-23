@@ -3,7 +3,6 @@ prefix orcid <https://orcid.org/>
 prefix dct <http://purl.org/dc/terms/>
 prefix schema <https://schema.org/>
 prefix gen <gen>
-prefix dcat <http://www.w3.org/ns/dcat#>
 prefix obolibrary <http://purl.obolibrary.org/obo/>
 prefix seadatanet <https://edmo.seadatanet.org/report/>
 prefix cpm <https://www.commonprovenancemodel.org/cpm-namespace-v1-0/>
@@ -33,7 +32,7 @@ used(_:MaterialProcessing,_:FlowCam_seawater_sop,-)
 used(_:MaterialProcessing,_:NMS_flowcam_2010,-)
 used(_:MaterialProcessing,_:BigProject_belgium_water_10m_1000um_r1,-)
 wasGeneratedBy(gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7,_:MaterialProcessing,-)
-wasAssociatedWith(_:MaterialProcessing,orcid:0000-0001-0001-0002,-,[dcat:hadRole = "lab technician" %% xsd:string])
+wasAssociatedWith(_:MaterialProcessing,orcid:0000-0001-0001-0002,-,[prov:role = "lab technician" %% xsd:string])
 specializationOf(_:BigProject_belgium_water_10m_1000um_r1,_:stored-sample-con-r1)
 specializationOf(gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7,_:processed-sample-con-r1)
 wasInfluencedBy(_:NMS_flowcam_2010,_:VisualSpreadsheet_FlowCam,[schema:accessibilitySummary = "see file flowcam-settings.txt for software and hardware settings" %% xsd:string])

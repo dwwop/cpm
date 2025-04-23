@@ -94,6 +94,7 @@ public class EmbrcTransformer {
             wrapCustomProperties(node);
             transformTypes(node);
             inferNsFromID(node);
+            transformRole(node);
         }
         return root;
     }
@@ -255,6 +256,12 @@ public class EmbrcTransformer {
     private void transformKnownAttribute(ObjectNode node, String fieldName, String provName) {
         if (node.has(fieldName)) {
             node.putIfAbsent(provName, node.remove(fieldName));
+        }
+    }
+
+    private void transformRole(ObjectNode node) {
+        if (node.has("dcat:hadRole") && !PROPERTY_PROV_ATTRIBUTION.equals(node.get(JSONLD_TYPE).asText())) {
+            node.putIfAbsent("role", node.remove("dcat:hadRole"));
         }
     }
 

@@ -154,7 +154,7 @@
     "@type" : "Association",
     "agent" : "orcid:0000-0001-0001-0002",
     "activity" : "_:MaterialProcessing",
-    "dcat:hadRole" : [ {
+    "role" : [ {
       "@value" : "lab technician"
     } ]
   }, {
