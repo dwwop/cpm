@@ -9,66 +9,66 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 502.25)">
 <title>title</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-502.25 2528.25,-502.25 2528.25,4 -4,4"/>
-<!-- _MaterialProcessing -->
+<!-- https://openprovenance.org/blank#MaterialProcessing -->
 <!-- PROV_ACTIVITY _:MaterialProcessing -->
 <g id="node1" class="node">
-<title>_MaterialProcessing</title>
-<g id="a_node1"><a xlink:href="_MaterialProcessing" xlink:title="MaterialProcessing">
+<title>https://openprovenance.org/blank#MaterialProcessing</title>
+<g id="a_node1"><a xlink:href="https://openprovenance.org/blank#MaterialProcessing" xlink:title="MaterialProcessing">
 <polygon fill="#9fb1fc" stroke="#0000ff" points="892.75,-287.25 771.75,-287.25 771.75,-251.25 892.75,-251.25 892.75,-287.25"/>
 <text text-anchor="middle" x="832.25" y="-264.2" font-family="Times New Roman,serif" font-size="14.00">MaterialProcessing</text>
 </a>
 </g>
 </g>
-<!-- _BigProject_belgium_water_10m_1000um_r1 -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1 -->
 <!-- PROV_ENTITY _:BigProject_belgium_water_10m_1000um_r1 -->
 <g id="node3" class="node">
-<title>_BigProject_belgium_water_10m_1000um_r1</title>
-<g id="a_node3"><a xlink:href="_BigProject_belgium_water_10m_1000um_r1" xlink:title="BigProject_belgium_water_10m_1000um_r1">
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1</title>
+<g id="a_node3"><a xlink:href="https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1" xlink:title="BigProject_belgium_water_10m_1000um_r1">
 <ellipse fill="#fffc87" stroke="#808080" cx="241.25" cy="-388.12" rx="179.82" ry="18"/>
 <text text-anchor="middle" x="241.25" y="-383.07" font-family="Times New Roman,serif" font-size="14.00">BigProject_belgium_water_10m_1000um_r1</text>
 </a>
 </g>
 </g>
-<!-- _MaterialProcessing&#45;&gt;_BigProject_belgium_water_10m_1000um_r1 -->
+<!-- https://openprovenance.org/blank#MaterialProcessing&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1 -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge16" class="edge">
-<title>_MaterialProcessing&#45;&gt;_BigProject_belgium_water_10m_1000um_r1</title>
+<title>https://openprovenance.org/blank#MaterialProcessing&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1</title>
 <path fill="none" stroke="black" d="M810.26,-287.75C797.32,-297.1 780.21,-307.92 763.25,-314 640.99,-357.84 601.84,-331.74 473.25,-350 430.15,-356.12 382.67,-363.59 341.95,-370.22"/>
 <polygon fill="black" stroke="black" points="341.45,-366.76 332.15,-371.82 342.58,-373.66 341.45,-366.76"/>
 <text text-anchor="middle" x="811.67" y="-299.96" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
-<!-- _FlowCam_seawater_sop -->
+<!-- https://openprovenance.org/blank#FlowCam_seawater_sop -->
 <!-- PROV_ENTITY _:FlowCam_seawater_sop -->
 <g id="node5" class="node">
-<title>_FlowCam_seawater_sop</title>
-<g id="a_node5"><a xlink:href="_FlowCam_seawater_sop" xlink:title="FlowCam_seawater_sop">
+<title>https://openprovenance.org/blank#FlowCam_seawater_sop</title>
+<g id="a_node5"><a xlink:href="https://openprovenance.org/blank#FlowCam_seawater_sop" xlink:title="FlowCam_seawater_sop">
 <ellipse fill="#fffc87" stroke="#808080" cx="584.25" cy="-388.12" rx="102.02" ry="18"/>
 <text text-anchor="middle" x="584.25" y="-383.07" font-family="Times New Roman,serif" font-size="14.00">FlowCam_seawater_sop</text>
 </a>
 </g>
 </g>
-<!-- _MaterialProcessing&#45;&gt;_FlowCam_seawater_sop -->
+<!-- https://openprovenance.org/blank#MaterialProcessing&#45;&gt;https://openprovenance.org/blank#FlowCam_seawater_sop -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge13" class="edge">
-<title>_MaterialProcessing&#45;&gt;_FlowCam_seawater_sop</title>
+<title>https://openprovenance.org/blank#MaterialProcessing&#45;&gt;https://openprovenance.org/blank#FlowCam_seawater_sop</title>
 <path fill="none" stroke="black" d="M807.33,-287.56C794.48,-296.09 778.38,-306.19 763.25,-314 722.97,-334.79 675.38,-353.99 639.4,-367.5"/>
 <polygon fill="black" stroke="black" points="638.2,-364.21 630.05,-370.98 640.64,-370.77 638.2,-364.21"/>
 <text text-anchor="middle" x="808.21" y="-299.81" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
-<!-- _NMS_flowcam_2010 -->
+<!-- https://openprovenance.org/blank#NMS_flowcam_2010 -->
 <!-- PROV_ENTITY _:NMS_flowcam_2010 -->
 <g id="node9" class="node">
-<title>_NMS_flowcam_2010</title>
-<g id="a_node9"><a xlink:href="_NMS_flowcam_2010" xlink:title="NMS_flowcam_2010">
+<title>https://openprovenance.org/blank#NMS_flowcam_2010</title>
+<g id="a_node9"><a xlink:href="https://openprovenance.org/blank#NMS_flowcam_2010" xlink:title="NMS_flowcam_2010">
 <ellipse fill="#fffc87" stroke="#808080" cx="832.25" cy="-388.12" rx="91.78" ry="18"/>
 <text text-anchor="middle" x="832.25" y="-383.07" font-family="Times New Roman,serif" font-size="14.00">NMS_flowcam_2010</text>
 </a>
 </g>
 </g>
-<!-- _MaterialProcessing&#45;&gt;_NMS_flowcam_2010 -->
+<!-- https://openprovenance.org/blank#MaterialProcessing&#45;&gt;https://openprovenance.org/blank#NMS_flowcam_2010 -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge14" class="edge">
-<title>_MaterialProcessing&#45;&gt;_NMS_flowcam_2010</title>
+<title>https://openprovenance.org/blank#MaterialProcessing&#45;&gt;https://openprovenance.org/blank#NMS_flowcam_2010</title>
 <path fill="none" stroke="black" d="M832.25,-287.75C832.25,-306.45 832.25,-336.38 832.25,-358.52"/>
 <polygon fill="black" stroke="black" points="828.75,-358.38 832.25,-368.38 835.75,-358.38 828.75,-358.38"/>
 <text text-anchor="middle" x="845.24" y="-292.52" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -83,10 +83,10 @@
 </a>
 </g>
 </g>
-<!-- _MaterialProcessing&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002 -->
+<!-- https://openprovenance.org/blank#MaterialProcessing&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002 -->
 <!-- PROV_ASSOCIATION _:_ -->
 <g id="edge15" class="edge">
-<title>_MaterialProcessing&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002</title>
+<title>https://openprovenance.org/blank#MaterialProcessing&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002</title>
 <path fill="none" stroke="black" d="M853.55,-287.54C866.53,-297.08 883.92,-308.14 901.25,-314 1076.22,-373.13 1133.8,-315.53 1315.25,-350 1340.19,-354.74 1367.27,-362.45 1389.83,-369.62"/>
 <polygon fill="black" stroke="black" points="1388.48,-372.86 1399.07,-372.61 1390.63,-366.2 1388.48,-372.86"/>
 <text text-anchor="middle" x="867.23" y="-278.67" font-family="Times New Roman,serif" font-size="8.00">assoc</text>
@@ -108,10 +108,10 @@
 <text text-anchor="start" x="389.12" y="-120" font-family="Times New Roman,serif" font-size="10.00">result:</text>
 <text text-anchor="start" x="427.88" y="-120" font-family="Times New Roman,serif" font-size="10.00">gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7</text>
 </g>
-<!-- &#45;attrs0&#45;&gt;_MaterialProcessing -->
+<!-- &#45;attrs0&#45;&gt;https://openprovenance.org/blank#MaterialProcessing -->
 <!-- null _:_ -->
 <g id="edge1" class="edge">
-<title>&#45;attrs0&#45;&gt;_MaterialProcessing</title>
+<title>&#45;attrs0&#45;&gt;https://openprovenance.org/blank#MaterialProcessing</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M683.06,-188.95C709.68,-199.49 737.88,-211.62 763.25,-224.5 778.43,-232.21 794.54,-242.3 807.37,-250.85"/>
 </g>
 <!-- &#45;attrs1 -->
@@ -133,10 +133,10 @@
 <text text-anchor="start" x="10" y="-232.25" font-family="Times New Roman,serif" font-size="10.00">keywords:</text>
 <text text-anchor="start" x="60.75" y="-232.25" font-family="Times New Roman,serif" font-size="10.00">_:NCBI_txid1874687</text>
 </g>
-<!-- &#45;attrs1&#45;&gt;_BigProject_belgium_water_10m_1000um_r1 -->
+<!-- &#45;attrs1&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1 -->
 <!-- null _:_ -->
 <g id="edge2" class="edge">
-<title>&#45;attrs1&#45;&gt;_BigProject_belgium_water_10m_1000um_r1</title>
+<title>&#45;attrs1&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M192.74,-314.44C205.59,-333.7 219.92,-355.16 229.65,-369.74"/>
 </g>
 <!-- &#45;attrs2 -->
@@ -156,17 +156,17 @@
 <text text-anchor="start" x="354.38" y="-238.88" font-family="Times New Roman,serif" font-size="10.00">accessibilitySummary:</text>
 <text text-anchor="start" x="448.62" y="-238.88" font-family="Times New Roman,serif" font-size="10.00">see file FlowCam_seawaterSOP.pdf which is part of this data package</text>
 </g>
-<!-- &#45;attrs2&#45;&gt;_FlowCam_seawater_sop -->
+<!-- &#45;attrs2&#45;&gt;https://openprovenance.org/blank#FlowCam_seawater_sop -->
 <!-- null _:_ -->
 <g id="edge3" class="edge">
-<title>&#45;attrs2&#45;&gt;_FlowCam_seawater_sop</title>
+<title>&#45;attrs2&#45;&gt;https://openprovenance.org/blank#FlowCam_seawater_sop</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M560.52,-307.87C566.75,-328.69 574.2,-353.57 579.07,-369.82"/>
 </g>
-<!-- _VisualSpreadsheet_FlowCam -->
+<!-- https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
 <!-- PROV_ENTITY _:VisualSpreadsheet_FlowCam -->
 <g id="node7" class="node">
-<title>_VisualSpreadsheet_FlowCam</title>
-<g id="a_node7"><a xlink:href="_VisualSpreadsheet_FlowCam" xlink:title="VisualSpreadsheet_FlowCam">
+<title>https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
+<g id="a_node7"><a xlink:href="https://openprovenance.org/blank#VisualSpreadsheet_FlowCam" xlink:title="VisualSpreadsheet_FlowCam">
 <ellipse fill="#fffc87" stroke="#808080" cx="978.25" cy="-480.25" rx="120.45" ry="18"/>
 <text text-anchor="middle" x="978.25" y="-475.2" font-family="Times New Roman,serif" font-size="14.00">VisualSpreadsheet_FlowCam</text>
 </a>
@@ -189,16 +189,16 @@
 <text text-anchor="start" x="952.25" y="-357.75" font-family="Times New Roman,serif" font-size="10.00">accessibilitySummary:</text>
 <text text-anchor="start" x="1046.5" y="-357.75" font-family="Times New Roman,serif" font-size="10.00">see file flowcam&#45;settings.txt which is part of the data package</text>
 </g>
-<!-- &#45;attrs3&#45;&gt;_VisualSpreadsheet_FlowCam -->
+<!-- &#45;attrs3&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
 <!-- null _:_ -->
 <g id="edge4" class="edge">
-<title>&#45;attrs3&#45;&gt;_VisualSpreadsheet_FlowCam</title>
+<title>&#45;attrs3&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1063.6,-426.56C1043.39,-439.04 1021.87,-452.32 1005.5,-462.43"/>
 </g>
-<!-- _NMS_flowcam_2010&#45;&gt;_VisualSpreadsheet_FlowCam -->
+<!-- https://openprovenance.org/blank#NMS_flowcam_2010&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
 <!-- PROV_INFLUENCE _:_ -->
 <g id="edge12" class="edge">
-<title>_NMS_flowcam_2010&#45;&gt;_VisualSpreadsheet_FlowCam</title>
+<title>https://openprovenance.org/blank#NMS_flowcam_2010&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
 <path fill="none" stroke="black" d="M859.03,-405.66C882.14,-419.92 915.75,-440.67 941.4,-456.5"/>
 <polygon fill="black" stroke="black" points="939.51,-459.45 949.86,-461.72 943.19,-453.49 939.51,-459.45"/>
 <text text-anchor="middle" x="872.23" y="-395.82" font-family="Times New Roman,serif" font-size="8.00">infl</text>
@@ -220,10 +220,10 @@
 <text text-anchor="start" x="920.38" y="-238.88" font-family="Times New Roman,serif" font-size="10.00">description:</text>
 <text text-anchor="start" x="971.12" y="-238.88" font-family="Times New Roman,serif" font-size="10.00">see file flowcam&#45;settings.txt for software and hardware settings</text>
 </g>
-<!-- &#45;attrs4&#45;&gt;_NMS_flowcam_2010 -->
+<!-- &#45;attrs4&#45;&gt;https://openprovenance.org/blank#NMS_flowcam_2010 -->
 <!-- null _:_ -->
 <g id="edge5" class="edge">
-<title>&#45;attrs4&#45;&gt;_NMS_flowcam_2010</title>
+<title>&#45;attrs4&#45;&gt;https://openprovenance.org/blank#NMS_flowcam_2010</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M995.67,-307.87C951.77,-329.16 899.14,-354.69 865.69,-370.91"/>
 </g>
 <!-- http://purl.obolibrary.org/obo/ENVO_00002150 -->
@@ -255,11 +255,11 @@
 <title>&#45;attrs5&#45;&gt;http://purl.obolibrary.org/obo/ENVO_00002150</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1476.25,-63.32C1476.25,-84.11 1476.25,-113.58 1476.25,-132.08"/>
 </g>
-<!-- _NCBI_txid1874687 -->
+<!-- https://openprovenance.org/blank#NCBI_txid1874687 -->
 <!-- PROV_ENTITY _:NCBI_txid1874687 -->
 <g id="node13" class="node">
-<title>_NCBI_txid1874687</title>
-<g id="a_node13"><a xlink:href="_NCBI_txid1874687" xlink:title="NCBI_txid1874687">
+<title>https://openprovenance.org/blank#NCBI_txid1874687</title>
+<g id="a_node13"><a xlink:href="https://openprovenance.org/blank#NCBI_txid1874687" xlink:title="NCBI_txid1874687">
 <ellipse fill="#fffc87" stroke="#808080" cx="1662.25" cy="-150.38" rx="84.11" ry="18"/>
 <text text-anchor="middle" x="1662.25" y="-145.32" font-family="Times New Roman,serif" font-size="14.00">NCBI_txid1874687</text>
 </a>
@@ -278,10 +278,10 @@
 <text text-anchor="start" x="1579.5" y="-21" font-family="Times New Roman,serif" font-size="10.00">termCode:</text>
 <text text-anchor="start" x="1624.25" y="-21" font-family="Times New Roman,serif" font-size="10.00">NCBI:txid1874687</text>
 </g>
-<!-- &#45;attrs6&#45;&gt;_NCBI_txid1874687 -->
+<!-- &#45;attrs6&#45;&gt;https://openprovenance.org/blank#NCBI_txid1874687 -->
 <!-- null _:_ -->
 <g id="edge7" class="edge">
-<title>&#45;attrs6&#45;&gt;_NCBI_txid1874687</title>
+<title>&#45;attrs6&#45;&gt;https://openprovenance.org/blank#NCBI_txid1874687</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1662.25,-63.32C1662.25,-84.11 1662.25,-113.58 1662.25,-132.08"/>
 </g>
 <!-- gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7 -->
@@ -294,10 +294,10 @@
 </a>
 </g>
 </g>
-<!-- gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7&#45;&gt;_MaterialProcessing -->
+<!-- gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7&#45;&gt;https://openprovenance.org/blank#MaterialProcessing -->
 <!-- PROV_GENERATION _:_ -->
 <g id="edge17" class="edge">
-<title>gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7&#45;&gt;_MaterialProcessing</title>
+<title>gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7&#45;&gt;https://openprovenance.org/blank#MaterialProcessing</title>
 <path fill="none" stroke="black" d="M1035.98,-168.55C997.97,-181.99 945.34,-202.11 901.25,-224.5 889.63,-230.4 877.46,-237.7 866.64,-244.64"/>
 <polygon fill="black" stroke="black" points="864.85,-241.62 858.4,-250.02 868.68,-247.48 864.85,-241.62"/>
 <text text-anchor="middle" x="1033.3" y="-180.58" font-family="Times New Roman,serif" font-size="8.00">gen</text>

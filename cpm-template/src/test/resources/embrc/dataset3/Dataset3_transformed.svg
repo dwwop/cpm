@@ -9,48 +9,48 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 390)">
 <title>title</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-390 1790.38,-390 1790.38,4 -4,4"/>
-<!-- _FlowCamSpeciesIdentification -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification -->
 <!-- PROV_ACTIVITY _:FlowCamSpeciesIdentification -->
 <g id="node1" class="node">
-<title>_FlowCamSpeciesIdentification</title>
-<g id="a_node1"><a xlink:href="_FlowCamSpeciesIdentification" xlink:title="FlowCamSpeciesIdentification">
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification</title>
+<g id="a_node1"><a xlink:href="https://openprovenance.org/blank#FlowCamSpeciesIdentification" xlink:title="FlowCamSpeciesIdentification">
 <polygon fill="#9fb1fc" stroke="#0000ff" points="1064.12,-293.88 880.12,-293.88 880.12,-257.88 1064.12,-257.88 1064.12,-293.88"/>
 <text text-anchor="middle" x="972.12" y="-270.82" font-family="Times New Roman,serif" font-size="14.00">FlowCamSpeciesIdentification</text>
 </a>
 </g>
 </g>
-<!-- _VisualSpreadsheet_FlowCam -->
+<!-- https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
 <!-- PROV_ENTITY _:VisualSpreadsheet_FlowCam -->
 <g id="node3" class="node">
-<title>_VisualSpreadsheet_FlowCam</title>
-<g id="a_node3"><a xlink:href="_VisualSpreadsheet_FlowCam" xlink:title="VisualSpreadsheet_FlowCam">
+<title>https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
+<g id="a_node3"><a xlink:href="https://openprovenance.org/blank#VisualSpreadsheet_FlowCam" xlink:title="VisualSpreadsheet_FlowCam">
 <ellipse fill="#fffc87" stroke="#808080" cx="326.12" cy="-368" rx="120.45" ry="18"/>
 <text text-anchor="middle" x="326.12" y="-362.95" font-family="Times New Roman,serif" font-size="14.00">VisualSpreadsheet_FlowCam</text>
 </a>
 </g>
 </g>
-<!-- _FlowCamSpeciesIdentification&#45;&gt;_VisualSpreadsheet_FlowCam -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge8" class="edge">
-<title>_FlowCamSpeciesIdentification&#45;&gt;_VisualSpreadsheet_FlowCam</title>
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
 <path fill="none" stroke="black" d="M932.05,-294.28C913.8,-301.51 891.71,-309.3 871.12,-314 792.93,-331.86 581,-349.21 445.63,-358.95"/>
 <polygon fill="black" stroke="black" points="445.63,-355.44 435.91,-359.65 446.13,-362.43 445.63,-355.44"/>
 <text text-anchor="middle" x="929.79" y="-306.39" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
-<!-- _classification_QC -->
+<!-- https://openprovenance.org/blank#classification_QC -->
 <!-- PROV_ENTITY _:classification_QC -->
 <g id="node5" class="node">
-<title>_classification_QC</title>
-<g id="a_node5"><a xlink:href="_classification_QC" xlink:title="classification_QC">
+<title>https://openprovenance.org/blank#classification_QC</title>
+<g id="a_node5"><a xlink:href="https://openprovenance.org/blank#classification_QC" xlink:title="classification_QC">
 <ellipse fill="#fffc87" stroke="#808080" cx="653.12" cy="-368" rx="76.94" ry="18"/>
 <text text-anchor="middle" x="653.12" y="-362.95" font-family="Times New Roman,serif" font-size="14.00">classification_QC</text>
 </a>
 </g>
 </g>
-<!-- _FlowCamSpeciesIdentification&#45;&gt;_classification_QC -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://openprovenance.org/blank#classification_QC -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge9" class="edge">
-<title>_FlowCamSpeciesIdentification&#45;&gt;_classification_QC</title>
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://openprovenance.org/blank#classification_QC</title>
 <path fill="none" stroke="black" d="M928.25,-294.24C910.64,-300.88 890.07,-308.24 871.12,-314 820.91,-329.28 763.15,-343.16 719.7,-352.88"/>
 <polygon fill="black" stroke="black" points="719.18,-349.41 710.17,-354.99 720.69,-356.24 719.18,-349.41"/>
 <text text-anchor="middle" x="925.78" y="-306.31" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -65,10 +65,10 @@
 </a>
 </g>
 </g>
-<!-- _FlowCamSpeciesIdentification&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0 -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0 -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge11" class="edge">
-<title>_FlowCamSpeciesIdentification&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</title>
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</title>
 <path fill="none" stroke="black" d="M1010.49,-294.25C1042.43,-308.71 1088.08,-329.39 1122.56,-345.01"/>
 <polygon fill="black" stroke="black" points="1120.94,-348.11 1131.49,-349.05 1123.83,-341.74 1120.94,-348.11"/>
 <text text-anchor="middle" x="1022.69" y="-282.79" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -83,10 +83,10 @@
 </a>
 </g>
 </g>
-<!-- _FlowCamSpeciesIdentification&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002 -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002 -->
 <!-- PROV_ASSOCIATION _:_ -->
 <g id="edge10" class="edge">
-<title>_FlowCamSpeciesIdentification&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002</title>
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002</title>
 <path fill="none" stroke="black" d="M1012.18,-294.35C1030.44,-301.6 1052.53,-309.37 1073.12,-314 1075.92,-314.63 1361.93,-340.21 1534.31,-355.6"/>
 <polygon fill="black" stroke="black" points="1533.98,-359.09 1544.25,-356.49 1534.6,-352.11 1533.98,-359.09"/>
 <text text-anchor="middle" x="1023.9" y="-282.26" font-family="Times New Roman,serif" font-size="8.00">assoc</text>
@@ -110,10 +110,10 @@
 <text text-anchor="start" x="517.88" y="-120" font-family="Times New Roman,serif" font-size="10.00">result:</text>
 <text text-anchor="start" x="568.62" y="-120" font-family="Times New Roman,serif" font-size="10.00">gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4</text>
 </g>
-<!-- &#45;attrs0&#45;&gt;_FlowCamSpeciesIdentification -->
+<!-- &#45;attrs0&#45;&gt;https://openprovenance.org/blank#FlowCamSpeciesIdentification -->
 <!-- null _:_ -->
 <g id="edge1" class="edge">
-<title>&#45;attrs0&#45;&gt;_FlowCamSpeciesIdentification</title>
+<title>&#45;attrs0&#45;&gt;https://openprovenance.org/blank#FlowCamSpeciesIdentification</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M811.04,-202.19C853.73,-221.45 901.3,-242.91 933.6,-257.49"/>
 </g>
 <!-- &#45;attrs1 -->
@@ -133,10 +133,10 @@
 <text text-anchor="start" x="10" y="-245.5" font-family="Times New Roman,serif" font-size="10.00">accessibilitySummary:</text>
 <text text-anchor="start" x="104.25" y="-245.5" font-family="Times New Roman,serif" font-size="10.00">file flowcam&#45;settings.txt which comes with this dataset</text>
 </g>
-<!-- &#45;attrs1&#45;&gt;_VisualSpreadsheet_FlowCam -->
+<!-- &#45;attrs1&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
 <!-- null _:_ -->
 <g id="edge2" class="edge">
-<title>&#45;attrs1&#45;&gt;_VisualSpreadsheet_FlowCam</title>
+<title>&#45;attrs1&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M240.77,-314.31C260.99,-326.79 282.5,-340.07 298.87,-350.18"/>
 </g>
 <!-- &#45;attrs2 -->
@@ -154,10 +154,10 @@
 <text text-anchor="start" x="388.5" y="-252.12" font-family="Times New Roman,serif" font-size="10.00">description:</text>
 <text text-anchor="start" x="439.25" y="-252.12" font-family="Times New Roman,serif" font-size="10.00">Manual filtering of the flowcam outputs, to remove misidentifications. Method steps: (1) visual insp...</text>
 </g>
-<!-- &#45;attrs2&#45;&gt;_classification_QC -->
+<!-- &#45;attrs2&#45;&gt;https://openprovenance.org/blank#classification_QC -->
 <!-- null _:_ -->
 <g id="edge3" class="edge">
-<title>&#45;attrs2&#45;&gt;_classification_QC</title>
+<title>&#45;attrs2&#45;&gt;https://openprovenance.org/blank#classification_QC</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M631.39,-307.64C636.54,-321.71 642.46,-337.86 646.81,-349.76"/>
 </g>
 <!-- &#45;attrs3 -->
@@ -187,10 +187,10 @@
 </a>
 </g>
 </g>
-<!-- genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;_FlowCamSpeciesIdentification -->
+<!-- genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;https://openprovenance.org/blank#FlowCamSpeciesIdentification -->
 <!-- PROV_GENERATION _:_ -->
 <g id="edge12" class="edge">
-<title>genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;_FlowCamSpeciesIdentification</title>
+<title>genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;https://openprovenance.org/blank#FlowCamSpeciesIdentification</title>
 <path fill="none" stroke="black" d="M1192.91,-175.25C1147.19,-195.88 1070.59,-230.44 1020.72,-252.95"/>
 <polygon fill="black" stroke="black" points="1019.55,-249.63 1011.88,-256.94 1022.43,-256.01 1019.55,-249.63"/>
 <text text-anchor="middle" x="1191.42" y="-187.45" font-family="Times New Roman,serif" font-size="8.00">gen</text>

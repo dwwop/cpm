@@ -23,22 +23,22 @@ public class Dataset2Transformer extends DatasetTransformer {
     @Override
     protected Document createTI(IndexedDocument indexedDS) {
         TraversalInformation ti = new TraversalInformation();
-        ti.setBundleName(newQNWithUnknownNS(PROCESSING + "-bundle"));
+        ti.setBundleName(newQNWithBlankNS(PROCESSING + "-bundle"));
 
-        MainActivity mA = new MainActivity(newQNWithUnknownNS(PROCESSING));
+        MainActivity mA = new MainActivity(newQNWithBlankNS(PROCESSING));
         ti.setMainActivity(mA);
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
-        BackwardConnector bC = new BackwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R1));
+        BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
         ti.setBackwardConnectors(List.of(bC));
 
-        SpecializationOf specBc = pF.newSpecializationOf(newQNWithUnknownNS(SAMPLE_R1), bC.getId());
+        SpecializationOf specBc = pF.newSpecializationOf(newQNWithBlankNS(SAMPLE_R1), bC.getId());
         indexedDS.add(specBc);
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
-        ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(PROCESSED_SAMPLE_CON));
+        ForwardConnector fC = new ForwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON));
         fC.setDerivedFrom(List.of(bC.getId()));
 
         SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), fC.getId());
@@ -46,7 +46,7 @@ public class Dataset2Transformer extends DatasetTransformer {
 
         mA.setGenerated(List.of(fC.getId()));
 
-        ForwardConnector fCIden = new ForwardConnector(newQNWithUnknownNS(IDENTIFIED_SPECIES_CON));
+        ForwardConnector fCIden = new ForwardConnector(newQNWithBlankNS(IDENTIFIED_SPECIES_CON));
         fCIden.setDerivedFrom(List.of(fC.getId()));
 
         ti.setForwardConnectors(List.of(fC, fCIden));

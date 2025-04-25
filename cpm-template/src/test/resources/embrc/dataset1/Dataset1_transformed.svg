@@ -19,38 +19,38 @@
 </a>
 </g>
 </g>
-<!-- _BigProject_WaterSamples -->
+<!-- https://openprovenance.org/blank#BigProject_WaterSamples -->
 <!-- PROV_ENTITY _:BigProject_WaterSamples -->
 <g id="node23" class="node">
-<title>_BigProject_WaterSamples</title>
-<g id="a_node23"><a xlink:href="_BigProject_WaterSamples" xlink:title="BigProject_WaterSamples">
+<title>https://openprovenance.org/blank#BigProject_WaterSamples</title>
+<g id="a_node23"><a xlink:href="https://openprovenance.org/blank#BigProject_WaterSamples" xlink:title="BigProject_WaterSamples">
 <ellipse fill="#fffc87" stroke="#808080" cx="3649.88" cy="-810.75" rx="108.67" ry="18"/>
 <text text-anchor="middle" x="3649.88" y="-805.7" font-family="Times New Roman,serif" font-size="14.00">BigProject_WaterSamples</text>
 </a>
 </g>
 </g>
-<!-- gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2&#45;&gt;_BigProject_WaterSamples -->
+<!-- gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2&#45;&gt;https://openprovenance.org/blank#BigProject_WaterSamples -->
 <!-- PROV_USAGE _:_ -->
-<g id="edge36" class="edge">
-<title>gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2&#45;&gt;_BigProject_WaterSamples</title>
+<g id="edge35" class="edge">
+<title>gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2&#45;&gt;https://openprovenance.org/blank#BigProject_WaterSamples</title>
 <path fill="none" stroke="black" d="M3609.68,-578.17C3615.39,-599.08 3624.9,-635.52 3630.88,-667.25 3638.28,-706.52 3643.85,-752.42 3646.99,-781.29"/>
 <polygon fill="black" stroke="black" points="3643.49,-781.47 3648.03,-791.04 3650.45,-780.73 3643.49,-781.47"/>
 <text text-anchor="middle" x="3624.18" y="-579.29" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
-<!-- _ABSPermit_ircc2345678 -->
+<!-- https://openprovenance.org/blank#ABSPermit_ircc2345678 -->
 <!-- PROV_ENTITY _:ABSPermit_ircc2345678 -->
 <g id="node39" class="node">
-<title>_ABSPermit_ircc2345678</title>
-<g id="a_node39"><a xlink:href="_ABSPermit_ircc2345678" xlink:title="ABSPermit_ircc2345678">
+<title>https://openprovenance.org/blank#ABSPermit_ircc2345678</title>
+<g id="a_node39"><a xlink:href="https://openprovenance.org/blank#ABSPermit_ircc2345678" xlink:title="ABSPermit_ircc2345678">
 <ellipse fill="#fffc87" stroke="#808080" cx="3122.88" cy="-712" rx="104.58" ry="18"/>
 <text text-anchor="middle" x="3122.88" y="-706.95" font-family="Times New Roman,serif" font-size="14.00">ABSPermit_ircc2345678</text>
 </a>
 </g>
 </g>
-<!-- gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2&#45;&gt;_ABSPermit_ircc2345678 -->
+<!-- gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2&#45;&gt;https://openprovenance.org/blank#ABSPermit_ircc2345678 -->
 <!-- PROV_USAGE _:_ -->
-<g id="edge37" class="edge">
-<title>gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2&#45;&gt;_ABSPermit_ircc2345678</title>
+<g id="edge36" class="edge">
+<title>gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2&#45;&gt;https://openprovenance.org/blank#ABSPermit_ircc2345678</title>
 <path fill="none" stroke="black" d="M3552.15,-578.36C3506.9,-593.06 3439.85,-614.38 3380.88,-631.25 3319.52,-648.8 3302.79,-648.22 3241.88,-667.25 3219.33,-674.29 3194.78,-683.12 3173.87,-690.99"/>
 <polygon fill="black" stroke="black" points="3172.81,-687.65 3164.7,-694.47 3175.3,-694.2 3172.81,-687.65"/>
 <text text-anchor="middle" x="3549.02" y="-590.31" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -106,20 +106,20 @@
 </a>
 </g>
 </g>
-<!-- _CTD_standard_procedure_2 -->
+<!-- https://openprovenance.org/blank#CTD_standard_procedure_2 -->
 <!-- PROV_ENTITY _:CTD_standard_procedure_2 -->
 <g id="node25" class="node">
-<title>_CTD_standard_procedure_2</title>
-<g id="a_node25"><a xlink:href="_CTD_standard_procedure_2" xlink:title="CTD_standard_procedure_2">
+<title>https://openprovenance.org/blank#CTD_standard_procedure_2</title>
+<g id="a_node25"><a xlink:href="https://openprovenance.org/blank#CTD_standard_procedure_2" xlink:title="CTD_standard_procedure_2">
 <ellipse fill="#fffc87" stroke="#808080" cx="3851.88" cy="-712" rx="115.84" ry="18"/>
 <text text-anchor="middle" x="3851.88" y="-706.95" font-family="Times New Roman,serif" font-size="14.00">CTD_standard_procedure_2</text>
 </a>
 </g>
 </g>
-<!-- gen36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99&#45;&gt;_CTD_standard_procedure_2 -->
+<!-- gen36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99&#45;&gt;https://openprovenance.org/blank#CTD_standard_procedure_2 -->
 <!-- PROV_USAGE _:_ -->
-<g id="edge41" class="edge">
-<title>gen36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99&#45;&gt;_CTD_standard_procedure_2</title>
+<g id="edge39" class="edge">
+<title>gen36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99&#45;&gt;https://openprovenance.org/blank#CTD_standard_procedure_2</title>
 <path fill="none" stroke="black" d="M4267.69,-578.47C4221.16,-592.69 4153.78,-613.27 4094.88,-631.25 4042.43,-647.26 4028.98,-650.19 3976.88,-667.25 3953.88,-674.78 3928.67,-683.51 3906.95,-691.18"/>
 <polygon fill="black" stroke="black" points="3905.95,-687.82 3897.7,-694.46 3908.29,-694.42 3905.95,-687.82"/>
 <text text-anchor="middle" x="4264.31" y="-590.36" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -161,28 +161,28 @@
 </a>
 </g>
 </g>
-<!-- _BigProject_belgium_water_10m -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m -->
 <!-- PROV_ENTITY _:BigProject_belgium_water_10m -->
 <g id="node15" class="node">
-<title>_BigProject_belgium_water_10m</title>
-<g id="a_node15"><a xlink:href="_BigProject_belgium_water_10m" xlink:title="BigProject_belgium_water_10m">
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m</title>
+<g id="a_node15"><a xlink:href="https://openprovenance.org/blank#BigProject_belgium_water_10m" xlink:title="BigProject_belgium_water_10m">
 <ellipse fill="#fffc87" stroke="#808080" cx="3188.88" cy="-810.75" rx="132.22" ry="18"/>
 <text text-anchor="middle" x="3188.88" y="-805.7" font-family="Times New Roman,serif" font-size="14.00">BigProject_belgium_water_10m</text>
 </a>
 </g>
 </g>
-<!-- gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a&#45;&gt;_BigProject_belgium_water_10m -->
+<!-- gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge46" class="edge">
-<title>gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a&#45;&gt;_BigProject_belgium_water_10m</title>
+<title>gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m</title>
 <path fill="none" stroke="black" d="M2625.85,-730.46C2669.15,-739.03 2722.7,-749.12 2770.88,-756.75 2874.14,-773.1 2992.4,-787.72 3076.71,-797.44"/>
 <polygon fill="black" stroke="black" points="3076.28,-800.91 3086.62,-798.57 3077.08,-793.95 3076.28,-800.91"/>
 <text text-anchor="middle" x="2635.72" y="-716.44" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
-<!-- gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a&#45;&gt;_BigProject_WaterSamples -->
+<!-- gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a&#45;&gt;https://openprovenance.org/blank#BigProject_WaterSamples -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge43" class="edge">
-<title>gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a&#45;&gt;_BigProject_WaterSamples</title>
+<title>gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a&#45;&gt;https://openprovenance.org/blank#BigProject_WaterSamples</title>
 <path fill="none" stroke="black" d="M2619.25,-730.48C2663.54,-739.71 2720.05,-750.41 2770.88,-756.75 2844.83,-765.97 3316.06,-791.89 3536.48,-803.72"/>
 <polygon fill="black" stroke="black" points="3536.06,-807.21 3546.24,-804.25 3536.44,-800.22 3536.06,-807.21"/>
 <text text-anchor="middle" x="2629.22" y="-716.55" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -238,9 +238,9 @@
 <text text-anchor="start" x="2101.25" y="-549.5" font-family="Times New Roman,serif" font-size="10.00">object:</text>
 <text text-anchor="start" x="2140" y="-549.5" font-family="Times New Roman,serif" font-size="10.00">_:BigProject_belgium_water_10m</text>
 <text text-anchor="start" x="2101.25" y="-536.25" font-family="Times New Roman,serif" font-size="10.00">result:</text>
-<text text-anchor="start" x="2140" y="-536.25" font-family="Times New Roman,serif" font-size="10.00">_:BigProject_belgium_water_10m_1000um_r2</text>
+<text text-anchor="start" x="2140" y="-536.25" font-family="Times New Roman,serif" font-size="10.00">_:BigProject_belgium_water_10m_1000um_r1</text>
 <text text-anchor="start" x="2101.25" y="-523" font-family="Times New Roman,serif" font-size="10.00">result:</text>
-<text text-anchor="start" x="2140" y="-523" font-family="Times New Roman,serif" font-size="10.00">_:BigProject_belgium_water_10m_1000um_r1</text>
+<text text-anchor="start" x="2140" y="-523" font-family="Times New Roman,serif" font-size="10.00">_:BigProject_belgium_water_10m_1000um_r2</text>
 </g>
 <!-- &#45;attrs2&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a -->
 <!-- null _:_ -->
@@ -258,38 +258,38 @@
 </a>
 </g>
 </g>
-<!-- _BigProject_belgium_water_10m_1000um_r2 -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2 -->
 <!-- PROV_ENTITY _:BigProject_belgium_water_10m_1000um_r2 -->
 <g id="node19" class="node">
-<title>_BigProject_belgium_water_10m_1000um_r2</title>
-<g id="a_node19"><a xlink:href="_BigProject_belgium_water_10m_1000um_r2" xlink:title="BigProject_belgium_water_10m_1000um_r2">
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2</title>
+<g id="a_node19"><a xlink:href="https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2" xlink:title="BigProject_belgium_water_10m_1000um_r2">
 <ellipse fill="#fffc87" stroke="#808080" cx="1608.88" cy="-560" rx="179.82" ry="18"/>
 <text text-anchor="middle" x="1608.88" y="-554.95" font-family="Times New Roman,serif" font-size="14.00">BigProject_belgium_water_10m_1000um_r2</text>
 </a>
 </g>
 </g>
-<!-- genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2&#45;&gt;_BigProject_belgium_water_10m_1000um_r2 -->
+<!-- genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2 -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge52" class="edge">
-<title>genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2&#45;&gt;_BigProject_belgium_water_10m_1000um_r2</title>
+<title>genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2</title>
 <path fill="none" stroke="black" d="M1209.17,-426.35C1293.27,-454.26 1458.18,-508.99 1547.65,-538.68"/>
 <polygon fill="black" stroke="black" points="1546.41,-541.96 1557,-541.78 1548.61,-535.31 1546.41,-541.96"/>
 <text text-anchor="middle" x="1220.38" y="-413.66" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
-<!-- _BigProject_eDNAfiltering -->
+<!-- https://openprovenance.org/blank#BigProject_eDNAfiltering -->
 <!-- PROV_ENTITY _:BigProject_eDNAfiltering -->
 <g id="node27" class="node">
-<title>_BigProject_eDNAfiltering</title>
-<g id="a_node27"><a xlink:href="_BigProject_eDNAfiltering" xlink:title="BigProject_eDNAfiltering">
+<title>https://openprovenance.org/blank#BigProject_eDNAfiltering</title>
+<g id="a_node27"><a xlink:href="https://openprovenance.org/blank#BigProject_eDNAfiltering" xlink:title="BigProject_eDNAfiltering">
 <ellipse fill="#fffc87" stroke="#808080" cx="376.88" cy="-560" rx="108.67" ry="18"/>
 <text text-anchor="middle" x="376.88" y="-554.95" font-family="Times New Roman,serif" font-size="14.00">BigProject_eDNAfiltering</text>
 </a>
 </g>
 </g>
-<!-- genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2&#45;&gt;_BigProject_eDNAfiltering -->
+<!-- genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2&#45;&gt;https://openprovenance.org/blank#BigProject_eDNAfiltering -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge49" class="edge">
-<title>genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2&#45;&gt;_BigProject_eDNAfiltering</title>
+<title>genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2&#45;&gt;https://openprovenance.org/blank#BigProject_eDNAfiltering</title>
 <path fill="none" stroke="black" d="M1078.17,-426.49C1035.39,-435.46 981.43,-445.91 932.88,-452.75 750.42,-478.45 697.36,-439.29 519.88,-488.75 481.67,-499.4 441.4,-520.16 413.36,-536.36"/>
 <polygon fill="black" stroke="black" points="411.76,-533.24 404.92,-541.33 415.31,-539.27 411.76,-533.24"/>
 <text text-anchor="middle" x="1073.47" y="-438.01" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -353,38 +353,38 @@
 </a>
 </g>
 </g>
-<!-- _BigProject_belgium_water_10m_1000um_r1 -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1 -->
 <!-- PROV_ENTITY _:BigProject_belgium_water_10m_1000um_r1 -->
 <g id="node17" class="node">
-<title>_BigProject_belgium_water_10m_1000um_r1</title>
-<g id="a_node17"><a xlink:href="_BigProject_belgium_water_10m_1000um_r1" xlink:title="BigProject_belgium_water_10m_1000um_r1">
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1</title>
+<g id="a_node17"><a xlink:href="https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1" xlink:title="BigProject_belgium_water_10m_1000um_r1">
 <ellipse fill="#fffc87" stroke="#808080" cx="2675.88" cy="-560" rx="179.82" ry="18"/>
 <text text-anchor="middle" x="2675.88" y="-554.95" font-family="Times New Roman,serif" font-size="14.00">BigProject_belgium_water_10m_1000um_r1</text>
 </a>
 </g>
 </g>
-<!-- gen09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80&#45;&gt;_BigProject_belgium_water_10m_1000um_r1 -->
+<!-- gen09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1 -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge56" class="edge">
-<title>gen09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80&#45;&gt;_BigProject_belgium_water_10m_1000um_r1</title>
+<title>gen09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1</title>
 <path fill="none" stroke="black" d="M2282.31,-426.46C2337.07,-441.86 2418.12,-465.41 2487.88,-488.75 2533.74,-504.1 2585.13,-523.45 2622.58,-537.96"/>
 <polygon fill="black" stroke="black" points="2621.24,-541.19 2631.83,-541.56 2623.78,-534.67 2621.24,-541.19"/>
 <text text-anchor="middle" x="2293.06" y="-413.28" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
-<!-- _Johnson_Fridge_type_XYZ -->
+<!-- https://openprovenance.org/blank#Johnson_Fridge_type_XYZ -->
 <!-- PROV_ENTITY _:Johnson_Fridge_type_XYZ -->
 <g id="node33" class="node">
-<title>_Johnson_Fridge_type_XYZ</title>
-<g id="a_node33"><a xlink:href="_Johnson_Fridge_type_XYZ" xlink:title="Johnson_Fridge_type_XYZ">
+<title>https://openprovenance.org/blank#Johnson_Fridge_type_XYZ</title>
+<g id="a_node33"><a xlink:href="https://openprovenance.org/blank#Johnson_Fridge_type_XYZ" xlink:title="Johnson_Fridge_type_XYZ">
 <ellipse fill="#fffc87" stroke="#808080" cx="1920.88" cy="-560" rx="113.79" ry="18"/>
 <text text-anchor="middle" x="1920.88" y="-554.95" font-family="Times New Roman,serif" font-size="14.00">Johnson_Fridge_type_XYZ</text>
 </a>
 </g>
 </g>
-<!-- gen09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80&#45;&gt;_Johnson_Fridge_type_XYZ -->
+<!-- gen09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80&#45;&gt;https://openprovenance.org/blank#Johnson_Fridge_type_XYZ -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge54" class="edge">
-<title>gen09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80&#45;&gt;_Johnson_Fridge_type_XYZ</title>
+<title>gen09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80&#45;&gt;https://openprovenance.org/blank#Johnson_Fridge_type_XYZ</title>
 <path fill="none" stroke="black" d="M2180.05,-426.36C2145.38,-442.08 2093.34,-466.15 2048.88,-488.75 2018.79,-504.05 1985.37,-522.43 1960.23,-536.56"/>
 <polygon fill="black" stroke="black" points="1958.64,-533.43 1951.65,-541.4 1962.08,-539.53 1958.64,-533.43"/>
 <text text-anchor="middle" x="2178.6" y="-438.57" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -432,38 +432,38 @@
 </a>
 </g>
 </g>
-<!-- _BigProject_belgium_water_10m_1000um_r2_3um -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um -->
 <!-- PROV_ENTITY _:BigProject_belgium_water_10m_1000um_r2_3um -->
 <g id="node21" class="node">
-<title>_BigProject_belgium_water_10m_1000um_r2_3um</title>
-<g id="a_node21"><a xlink:href="_BigProject_belgium_water_10m_1000um_r2_3um" xlink:title="BigProject_belgium_water_10m_1000um_r2_3um">
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um</title>
+<g id="a_node21"><a xlink:href="https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um" xlink:title="BigProject_belgium_water_10m_1000um_r2_3um">
 <ellipse fill="#fffc87" stroke="#808080" cx="765.88" cy="-282.5" rx="201.31" ry="18"/>
 <text text-anchor="middle" x="765.88" y="-277.45" font-family="Times New Roman,serif" font-size="14.00">BigProject_belgium_water_10m_1000um_r2_3um</text>
 </a>
 </g>
 </g>
-<!-- gen67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925&#45;&gt;_BigProject_belgium_water_10m_1000um_r2_3um -->
+<!-- gen67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge59" class="edge">
-<title>gen67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925&#45;&gt;_BigProject_belgium_water_10m_1000um_r2_3um</title>
+<title>gen67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um</title>
 <path fill="none" stroke="black" d="M1271.42,-175.5C1160.7,-198.71 966.14,-239.51 853.4,-263.15"/>
 <polygon fill="black" stroke="black" points="852.97,-259.66 843.9,-265.14 854.41,-266.51 852.97,-259.66"/>
 <text text-anchor="middle" x="1266.75" y="-187.03" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
-<!-- _Johnson_Freezer_type_XYZ -->
+<!-- https://openprovenance.org/blank#Johnson_Freezer_type_XYZ -->
 <!-- PROV_ENTITY _:Johnson_Freezer_type_XYZ -->
 <g id="node35" class="node">
-<title>_Johnson_Freezer_type_XYZ</title>
-<g id="a_node35"><a xlink:href="_Johnson_Freezer_type_XYZ" xlink:title="Johnson_Freezer_type_XYZ">
+<title>https://openprovenance.org/blank#Johnson_Freezer_type_XYZ</title>
+<g id="a_node35"><a xlink:href="https://openprovenance.org/blank#Johnson_Freezer_type_XYZ" xlink:title="Johnson_Freezer_type_XYZ">
 <ellipse fill="#fffc87" stroke="#808080" cx="1636.88" cy="-282.5" rx="117.37" ry="18"/>
 <text text-anchor="middle" x="1636.88" y="-277.45" font-family="Times New Roman,serif" font-size="14.00">Johnson_Freezer_type_XYZ</text>
 </a>
 </g>
 </g>
-<!-- gen67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925&#45;&gt;_Johnson_Freezer_type_XYZ -->
+<!-- gen67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925&#45;&gt;https://openprovenance.org/blank#Johnson_Freezer_type_XYZ -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge57" class="edge">
-<title>gen67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925&#45;&gt;_Johnson_Freezer_type_XYZ</title>
+<title>gen67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925&#45;&gt;https://openprovenance.org/blank#Johnson_Freezer_type_XYZ</title>
 <path fill="none" stroke="black" d="M1394.68,-175.43C1445.78,-197.81 1534.35,-236.6 1589.05,-260.56"/>
 <polygon fill="black" stroke="black" points="1587.57,-263.73 1598.13,-264.53 1590.38,-257.32 1587.57,-263.73"/>
 <text text-anchor="middle" x="1406.76" y="-163.82" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -530,10 +530,10 @@
 <title>&#45;attrs6&#45;&gt;http://marineregions.org/mrgid/3293</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1819.88,-69.83C1819.88,-91.75 1819.88,-120.43 1819.88,-138.54"/>
 </g>
-<!-- _BigProject_belgium_water_10m&#45;&gt;gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2 -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m&#45;&gt;gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2 -->
 <!-- PROV_GENERATION _:_ -->
-<g id="edge35" class="edge">
-<title>_BigProject_belgium_water_10m&#45;&gt;gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2</title>
+<g id="edge37" class="edge">
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m&#45;&gt;gen190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2</title>
 <path fill="none" stroke="black" d="M3206.92,-792.82C3216.69,-782.97 3228.45,-769.93 3236.88,-756.75 3260.15,-720.34 3242.97,-696.4 3274.88,-667.25 3279.9,-662.66 3442.5,-611.54 3537.54,-581.91"/>
 <polygon fill="black" stroke="black" points="3538.55,-585.26 3547.05,-578.95 3536.46,-578.58 3538.55,-585.26"/>
 <text text-anchor="middle" x="3202.89" y="-775.65" font-family="Times New Roman,serif" font-size="8.00">gen</text>
@@ -557,16 +557,16 @@
 <text text-anchor="start" x="3293.62" y="-675" font-family="Times New Roman,serif" font-size="10.00">keywords:</text>
 <text text-anchor="start" x="3344.38" y="-675" font-family="Times New Roman,serif" font-size="10.00">_:NCBI_txid1874687</text>
 </g>
-<!-- &#45;attrs7&#45;&gt;_BigProject_belgium_water_10m -->
+<!-- &#45;attrs7&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m -->
 <!-- null _:_ -->
 <g id="edge8" class="edge">
-<title>&#45;attrs7&#45;&gt;_BigProject_belgium_water_10m</title>
+<title>&#45;attrs7&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M3332.46,-757.13C3297.24,-770.04 3260.91,-783.35 3233.61,-793.36"/>
 </g>
-<!-- _BigProject_belgium_water_10m_1000um_r1&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a -->
 <!-- PROV_GENERATION _:_ -->
 <g id="edge47" class="edge">
-<title>_BigProject_belgium_water_10m_1000um_r1&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a</title>
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a</title>
 <path fill="none" stroke="black" d="M2660.39,-578.21C2636.81,-604.4 2591.76,-654.46 2564.21,-685.08"/>
 <polygon fill="black" stroke="black" points="2561.7,-682.63 2557.61,-692.41 2566.9,-687.32 2561.7,-682.63"/>
 <text text-anchor="middle" x="2665.03" y="-589.75" font-family="Times New Roman,serif" font-size="8.00">gen</text>
@@ -590,16 +590,16 @@
 <text text-anchor="start" x="2523.38" y="-371" font-family="Times New Roman,serif" font-size="10.00">keywords:</text>
 <text text-anchor="start" x="2574.12" y="-371" font-family="Times New Roman,serif" font-size="10.00">_:NCBI_txid1874687</text>
 </g>
-<!-- &#45;attrs8&#45;&gt;_BigProject_belgium_water_10m_1000um_r1 -->
+<!-- &#45;attrs8&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1 -->
 <!-- null _:_ -->
 <g id="edge9" class="edge">
-<title>&#45;attrs8&#45;&gt;_BigProject_belgium_water_10m_1000um_r1</title>
+<title>&#45;attrs8&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r1</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M2675.88,-453.19C2675.88,-482.75 2675.88,-520.03 2675.88,-541.53"/>
 </g>
-<!-- _BigProject_belgium_water_10m_1000um_r2&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a -->
 <!-- PROV_GENERATION _:_ -->
 <g id="edge48" class="edge">
-<title>_BigProject_belgium_water_10m_1000um_r2&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a</title>
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2&#45;&gt;gen324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a</title>
 <path fill="none" stroke="black" d="M1645.23,-578.08C1682.61,-594.79 1742.96,-619.39 1797.88,-631.25 2023.46,-679.95 2087.07,-637.17 2315.88,-667.25 2361.14,-673.2 2411.03,-682.61 2452.3,-691.17"/>
 <polygon fill="black" stroke="black" points="2451.44,-694.57 2461.94,-693.19 2452.87,-687.72 2451.44,-694.57"/>
 <text text-anchor="middle" x="1657.33" y="-566.49" font-family="Times New Roman,serif" font-size="8.00">gen</text>
@@ -623,16 +623,16 @@
 <text text-anchor="start" x="1456.38" y="-371" font-family="Times New Roman,serif" font-size="10.00">keywords:</text>
 <text text-anchor="start" x="1507.12" y="-371" font-family="Times New Roman,serif" font-size="10.00">_:NCBI_txid1874687</text>
 </g>
-<!-- &#45;attrs9&#45;&gt;_BigProject_belgium_water_10m_1000um_r2 -->
+<!-- &#45;attrs9&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2 -->
 <!-- null _:_ -->
 <g id="edge10" class="edge">
-<title>&#45;attrs9&#45;&gt;_BigProject_belgium_water_10m_1000um_r2</title>
+<title>&#45;attrs9&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1608.88,-453.19C1608.88,-482.75 1608.88,-520.03 1608.88,-541.53"/>
 </g>
-<!-- _BigProject_belgium_water_10m_1000um_r2_3um&#45;&gt;genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2 -->
+<!-- https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um&#45;&gt;genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2 -->
 <!-- PROV_GENERATION _:_ -->
 <g id="edge53" class="edge">
-<title>_BigProject_belgium_water_10m_1000um_r2_3um&#45;&gt;genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2</title>
+<title>https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um&#45;&gt;genfd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2</title>
 <path fill="none" stroke="black" d="M819.01,-300.28C889.56,-322.57 1014.14,-361.92 1090.71,-386.1"/>
 <polygon fill="black" stroke="black" points="1089.61,-389.42 1100.2,-389.1 1091.72,-382.75 1089.61,-389.42"/>
 <text text-anchor="middle" x="830.08" y="-287.43" font-family="Times New Roman,serif" font-size="8.00">gen</text>
@@ -656,10 +656,10 @@
 <text text-anchor="start" x="582.25" y="-120" font-family="Times New Roman,serif" font-size="10.00">keywords:</text>
 <text text-anchor="start" x="633" y="-120" font-family="Times New Roman,serif" font-size="10.00">_:NCBI_txid1874687</text>
 </g>
-<!-- &#45;attrs10&#45;&gt;_BigProject_belgium_water_10m_1000um_r2_3um -->
+<!-- &#45;attrs10&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um -->
 <!-- null _:_ -->
 <g id="edge11" class="edge">
-<title>&#45;attrs10&#45;&gt;_BigProject_belgium_water_10m_1000um_r2_3um</title>
+<title>&#45;attrs10&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m_1000um_r2_3um</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M765.88,-202.24C765.88,-223.69 765.88,-248.22 765.88,-264.24"/>
 </g>
 <!-- &#45;attrs11 -->
@@ -679,10 +679,10 @@
 <text text-anchor="start" x="3995.88" y="-681.62" font-family="Times New Roman,serif" font-size="10.00">url:</text>
 <text text-anchor="start" x="4046.62" y="-681.62" font-family="Times New Roman,serif" font-size="10.00">https://www.protocols.io/BigProject_WaterSamples.pdf</text>
 </g>
-<!-- &#45;attrs11&#45;&gt;_BigProject_WaterSamples -->
+<!-- &#45;attrs11&#45;&gt;https://openprovenance.org/blank#BigProject_WaterSamples -->
 <!-- null _:_ -->
 <g id="edge12" class="edge">
-<title>&#45;attrs11&#45;&gt;_BigProject_WaterSamples</title>
+<title>&#45;attrs11&#45;&gt;https://openprovenance.org/blank#BigProject_WaterSamples</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M4012.31,-750.6C4000.33,-752.7 3988.45,-754.77 3976.88,-756.75 3891.42,-771.4 3793.22,-787.17 3726.91,-797.67"/>
 </g>
 <!-- &#45;attrs12 -->
@@ -702,10 +702,10 @@
 <text text-anchor="start" x="3847.62" y="-529.62" font-family="Times New Roman,serif" font-size="10.00">url:</text>
 <text text-anchor="start" x="3898.38" y="-529.62" font-family="Times New Roman,serif" font-size="10.00">https://www.mylab.eu/CTDinstructions.pdf</text>
 </g>
-<!-- &#45;attrs12&#45;&gt;_CTD_standard_procedure_2 -->
+<!-- &#45;attrs12&#45;&gt;https://openprovenance.org/blank#CTD_standard_procedure_2 -->
 <!-- null _:_ -->
 <g id="edge13" class="edge">
-<title>&#45;attrs12&#45;&gt;_CTD_standard_procedure_2</title>
+<title>&#45;attrs12&#45;&gt;https://openprovenance.org/blank#CTD_standard_procedure_2</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M3934.4,-598.46C3912,-629.01 3881.39,-670.75 3864.45,-693.85"/>
 </g>
 <!-- &#45;attrs13 -->
@@ -725,17 +725,17 @@
 <text text-anchor="start" x="10" y="-377.62" font-family="Times New Roman,serif" font-size="10.00">url:</text>
 <text text-anchor="start" x="60.75" y="-377.62" font-family="Times New Roman,serif" font-size="10.00">https://www.protocols.io/BigProject_eDNAfiltering.pdf</text>
 </g>
-<!-- &#45;attrs13&#45;&gt;_BigProject_eDNAfiltering -->
+<!-- &#45;attrs13&#45;&gt;https://openprovenance.org/blank#BigProject_eDNAfiltering -->
 <!-- null _:_ -->
 <g id="edge14" class="edge">
-<title>&#45;attrs13&#45;&gt;_BigProject_eDNAfiltering</title>
+<title>&#45;attrs13&#45;&gt;https://openprovenance.org/blank#BigProject_eDNAfiltering</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M270.34,-446.46C299.26,-477.01 338.77,-518.75 360.64,-541.85"/>
 </g>
-<!-- _NiceMarineStation_rosette#1 -->
+<!-- https://openprovenance.org/blank#NiceMarineStation_rosette#1 -->
 <!-- PROV_ENTITY _:NiceMarineStation_rosette#1 -->
 <g id="node29" class="node">
-<title>_NiceMarineStation_rosette#1</title>
-<g id="a_node29"><a xlink:href="_NiceMarineStation_rosette#1" xlink:title="NiceMarineStation_rosette#1">
+<title>https://openprovenance.org/blank#NiceMarineStation_rosette#1</title>
+<g id="a_node29"><a xlink:href="https://openprovenance.org/blank#NiceMarineStation_rosette#1" xlink:title="NiceMarineStation_rosette#1">
 <ellipse fill="#fffc87" stroke="#808080" cx="2142.88" cy="-157" rx="119.93" ry="18"/>
 <text text-anchor="middle" x="2142.88" y="-151.95" font-family="Times New Roman,serif" font-size="14.00">NiceMarineStation_rosette#1</text>
 </a>
@@ -756,17 +756,17 @@
 <text text-anchor="start" x="2044.38" y="-14.38" font-family="Times New Roman,serif" font-size="10.00">isHostedBy:</text>
 <text text-anchor="start" x="2097.38" y="-14.38" font-family="Times New Roman,serif" font-size="10.00">_:IMO_1234567</text>
 </g>
-<!-- &#45;attrs14&#45;&gt;_NiceMarineStation_rosette#1 -->
+<!-- &#45;attrs14&#45;&gt;https://openprovenance.org/blank#NiceMarineStation_rosette#1 -->
 <!-- null _:_ -->
 <g id="edge15" class="edge">
-<title>&#45;attrs14&#45;&gt;_NiceMarineStation_rosette#1</title>
+<title>&#45;attrs14&#45;&gt;https://openprovenance.org/blank#NiceMarineStation_rosette#1</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M2142.88,-69.83C2142.88,-91.75 2142.88,-120.43 2142.88,-138.54"/>
 </g>
-<!-- _BigHappyOrganization_CTD#23 -->
+<!-- https://openprovenance.org/blank#BigHappyOrganization_CTD#23 -->
 <!-- PROV_ENTITY _:BigHappyOrganization_CTD#23 -->
 <g id="node31" class="node">
-<title>_BigHappyOrganization_CTD#23</title>
-<g id="a_node31"><a xlink:href="_BigHappyOrganization_CTD#23" xlink:title="BigHappyOrganization_CTD#23">
+<title>https://openprovenance.org/blank#BigHappyOrganization_CTD#23</title>
+<g id="a_node31"><a xlink:href="https://openprovenance.org/blank#BigHappyOrganization_CTD#23" xlink:title="BigHappyOrganization_CTD#23">
 <ellipse fill="#fffc87" stroke="#808080" cx="2414.88" cy="-157" rx="133.75" ry="18"/>
 <text text-anchor="middle" x="2414.88" y="-151.95" font-family="Times New Roman,serif" font-size="14.00">BigHappyOrganization_CTD#23</text>
 </a>
@@ -787,10 +787,10 @@
 <text text-anchor="start" x="2282.62" y="-14.38" font-family="Times New Roman,serif" font-size="10.00">isHostedBy:</text>
 <text text-anchor="start" x="2335.62" y="-14.38" font-family="Times New Roman,serif" font-size="10.00">_:IMO_1234567</text>
 </g>
-<!-- &#45;attrs15&#45;&gt;_BigHappyOrganization_CTD#23 -->
+<!-- &#45;attrs15&#45;&gt;https://openprovenance.org/blank#BigHappyOrganization_CTD#23 -->
 <!-- null _:_ -->
 <g id="edge16" class="edge">
-<title>&#45;attrs15&#45;&gt;_BigHappyOrganization_CTD#23</title>
+<title>&#45;attrs15&#45;&gt;https://openprovenance.org/blank#BigHappyOrganization_CTD#23</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M2414.88,-69.83C2414.88,-91.75 2414.88,-120.43 2414.88,-138.54"/>
 </g>
 <!-- &#45;attrs16 -->
@@ -808,10 +808,10 @@
 <text text-anchor="start" x="1820.5" y="-384.25" font-family="Times New Roman,serif" font-size="10.00">isHostedBy:</text>
 <text text-anchor="start" x="1873.5" y="-384.25" font-family="Times New Roman,serif" font-size="10.00">_:IMO_1234567</text>
 </g>
-<!-- &#45;attrs16&#45;&gt;_Johnson_Fridge_type_XYZ -->
+<!-- &#45;attrs16&#45;&gt;https://openprovenance.org/blank#Johnson_Fridge_type_XYZ -->
 <!-- null _:_ -->
 <g id="edge17" class="edge">
-<title>&#45;attrs16&#45;&gt;_Johnson_Fridge_type_XYZ</title>
+<title>&#45;attrs16&#45;&gt;https://openprovenance.org/blank#Johnson_Fridge_type_XYZ</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1904.18,-439.72C1908.5,-470.57 1915,-517.01 1918.48,-541.86"/>
 </g>
 <!-- &#45;attrs17 -->
@@ -829,17 +829,17 @@
 <text text-anchor="start" x="1601" y="-133.25" font-family="Times New Roman,serif" font-size="10.00">isHostedBy:</text>
 <text text-anchor="start" x="1654" y="-133.25" font-family="Times New Roman,serif" font-size="10.00">_:IMO_1234567</text>
 </g>
-<!-- &#45;attrs17&#45;&gt;_Johnson_Freezer_type_XYZ -->
+<!-- &#45;attrs17&#45;&gt;https://openprovenance.org/blank#Johnson_Freezer_type_XYZ -->
 <!-- null _:_ -->
 <g id="edge18" class="edge">
-<title>&#45;attrs17&#45;&gt;_Johnson_Freezer_type_XYZ</title>
+<title>&#45;attrs17&#45;&gt;https://openprovenance.org/blank#Johnson_Freezer_type_XYZ</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1670.64,-188.85C1661.94,-212.71 1650.22,-244.87 1643.13,-264.34"/>
 </g>
-<!-- _IMO_1234567 -->
+<!-- https://openprovenance.org/blank#IMO_1234567 -->
 <!-- PROV_ENTITY _:IMO_1234567 -->
 <g id="node37" class="node">
-<title>_IMO_1234567</title>
-<g id="a_node37"><a xlink:href="_IMO_1234567" xlink:title="IMO_1234567">
+<title>https://openprovenance.org/blank#IMO_1234567</title>
+<g id="a_node37"><a xlink:href="https://openprovenance.org/blank#IMO_1234567" xlink:title="IMO_1234567">
 <ellipse fill="#fffc87" stroke="#808080" cx="2693.88" cy="-157" rx="66.19" ry="18"/>
 <text text-anchor="middle" x="2693.88" y="-151.95" font-family="Times New Roman,serif" font-size="14.00">IMO_1234567</text>
 </a>
@@ -862,16 +862,16 @@
 <text text-anchor="start" x="2585.25" y="-7.75" font-family="Times New Roman,serif" font-size="10.00">name:</text>
 <text text-anchor="start" x="2627.75" y="-7.75" font-family="Times New Roman,serif" font-size="10.00">RV OurBigShip</text>
 </g>
-<!-- &#45;attrs18&#45;&gt;_IMO_1234567 -->
+<!-- &#45;attrs18&#45;&gt;https://openprovenance.org/blank#IMO_1234567 -->
 <!-- null _:_ -->
 <g id="edge19" class="edge">
-<title>&#45;attrs18&#45;&gt;_IMO_1234567</title>
+<title>&#45;attrs18&#45;&gt;https://openprovenance.org/blank#IMO_1234567</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M2693.88,-76.75C2693.88,-97.57 2693.88,-122.44 2693.88,-138.7"/>
 </g>
-<!-- _ABSPermit_ircc2345678&#45;&gt;_BigProject_belgium_water_10m -->
+<!-- https://openprovenance.org/blank#ABSPermit_ircc2345678&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m -->
 <!-- PROV_INFLUENCE _:_ -->
 <g id="edge34" class="edge">
-<title>_ABSPermit_ircc2345678&#45;&gt;_BigProject_belgium_water_10m</title>
+<title>https://openprovenance.org/blank#ABSPermit_ircc2345678&#45;&gt;https://openprovenance.org/blank#BigProject_belgium_water_10m</title>
 <path fill="none" stroke="black" d="M3134.67,-730.3C3144.72,-745.02 3159.3,-766.4 3170.81,-783.27"/>
 <polygon fill="black" stroke="black" points="3167.8,-785.06 3176.32,-791.35 3173.58,-781.12 3167.8,-785.06"/>
 <text text-anchor="middle" x="3149.63" y="-726.45" font-family="Times New Roman,serif" font-size="8.00">infl</text>
@@ -886,10 +886,10 @@
 </a>
 </g>
 </g>
-<!-- _ABSPermit_ircc2345678&#45;&gt;https://edmo.seadatanet.org/report/00000 -->
+<!-- https://openprovenance.org/blank#ABSPermit_ircc2345678&#45;&gt;https://edmo.seadatanet.org/report/00000 -->
 <!-- PROV_ATTRIBUTION _:_ -->
 <g id="edge33" class="edge">
-<title>_ABSPermit_ircc2345678&#45;&gt;https://edmo.seadatanet.org/report/00000</title>
+<title>https://openprovenance.org/blank#ABSPermit_ircc2345678&#45;&gt;https://edmo.seadatanet.org/report/00000</title>
 <path fill="none" stroke="black" d="M3091.93,-729.63C3060.5,-746.52 3011.88,-772.66 2978.77,-790.45"/>
 <polygon fill="black" stroke="black" points="2977.52,-787.15 2970.37,-794.97 2980.83,-793.32 2977.52,-787.15"/>
 <text text-anchor="middle" x="3091.48" y="-741.9" font-family="Times New Roman,serif" font-size="8.00">att</text>
@@ -921,10 +921,10 @@
 <text text-anchor="start" x="2883.75" y="-496.5" font-family="Times New Roman,serif" font-size="10.00">validUntil:</text>
 <text text-anchor="start" x="2934.5" y="-496.5" font-family="Times New Roman,serif" font-size="10.00">2022&#45;01&#45;01</text>
 </g>
-<!-- &#45;attrs19&#45;&gt;_ABSPermit_ircc2345678 -->
+<!-- &#45;attrs19&#45;&gt;https://openprovenance.org/blank#ABSPermit_ircc2345678 -->
 <!-- null _:_ -->
 <g id="edge20" class="edge">
-<title>&#45;attrs19&#45;&gt;_ABSPermit_ircc2345678</title>
+<title>&#45;attrs19&#45;&gt;https://openprovenance.org/blank#ABSPermit_ircc2345678</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M3122.88,-631.61C3122.88,-654.71 3122.88,-678.37 3122.88,-693.77"/>
 </g>
 <!-- http://purl.obolibrary.org/obo/ENVO_00002150 -->
@@ -956,11 +956,11 @@
 <title>&#45;attrs20&#45;&gt;http://purl.obolibrary.org/obo/ENVO_00002150</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M2905.88,-63.34C2905.88,-85.81 2905.88,-118.69 2905.88,-138.64"/>
 </g>
-<!-- _NCBI_txid1874687 -->
+<!-- https://openprovenance.org/blank#NCBI_txid1874687 -->
 <!-- PROV_ENTITY _:NCBI_txid1874687 -->
 <g id="node43" class="node">
-<title>_NCBI_txid1874687</title>
-<g id="a_node43"><a xlink:href="_NCBI_txid1874687" xlink:title="NCBI_txid1874687">
+<title>https://openprovenance.org/blank#NCBI_txid1874687</title>
+<g id="a_node43"><a xlink:href="https://openprovenance.org/blank#NCBI_txid1874687" xlink:title="NCBI_txid1874687">
 <ellipse fill="#fffc87" stroke="#808080" cx="3091.88" cy="-157" rx="84.11" ry="18"/>
 <text text-anchor="middle" x="3091.88" y="-151.95" font-family="Times New Roman,serif" font-size="14.00">NCBI_txid1874687</text>
 </a>
@@ -979,10 +979,10 @@
 <text text-anchor="start" x="3009.12" y="-21" font-family="Times New Roman,serif" font-size="10.00">termCode:</text>
 <text text-anchor="start" x="3053.88" y="-21" font-family="Times New Roman,serif" font-size="10.00">NCBI:txid1874687</text>
 </g>
-<!-- &#45;attrs21&#45;&gt;_NCBI_txid1874687 -->
+<!-- &#45;attrs21&#45;&gt;https://openprovenance.org/blank#NCBI_txid1874687 -->
 <!-- null _:_ -->
 <g id="edge22" class="edge">
-<title>&#45;attrs21&#45;&gt;_NCBI_txid1874687</title>
+<title>&#45;attrs21&#45;&gt;https://openprovenance.org/blank#NCBI_txid1874687</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M3091.88,-63.34C3091.88,-85.81 3091.88,-118.69 3091.88,-138.64"/>
 </g>
 <!-- gen374da96f393f90611618df5475f7b17158935e3f8eecf9f419d878e8a82ac23c -->
@@ -1014,11 +1014,11 @@
 <title>&#45;attrs22&#45;&gt;gen374da96f393f90611618df5475f7b17158935e3f8eecf9f419d878e8a82ac23c</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M3483.88,-63.34C3483.88,-85.81 3483.88,-118.69 3483.88,-138.64"/>
 </g>
-<!-- _BigHappyOrganization_rosette#1 -->
+<!-- https://openprovenance.org/blank#BigHappyOrganization_rosette#1 -->
 <!-- PROV_ENTITY _:BigHappyOrganization_rosette#1 -->
 <g id="node47" class="node">
-<title>_BigHappyOrganization_rosette#1</title>
-<g id="a_node47"><a xlink:href="_BigHappyOrganization_rosette#1" xlink:title="BigHappyOrganization_rosette#1">
+<title>https://openprovenance.org/blank#BigHappyOrganization_rosette#1</title>
+<g id="a_node47"><a xlink:href="https://openprovenance.org/blank#BigHappyOrganization_rosette#1" xlink:title="BigHappyOrganization_rosette#1">
 <ellipse fill="#fffc87" stroke="#808080" cx="3781.88" cy="-38.12" rx="135.29" ry="18"/>
 <text text-anchor="middle" x="3781.88" y="-33.08" font-family="Times New Roman,serif" font-size="14.00">BigHappyOrganization_rosette#1</text>
 </a>
@@ -1036,7 +1036,7 @@
 </g>
 <!-- gen7576ad666f53f0a260c8b4959bebe7c720599e170cb4faa9f65a467fe0265178&#45;&gt;gen36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99 -->
 <!-- PROV_GENERATION _:_ -->
-<g id="edge39" class="edge">
+<g id="edge40" class="edge">
 <title>gen7576ad666f53f0a260c8b4959bebe7c720599e170cb4faa9f65a467fe0265178&#45;&gt;gen36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99</title>
 <path fill="none" stroke="black" d="M4327.53,-426.21C4327.02,-451.61 4326.07,-499.48 4325.45,-530.27"/>
 <polygon fill="black" stroke="black" points="4321.96,-529.95 4325.25,-540.02 4328.95,-530.09 4321.96,-529.95"/>
@@ -1071,7 +1071,7 @@
 </g>
 <!-- gen4a86c49fc31d3ba9b8a8e3c961dc7d1ef6cb59769f75fbd2b92aa36ef71b1fa2&#45;&gt;gen36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99 -->
 <!-- PROV_GENERATION _:_ -->
-<g id="edge40" class="edge">
+<g id="edge41" class="edge">
 <title>gen4a86c49fc31d3ba9b8a8e3c961dc7d1ef6cb59769f75fbd2b92aa36ef71b1fa2&#45;&gt;gen36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99</title>
 <path fill="none" stroke="black" d="M4836.82,-425.58C4760.09,-440.29 4647.13,-463.34 4549.88,-488.75 4494.09,-503.32 4431.57,-523.13 4386.61,-538"/>
 <polygon fill="black" stroke="black" points="4385.68,-534.62 4377.3,-541.09 4387.89,-541.26 4385.68,-534.62"/>

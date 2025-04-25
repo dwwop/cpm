@@ -6,8 +6,8 @@ import cz.muni.fi.cpm.template.mapper.TemplateProvMapper;
 import org.openprovenance.prov.model.*;
 
 public abstract class DatasetTransformer {
-    protected static final String UNKNOWN_NS = "_";
-    protected static final String UNKNOWN_PREFIX = "_";
+    protected static final String BLANK_NS = "https://openprovenance.org/blank#";
+    protected static final String BLANK_PREFIX = "_";
     protected static final String GEN_NS = "gen";
     protected static final String GEN_PREFIX = "gen";
     protected final ProvFactory pF;
@@ -37,8 +37,8 @@ public abstract class DatasetTransformer {
 
     protected abstract void modifyDS(IndexedDocument indexedDS);
 
-    protected QualifiedName newQNWithUnknownNS(String localPart) {
-        return pF.newQualifiedName(UNKNOWN_NS, localPart, UNKNOWN_PREFIX);
+    protected QualifiedName newQNWithBlankNS(String localPart) {
+        return pF.newQualifiedName(BLANK_NS, localPart, BLANK_PREFIX);
     }
 
     protected QualifiedName newQnWithGenNS(String localPart) {

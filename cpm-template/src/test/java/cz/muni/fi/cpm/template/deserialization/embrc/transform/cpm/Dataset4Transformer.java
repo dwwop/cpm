@@ -32,22 +32,22 @@ public class Dataset4Transformer extends DatasetTransformer {
     @Override
     protected Document createTI(IndexedDocument indexedDS) {
         TraversalInformation ti = new TraversalInformation();
-        ti.setBundleName(newQNWithUnknownNS(DNA_SEQUENCING + "-bundle"));
+        ti.setBundleName(newQNWithBlankNS(DNA_SEQUENCING + "-bundle"));
 
-        MainActivity mA = new MainActivity(newQNWithUnknownNS(DNA_SEQUENCING));
+        MainActivity mA = new MainActivity(newQNWithBlankNS(DNA_SEQUENCING));
         ti.setMainActivity(mA);
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
-        BackwardConnector bC = new BackwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R2_3UM));
+        BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM));
         ti.setBackwardConnectors(List.of(bC));
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
-        SpecializationOf specBc = pF.newSpecializationOf(newQNWithUnknownNS(SAMPLE_R2_3UM), bC.getId());
+        SpecializationOf specBc = pF.newSpecializationOf(newQNWithBlankNS(SAMPLE_R2_3UM), bC.getId());
         indexedDS.add(specBc);
 
-        ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(FILTERED_SEQUENCES_CON));
+        ForwardConnector fC = new ForwardConnector(newQNWithBlankNS(FILTERED_SEQUENCES_CON));
         fC.setDerivedFrom(List.of(bC.getId()));
         ti.setForwardConnectors(List.of(fC));
 
@@ -61,51 +61,51 @@ public class Dataset4Transformer extends DatasetTransformer {
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
-        Entity r23um_transported = pF.newEntity(newQNWithUnknownNS(SAMPLE_R2_3UM + "_transported"));
+        Entity r23um_transported = pF.newEntity(newQNWithBlankNS(SAMPLE_R2_3UM + "_transported"));
         indexedDS.add(r23um_transported);
 
-        WasGeneratedBy genTrans = pF.newWasGeneratedBy(null, r23um_transported.getId(), newQNWithUnknownNS(TRANSPORTING_ACTIVITY));
+        WasGeneratedBy genTrans = pF.newWasGeneratedBy(null, r23um_transported.getId(), newQNWithBlankNS(TRANSPORTING_ACTIVITY));
         indexedDS.add(genTrans);
 
-        Used usedAcq = pF.newUsed(newQNWithUnknownNS(ACQUIRING_ACTIVITY), r23um_transported.getId());
+        Used usedAcq = pF.newUsed(newQNWithBlankNS(ACQUIRING_ACTIVITY), r23um_transported.getId());
         indexedDS.add(usedAcq);
 
         indexedDS.getUsed().removeIf(u ->
-                Objects.equals(u.getEntity(), newQNWithUnknownNS(SAMPLE_R2_3UM))
-                        && Objects.equals(u.getActivity(), newQNWithUnknownNS(ACQUIRING_ACTIVITY)));
+                Objects.equals(u.getEntity(), newQNWithBlankNS(SAMPLE_R2_3UM))
+                        && Objects.equals(u.getActivity(), newQNWithBlankNS(ACQUIRING_ACTIVITY)));
 
-        Entity r23um_acquired = pF.newEntity(newQNWithUnknownNS(SAMPLE_R2_3UM + "_acquired"));
+        Entity r23um_acquired = pF.newEntity(newQNWithBlankNS(SAMPLE_R2_3UM + "_acquired"));
         indexedDS.add(r23um_acquired);
 
-        WasGeneratedBy genAcq = pF.newWasGeneratedBy(null, r23um_acquired.getId(), newQNWithUnknownNS(ACQUIRING_ACTIVITY));
+        WasGeneratedBy genAcq = pF.newWasGeneratedBy(null, r23um_acquired.getId(), newQNWithBlankNS(ACQUIRING_ACTIVITY));
         indexedDS.add(genAcq);
 
-        Used usedStore2 = pF.newUsed(newQNWithUnknownNS(STORING_ACTIVITY_2), r23um_acquired.getId());
+        Used usedStore2 = pF.newUsed(newQNWithBlankNS(STORING_ACTIVITY_2), r23um_acquired.getId());
         indexedDS.add(usedStore2);
 
-        Entity r23um_stored = pF.newEntity(newQNWithUnknownNS(SAMPLE_R2_3UM + "_stored"));
+        Entity r23um_stored = pF.newEntity(newQNWithBlankNS(SAMPLE_R2_3UM + "_stored"));
         indexedDS.add(r23um_stored);
 
-        WasGeneratedBy genStored2 = pF.newWasGeneratedBy(null, r23um_stored.getId(), newQNWithUnknownNS(STORING_ACTIVITY_2));
+        WasGeneratedBy genStored2 = pF.newWasGeneratedBy(null, r23um_stored.getId(), newQNWithBlankNS(STORING_ACTIVITY_2));
         indexedDS.add(genStored2);
 
         indexedDS.getUsed().removeIf(u ->
-                Objects.equals(u.getEntity(), newQNWithUnknownNS(SAMPLE_R2_3UM))
-                        && Objects.equals(u.getActivity(), newQNWithUnknownNS(STORING_ACTIVITY_2)));
+                Objects.equals(u.getEntity(), newQNWithBlankNS(SAMPLE_R2_3UM))
+                        && Objects.equals(u.getActivity(), newQNWithBlankNS(STORING_ACTIVITY_2)));
 
-        Used usedProc1 = pF.newUsed(newQNWithUnknownNS(M_PROCESSING_ACTIVITY), r23um_stored.getId());
+        Used usedProc1 = pF.newUsed(newQNWithBlankNS(M_PROCESSING_ACTIVITY), r23um_stored.getId());
         indexedDS.add(usedProc1);
 
         Entity rawSequencesRes = indexedDS.getEntity(newQnWithGenNS(DIGITAL_SEQUENCES_RES));
         Entity rawSequencesObj = indexedDS.getEntity(newQnWithGenNS(DIGITAL_SEQUENCES_OBJ));
         rawSequencesObj.getOther().addAll(rawSequencesRes.getOther());
 
-        WasGeneratedBy genProc4 = pF.newWasGeneratedBy(null, rawSequencesObj.getId(), newQNWithUnknownNS(M_PROCESSING_ACTIVITY_4));
+        WasGeneratedBy genProc4 = pF.newWasGeneratedBy(null, rawSequencesObj.getId(), newQNWithBlankNS(M_PROCESSING_ACTIVITY_4));
         indexedDS.add(genProc4);
 
         indexedDS.getWasGeneratedBy()
                 .removeIf(w -> Objects.equals(w.getEntity(), rawSequencesRes.getId())
-                        && Objects.equals(w.getActivity(), newQNWithUnknownNS(M_PROCESSING_ACTIVITY_4)));
+                        && Objects.equals(w.getActivity(), newQNWithBlankNS(M_PROCESSING_ACTIVITY_4)));
         indexedDS.getEntities().remove(rawSequencesRes);
     }
 }

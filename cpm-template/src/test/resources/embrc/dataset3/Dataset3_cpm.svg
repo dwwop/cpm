@@ -10,37 +10,37 @@
 <title>title</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-590.5 2231,-590.5 2231,4 -4,4"/>
 <g id="clust1" class="cluster">
-<title>cluster_species&#45;identification&#45;bundle</title>
-<g id="a_clust1"><a xlink:href="_species-identification-bundle" xlink:title="species&#45;identification&#45;bundle">
+<title>clusterhttps://openprovenance.org/blank#species&#45;identification&#45;bundle</title>
+<g id="a_clust1"><a xlink:href="https://openprovenance.org/blank#species-identification-bundle" xlink:title="species&#45;identification&#45;bundle">
 <polygon fill="none" stroke="black" points="8,-8 8,-578.5 2219,-578.5 2219,-8 8,-8"/>
 <text text-anchor="middle" x="1113.5" y="-15.2" font-family="Times New Roman,serif" font-size="14.00">species&#45;identification&#45;bundle</text>
 </a>
 </g>
 </g>
-<!-- _species&#45;identification -->
+<!-- https://openprovenance.org/blank#species&#45;identification -->
 <!-- PROV_ACTIVITY _:species&#45;identification -->
 <g id="node1" class="node">
-<title>_species&#45;identification</title>
-<g id="a_node1"><a xlink:href="_species-identification" xlink:title="species&#45;identification">
+<title>https://openprovenance.org/blank#species&#45;identification</title>
+<g id="a_node1"><a xlink:href="https://openprovenance.org/blank#species-identification" xlink:title="species&#45;identification">
 <polygon fill="#9fb1fc" stroke="#0000ff" points="367.75,-426.5 236.25,-426.5 236.25,-390.5 367.75,-390.5 367.75,-426.5"/>
 <text text-anchor="middle" x="302" y="-403.45" font-family="Times New Roman,serif" font-size="14.00">species&#45;identification</text>
 </a>
 </g>
 </g>
-<!-- _processed&#45;sample&#45;con&#45;r1 -->
+<!-- https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1 -->
 <!-- PROV_ENTITY _:processed&#45;sample&#45;con&#45;r1 -->
 <g id="node5" class="node">
-<title>_processed&#45;sample&#45;con&#45;r1</title>
-<g id="a_node5"><a xlink:href="_processed-sample-con-r1" xlink:title="processed&#45;sample&#45;con&#45;r1">
+<title>https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1</title>
+<g id="a_node5"><a xlink:href="https://openprovenance.org/blank#processed-sample-con-r1" xlink:title="processed&#45;sample&#45;con&#45;r1">
 <ellipse fill="#fffc87" stroke="#808080" cx="489" cy="-480.5" rx="104.07" ry="18"/>
 <text text-anchor="middle" x="489" y="-475.45" font-family="Times New Roman,serif" font-size="14.00">processed&#45;sample&#45;con&#45;r1</text>
 </a>
 </g>
 </g>
-<!-- _species&#45;identification&#45;&gt;_processed&#45;sample&#45;con&#45;r1 -->
+<!-- https://openprovenance.org/blank#species&#45;identification&#45;&gt;https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1 -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge12" class="edge">
-<title>_species&#45;identification&#45;&gt;_processed&#45;sample&#45;con&#45;r1</title>
+<title>https://openprovenance.org/blank#species&#45;identification&#45;&gt;https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1</title>
 <path fill="none" stroke="black" d="M348.71,-426.98C375.26,-436.92 408.59,-449.4 436.1,-459.7"/>
 <polygon fill="black" stroke="black" points="434.71,-462.91 445.3,-463.14 437.16,-456.36 434.71,-462.91"/>
 <text text-anchor="middle" x="360.28" y="-414.72" font-family="Times New Roman,serif" font-size="8.00">use</text>
@@ -56,133 +56,133 @@
 <text text-anchor="start" x="228.75" y="-305.88" font-family="Times New Roman,serif" font-size="10.00">hasPart:</text>
 <text text-anchor="start" x="263" y="-305.88" font-family="Times New Roman,serif" font-size="10.00">_:FlowCamSpeciesIdentification</text>
 </g>
-<!-- &#45;attrs0&#45;&gt;_species&#45;identification -->
+<!-- &#45;attrs0&#45;&gt;https://openprovenance.org/blank#species&#45;identification -->
 <!-- null _:_ -->
 <g id="edge1" class="edge">
-<title>&#45;attrs0&#45;&gt;_species&#45;identification</title>
+<title>&#45;attrs0&#45;&gt;https://openprovenance.org/blank#species&#45;identification</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M310.88,-334.75C308.93,-350.71 306.06,-374.23 304.11,-390.18"/>
 </g>
-<!-- _FlowCamSpeciesIdentification -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification -->
 <!-- PROV_ACTIVITY _:FlowCamSpeciesIdentification -->
 <g id="node3" class="node">
-<title>_FlowCamSpeciesIdentification</title>
-<g id="a_node3"><a xlink:href="_FlowCamSpeciesIdentification" xlink:title="FlowCamSpeciesIdentification">
-<polygon fill="#9fb1fc" stroke="#0000ff" points="1509,-334.38 1325,-334.38 1325,-298.38 1509,-298.38 1509,-334.38"/>
-<text text-anchor="middle" x="1417" y="-311.32" font-family="Times New Roman,serif" font-size="14.00">FlowCamSpeciesIdentification</text>
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification</title>
+<g id="a_node3"><a xlink:href="https://openprovenance.org/blank#FlowCamSpeciesIdentification" xlink:title="FlowCamSpeciesIdentification">
+<polygon fill="#9fb1fc" stroke="#0000ff" points="1633,-334.38 1449,-334.38 1449,-298.38 1633,-298.38 1633,-334.38"/>
+<text text-anchor="middle" x="1541" y="-311.32" font-family="Times New Roman,serif" font-size="14.00">FlowCamSpeciesIdentification</text>
 </a>
 </g>
 </g>
-<!-- _VisualSpreadsheet_FlowCam -->
-<!-- PROV_ENTITY _:VisualSpreadsheet_FlowCam -->
-<g id="node11" class="node">
-<title>_VisualSpreadsheet_FlowCam</title>
-<g id="a_node11"><a xlink:href="_VisualSpreadsheet_FlowCam" xlink:title="VisualSpreadsheet_FlowCam">
-<ellipse fill="#fffc87" stroke="#808080" cx="1343" cy="-408.5" rx="120.45" ry="18"/>
-<text text-anchor="middle" x="1343" y="-403.45" font-family="Times New Roman,serif" font-size="14.00">VisualSpreadsheet_FlowCam</text>
-</a>
-</g>
-</g>
-<!-- _FlowCamSpeciesIdentification&#45;&gt;_VisualSpreadsheet_FlowCam -->
-<!-- PROV_USAGE _:_ -->
-<g id="edge16" class="edge">
-<title>_FlowCamSpeciesIdentification&#45;&gt;_VisualSpreadsheet_FlowCam</title>
-<path fill="none" stroke="black" d="M1402.73,-334.75C1391.88,-347.97 1376.77,-366.37 1364.46,-381.36"/>
-<polygon fill="black" stroke="black" points="1361.83,-379.06 1358.18,-389.01 1367.24,-383.5 1361.83,-379.06"/>
-<text text-anchor="middle" x="1408.01" y="-346.07" font-family="Times New Roman,serif" font-size="8.00">use</text>
-</g>
-<!-- _classification_QC -->
+<!-- https://openprovenance.org/blank#classification_QC -->
 <!-- PROV_ENTITY _:classification_QC -->
-<g id="node13" class="node">
-<title>_classification_QC</title>
-<g id="a_node13"><a xlink:href="_classification_QC" xlink:title="classification_QC">
-<ellipse fill="#fffc87" stroke="#808080" cx="1663" cy="-408.5" rx="76.94" ry="18"/>
-<text text-anchor="middle" x="1663" y="-403.45" font-family="Times New Roman,serif" font-size="14.00">classification_QC</text>
+<g id="node11" class="node">
+<title>https://openprovenance.org/blank#classification_QC</title>
+<g id="a_node11"><a xlink:href="https://openprovenance.org/blank#classification_QC" xlink:title="classification_QC">
+<ellipse fill="#fffc87" stroke="#808080" cx="1276" cy="-408.5" rx="76.94" ry="18"/>
+<text text-anchor="middle" x="1276" y="-403.45" font-family="Times New Roman,serif" font-size="14.00">classification_QC</text>
 </a>
 </g>
 </g>
-<!-- _FlowCamSpeciesIdentification&#45;&gt;_classification_QC -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://openprovenance.org/blank#classification_QC -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge17" class="edge">
-<title>_FlowCamSpeciesIdentification&#45;&gt;_classification_QC</title>
-<path fill="none" stroke="black" d="M1464.52,-334.86C1481.4,-341.07 1500.55,-348.1 1518,-354.5 1549.21,-365.94 1584.22,-378.74 1612.02,-388.89"/>
-<polygon fill="black" stroke="black" points="1610.66,-392.12 1621.26,-392.26 1613.06,-385.55 1610.66,-392.12"/>
-<text text-anchor="middle" x="1476.04" y="-322.53" font-family="Times New Roman,serif" font-size="8.00">use</text>
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://openprovenance.org/blank#classification_QC</title>
+<path fill="none" stroke="black" d="M1494.63,-334.86C1477.51,-341.2 1457.92,-348.31 1440,-354.5 1404.2,-366.86 1363.71,-379.95 1331.92,-390.03"/>
+<polygon fill="black" stroke="black" points="1330.98,-386.66 1322.5,-393.01 1333.09,-393.33 1330.98,-386.66"/>
+<text text-anchor="middle" x="1492.09" y="-346.92" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
 <!-- gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0 -->
 <!-- PROV_ENTITY gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0 -->
-<g id="node15" class="node">
+<g id="node13" class="node">
 <title>gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</title>
-<g id="a_node15"><a xlink:href="gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0" xlink:title="db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0">
+<g id="a_node13"><a xlink:href="gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0" xlink:title="db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0">
 <ellipse fill="#fffc87" stroke="#808080" cx="677" cy="-408.5" rx="290.88" ry="18"/>
 <text text-anchor="middle" x="677" y="-403.45" font-family="Times New Roman,serif" font-size="14.00">db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</text>
 </a>
 </g>
 </g>
-<!-- _FlowCamSpeciesIdentification&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0 -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0 -->
 <!-- PROV_USAGE _:_ -->
 <g id="edge18" class="edge">
-<title>_FlowCamSpeciesIdentification&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</title>
-<path fill="none" stroke="black" d="M1377.44,-334.73C1359.1,-342.04 1336.8,-349.9 1316,-354.5 1239.45,-371.42 1053.7,-385.76 902.09,-395.25"/>
-<polygon fill="black" stroke="black" points="902.04,-391.74 892.28,-395.85 902.48,-398.73 902.04,-391.74"/>
-<text text-anchor="middle" x="1375.21" y="-346.84" font-family="Times New Roman,serif" font-size="8.00">use</text>
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</title>
+<path fill="none" stroke="black" d="M1501.47,-334.86C1483.13,-342.19 1460.83,-350.04 1440,-354.5 1413.22,-360.23 1103.97,-380.59 887.52,-394.34"/>
+<polygon fill="black" stroke="black" points="887.58,-390.83 877.82,-394.96 888.02,-397.82 887.58,-390.83"/>
+<text text-anchor="middle" x="1499.26" y="-346.97" font-family="Times New Roman,serif" font-size="8.00">use</text>
+</g>
+<!-- https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
+<!-- PROV_ENTITY _:VisualSpreadsheet_FlowCam -->
+<g id="node17" class="node">
+<title>https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
+<g id="a_node17"><a xlink:href="https://openprovenance.org/blank#VisualSpreadsheet_FlowCam" xlink:title="VisualSpreadsheet_FlowCam">
+<ellipse fill="#fffc87" stroke="#808080" cx="1616" cy="-408.5" rx="120.45" ry="18"/>
+<text text-anchor="middle" x="1616" y="-403.45" font-family="Times New Roman,serif" font-size="14.00">VisualSpreadsheet_FlowCam</text>
+</a>
+</g>
+</g>
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
+<!-- PROV_USAGE _:_ -->
+<g id="edge16" class="edge">
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
+<path fill="none" stroke="black" d="M1555.46,-334.75C1566.46,-347.97 1581.77,-366.37 1594.25,-381.36"/>
+<polygon fill="black" stroke="black" points="1591.53,-383.57 1600.62,-389.01 1596.91,-379.09 1591.53,-383.57"/>
+<text text-anchor="middle" x="1570.24" y="-329.48" font-family="Times New Roman,serif" font-size="8.00">use</text>
 </g>
 <!-- https://orcid.org/0000&#45;0001&#45;0001&#45;0002 -->
 <!-- PROV_AGENT orcid:0000&#45;0001&#45;0001&#45;0002 -->
 <g id="node21" class="node">
 <title>https://orcid.org/0000&#45;0001&#45;0001&#45;0002</title>
 <g id="a_node21"><a xlink:href="https://orcid.org/0000-0001-0001-0002" xlink:title="0000&#45;0001&#45;0001&#45;0002">
-<polygon fill="#fdb266" stroke="black" points="2099.98,-414.06 1984,-426.5 1868.02,-414.06 1868.13,-393.94 2099.87,-393.94 2099.98,-414.06"/>
-<text text-anchor="middle" x="1984" y="-403.45" font-family="Times New Roman,serif" font-size="14.00">0000&#45;0001&#45;0001&#45;0002</text>
+<polygon fill="#fdb266" stroke="black" points="2135.98,-414.06 2020,-426.5 1904.02,-414.06 1904.13,-393.94 2135.87,-393.94 2135.98,-414.06"/>
+<text text-anchor="middle" x="2020" y="-403.45" font-family="Times New Roman,serif" font-size="14.00">0000&#45;0001&#45;0001&#45;0002</text>
 </a>
 </g>
 </g>
-<!-- _FlowCamSpeciesIdentification&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002 -->
+<!-- https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002 -->
 <!-- PROV_ASSOCIATION _:_ -->
 <g id="edge20" class="edge">
-<title>_FlowCamSpeciesIdentification&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002</title>
-<path fill="none" stroke="black" d="M1457.59,-334.82C1475.76,-341.96 1497.64,-349.67 1518,-354.5 1580.11,-369.22 1740.92,-385.79 1856.25,-396.42"/>
-<polygon fill="black" stroke="black" points="1855.83,-399.9 1866.1,-397.33 1856.46,-392.93 1855.83,-399.9"/>
-<text text-anchor="middle" x="1469.29" y="-322.7" font-family="Times New Roman,serif" font-size="8.00">assoc</text>
+<title>https://openprovenance.org/blank#FlowCamSpeciesIdentification&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002</title>
+<path fill="none" stroke="black" d="M1582.14,-334.76C1600.23,-341.8 1621.89,-349.45 1642,-354.5 1724.23,-375.13 1818.67,-388.37 1892.59,-396.47"/>
+<polygon fill="black" stroke="black" points="1891.98,-399.92 1902.3,-397.51 1892.73,-392.96 1891.98,-399.92"/>
+<text text-anchor="middle" x="1593.81" y="-322.61" font-family="Times New Roman,serif" font-size="8.00">assoc</text>
 </g>
 <!-- &#45;attrs1 -->
 <g id="node4" class="node">
 <title>&#45;attrs1</title>
-<polygon fill="none" stroke="gray" points="1616.25,-242.25 1211.75,-242.25 1211.75,-152.75 1622.25,-152.75 1622.25,-236.25 1616.25,-242.25"/>
-<polyline fill="none" stroke="gray" points="1616.25,-242.25 1616.25,-236.25"/>
-<polyline fill="none" stroke="gray" points="1622.25,-236.25 1616.25,-236.25"/>
-<text text-anchor="start" x="1221.75" y="-226.75" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1272.5" y="-226.75" font-family="Times New Roman,serif" font-size="10.00">schema:Action</text>
-<text text-anchor="start" x="1221.75" y="-213.5" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1272.5" y="-213.5" font-family="Times New Roman,serif" font-size="10.00">Data Processing, FlowCam species identification</text>
-<text text-anchor="start" x="1221.75" y="-200.25" font-family="Times New Roman,serif" font-size="10.00">name:</text>
-<text text-anchor="start" x="1272.5" y="-200.25" font-family="Times New Roman,serif" font-size="10.00">FlowCam species identification</text>
-<text text-anchor="start" x="1221.75" y="-187" font-family="Times New Roman,serif" font-size="10.00">description:</text>
-<text text-anchor="start" x="1272.5" y="-187" font-family="Times New Roman,serif" font-size="10.00">Identification of species on images from the FlowCam, using the FlowCam software</text>
-<text text-anchor="start" x="1221.75" y="-173.75" font-family="Times New Roman,serif" font-size="10.00">object:</text>
-<text text-anchor="start" x="1272.5" y="-173.75" font-family="Times New Roman,serif" font-size="10.00">gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</text>
-<text text-anchor="start" x="1221.75" y="-160.5" font-family="Times New Roman,serif" font-size="10.00">result:</text>
-<text text-anchor="start" x="1272.5" y="-160.5" font-family="Times New Roman,serif" font-size="10.00">gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4</text>
+<polygon fill="none" stroke="gray" points="1740.25,-242.25 1335.75,-242.25 1335.75,-152.75 1746.25,-152.75 1746.25,-236.25 1740.25,-242.25"/>
+<polyline fill="none" stroke="gray" points="1740.25,-242.25 1740.25,-236.25"/>
+<polyline fill="none" stroke="gray" points="1746.25,-236.25 1740.25,-236.25"/>
+<text text-anchor="start" x="1345.75" y="-226.75" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1396.5" y="-226.75" font-family="Times New Roman,serif" font-size="10.00">schema:Action</text>
+<text text-anchor="start" x="1345.75" y="-213.5" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1396.5" y="-213.5" font-family="Times New Roman,serif" font-size="10.00">Data Processing, FlowCam species identification</text>
+<text text-anchor="start" x="1345.75" y="-200.25" font-family="Times New Roman,serif" font-size="10.00">name:</text>
+<text text-anchor="start" x="1396.5" y="-200.25" font-family="Times New Roman,serif" font-size="10.00">FlowCam species identification</text>
+<text text-anchor="start" x="1345.75" y="-187" font-family="Times New Roman,serif" font-size="10.00">description:</text>
+<text text-anchor="start" x="1396.5" y="-187" font-family="Times New Roman,serif" font-size="10.00">Identification of species on images from the FlowCam, using the FlowCam software</text>
+<text text-anchor="start" x="1345.75" y="-173.75" font-family="Times New Roman,serif" font-size="10.00">object:</text>
+<text text-anchor="start" x="1396.5" y="-173.75" font-family="Times New Roman,serif" font-size="10.00">gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</text>
+<text text-anchor="start" x="1345.75" y="-160.5" font-family="Times New Roman,serif" font-size="10.00">result:</text>
+<text text-anchor="start" x="1396.5" y="-160.5" font-family="Times New Roman,serif" font-size="10.00">gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4</text>
 </g>
-<!-- &#45;attrs1&#45;&gt;_FlowCamSpeciesIdentification -->
+<!-- &#45;attrs1&#45;&gt;https://openprovenance.org/blank#FlowCamSpeciesIdentification -->
 <!-- null _:_ -->
 <g id="edge2" class="edge">
-<title>&#45;attrs1&#45;&gt;_FlowCamSpeciesIdentification</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1417,-242.69C1417,-261.95 1417,-283.41 1417,-297.99"/>
+<title>&#45;attrs1&#45;&gt;https://openprovenance.org/blank#FlowCamSpeciesIdentification</title>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1541,-242.69C1541,-261.95 1541,-283.41 1541,-297.99"/>
 </g>
-<!-- _stored&#45;sample&#45;con&#45;r1 -->
+<!-- https://openprovenance.org/blank#stored&#45;sample&#45;con&#45;r1 -->
 <!-- PROV_ENTITY _:stored&#45;sample&#45;con&#45;r1 -->
 <g id="node7" class="node">
-<title>_stored&#45;sample&#45;con&#45;r1</title>
-<g id="a_node7"><a xlink:href="_stored-sample-con-r1" xlink:title="stored&#45;sample&#45;con&#45;r1">
+<title>https://openprovenance.org/blank#stored&#45;sample&#45;con&#45;r1</title>
+<g id="a_node7"><a xlink:href="https://openprovenance.org/blank#stored-sample-con-r1" xlink:title="stored&#45;sample&#45;con&#45;r1">
 <ellipse fill="#fffc87" stroke="#808080" cx="586" cy="-552.5" rx="90.25" ry="18"/>
 <text text-anchor="middle" x="586" y="-547.45" font-family="Times New Roman,serif" font-size="14.00">stored&#45;sample&#45;con&#45;r1</text>
 </a>
 </g>
 </g>
-<!-- _processed&#45;sample&#45;con&#45;r1&#45;&gt;_stored&#45;sample&#45;con&#45;r1 -->
+<!-- https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1&#45;&gt;https://openprovenance.org/blank#stored&#45;sample&#45;con&#45;r1 -->
 <!-- PROV_DERIVATION _:_ -->
 <g id="edge14" class="edge">
-<title>_processed&#45;sample&#45;con&#45;r1&#45;&gt;_stored&#45;sample&#45;con&#45;r1</title>
+<title>https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1&#45;&gt;https://openprovenance.org/blank#stored&#45;sample&#45;con&#45;r1</title>
 <path fill="none" stroke="black" d="M512.48,-498.45C524.87,-507.39 540.26,-518.49 553.76,-528.23"/>
 <polygon fill="black" stroke="black" points="551.35,-530.81 561.51,-533.83 555.45,-525.14 551.35,-530.81"/>
 <text text-anchor="middle" x="526.16" y="-489.58" font-family="Times New Roman,serif" font-size="8.00">der</text>
@@ -196,10 +196,10 @@
 <text text-anchor="start" x="996.12" y="-404.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
 <text text-anchor="start" x="1019.12" y="-404.62" font-family="Times New Roman,serif" font-size="10.00">cpm:backwardConnector</text>
 </g>
-<!-- &#45;attrs2&#45;&gt;_processed&#45;sample&#45;con&#45;r1 -->
+<!-- &#45;attrs2&#45;&gt;https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1 -->
 <!-- null _:_ -->
 <g id="edge3" class="edge">
-<title>&#45;attrs2&#45;&gt;_processed&#45;sample&#45;con&#45;r1</title>
+<title>&#45;attrs2&#45;&gt;https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M985.75,-425.1C982.8,-425.59 979.88,-426.07 977,-426.5 811.45,-451.53 768.18,-442.04 602,-462.5 589.69,-464.02 576.66,-465.8 563.99,-467.64"/>
 </g>
 <!-- &#45;attrs3 -->
@@ -211,34 +211,34 @@
 <text text-anchor="start" x="621.12" y="-476.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
 <text text-anchor="start" x="644.12" y="-476.62" font-family="Times New Roman,serif" font-size="10.00">cpm:backwardConnector</text>
 </g>
-<!-- &#45;attrs3&#45;&gt;_stored&#45;sample&#45;con&#45;r1 -->
+<!-- &#45;attrs3&#45;&gt;https://openprovenance.org/blank#stored&#45;sample&#45;con&#45;r1 -->
 <!-- null _:_ -->
 <g id="edge4" class="edge">
-<title>&#45;attrs3&#45;&gt;_stored&#45;sample&#45;con&#45;r1</title>
+<title>&#45;attrs3&#45;&gt;https://openprovenance.org/blank#stored&#45;sample&#45;con&#45;r1</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M659.52,-498.98C644.22,-509.92 624.61,-523.92 609.49,-534.72"/>
 </g>
-<!-- _identified&#45;species&#45;con -->
+<!-- https://openprovenance.org/blank#identified&#45;species&#45;con -->
 <!-- PROV_ENTITY _:identified&#45;species&#45;con -->
 <g id="node9" class="node">
-<title>_identified&#45;species&#45;con</title>
-<g id="a_node9"><a xlink:href="_identified-species-con" xlink:title="identified&#45;species&#45;con">
+<title>https://openprovenance.org/blank#identified&#45;species&#45;con</title>
+<g id="a_node9"><a xlink:href="https://openprovenance.org/blank#identified-species-con" xlink:title="identified&#45;species&#45;con">
 <ellipse fill="#fffc87" stroke="#808080" cx="108" cy="-316.38" rx="92.3" ry="18"/>
 <text text-anchor="middle" x="108" y="-311.32" font-family="Times New Roman,serif" font-size="14.00">identified&#45;species&#45;con</text>
 </a>
 </g>
 </g>
-<!-- _identified&#45;species&#45;con&#45;&gt;_species&#45;identification -->
+<!-- https://openprovenance.org/blank#identified&#45;species&#45;con&#45;&gt;https://openprovenance.org/blank#species&#45;identification -->
 <!-- PROV_GENERATION _:_ -->
 <g id="edge13" class="edge">
-<title>_identified&#45;species&#45;con&#45;&gt;_species&#45;identification</title>
+<title>https://openprovenance.org/blank#identified&#45;species&#45;con&#45;&gt;https://openprovenance.org/blank#species&#45;identification</title>
 <path fill="none" stroke="black" d="M142.68,-333.49C173.8,-347.94 219.74,-369.29 254.31,-385.34"/>
 <polygon fill="black" stroke="black" points="252.72,-388.47 263.27,-389.51 255.67,-382.12 252.72,-388.47"/>
 <text text-anchor="middle" x="154.96" y="-322.14" font-family="Times New Roman,serif" font-size="8.00">gen</text>
 </g>
-<!-- _identified&#45;species&#45;con&#45;&gt;_processed&#45;sample&#45;con&#45;r1 -->
+<!-- https://openprovenance.org/blank#identified&#45;species&#45;con&#45;&gt;https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1 -->
 <!-- PROV_DERIVATION _:_ -->
 <g id="edge15" class="edge">
-<title>_identified&#45;species&#45;con&#45;&gt;_processed&#45;sample&#45;con&#45;r1</title>
+<title>https://openprovenance.org/blank#identified&#45;species&#45;con&#45;&gt;https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1</title>
 <path fill="none" stroke="black" d="M121.35,-334.47C141.47,-358.96 182.03,-403.61 227,-426.5 275.06,-450.96 333.47,-464.14 382.93,-471.23"/>
 <polygon fill="black" stroke="black" points="382.44,-474.7 392.82,-472.58 383.38,-467.76 382.44,-474.7"/>
 <text text-anchor="middle" x="136.12" y="-329.14" font-family="Times New Roman,serif" font-size="8.00">der</text>
@@ -252,67 +252,44 @@
 <text text-anchor="start" x="49.25" y="-193.62" font-family="Times New Roman,serif" font-size="10.00">type:</text>
 <text text-anchor="start" x="72.25" y="-193.62" font-family="Times New Roman,serif" font-size="10.00">cpm:forwardConnector</text>
 </g>
-<!-- &#45;attrs4&#45;&gt;_identified&#45;species&#45;con -->
+<!-- &#45;attrs4&#45;&gt;https://openprovenance.org/blank#identified&#45;species&#45;con -->
 <!-- null _:_ -->
 <g id="edge5" class="edge">
-<title>&#45;attrs4&#45;&gt;_identified&#45;species&#45;con</title>
+<title>&#45;attrs4&#45;&gt;https://openprovenance.org/blank#identified&#45;species&#45;con</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M108,-216C108,-238.16 108,-276.1 108,-298.14"/>
 </g>
 <!-- &#45;attrs5 -->
 <g id="node12" class="node">
 <title>&#45;attrs5</title>
-<polygon fill="none" stroke="gray" points="1301.12,-354.5 946.88,-354.5 946.88,-278.25 1307.12,-278.25 1307.12,-348.5 1301.12,-354.5"/>
-<polyline fill="none" stroke="gray" points="1301.12,-354.5 1301.12,-348.5"/>
-<polyline fill="none" stroke="gray" points="1307.12,-348.5 1301.12,-348.5"/>
-<text text-anchor="start" x="956.88" y="-339" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1051.12" y="-339" font-family="Times New Roman,serif" font-size="10.00">schema:SoftwareApplication</text>
-<text text-anchor="start" x="956.88" y="-325.75" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1051.12" y="-325.75" font-family="Times New Roman,serif" font-size="10.00">schema:Thing</text>
-<text text-anchor="start" x="956.88" y="-312.5" font-family="Times New Roman,serif" font-size="10.00">name:</text>
-<text text-anchor="start" x="1051.12" y="-312.5" font-family="Times New Roman,serif" font-size="10.00">VisualSpreadsheet FlowCam Micro software</text>
-<text text-anchor="start" x="956.88" y="-299.25" font-family="Times New Roman,serif" font-size="10.00">description:</text>
-<text text-anchor="start" x="1051.12" y="-299.25" font-family="Times New Roman,serif" font-size="10.00">The software that comes with this FlowCam, bought in 2010</text>
-<text text-anchor="start" x="956.88" y="-286" font-family="Times New Roman,serif" font-size="10.00">accessibilitySummary:</text>
-<text text-anchor="start" x="1051.12" y="-286" font-family="Times New Roman,serif" font-size="10.00">file flowcam&#45;settings.txt which comes with this dataset</text>
+<polygon fill="none" stroke="gray" points="1424.62,-347.88 947.38,-347.88 947.38,-284.88 1430.62,-284.88 1430.62,-341.88 1424.62,-347.88"/>
+<polyline fill="none" stroke="gray" points="1424.62,-347.88 1424.62,-341.88"/>
+<polyline fill="none" stroke="gray" points="1430.62,-341.88 1424.62,-341.88"/>
+<text text-anchor="start" x="957.38" y="-332.38" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1008.12" y="-332.38" font-family="Times New Roman,serif" font-size="10.00">schema:Thing</text>
+<text text-anchor="start" x="957.38" y="-319.12" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1008.12" y="-319.12" font-family="Times New Roman,serif" font-size="10.00">schema:CreativeWork</text>
+<text text-anchor="start" x="957.38" y="-305.88" font-family="Times New Roman,serif" font-size="10.00">name:</text>
+<text text-anchor="start" x="1008.12" y="-305.88" font-family="Times New Roman,serif" font-size="10.00">classification QC</text>
+<text text-anchor="start" x="957.38" y="-292.62" font-family="Times New Roman,serif" font-size="10.00">description:</text>
+<text text-anchor="start" x="1008.12" y="-292.62" font-family="Times New Roman,serif" font-size="10.00">Manual filtering of the flowcam outputs, to remove misidentifications. Method steps: (1) visual insp...</text>
 </g>
-<!-- &#45;attrs5&#45;&gt;_VisualSpreadsheet_FlowCam -->
+<!-- &#45;attrs5&#45;&gt;https://openprovenance.org/blank#classification_QC -->
 <!-- null _:_ -->
 <g id="edge6" class="edge">
-<title>&#45;attrs5&#45;&gt;_VisualSpreadsheet_FlowCam</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1217.04,-354.94C1247.25,-367.55 1279.39,-380.96 1303.65,-391.08"/>
+<title>&#45;attrs5&#45;&gt;https://openprovenance.org/blank#classification_QC</title>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1218.7,-348.14C1232.38,-362.31 1248.1,-378.6 1259.61,-390.52"/>
 </g>
-<!-- &#45;attrs6 -->
-<g id="node14" class="node">
-<title>&#45;attrs6</title>
-<polygon fill="none" stroke="gray" points="2004.62,-347.88 1527.38,-347.88 1527.38,-284.88 2010.62,-284.88 2010.62,-341.88 2004.62,-347.88"/>
-<polyline fill="none" stroke="gray" points="2004.62,-347.88 2004.62,-341.88"/>
-<polyline fill="none" stroke="gray" points="2010.62,-341.88 2004.62,-341.88"/>
-<text text-anchor="start" x="1537.38" y="-332.38" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1588.12" y="-332.38" font-family="Times New Roman,serif" font-size="10.00">schema:Thing</text>
-<text text-anchor="start" x="1537.38" y="-319.12" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1588.12" y="-319.12" font-family="Times New Roman,serif" font-size="10.00">schema:CreativeWork</text>
-<text text-anchor="start" x="1537.38" y="-305.88" font-family="Times New Roman,serif" font-size="10.00">name:</text>
-<text text-anchor="start" x="1588.12" y="-305.88" font-family="Times New Roman,serif" font-size="10.00">classification QC</text>
-<text text-anchor="start" x="1537.38" y="-292.62" font-family="Times New Roman,serif" font-size="10.00">description:</text>
-<text text-anchor="start" x="1588.12" y="-292.62" font-family="Times New Roman,serif" font-size="10.00">Manual filtering of the flowcam outputs, to remove misidentifications. Method steps: (1) visual insp...</text>
-</g>
-<!-- &#45;attrs6&#45;&gt;_classification_QC -->
-<!-- null _:_ -->
-<g id="edge7" class="edge">
-<title>&#45;attrs6&#45;&gt;_classification_QC</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1732.82,-348.14C1716.02,-362.42 1696.72,-378.83 1682.67,-390.78"/>
-</g>
-<!-- gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0&#45;&gt;_processed&#45;sample&#45;con&#45;r1 -->
+<!-- gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0&#45;&gt;https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1 -->
 <!-- PROV_SPECIALIZATION _:_ -->
 <g id="edge21" class="edge">
-<title>gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0&#45;&gt;_processed&#45;sample&#45;con&#45;r1</title>
+<title>gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0&#45;&gt;https://openprovenance.org/blank#processed&#45;sample&#45;con&#45;r1</title>
 <path fill="none" stroke="black" d="M631.01,-426.62C604.24,-436.59 570.36,-449.21 542.41,-459.61"/>
 <polygon fill="black" stroke="black" points="541.19,-456.33 533.04,-463.1 543.63,-462.89 541.19,-456.33"/>
 <text text-anchor="middle" x="628.51" y="-438.69" font-family="Times New Roman,serif" font-size="8.00">spe</text>
 </g>
-<!-- &#45;attrs7 -->
-<g id="node16" class="node">
-<title>&#45;attrs7</title>
+<!-- &#45;attrs6 -->
+<g id="node14" class="node">
+<title>&#45;attrs6</title>
 <polygon fill="none" stroke="gray" points="923.12,-334.62 424.88,-334.62 424.88,-298.12 929.12,-298.12 929.12,-328.62 923.12,-334.62"/>
 <polyline fill="none" stroke="gray" points="923.12,-334.62 923.12,-328.62"/>
 <polyline fill="none" stroke="gray" points="929.12,-328.62 923.12,-328.62"/>
@@ -321,87 +298,110 @@
 <text text-anchor="start" x="434.88" y="-305.88" font-family="Times New Roman,serif" font-size="10.00">description:</text>
 <text text-anchor="start" x="485.62" y="-305.88" font-family="Times New Roman,serif" font-size="10.00">raw images from /Users/NMSlab/flowcam/20210101/BigProject/raw, settings in file flowcam&#45;settings.txt...</text>
 </g>
-<!-- &#45;attrs7&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0 -->
+<!-- &#45;attrs6&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0 -->
 <!-- null _:_ -->
-<g id="edge8" class="edge">
-<title>&#45;attrs7&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</title>
+<g id="edge7" class="edge">
+<title>&#45;attrs6&#45;&gt;gendb2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M677,-334.75C677,-350.71 677,-374.23 677,-390.18"/>
 </g>
 <!-- genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4 -->
 <!-- PROV_ENTITY gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4 -->
-<g id="node17" class="node">
+<g id="node15" class="node">
 <title>genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4</title>
-<g id="a_node17"><a xlink:href="genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4" xlink:title="ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4">
-<ellipse fill="#fffc87" stroke="#808080" cx="695" cy="-197.5" rx="294.97" ry="18"/>
-<text text-anchor="middle" x="695" y="-192.45" font-family="Times New Roman,serif" font-size="14.00">ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4</text>
+<g id="a_node15"><a xlink:href="genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4" xlink:title="ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4">
+<ellipse fill="#fffc87" stroke="#808080" cx="757" cy="-197.5" rx="294.97" ry="18"/>
+<text text-anchor="middle" x="757" y="-192.45" font-family="Times New Roman,serif" font-size="14.00">ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4</text>
 </a>
 </g>
 </g>
-<!-- genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;_FlowCamSpeciesIdentification -->
+<!-- genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;https://openprovenance.org/blank#FlowCamSpeciesIdentification -->
 <!-- PROV_GENERATION _:_ -->
 <g id="edge19" class="edge">
-<title>genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;_FlowCamSpeciesIdentification</title>
-<path fill="none" stroke="black" d="M884.18,-211.7C1008.26,-223.06 1173.33,-243.34 1316,-278.25 1332.37,-282.25 1349.74,-288.05 1365.37,-293.87"/>
-<polygon fill="black" stroke="black" points="1363.88,-297.04 1374.47,-297.34 1366.38,-290.5 1363.88,-297.04"/>
-<text text-anchor="middle" x="892.89" y="-196.76" font-family="Times New Roman,serif" font-size="8.00">gen</text>
+<title>genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;https://openprovenance.org/blank#FlowCamSpeciesIdentification</title>
+<path fill="none" stroke="black" d="M969.25,-210.34C1105.23,-221.08 1284.69,-241.19 1440,-278.25 1456.54,-282.2 1474.08,-288.03 1489.82,-293.91"/>
+<polygon fill="black" stroke="black" points="1488.4,-297.11 1498.99,-297.42 1490.9,-290.57 1488.4,-297.11"/>
+<text text-anchor="middle" x="977.81" y="-195.29" font-family="Times New Roman,serif" font-size="8.00">gen</text>
 </g>
-<!-- genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;_identified&#45;species&#45;con -->
+<!-- genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;https://openprovenance.org/blank#identified&#45;species&#45;con -->
 <!-- PROV_SPECIALIZATION _:_ -->
 <g id="edge22" class="edge">
-<title>genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;_identified&#45;species&#45;con</title>
-<path fill="none" stroke="black" d="M559.52,-213.91C461.46,-226.72 326.29,-247.81 210,-278.25 192.35,-282.87 173.47,-289.3 156.81,-295.52"/>
-<polygon fill="black" stroke="black" points="155.73,-292.18 147.63,-299.01 158.22,-298.73 155.73,-292.18"/>
-<text text-anchor="middle" x="553.82" y="-225.06" font-family="Times New Roman,serif" font-size="8.00">spe</text>
+<title>genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4&#45;&gt;https://openprovenance.org/blank#identified&#45;species&#45;con</title>
+<path fill="none" stroke="black" d="M597.64,-213.05C487.61,-225.2 338.54,-245.85 210,-278.25 192.16,-282.75 173.1,-289.21 156.33,-295.49"/>
+<polygon fill="black" stroke="black" points="155.19,-292.18 147.1,-299.03 157.69,-298.72 155.19,-292.18"/>
+<text text-anchor="middle" x="591.66" y="-224.08" font-family="Times New Roman,serif" font-size="8.00">spe</text>
+</g>
+<!-- &#45;attrs7 -->
+<g id="node16" class="node">
+<title>&#45;attrs7</title>
+<polygon fill="none" stroke="gray" points="965.62,-96.88 542.38,-96.88 542.38,-60.38 971.62,-60.38 971.62,-90.88 965.62,-96.88"/>
+<polyline fill="none" stroke="gray" points="965.62,-96.88 965.62,-90.88"/>
+<polyline fill="none" stroke="gray" points="971.62,-90.88 965.62,-90.88"/>
+<text text-anchor="start" x="552.38" y="-81.38" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="603.12" y="-81.38" font-family="Times New Roman,serif" font-size="10.00">schema:MediaObject</text>
+<text text-anchor="start" x="552.38" y="-68.12" font-family="Times New Roman,serif" font-size="10.00">description:</text>
+<text text-anchor="start" x="603.12" y="-68.12" font-family="Times New Roman,serif" font-size="10.00">images in zip file Plankton_species_image.zip, results in Plankton_species_numbers.csv</text>
+</g>
+<!-- &#45;attrs7&#45;&gt;genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4 -->
+<!-- null _:_ -->
+<g id="edge8" class="edge">
+<title>&#45;attrs7&#45;&gt;genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4</title>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M757,-97.12C757,-119.28 757,-157.23 757,-179.26"/>
 </g>
 <!-- &#45;attrs8 -->
 <g id="node18" class="node">
 <title>&#45;attrs8</title>
-<polygon fill="none" stroke="gray" points="903.62,-96.88 480.38,-96.88 480.38,-60.38 909.62,-60.38 909.62,-90.88 903.62,-96.88"/>
-<polyline fill="none" stroke="gray" points="903.62,-96.88 903.62,-90.88"/>
-<polyline fill="none" stroke="gray" points="909.62,-90.88 903.62,-90.88"/>
-<text text-anchor="start" x="490.38" y="-81.38" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="541.12" y="-81.38" font-family="Times New Roman,serif" font-size="10.00">schema:MediaObject</text>
-<text text-anchor="start" x="490.38" y="-68.12" font-family="Times New Roman,serif" font-size="10.00">description:</text>
-<text text-anchor="start" x="541.12" y="-68.12" font-family="Times New Roman,serif" font-size="10.00">images in zip file Plankton_species_image.zip, results in Plankton_species_numbers.csv</text>
+<polygon fill="none" stroke="gray" points="2005.12,-354.5 1650.88,-354.5 1650.88,-278.25 2011.12,-278.25 2011.12,-348.5 2005.12,-354.5"/>
+<polyline fill="none" stroke="gray" points="2005.12,-354.5 2005.12,-348.5"/>
+<polyline fill="none" stroke="gray" points="2011.12,-348.5 2005.12,-348.5"/>
+<text text-anchor="start" x="1660.88" y="-339" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1755.12" y="-339" font-family="Times New Roman,serif" font-size="10.00">schema:SoftwareApplication</text>
+<text text-anchor="start" x="1660.88" y="-325.75" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1755.12" y="-325.75" font-family="Times New Roman,serif" font-size="10.00">schema:Thing</text>
+<text text-anchor="start" x="1660.88" y="-312.5" font-family="Times New Roman,serif" font-size="10.00">name:</text>
+<text text-anchor="start" x="1755.12" y="-312.5" font-family="Times New Roman,serif" font-size="10.00">VisualSpreadsheet FlowCam Micro software</text>
+<text text-anchor="start" x="1660.88" y="-299.25" font-family="Times New Roman,serif" font-size="10.00">description:</text>
+<text text-anchor="start" x="1755.12" y="-299.25" font-family="Times New Roman,serif" font-size="10.00">The software that comes with this FlowCam, bought in 2010</text>
+<text text-anchor="start" x="1660.88" y="-286" font-family="Times New Roman,serif" font-size="10.00">accessibilitySummary:</text>
+<text text-anchor="start" x="1755.12" y="-286" font-family="Times New Roman,serif" font-size="10.00">file flowcam&#45;settings.txt which comes with this dataset</text>
 </g>
-<!-- &#45;attrs8&#45;&gt;genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4 -->
+<!-- &#45;attrs8&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam -->
 <!-- null _:_ -->
 <g id="edge9" class="edge">
-<title>&#45;attrs8&#45;&gt;genac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M695,-97.12C695,-119.28 695,-157.23 695,-179.26"/>
+<title>&#45;attrs8&#45;&gt;https://openprovenance.org/blank#VisualSpreadsheet_FlowCam</title>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1741.38,-354.94C1711.3,-367.55 1679.31,-380.96 1655.17,-391.08"/>
 </g>
 <!-- https://edmo.seadatanet.org/report/00000 -->
 <!-- PROV_AGENT seadatanet:00000 -->
 <g id="node19" class="node">
 <title>https://edmo.seadatanet.org/report/00000</title>
 <g id="a_node19"><a xlink:href="https://edmo.seadatanet.org/report/00000" xlink:title="00000">
-<polygon fill="#fdb266" stroke="black" points="1932.96,-203.06 1891,-215.5 1849.04,-203.06 1849.07,-182.94 1932.93,-182.94 1932.96,-203.06"/>
-<text text-anchor="middle" x="1891" y="-192.45" font-family="Times New Roman,serif" font-size="14.00">00000</text>
+<polygon fill="#fdb266" stroke="black" points="1994.96,-203.06 1953,-215.5 1911.04,-203.06 1911.07,-182.94 1994.93,-182.94 1994.96,-203.06"/>
+<text text-anchor="middle" x="1953" y="-192.45" font-family="Times New Roman,serif" font-size="14.00">00000</text>
 </a>
 </g>
 </g>
 <!-- &#45;attrs9 -->
 <g id="node20" class="node">
 <title>&#45;attrs9</title>
-<polygon fill="none" stroke="gray" points="1995,-116.75 1781,-116.75 1781,-40.5 2001,-40.5 2001,-110.75 1995,-116.75"/>
-<polyline fill="none" stroke="gray" points="1995,-116.75 1995,-110.75"/>
-<polyline fill="none" stroke="gray" points="2001,-110.75 1995,-110.75"/>
-<text text-anchor="start" x="1791" y="-101.25" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="1871.75" y="-101.25" font-family="Times New Roman,serif" font-size="10.00">schema:Organization</text>
-<text text-anchor="start" x="1791" y="-88" font-family="Times New Roman,serif" font-size="10.00">name:</text>
-<text text-anchor="start" x="1871.75" y="-88" font-family="Times New Roman,serif" font-size="10.00">Nice Marine Station</text>
-<text text-anchor="start" x="1791" y="-74.75" font-family="Times New Roman,serif" font-size="10.00">mainEntityOfPage:</text>
-<text text-anchor="start" x="1871.75" y="-74.75" font-family="Times New Roman,serif" font-size="10.00">https://NiceMarineStation.eu</text>
-<text text-anchor="start" x="1791" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">email:</text>
-<text text-anchor="start" x="1871.75" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">info@nicemarinestation.eu</text>
-<text text-anchor="start" x="1791" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">identifier:</text>
-<text text-anchor="start" x="1871.75" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">seadatanet:00000</text>
+<polygon fill="none" stroke="gray" points="2057,-116.75 1843,-116.75 1843,-40.5 2063,-40.5 2063,-110.75 2057,-116.75"/>
+<polyline fill="none" stroke="gray" points="2057,-116.75 2057,-110.75"/>
+<polyline fill="none" stroke="gray" points="2063,-110.75 2057,-110.75"/>
+<text text-anchor="start" x="1853" y="-101.25" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="1933.75" y="-101.25" font-family="Times New Roman,serif" font-size="10.00">schema:Organization</text>
+<text text-anchor="start" x="1853" y="-88" font-family="Times New Roman,serif" font-size="10.00">name:</text>
+<text text-anchor="start" x="1933.75" y="-88" font-family="Times New Roman,serif" font-size="10.00">Nice Marine Station</text>
+<text text-anchor="start" x="1853" y="-74.75" font-family="Times New Roman,serif" font-size="10.00">mainEntityOfPage:</text>
+<text text-anchor="start" x="1933.75" y="-74.75" font-family="Times New Roman,serif" font-size="10.00">https://NiceMarineStation.eu</text>
+<text text-anchor="start" x="1853" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">email:</text>
+<text text-anchor="start" x="1933.75" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">info@nicemarinestation.eu</text>
+<text text-anchor="start" x="1853" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">identifier:</text>
+<text text-anchor="start" x="1933.75" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">seadatanet:00000</text>
 </g>
 <!-- &#45;attrs9&#45;&gt;https://edmo.seadatanet.org/report/00000 -->
 <!-- null _:_ -->
 <g id="edge10" class="edge">
 <title>&#45;attrs9&#45;&gt;https://edmo.seadatanet.org/report/00000</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1891,-117.25C1891,-139.54 1891,-166.47 1891,-182.51"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1953,-117.25C1953,-139.54 1953,-166.47 1953,-182.51"/>
 </g>
 <!-- &#45;attrs10 -->
 <g id="node22" class="node">
@@ -424,7 +424,7 @@
 <!-- null _:_ -->
 <g id="edge11" class="edge">
 <title>&#45;attrs10&#45;&gt;https://orcid.org/0000&#45;0001&#45;0001&#45;0002</title>
-<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M2063.51,-354.81C2042.78,-368.55 2020.58,-383.26 2004.93,-393.63"/>
+<path fill="none" stroke="gray" stroke-dasharray="5,2" d="M2078.46,-354.81C2063.22,-368.55 2046.9,-383.26 2035.39,-393.63"/>
 </g>
 </g>
 </svg>

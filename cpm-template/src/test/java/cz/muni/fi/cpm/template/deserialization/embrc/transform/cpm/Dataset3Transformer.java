@@ -23,26 +23,26 @@ public class Dataset3Transformer extends DatasetTransformer {
     @Override
     protected Document createTI(IndexedDocument indexedDS) {
         TraversalInformation ti = new TraversalInformation();
-        ti.setBundleName(newQNWithUnknownNS(SPECIES_IDENTIFICATION + "-bundle"));
+        ti.setBundleName(newQNWithBlankNS(SPECIES_IDENTIFICATION + "-bundle"));
 
-        MainActivity mA = new MainActivity(newQNWithUnknownNS(SPECIES_IDENTIFICATION));
+        MainActivity mA = new MainActivity(newQNWithBlankNS(SPECIES_IDENTIFICATION));
         ti.setMainActivity(mA);
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
-        BackwardConnector bC = new BackwardConnector(newQNWithUnknownNS(PROCESSED_SAMPLE_CON));
+        BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON));
 
         SpecializationOf specBc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), bC.getId());
         indexedDS.add(specBc);
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
-        BackwardConnector bcStored = new BackwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R1));
+        BackwardConnector bcStored = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
         bC.setDerivedFrom(List.of(bcStored.getId()));
 
         ti.setBackwardConnectors(List.of(bC, bcStored));
 
-        ForwardConnector fC = new ForwardConnector(newQNWithUnknownNS(IDENTIFIED_SPECIES_CON));
+        ForwardConnector fC = new ForwardConnector(newQNWithBlankNS(IDENTIFIED_SPECIES_CON));
         fC.setDerivedFrom(List.of(bC.getId()));
         ti.setForwardConnectors(List.of(fC));
 

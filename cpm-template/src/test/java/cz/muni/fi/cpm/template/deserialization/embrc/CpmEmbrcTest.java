@@ -108,7 +108,7 @@ public class CpmEmbrcTest {
             Document doc = dT.toDocument(dsDoc);
 
             String fileName = TEST_RESOURCES + EMBRC_FOLDER + datasetFolder + "Dataset" + datasetNum + "_cpm";
-            interop.writeDocument(fileName + ".provn", doc);
+            interop.writeDocument(fileName + ".jsonld", doc);
             if (GraphvizChecker.isGraphvizInstalled()) {
                 interop.writeDocument(fileName + ".svg", doc);
             }

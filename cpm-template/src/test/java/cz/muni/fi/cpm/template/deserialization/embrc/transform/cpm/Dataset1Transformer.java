@@ -32,32 +32,32 @@ public class Dataset1Transformer extends DatasetTransformer {
     @Override
     protected Document createTI(IndexedDocument indexedDS) {
         TraversalInformation ti = new TraversalInformation();
-        ti.setBundleName(newQNWithUnknownNS(SAMPLING + "-bundle"));
+        ti.setBundleName(newQNWithBlankNS(SAMPLING + "-bundle"));
 
-        MainActivity mA = new MainActivity(newQNWithUnknownNS(SAMPLING));
+        MainActivity mA = new MainActivity(newQNWithBlankNS(SAMPLING));
         ti.setMainActivity(mA);
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
-        ForwardConnector fcR1 = new ForwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R1));
+        ForwardConnector fcR1 = new ForwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
 
-        SpecializationOf specR1 = pF.newSpecializationOf(newQNWithUnknownNS(STORED_SAMPLE + "r1"), fcR1.getId());
+        SpecializationOf specR1 = pF.newSpecializationOf(newQNWithBlankNS(STORED_SAMPLE + "r1"), fcR1.getId());
         indexedDS.add(specR1);
 
-        ForwardConnector fcR23UM = new ForwardConnector(newQNWithUnknownNS(STORED_SAMPLE_CON_R2_3UM));
+        ForwardConnector fcR23UM = new ForwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM));
 
-        SpecializationOf specR23UM = pF.newSpecializationOf(newQNWithUnknownNS(STORED_SAMPLE + "r2_3um"), fcR23UM.getId());
+        SpecializationOf specR23UM = pF.newSpecializationOf(newQNWithBlankNS(STORED_SAMPLE + "r2_3um"), fcR23UM.getId());
         indexedDS.add(specR23UM);
 
         mA.setGenerated(List.of(fcR1.getId(), fcR23UM.getId()));
 
-        ForwardConnector fCProc = new ForwardConnector(newQNWithUnknownNS(PROCESSED_SAMPLE_CON));
+        ForwardConnector fCProc = new ForwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON));
         fCProc.setDerivedFrom(List.of(fcR1.getId()));
 
-        ForwardConnector fCIden = new ForwardConnector(newQNWithUnknownNS(IDENTIFIED_SPECIES_CON));
+        ForwardConnector fCIden = new ForwardConnector(newQNWithBlankNS(IDENTIFIED_SPECIES_CON));
         fCIden.setDerivedFrom(List.of(fCProc.getId()));
 
-        ForwardConnector fCFil = new ForwardConnector(newQNWithUnknownNS(FILTERED_SEQUENCES_CON));
+        ForwardConnector fCFil = new ForwardConnector(newQNWithBlankNS(FILTERED_SEQUENCES_CON));
         fCFil.setDerivedFrom(List.of(fcR23UM.getId()));
 
         ti.getForwardConnectors().addAll(List.of(fcR1, fcR23UM, fCProc, fCIden, fCFil));
@@ -67,15 +67,15 @@ public class Dataset1Transformer extends DatasetTransformer {
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
-        Entity storedR1 = pF.newEntity(newQNWithUnknownNS(STORED_SAMPLE + "r1"));
-        storedR1.getType().addAll(indexedDS.getEntity(newQNWithUnknownNS(SAMPLE_R1)).getType());
+        Entity storedR1 = pF.newEntity(newQNWithBlankNS(STORED_SAMPLE + "r1"));
+        storedR1.getType().addAll(indexedDS.getEntity(newQNWithBlankNS(SAMPLE_R1)).getType());
         indexedDS.add(storedR1);
 
         WasGeneratedBy storingGenR1 = pF.newWasGeneratedBy(null, storedR1.getId(), newQnWithGenNS(STORING_ACTIVITY_R1));
         indexedDS.add(storingGenR1);
 
-        Entity storedR23UM = pF.newEntity(newQNWithUnknownNS(STORED_SAMPLE + "r2_3um"));
-        storedR23UM.getType().addAll(indexedDS.getEntity(newQNWithUnknownNS(SAMPLE_R2_3UM)).getType());
+        Entity storedR23UM = pF.newEntity(newQNWithBlankNS(STORED_SAMPLE + "r2_3um"));
+        storedR23UM.getType().addAll(indexedDS.getEntity(newQNWithBlankNS(SAMPLE_R2_3UM)).getType());
         indexedDS.add(storedR23UM);
 
         WasGeneratedBy storingGenR23UM = pF.newWasGeneratedBy(null, storedR23UM.getId(), newQnWithGenNS(STORING_ACTIVITY_R2_3um));
