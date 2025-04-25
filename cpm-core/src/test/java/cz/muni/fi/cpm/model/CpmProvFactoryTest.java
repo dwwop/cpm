@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.model;
 
-import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
@@ -37,32 +37,32 @@ public class CpmProvFactoryTest {
 
     @Test
     public void newCpmQualifiedName_withValidLocalName_returnsExpectedQualifiedName() {
-        String local = CpmAttributeConstants.COMMENT;
-        QualifiedName result = cF.newCpmQualifiedName(local);
+        CpmAttribute local = CpmAttribute.COMMENT;
+        QualifiedName result = cF.newCpmQualifiedName(local.toString());
         assertNotNull(result);
         assertEquals(CpmNamespaceConstants.CPM_NS, result.getNamespaceURI());
         assertEquals(CpmNamespaceConstants.CPM_PREFIX, result.getPrefix());
-        assertEquals(local, result.getLocalPart());
+        assertEquals(local.toString(), result.getLocalPart());
     }
 
     @Test
     public void newCpmAttribute_withType_returnsExpectedAttribute() {
-        String local = CpmAttributeConstants.REFERENCED_BUNDLE_ID;
-        Object value = "exampleValue";
+        CpmAttribute local = CpmAttribute.REFERENCED_BUNDLE_ID;
+        QualifiedName value = cF.newCpmQualifiedName("exampleValue");
         Attribute result = cF.newCpmAttribute(local, value);
         assertNotNull(result);
-        assertEquals(local, result.getElementName().getLocalPart());
+        assertEquals(local.toString(), result.getElementName().getLocalPart());
         assertEquals(value, result.getValue());
     }
 
     @Test
     public void newCpmAttribute_withCustomType_returnsExpectedCustomAttribute() {
-        String local = CpmAttributeConstants.REFERENCED_BUNDLE_ID;
+        CpmAttribute local = CpmAttribute.REFERENCED_BUNDLE_ID;
         Object value = "exampleValue";
         QualifiedName type = cF.newCpmQualifiedName(CpmType.IDENTIFIER.toString());
         Attribute result = cF.newCpmAttribute(local, value, type);
         assertNotNull(result);
-        assertEquals(local, result.getElementName().getLocalPart());
+        assertEquals(local.toString(), result.getElementName().getLocalPart());
         assertEquals(value, result.getValue());
         assertEquals(type, result.getType());
     }

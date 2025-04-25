@@ -1,6 +1,7 @@
 package cz.muni.fi.cpm.model;
 
 
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
@@ -229,5 +230,41 @@ public class CpmUtilitiesTest {
         INode node = cF.newNode(element);
 
         assertFalse(CpmUtilities.hasAnyCpmType(node));
+    }
+
+    @Test
+    public void containsCpmAttribute_withNull_returnsFalse() {
+        assertFalse(CpmUtilities.containsCpmAttribute(null, CpmAttribute.REFERENCED_BUNDLE_ID));
+        assertFalse(CpmUtilities.containsCpmAttribute(pF.newEntity(pF.newQualifiedName("uri", "entity", "ex"), List.of()), null));
+    }
+
+    @Test
+    public void containsCpmAttribute_validAttribute_returnsTrue() {
+        QualifiedName validQualifiedName = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                CpmAttribute.REFERENCED_BUNDLE_ID.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute attribute = pF.newOther(validQualifiedName, "ref", pF.getName().XSD_STRING);
+
+        Element element = pF.newEntity(id, Collections.singletonList(attribute));
+
+        assertTrue(CpmUtilities.containsCpmAttribute(element, CpmAttribute.REFERENCED_BUNDLE_ID));
+    }
+
+    @Test
+    public void containsCpmAttribute_wrongNs_returnsFalse() {
+        QualifiedName validQualifiedName = new QualifiedName(
+                "wrong",
+                CpmAttribute.REFERENCED_BUNDLE_ID.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute attribute = pF.newOther(validQualifiedName, "ref", pF.getName().XSD_STRING);
+
+        Element element = pF.newEntity(id, Collections.singletonList(attribute));
+
+        assertFalse(CpmUtilities.containsCpmAttribute(element, CpmAttribute.REFERENCED_BUNDLE_ID));
     }
 }

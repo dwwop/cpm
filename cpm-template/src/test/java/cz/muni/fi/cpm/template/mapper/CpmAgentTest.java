@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.template.mapper;
 
-import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.template.schema.ReceiverAgent;
 import cz.muni.fi.cpm.template.schema.SenderAgent;
@@ -63,7 +63,7 @@ public class CpmAgentTest {
 
         Attribute contactIdAttr = otherAttributes.getFirst();
         assertInstanceOf(LangString.class, contactIdAttr.getValue());
-        assertEquals(CpmAttributeConstants.CONTACT_ID_PID, contactIdAttr.getElementName().getLocalPart());
+        assertEquals(CpmAttribute.CONTACT_ID_PID.toString(), contactIdAttr.getElementName().getLocalPart());
         assertEquals(contactIdPid, ((LangString) contactIdAttr.getValue()).getValue());
     }
 }

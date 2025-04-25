@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.template.mapper;
 
-import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.template.schema.IdentifierEntity;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
@@ -62,7 +62,7 @@ public class IdentifierEntityTest {
 
         assertNotNull(entity.getOther());
         assertEquals(1, entity.getOther().size());
-        assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(CpmAttribute.EXTERNAL_ID.toString(), entity.getOther().getFirst().getElementName().getLocalPart());
         assertEquals(qN, ((LangString) entity.getOther().getFirst().getValue()).getValue());
     }
 
@@ -81,7 +81,7 @@ public class IdentifierEntityTest {
         assertNotNull(entity.getOther());
         assertEquals(1, entity.getOther().size());
         assertInstanceOf(LangString.class, entity.getOther().getFirst().getValue());
-        assertEquals(CpmAttributeConstants.EXTERNAL_ID_TYPE, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(CpmAttribute.EXTERNAL_ID_TYPE.toString(), entity.getOther().getFirst().getElementName().getLocalPart());
         assertEquals(externalIdType, ((LangString) entity.getOther().getFirst().getValue()).getValue());
     }
 
@@ -100,7 +100,7 @@ public class IdentifierEntityTest {
         assertNotNull(entity.getOther());
         assertEquals(1, entity.getOther().size());
         assertInstanceOf(LangString.class, entity.getOther().getFirst().getValue());
-        assertEquals(CpmAttributeConstants.COMMENT, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(CpmAttribute.COMMENT.toString(), entity.getOther().getFirst().getElementName().getLocalPart());
         assertEquals(comment, ((LangString) entity.getOther().getFirst().getValue()).getValue());
     }
 }

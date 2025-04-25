@@ -1,5 +1,6 @@
 package cz.muni.fi.cpm.model;
 
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmType;
 import org.openprovenance.prov.model.*;
 
@@ -33,23 +34,23 @@ public interface ICpmProvFactory {
 
 
     /**
-     * Creates a new CPM attribute with the given local name and value based off {@link Other}.
+     * Creates a new CPM attribute with the specified {@link CpmAttribute} and value based off {@link Other}.
      *
-     * @param local the local part of the attribute
+     * @param attr  the {@link CpmAttribute} enum constant representing the attribute name
      * @param value the value of the attribute
      * @return a new Attribute
      */
-    Attribute newCpmAttribute(String local, Object value);
+    Other newCpmAttribute(CpmAttribute attr, QualifiedName value);
 
     /**
-     * Creates a new CPM attribute with the given local name, value, and type based off {@link Other}.
+     * Creates a new CPM attribute with the specified {@link CpmAttribute}, value, and type based off {@link Other}.
      *
-     * @param local the local part of the attribute
+     * @param attr the  CPM attribute
      * @param value the value of the attribute
      * @param type  the type of the attribute
      * @return a new Attribute
      */
-    Attribute newCpmAttribute(String local, Object value, QualifiedName type);
+    Other newCpmAttribute(CpmAttribute attr, Object value, QualifiedName type);
 
     /**
      * Creates a new CPM entity with the given ID, type, and attributes.

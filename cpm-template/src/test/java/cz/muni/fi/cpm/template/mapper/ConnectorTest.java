@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.template.mapper;
 
-import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.template.schema.BackwardConnector;
 import cz.muni.fi.cpm.template.schema.ConnectorAttributed;
@@ -57,7 +57,7 @@ public class ConnectorTest {
 
         assertNotNull(entity.getOther());
         assertInstanceOf(LangString.class, entity.getOther().getLast().getValue());
-        assertEquals(CpmAttributeConstants.EXTERNAL_ID, entity.getOther().getLast().getElementName().getLocalPart());
+        assertEquals(CpmAttribute.EXTERNAL_ID.toString(), entity.getOther().getLast().getElementName().getLocalPart());
         assertEquals(externalId, ((LangString) entity.getOther().getLast().getValue()).getValue());
     }
 
@@ -73,7 +73,7 @@ public class ConnectorTest {
 
         assertNotNull(entity.getOther());
         assertEquals(1, entity.getOther().size());
-        assertEquals(CpmAttributeConstants.REFERENCED_BUNDLE_ID, entity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(CpmAttribute.REFERENCED_BUNDLE_ID.toString(), entity.getOther().getFirst().getElementName().getLocalPart());
         assertEquals(bundleId, entity.getOther().getFirst().getValue());
     }
 
@@ -92,11 +92,11 @@ public class ConnectorTest {
         assertEquals(2, entity.getOther().size());
 
         Attribute hashValueAttr = entity.getOther().getFirst();
-        assertEquals(CpmAttributeConstants.REFERENCED_BUNDLE_HASH_VALUE, hashValueAttr.getElementName().getLocalPart());
+        assertEquals(CpmAttribute.REFERENCED_BUNDLE_HASH_VALUE.toString(), hashValueAttr.getElementName().getLocalPart());
         assertEquals(hashValue, hashValueAttr.getValue());
 
         assertInstanceOf(LangString.class, entity.getOther().getLast().getValue());
-        assertEquals(CpmAttributeConstants.HASH_ALG, entity.getOther().getLast().getElementName().getLocalPart());
+        assertEquals(CpmAttribute.HASH_ALG.toString(), entity.getOther().getLast().getElementName().getLocalPart());
         assertEquals(HashAlgorithms.SHA256.toString(), ((LangString) entity.getOther().getLast().getValue()).getValue());
 
     }
@@ -115,7 +115,7 @@ public class ConnectorTest {
         assertEquals(1, entity.getOther().size());
 
         Attribute uri = entity.getOther().getFirst();
-        assertEquals(CpmAttributeConstants.PROVENANCE_SERVICE_URI, uri.getElementName().getLocalPart());
+        assertEquals(CpmAttribute.PROVENANCE_SERVICE_URI.toString(), uri.getElementName().getLocalPart());
         assertEquals(provenanceUri, uri.getValue());
     }
 

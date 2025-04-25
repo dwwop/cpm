@@ -1,5 +1,6 @@
 package cz.muni.fi.cpm.vanilla;
 
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
@@ -42,17 +43,17 @@ public class CpmProvFactory implements ICpmProvFactory {
     }
 
     @Override
-    public Attribute newCpmAttribute(String local, Object value) {
+    public Other newCpmAttribute(CpmAttribute attr, QualifiedName value) {
         return newCpmAttribute(
-                local,
+                attr,
                 value,
                 pF.getName().PROV_QUALIFIED_NAME);
     }
 
     @Override
-    public Attribute newCpmAttribute(String local, Object value, QualifiedName type) {
+    public Other newCpmAttribute(CpmAttribute attr, Object value, QualifiedName type) {
         return pF.newOther(
-                newCpmQualifiedName(local),
+                newCpmQualifiedName(attr.toString()),
                 value,
                 type);
     }

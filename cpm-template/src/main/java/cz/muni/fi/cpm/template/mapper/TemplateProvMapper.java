@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.template.mapper;
 
-import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
@@ -26,27 +26,27 @@ public class TemplateProvMapper implements ITemplateProvMapper {
 
 
         if (c.getExternalId() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, c.getExternalId(), cPF.getProvFactory().getName().XSD_STRING));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.EXTERNAL_ID, c.getExternalId(), cPF.getProvFactory().getName().XSD_STRING));
         }
 
         if (c.getReferencedBundleId() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.REFERENCED_BUNDLE_ID, c.getReferencedBundleId()));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.REFERENCED_BUNDLE_ID, c.getReferencedBundleId()));
         }
 
         if (c.getReferencedMetaBundleId() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.REFERENCED_META_BUNDLE_ID, c.getReferencedMetaBundleId()));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.REFERENCED_META_BUNDLE_ID, c.getReferencedMetaBundleId()));
         }
 
         if (c.getReferencedBundleHashValue() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.REFERENCED_BUNDLE_HASH_VALUE, c.getReferencedBundleHashValue(), cPF.getProvFactory().getName().XSD_BYTE));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.REFERENCED_BUNDLE_HASH_VALUE, c.getReferencedBundleHashValue(), cPF.getProvFactory().getName().XSD_BYTE));
         }
 
         if (c.getHashAlg() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.HASH_ALG, c.getHashAlg().toString(), cPF.getProvFactory().getName().XSD_STRING));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.HASH_ALG, c.getHashAlg().toString(), cPF.getProvFactory().getName().XSD_STRING));
         }
 
         if (c.getProvenanceServiceUri() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.PROVENANCE_SERVICE_URI, c.getProvenanceServiceUri(), cPF.getProvFactory().getName().XSD_ANY_URI));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.PROVENANCE_SERVICE_URI, c.getProvenanceServiceUri(), cPF.getProvFactory().getName().XSD_ANY_URI));
         }
 
         statements.add(cPF.newCpmEntity(c.getId(), c.getType(), attributes));
@@ -82,7 +82,7 @@ public class TemplateProvMapper implements ITemplateProvMapper {
         List<Attribute> attributes = new ArrayList<>();
 
         if (agent.getContactIdPid() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.CONTACT_ID_PID, agent.getContactIdPid(), cPF.getProvFactory().getName().XSD_STRING));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.CONTACT_ID_PID, agent.getContactIdPid(), cPF.getProvFactory().getName().XSD_STRING));
         }
 
         return Collections.singletonList(cPF.newCpmAgent(agent.getId(), agent.getType(), attributes));
@@ -103,15 +103,15 @@ public class TemplateProvMapper implements ITemplateProvMapper {
         List<Attribute> attributes = new ArrayList<>();
 
         if (iE.getExternalId() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID, iE.getExternalId(), cPF.getProvFactory().getName().XSD_STRING));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.EXTERNAL_ID, iE.getExternalId(), cPF.getProvFactory().getName().XSD_STRING));
         }
 
         if (iE.getExternalIdType() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.EXTERNAL_ID_TYPE, iE.getExternalIdType(), cPF.getProvFactory().getName().XSD_STRING));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.EXTERNAL_ID_TYPE, iE.getExternalIdType(), cPF.getProvFactory().getName().XSD_STRING));
         }
 
         if (iE.getComment() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.COMMENT, iE.getComment(), cPF.getProvFactory().getName().XSD_STRING));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.COMMENT, iE.getComment(), cPF.getProvFactory().getName().XSD_STRING));
         }
 
         return Collections.singletonList(cPF.newCpmEntity(iE.getId(), CpmType.IDENTIFIER, attributes));
@@ -124,7 +124,7 @@ public class TemplateProvMapper implements ITemplateProvMapper {
 
 
         if (mA.getReferencedMetaBundleId() != null) {
-            attributes.add(cPF.newCpmAttribute(CpmAttributeConstants.REFERENCED_META_BUNDLE_ID, mA.getReferencedMetaBundleId()));
+            attributes.add(cPF.newCpmAttribute(CpmAttribute.REFERENCED_META_BUNDLE_ID, mA.getReferencedMetaBundleId()));
         }
 
         if (mA.getHasPart() != null) {

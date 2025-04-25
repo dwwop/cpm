@@ -1,7 +1,9 @@
 package cz.muni.fi.cpm.model;
 
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
+import org.openprovenance.prov.model.HasOther;
 import org.openprovenance.prov.model.HasType;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
@@ -66,6 +68,26 @@ public class CpmUtilities {
                                 CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
                                 CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
                                 Objects.equals(type.toString(), qN.getLocalPart()));
+    }
+
+    /**
+     * Checks if the given {@link Statement} contains a specific CPM attribute.
+     * This method verifies if the statement includes an "other" attribute matching
+     * the CPM namespace, prefix, and the specified {@link CpmAttribute}.
+     *
+     * @param statement the {@link Statement} to check
+     * @param attr      the {@link CpmAttribute} to compare against
+     * @return {@code true} if the statement contains the specified CPM attribute, {@code false} otherwise
+     */
+    public static boolean containsCpmAttribute(Statement statement, CpmAttribute attr) {
+        if (statement == null || attr == null) return false;
+
+        return statement instanceof HasOther element &&
+                element.getOther().stream().anyMatch(x ->
+                        x.getElementName() instanceof QualifiedName qN &&
+                                CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
+                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
+                                Objects.equals(attr.toString(), qN.getLocalPart()));
     }
 
     /**

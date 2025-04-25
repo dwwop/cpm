@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.template.mapper;
 
-import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.template.schema.MainActivity;
@@ -62,7 +62,7 @@ public class MainActivityTest {
 
         assertNotNull(activity.getOther());
         assertEquals(1, activity.getOther().size());
-        assertEquals(CpmAttributeConstants.REFERENCED_META_BUNDLE_ID, activity.getOther().getFirst().getElementName().getLocalPart());
+        assertEquals(CpmAttribute.REFERENCED_META_BUNDLE_ID.toString(), activity.getOther().getFirst().getElementName().getLocalPart());
         assertEquals(referencedMetaBundleId, activity.getOther().getFirst().getValue());
     }
 

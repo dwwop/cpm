@@ -1,6 +1,6 @@
 package cz.muni.fi.cpm.strategy;
 
-import cz.muni.fi.cpm.constants.CpmAttributeConstants;
+import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.merged.CpmMergedFactory;
@@ -159,7 +159,7 @@ class AttributeTIStrategyTest {
 
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
         Attribute attribute = pF.newType(validQualifiedName, pF.getName().PROV_QUALIFIED_NAME);
-        Attribute other = cPF.newCpmAttribute(CpmAttributeConstants.PROVENANCE_SERVICE_URI, "", pF.getName().XSD_ANY_URI);
+        Attribute other = cPF.newCpmAttribute(CpmAttribute.PROVENANCE_SERVICE_URI, "", pF.getName().XSD_ANY_URI);
 
         Element element = pF.newEntity(id, List.of(attribute, other));
         INode node = cF.newNode(element);
