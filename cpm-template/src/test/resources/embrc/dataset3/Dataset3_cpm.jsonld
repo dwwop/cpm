@@ -13,40 +13,50 @@
   "@graph" : [ {
     "@type" : "Bundle",
     "@context" : [ { }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
-    "@id" : "_:species-identification-bundle",
+    "@id": "_:SpeciesIdentificationBundle",
     "@graph" : [ {
       "@type" : "Activity",
-      "@id" : "_:species-identification",
+      "@id": "_:SpeciesIdentification",
       "dct:hasPart" : [ "_:FlowCamSpeciesIdentification" ],
       "type" : [ "cpm:mainActivity" ]
     }, {
       "@type" : "Usage",
-      "activity" : "_:species-identification",
-      "entity" : "_:processed-sample-con-r1"
+      "activity": "_:SpeciesIdentification",
+      "entity": "_:ProcessedSampleCon"
     }, {
       "@type" : "Generation",
-      "entity" : "_:identified-species-con",
-      "activity" : "_:species-identification"
+      "entity": "_:IdentifiedSpeciesCon",
+      "activity": "_:SpeciesIdentification"
     }, {
       "@type" : "Entity",
-      "@id" : "_:processed-sample-con-r1",
-      "type" : [ "cpm:backwardConnector" ]
+      "@id": "_:ProcessedSampleCon",
+      "type": [
+        "cpm:backwardConnector"
+      ],
+      "cpm:referencedBundleId": [
+        "_:ProcessingBundle"
+      ]
     }, {
       "@type" : "Derivation",
-      "generatedEntity" : "_:processed-sample-con-r1",
-      "usedEntity" : "_:stored-sample-con-r1"
+      "generatedEntity": "_:ProcessedSampleCon",
+      "usedEntity": "_:StoredSampleCon_r1"
     }, {
       "@type" : "Entity",
-      "@id" : "_:stored-sample-con-r1",
-      "type" : [ "cpm:backwardConnector" ]
+      "@id": "_:StoredSampleCon_r1",
+      "type": [
+        "cpm:backwardConnector"
+      ],
+      "cpm:referencedBundleId": [
+        "_:SamplingBundle"
+      ]
     }, {
       "@type" : "Entity",
-      "@id" : "_:identified-species-con",
+      "@id": "_:IdentifiedSpeciesCon",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Derivation",
-      "generatedEntity" : "_:identified-species-con",
-      "usedEntity" : "_:processed-sample-con-r1"
+      "generatedEntity": "_:IdentifiedSpeciesCon",
+      "usedEntity": "_:ProcessedSampleCon"
     }, {
       "@type" : "Entity",
       "@id" : "_:classification_QC",
@@ -162,11 +172,11 @@
     }, {
       "@type" : "Specialization",
       "specificEntity" : "gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0",
-      "generalEntity" : "_:processed-sample-con-r1"
+      "generalEntity": "_:ProcessedSampleCon"
     }, {
       "@type" : "Specialization",
       "specificEntity" : "gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4",
-      "generalEntity" : "_:identified-species-con"
+      "generalEntity": "_:IdentifiedSpeciesCon"
     } ]
   } ]
 }

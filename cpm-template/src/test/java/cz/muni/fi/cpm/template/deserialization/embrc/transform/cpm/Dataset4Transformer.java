@@ -7,12 +7,11 @@ import org.openprovenance.prov.model.*;
 import java.util.List;
 import java.util.Objects;
 
-import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset1Transformer.SAMPLE_R2_3UM;
-import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset1Transformer.STORED_SAMPLE_CON_R2_3UM;
+import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset1Transformer.*;
 
 public class Dataset4Transformer extends DatasetTransformer {
-    static final String DNA_SEQUENCING = "dna-sequencing";
-    static final String FILTERED_SEQUENCES_CON = "filtered-sequences-con";
+    static final String DNA_SEQUENCING = "DnaSequencing";
+    static final String FILTERED_SEQUENCES_CON = "FilteredSequencesCon";
 
     private static final String STORING_ACTIVITY_1 = "StoringActivity";
     private static final String STORING_ACTIVITY_2 = "StoringActivity2";
@@ -32,7 +31,7 @@ public class Dataset4Transformer extends DatasetTransformer {
     @Override
     protected Document createTI(IndexedDocument indexedDS) {
         TraversalInformation ti = new TraversalInformation();
-        ti.setBundleName(newQNWithBlankNS(DNA_SEQUENCING + "-bundle"));
+        ti.setBundleName(newQNWithBlankNS(DNA_SEQUENCING + "Bundle"));
 
         MainActivity mA = new MainActivity(newQNWithBlankNS(DNA_SEQUENCING));
         ti.setMainActivity(mA);
@@ -40,6 +39,7 @@ public class Dataset4Transformer extends DatasetTransformer {
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM));
+        bC.setReferencedBundleId(newQNWithBlankNS(SAMPLING + "Bundle"));
         ti.setBackwardConnectors(List.of(bC));
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));

@@ -6,13 +6,12 @@ import org.openprovenance.prov.model.*;
 
 import java.util.List;
 
-import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset1Transformer.SAMPLE_R1;
-import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset1Transformer.STORED_SAMPLE_CON_R1;
-import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset3Transformer.IDENTIFIED_SPECIES_CON;
+import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset1Transformer.*;
+import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset3Transformer.SPECIES_IDENTIFICATION;
 
 public class Dataset2Transformer extends DatasetTransformer {
-    static final String PROCESSING = "processing";
-    static final String PROCESSED_SAMPLE_CON = "processed-sample-con-r1";
+    static final String PROCESSING = "Processing";
+    static final String PROCESSED_SAMPLE_CON = "ProcessedSampleCon";
 
     private static final String IMAGES = "5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7";
 
@@ -23,7 +22,7 @@ public class Dataset2Transformer extends DatasetTransformer {
     @Override
     protected Document createTI(IndexedDocument indexedDS) {
         TraversalInformation ti = new TraversalInformation();
-        ti.setBundleName(newQNWithBlankNS(PROCESSING + "-bundle"));
+        ti.setBundleName(newQNWithBlankNS(PROCESSING + "Bundle"));
 
         MainActivity mA = new MainActivity(newQNWithBlankNS(PROCESSING));
         ti.setMainActivity(mA);
@@ -31,6 +30,7 @@ public class Dataset2Transformer extends DatasetTransformer {
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
+        bC.setReferencedBundleId(newQNWithBlankNS(SAMPLING + "Bundle"));
         ti.setBackwardConnectors(List.of(bC));
 
         SpecializationOf specBc = pF.newSpecializationOf(newQNWithBlankNS(SAMPLE_R1), bC.getId());
@@ -41,15 +41,16 @@ public class Dataset2Transformer extends DatasetTransformer {
         ForwardConnector fC = new ForwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON));
         fC.setDerivedFrom(List.of(bC.getId()));
 
+        ForwardConnector fCSpec = new ForwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON + "Spec"));
+        fCSpec.setReferencedBundleId(newQNWithBlankNS(SPECIES_IDENTIFICATION + "Bundle"));
+        fCSpec.setSpecializationOf(fC.getId());
+
         SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), fC.getId());
         indexedDS.add(specFc);
 
         mA.setGenerated(List.of(fC.getId()));
 
-        ForwardConnector fCIden = new ForwardConnector(newQNWithBlankNS(IDENTIFIED_SPECIES_CON));
-        fCIden.setDerivedFrom(List.of(fC.getId()));
-
-        ti.setForwardConnectors(List.of(fC, fCIden));
+        ti.setForwardConnectors(List.of(fC, fCSpec));
 
         return mapper.map(ti);
     }

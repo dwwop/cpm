@@ -15,41 +15,52 @@
   "@graph" : [ {
     "@type" : "Bundle",
     "@context" : [ { }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
-    "@id" : "_:processing-bundle",
+    "@id": "_:ProcessingBundle",
     "@graph" : [ {
       "@type" : "Activity",
-      "@id" : "_:processing",
+      "@id": "_:Processing",
       "dct:hasPart" : [ "_:MaterialProcessing" ],
       "type" : [ "cpm:mainActivity" ]
     }, {
       "@type" : "Usage",
-      "activity" : "_:processing",
-      "entity" : "_:stored-sample-con-r1"
+      "activity": "_:Processing",
+      "entity": "_:StoredSampleCon_r1"
     }, {
       "@type" : "Generation",
-      "entity" : "_:processed-sample-con-r1",
-      "activity" : "_:processing"
+      "entity": "_:ProcessedSampleCon",
+      "activity": "_:Processing"
     }, {
       "@type" : "Entity",
-      "@id" : "_:stored-sample-con-r1",
-      "type" : [ "cpm:backwardConnector" ]
+      "@id": "_:StoredSampleCon_r1",
+      "type": [
+        "cpm:backwardConnector"
+      ],
+      "cpm:referencedBundleId": [
+        "_:SamplingBundle"
+      ]
     }, {
       "@type" : "Entity",
-      "@id" : "_:processed-sample-con-r1",
+      "@id": "_:ProcessedSampleCon",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Derivation",
-      "generatedEntity" : "_:processed-sample-con-r1",
-      "usedEntity" : "_:stored-sample-con-r1"
+      "generatedEntity": "_:ProcessedSampleCon",
+      "usedEntity": "_:StoredSampleCon_r1"
     }, {
       "@type" : "Entity",
-      "@id" : "_:identified-species-con",
-      "type" : [ "cpm:forwardConnector" ]
+      "@id": "_:ProcessedSampleConSpec",
+      "type": [
+        "cpm:forwardConnector"
+      ],
+      "cpm:referencedBundleId": [
+        "_:SpeciesIdentificationBundle"
+      ]
     }, {
-      "@type" : "Derivation",
-      "generatedEntity" : "_:identified-species-con",
-      "usedEntity" : "_:processed-sample-con-r1"
-    }, {
+      "@type": "Specialization",
+      "specificEntity": "_:ProcessedSampleConSpec",
+      "generalEntity": "_:ProcessedSampleCon"
+    },
+      {
       "@type" : "Entity",
       "@id" : "obolibrary:ENVO_00002150",
       "schema:name" : [ {
@@ -215,11 +226,11 @@
     }, {
       "@type" : "Specialization",
       "specificEntity" : "_:BigProject_belgium_water_10m_1000um_r1",
-      "generalEntity" : "_:stored-sample-con-r1"
+        "generalEntity": "_:StoredSampleCon_r1"
     }, {
       "@type" : "Specialization",
       "specificEntity" : "gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7",
-      "generalEntity" : "_:processed-sample-con-r1"
+        "generalEntity": "_:ProcessedSampleCon"
     }, {
       "@type" : "Influence",
       "influencee" : "_:NMS_flowcam_2010",

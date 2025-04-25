@@ -17,56 +17,77 @@
   "@graph" : [ {
     "@type" : "Bundle",
     "@context" : [ { }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
-    "@id" : "_:sampling-bundle",
+    "@id": "_:SamplingBundle",
     "@graph" : [ {
       "@type" : "Activity",
-      "@id" : "_:sampling",
+      "@id": "_:Sampling",
       "dct:hasPart" : [ "gen:fd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2", "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2", "gen:09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80", "gen:67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925", "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99", "gen:324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a" ],
       "type" : [ "cpm:mainActivity" ]
     }, {
       "@type" : "Generation",
-      "entity" : "_:stored-sample-con-r1",
-      "activity" : "_:sampling"
+      "entity": "_:StoredSampleCon_r1",
+      "activity": "_:Sampling"
     }, {
       "@type" : "Generation",
-      "entity" : "_:stored-sample-con-r2-3um",
-      "activity" : "_:sampling"
+      "entity": "_:StoredSampleCon_r2_3um",
+      "activity": "_:Sampling"
     }, {
       "@type" : "Entity",
-      "@id" : "_:stored-sample-con-r1",
+      "@id": "_:StoredSampleCon_r1",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Entity",
-      "@id" : "_:stored-sample-con-r2-3um",
+      "@id": "_:StoredSampleCon_r1_Spec",
+      "type": [
+        "cpm:forwardConnector"
+      ],
+      "cpm:referencedBundleId": [
+        "_:ProcessingBundle"
+      ]
+    },
+      {
+        "@type": "Specialization",
+        "specificEntity": "_:StoredSampleCon_r1_Spec",
+        "generalEntity": "_:StoredSampleCon_r1"
+    }, {
+      "@type" : "Entity",
+        "@id": "_:StoredSampleCon_r2_3um",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Entity",
-      "@id" : "_:processed-sample-con-r1",
+        "@id": "_:StoredSampleCon_r2_3um_Spec",
+        "type": [
+          "cpm:forwardConnector"
+        ],
+        "cpm:referencedBundleId": [
+          "_:DnaSequencingBundle"
+        ]
+    }, {
+        "@type": "Specialization",
+        "specificEntity": "_:StoredSampleCon_r2_3um_Spec",
+        "generalEntity": "_:StoredSampleCon_r2_3um"
+    }, {
+      "@type" : "Entity",
+        "@id": "_:IdentifiedSpeciesCon",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Derivation",
-      "generatedEntity" : "_:processed-sample-con-r1",
-      "usedEntity" : "_:stored-sample-con-r1"
+        "generatedEntity": "_:IdentifiedSpeciesCon",
+        "usedEntity": "_:StoredSampleCon_r1"
     }, {
       "@type" : "Entity",
-      "@id" : "_:identified-species-con",
-      "type" : [ "cpm:forwardConnector" ]
-    }, {
-      "@type" : "Derivation",
-      "generatedEntity" : "_:identified-species-con",
-      "usedEntity" : "_:processed-sample-con-r1"
-    }, {
-      "@type" : "Entity",
-      "@id" : "_:filtered-sequences-con",
-      "type" : [ "cpm:forwardConnector" ]
-    }, {
-      "@type" : "Derivation",
-      "generatedEntity" : "_:filtered-sequences-con",
-      "usedEntity" : "_:stored-sample-con-r2-3um"
-    }, {
-      "@type" : "Entity",
-      "@id" : "_:stored-sample-r1",
-      "type" : [ "sosa:Sample", "schema:Thing" ]
+        "@id": "_:IdentifiedSpeciesConSpec",
+        "type": [
+          "cpm:forwardConnector"
+        ],
+        "cpm:referencedBundleId": [
+          "_:SpeciesIdentificationBundle"
+        ]
+      },
+      {
+        "@type": "Specialization",
+        "specificEntity": "_:IdentifiedSpeciesConSpec",
+        "generalEntity": "_:IdentifiedSpeciesCon"
     }, {
       "@type" : "Entity",
       "@id" : "gen:374da96f393f90611618df5475f7b17158935e3f8eecf9f419d878e8a82ac23c",
@@ -155,6 +176,14 @@
       "schema:description" : [ {
         "@value" : "water sample collected from 10m depth and filtered at 1000um"
       } ],
+        "type": [
+          "sosa:Sample",
+          "schema:Thing"
+        ]
+      },
+      {
+        "@type": "Entity",
+        "@id": "_:StoredSample_r2_3um",
       "type" : [ "sosa:Sample", "schema:Thing" ]
     }, {
       "@type" : "Entity",
@@ -248,6 +277,14 @@
       } ],
       "type" : [ "sosa:Sample", "schema:Thing" ]
     }, {
+        "@type": "Entity",
+        "@id": "_:StoredSample_r1",
+        "type": [
+          "sosa:Sample",
+          "schema:Thing"
+        ]
+      },
+      {
       "@type" : "Entity",
       "@id" : "gen:92b8f2fa96e3b102c47d14fabec8e2a3ded5d27b5996e5a6967c8e39b062b9f5",
       "schema:name" : [ {
@@ -280,10 +317,6 @@
         "@value" : "instructions for using the CTD"
       } ],
       "type" : [ "schema:Thing", "schema:CreativeWork" ]
-    }, {
-      "@type" : "Entity",
-      "@id" : "_:stored-sample-r2_3um",
-      "type" : [ "sosa:Sample", "schema:Thing" ]
     }, {
       "@type" : "Entity",
       "@id" : "_:BigProject_belgium_water_10m_1000um_r1",
@@ -567,11 +600,11 @@
       "activity" : "gen:fd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2"
     }, {
       "@type" : "Generation",
-      "entity" : "_:stored-sample-r1",
+        "entity": "_:StoredSample_r1",
       "activity" : "gen:09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80"
     }, {
       "@type" : "Generation",
-      "entity" : "_:stored-sample-r2_3um",
+        "entity": "_:StoredSample_r2_3um",
       "activity" : "gen:67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925"
     }, {
       "@type" : "Association",
@@ -624,12 +657,12 @@
       } ]
     }, {
       "@type" : "Specialization",
-      "specificEntity" : "_:stored-sample-r1",
-      "generalEntity" : "_:stored-sample-con-r1"
+        "specificEntity": "_:StoredSample_r1",
+        "generalEntity": "_:StoredSampleCon_r1"
     }, {
       "@type" : "Specialization",
-      "specificEntity" : "_:stored-sample-r2_3um",
-      "generalEntity" : "_:stored-sample-con-r2-3um"
+        "specificEntity": "_:StoredSample_r2_3um",
+        "generalEntity": "_:StoredSampleCon_r2_3um"
     }, {
       "@type" : "Influence",
       "influencee" : "_:ABSPermit_ircc2345678",

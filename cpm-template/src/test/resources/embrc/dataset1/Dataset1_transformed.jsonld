@@ -378,16 +378,17 @@
     "@id" : "gen:374da96f393f90611618df5475f7b17158935e3f8eecf9f419d878e8a82ac23c",
     "type" : [ "schema:GeoCoordinates" ]
   }, {
+    "@type": "Influence",
+    "influencer": "_:BigProject_belgium_water_10m",
+    "influencee": "_:ABSPermit_ircc2345678"
+  },
+    {
     "@type" : "Attribution",
     "agent" : "seadatanet:00000",
     "entity" : "_:ABSPermit_ircc2345678",
     "dcat:hadRole" : [ {
       "@value" : "receiving agent"
     } ]
-  }, {
-    "@type" : "Influence",
-    "influencer" : "_:BigProject_belgium_water_10m",
-    "influencee" : "_:ABSPermit_ircc2345678"
   }, {
     "@type" : "Agent",
     "schema:name" : [ {

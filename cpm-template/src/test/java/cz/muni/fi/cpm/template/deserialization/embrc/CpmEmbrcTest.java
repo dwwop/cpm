@@ -57,7 +57,7 @@ public class CpmEmbrcTest {
 
     private static Stream<Object[]> documentProvider() {
         return Stream.of(
-                new Object[]{Dataset1Transformer.class, 1, 6, 35, 2},
+                new Object[]{Dataset1Transformer.class, 1, 7, 35, 2},
                 new Object[]{Dataset2Transformer.class, 2, 4, 11, 2},
                 new Object[]{Dataset3Transformer.class, 3, 4, 7, 2},
                 new Object[]{Dataset4Transformer.class, 4, 3, 41, 2}

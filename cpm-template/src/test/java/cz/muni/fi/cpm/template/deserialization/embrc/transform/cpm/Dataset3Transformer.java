@@ -6,12 +6,14 @@ import org.openprovenance.prov.model.*;
 
 import java.util.List;
 
+import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset1Transformer.SAMPLING;
 import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset1Transformer.STORED_SAMPLE_CON_R1;
 import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset2Transformer.PROCESSED_SAMPLE_CON;
+import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset2Transformer.PROCESSING;
 
 public class Dataset3Transformer extends DatasetTransformer {
-    static final String SPECIES_IDENTIFICATION = "species-identification";
-    static final String IDENTIFIED_SPECIES_CON = "identified-species-con";
+    static final String SPECIES_IDENTIFICATION = "SpeciesIdentification";
+    static final String IDENTIFIED_SPECIES_CON = "IdentifiedSpeciesCon";
 
     private static final String IMAGES = "db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0";
     private static final String RESULTS = "ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4";
@@ -23,7 +25,7 @@ public class Dataset3Transformer extends DatasetTransformer {
     @Override
     protected Document createTI(IndexedDocument indexedDS) {
         TraversalInformation ti = new TraversalInformation();
-        ti.setBundleName(newQNWithBlankNS(SPECIES_IDENTIFICATION + "-bundle"));
+        ti.setBundleName(newQNWithBlankNS(SPECIES_IDENTIFICATION + "Bundle"));
 
         MainActivity mA = new MainActivity(newQNWithBlankNS(SPECIES_IDENTIFICATION));
         ti.setMainActivity(mA);
@@ -31,6 +33,7 @@ public class Dataset3Transformer extends DatasetTransformer {
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON));
+        bC.setReferencedBundleId(newQNWithBlankNS(PROCESSING + "Bundle"));
 
         SpecializationOf specBc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), bC.getId());
         indexedDS.add(specBc);
@@ -38,6 +41,7 @@ public class Dataset3Transformer extends DatasetTransformer {
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
         BackwardConnector bcStored = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
+        bcStored.setReferencedBundleId(newQNWithBlankNS(SAMPLING + "Bundle"));
         bC.setDerivedFrom(List.of(bcStored.getId()));
 
         ti.setBackwardConnectors(List.of(bC, bcStored));

@@ -15,32 +15,37 @@
   "@graph" : [ {
     "@type" : "Bundle",
     "@context" : [ { }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
-    "@id" : "_:dna-sequencing-bundle",
+    "@id": "_:DnaSequencingBundle",
     "@graph" : [ {
       "@type" : "Activity",
-      "@id" : "_:dna-sequencing",
+      "@id": "_:DnaSequencing",
       "dct:hasPart" : [ "_:DataProcessingActivity", "_:MaterialProcessingActivity4", "_:MaterialProcessingActivity3", "_:StoringActivity", "_:MaterialProcessingActivity1", "_:StoringActivity2", "_:MaterialAcquiringActivity1", "_:MaterialProcessingActivity2", "_:TransportingDNAFiltersToSequencingIsUs" ],
       "type" : [ "cpm:mainActivity" ]
     }, {
       "@type" : "Usage",
-      "activity" : "_:dna-sequencing",
-      "entity" : "_:stored-sample-con-r2-3um"
+      "activity": "_:DnaSequencing",
+      "entity": "_:StoredSampleCon_r2_3um"
     }, {
       "@type" : "Generation",
-      "entity" : "_:filtered-sequences-con",
-      "activity" : "_:dna-sequencing"
+      "entity": "_:FilteredSequencesCon",
+      "activity": "_:DnaSequencing"
     }, {
       "@type" : "Entity",
-      "@id" : "_:stored-sample-con-r2-3um",
-      "type" : [ "cpm:backwardConnector" ]
+      "@id": "_:StoredSampleCon_r2_3um",
+      "type": [
+        "cpm:backwardConnector"
+      ],
+      "cpm:referencedBundleId": [
+        "_:SamplingBundle"
+      ]
     }, {
       "@type" : "Entity",
-      "@id" : "_:filtered-sequences-con",
+      "@id": "_:FilteredSequencesCon",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Derivation",
-      "generatedEntity" : "_:filtered-sequences-con",
-      "usedEntity" : "_:stored-sample-con-r2-3um"
+      "generatedEntity": "_:FilteredSequencesCon",
+      "usedEntity": "_:StoredSampleCon_r2_3um"
     }, {
       "@type" : "Entity",
       "@id" : "_:SiU_BP_0001_b",
@@ -722,11 +727,11 @@
     }, {
       "@type" : "Specialization",
       "specificEntity" : "_:BigProject_belgium_water_10m_1000um_r2_3um",
-      "generalEntity" : "_:stored-sample-con-r2-3um"
+      "generalEntity": "_:StoredSampleCon_r2_3um"
     }, {
       "@type" : "Specialization",
       "specificEntity" : "gen:6dff3f85a8f1fc9ddb2b58fd748861080efab7de4e1360c39d24feb8050a297c",
-      "generalEntity" : "_:filtered-sequences-con"
+      "generalEntity": "_:FilteredSequencesCon"
     }, {
       "@type" : "Influence",
       "influencee" : "gen:e52905692cf1e9e08079fcc8bdc9f9f760f4399e75f6ee6c93138435f91be76b",
