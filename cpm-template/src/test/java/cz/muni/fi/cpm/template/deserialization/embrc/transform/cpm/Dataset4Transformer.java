@@ -55,11 +55,24 @@ public class Dataset4Transformer extends DatasetTransformer {
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
+        Entity r23um_stored1 = pF.newEntity(newQNWithBlankNS(SAMPLE_R2_3UM + "_stored1"));
+        indexedDS.add(r23um_stored1);
+
+        WasGeneratedBy genStored1 = pF.newWasGeneratedBy(null, r23um_stored1.getId(), newQNWithBlankNS(STORING_ACTIVITY_1));
+        indexedDS.add(genStored1);
+
+        Used usedStored = pF.newUsed(newQNWithBlankNS(TRANSPORTING_ACTIVITY), r23um_stored1.getId());
+        indexedDS.add(usedStored);
+
         Entity r23um_transported = pF.newEntity(newQNWithBlankNS(SAMPLE_R2_3UM + "_transported"));
         indexedDS.add(r23um_transported);
 
         WasGeneratedBy genTrans = pF.newWasGeneratedBy(null, r23um_transported.getId(), newQNWithBlankNS(TRANSPORTING_ACTIVITY));
         indexedDS.add(genTrans);
+
+        indexedDS.getUsed().removeIf(u ->
+                Objects.equals(u.getEntity(), newQNWithBlankNS(SAMPLE_R2_3UM))
+                        && Objects.equals(u.getActivity(), newQNWithBlankNS(TRANSPORTING_ACTIVITY)));
 
         Used usedAcq = pF.newUsed(newQNWithBlankNS(ACQUIRING_ACTIVITY), r23um_transported.getId());
         indexedDS.add(usedAcq);
@@ -77,17 +90,17 @@ public class Dataset4Transformer extends DatasetTransformer {
         Used usedStore2 = pF.newUsed(newQNWithBlankNS(STORING_ACTIVITY_2), r23um_acquired.getId());
         indexedDS.add(usedStore2);
 
-        Entity r23um_stored = pF.newEntity(newQNWithBlankNS(SAMPLE_R2_3UM + "_stored"));
-        indexedDS.add(r23um_stored);
+        Entity r23um_stored2 = pF.newEntity(newQNWithBlankNS(SAMPLE_R2_3UM + "_stored2"));
+        indexedDS.add(r23um_stored2);
 
-        WasGeneratedBy genStored2 = pF.newWasGeneratedBy(null, r23um_stored.getId(), newQNWithBlankNS(STORING_ACTIVITY_2));
+        WasGeneratedBy genStored2 = pF.newWasGeneratedBy(null, r23um_stored2.getId(), newQNWithBlankNS(STORING_ACTIVITY_2));
         indexedDS.add(genStored2);
 
         indexedDS.getUsed().removeIf(u ->
                 Objects.equals(u.getEntity(), newQNWithBlankNS(SAMPLE_R2_3UM))
                         && Objects.equals(u.getActivity(), newQNWithBlankNS(STORING_ACTIVITY_2)));
 
-        Used usedProc1 = pF.newUsed(newQNWithBlankNS(M_PROCESSING_ACTIVITY), r23um_stored.getId());
+        Used usedProc1 = pF.newUsed(newQNWithBlankNS(M_PROCESSING_ACTIVITY), r23um_stored2.getId());
         indexedDS.add(usedProc1);
 
         Entity rawSequencesRes = indexedDS.getEntity(newQnWithGenNS(DIGITAL_SEQUENCES_RES));

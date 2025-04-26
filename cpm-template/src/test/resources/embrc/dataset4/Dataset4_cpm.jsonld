@@ -69,6 +69,9 @@
       } ]
     }, {
       "@type" : "Entity",
+      "@id" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored2"
+    }, {
+      "@type" : "Entity",
       "@id" : "gen:6de974e3039938b1f9491839521c28cdb6447bb7286ce3b2e705523a0bbbf0d7",
       "schema:name" : [ {
         "@value" : "Illumina filtering with proprietary software"
@@ -90,9 +93,6 @@
         "@value" : "https://vocab.nerc.ac.uk/collection/L05/current/113/"
       } ],
       "type" : [ "schema:Thing" ]
-    }, {
-      "@type" : "Entity",
-      "@id" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored"
     }, {
       "@type" : "Entity",
       "@id" : "_:NCBI_txid1874687",
@@ -155,6 +155,9 @@
         "@value" : "centrifuge"
       } ],
       "type" : [ "schema:Thing" ]
+    }, {
+      "@type" : "Entity",
+      "@id" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored1"
     }, {
       "@type" : "Entity",
       "@id" : "gen:0e65a7073c1069eb2fd589f691a2b611b8767fb7b04d580abd854abf932774ef",
@@ -526,10 +529,6 @@
       "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
     }, {
       "@type" : "Usage",
-      "activity" : "_:TransportingDNAFiltersToSequencingIsUs",
-      "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um"
-    }, {
-      "@type" : "Usage",
       "activity" : "_:StoringActivity2",
       "entity" : "gen:6a3784dc2ccf422d90e9407efe7739eadfa23af77cb0d1af4fcfca120379f7ef"
     }, {
@@ -594,6 +593,10 @@
       "entity" : "gen:9f1c2750a08dc77b9fdb815d05a476f27af1131e3af5003b73d5d7d6c3503b47"
     }, {
       "@type" : "Usage",
+      "activity" : "_:TransportingDNAFiltersToSequencingIsUs",
+      "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored1"
+    }, {
+      "@type" : "Usage",
       "activity" : "_:MaterialAcquiringActivity1",
       "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um_transported"
     }, {
@@ -603,7 +606,7 @@
     }, {
       "@type" : "Usage",
       "activity" : "_:MaterialProcessingActivity1",
-      "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored"
+      "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored2"
     }, {
       "@type" : "Generation",
       "entity" : "_:SiU_BP_0001_a",
@@ -622,6 +625,10 @@
       "activity" : "_:DataProcessingActivity"
     }, {
       "@type" : "Generation",
+      "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored1",
+      "activity" : "_:StoringActivity"
+    }, {
+      "@type" : "Generation",
       "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um_transported",
       "activity" : "_:TransportingDNAFiltersToSequencingIsUs"
     }, {
@@ -630,7 +637,7 @@
       "activity" : "_:MaterialAcquiringActivity1"
     }, {
       "@type" : "Generation",
-      "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored",
+      "entity" : "_:BigProject_belgium_water_10m_1000um_r2_3um_stored2",
       "activity" : "_:StoringActivity2"
     }, {
       "@type" : "Generation",
