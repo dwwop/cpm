@@ -284,20 +284,20 @@
 <title>&#45;attrs6&#45;&gt;https://openprovenance.org/blank#NCBI_txid1874687</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1662.25,-63.32C1662.25,-84.11 1662.25,-113.58 1662.25,-132.08"/>
 </g>
-<!-- gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7 -->
+<!-- gen/5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7 -->
 <!-- PROV_ENTITY gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7 -->
 <g id="node15" class="node">
-<title>gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7</title>
-<g id="a_node15"><a xlink:href="gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7" xlink:title="5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7">
+<title>gen/5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7</title>
+<g id="a_node15"><a xlink:href="gen/5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7" xlink:title="5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7">
 <ellipse fill="#fffc87" stroke="#808080" cx="1087.25" cy="-150.38" rx="293.44" ry="18"/>
 <text text-anchor="middle" x="1087.25" y="-145.32" font-family="Times New Roman,serif" font-size="14.00">5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7</text>
 </a>
 </g>
 </g>
-<!-- gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7&#45;&gt;https://openprovenance.org/blank#MaterialProcessing -->
+<!-- gen/5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7&#45;&gt;https://openprovenance.org/blank#MaterialProcessing -->
 <!-- PROV_GENERATION _:_ -->
 <g id="edge17" class="edge">
-<title>gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7&#45;&gt;https://openprovenance.org/blank#MaterialProcessing</title>
+<title>gen/5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7&#45;&gt;https://openprovenance.org/blank#MaterialProcessing</title>
 <path fill="none" stroke="black" d="M1035.98,-168.55C997.97,-181.99 945.34,-202.11 901.25,-224.5 889.63,-230.4 877.46,-237.7 866.64,-244.64"/>
 <polygon fill="black" stroke="black" points="864.85,-241.62 858.4,-250.02 868.68,-247.48 864.85,-241.62"/>
 <text text-anchor="middle" x="1033.3" y="-180.58" font-family="Times New Roman,serif" font-size="8.00">gen</text>
@@ -315,17 +315,17 @@
 <text text-anchor="start" x="847.38" y="-21" font-family="Times New Roman,serif" font-size="10.00">description:</text>
 <text text-anchor="start" x="898.12" y="-21" font-family="Times New Roman,serif" font-size="10.00">the first set of images taken by the flowcam are stored in /Users/NMSlab/flowcam/20210101/BigProject...</text>
 </g>
-<!-- &#45;attrs7&#45;&gt;gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7 -->
+<!-- &#45;attrs7&#45;&gt;gen/5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7 -->
 <!-- null _:_ -->
 <g id="edge8" class="edge">
-<title>&#45;attrs7&#45;&gt;gen5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7</title>
+<title>&#45;attrs7&#45;&gt;gen/5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M1087.25,-63.32C1087.25,-84.11 1087.25,-113.58 1087.25,-132.08"/>
 </g>
-<!-- gena237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575 -->
+<!-- gen/a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575 -->
 <!-- PROV_ENTITY gen:a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575 -->
 <g id="node17" class="node">
-<title>gena237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575</title>
-<g id="a_node17"><a xlink:href="gena237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575" xlink:title="a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575">
+<title>gen/a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575</title>
+<g id="a_node17"><a xlink:href="gen/a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575" xlink:title="a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575">
 <ellipse fill="#fffc87" stroke="#808080" cx="2059.25" cy="-150.38" rx="294.97" ry="18"/>
 <text text-anchor="middle" x="2059.25" y="-145.32" font-family="Times New Roman,serif" font-size="14.00">a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575</text>
 </a>
@@ -346,10 +346,10 @@
 <text text-anchor="start" x="1958.88" y="-14.38" font-family="Times New Roman,serif" font-size="10.00">address:</text>
 <text text-anchor="start" x="1993.88" y="-14.38" font-family="Times New Roman,serif" font-size="10.00">NiceMarineStation Rd, Ostend, Belgium</text>
 </g>
-<!-- &#45;attrs8&#45;&gt;gena237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575 -->
+<!-- &#45;attrs8&#45;&gt;gen/a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575 -->
 <!-- null _:_ -->
 <g id="edge9" class="edge">
-<title>&#45;attrs8&#45;&gt;gena237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575</title>
+<title>&#45;attrs8&#45;&gt;gen/a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575</title>
 <path fill="none" stroke="gray" stroke-dasharray="5,2" d="M2059.25,-69.84C2059.25,-89.97 2059.25,-115.55 2059.25,-132.18"/>
 </g>
 <!-- &#45;attrs9 -->

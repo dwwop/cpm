@@ -1,7 +1,7 @@
 {
   "@context" : [ {
     "schema" : "https://schema.org/",
-    "gen" : "gen",
+    "gen" : "gen/",
     "seadatanet" : "https://edmo.seadatanet.org/report/",
     "cpm" : "https://www.commonprovenancemodel.org/cpm-namespace-v1-0/",
     "dct" : "http://purl.org/dc/terms/",
@@ -13,50 +13,42 @@
   "@graph" : [ {
     "@type" : "Bundle",
     "@context" : [ { }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
-    "@id": "_:SpeciesIdentificationBundle",
+    "@id" : "_:SpeciesIdentificationBundle",
     "@graph" : [ {
       "@type" : "Activity",
-      "@id": "_:SpeciesIdentification",
+      "@id" : "_:SpeciesIdentification",
       "dct:hasPart" : [ "_:FlowCamSpeciesIdentification" ],
       "type" : [ "cpm:mainActivity" ]
     }, {
       "@type" : "Usage",
-      "activity": "_:SpeciesIdentification",
-      "entity": "_:ProcessedSampleCon"
+      "activity" : "_:SpeciesIdentification",
+      "entity" : "_:ProcessedSampleCon"
     }, {
       "@type" : "Generation",
-      "entity": "_:IdentifiedSpeciesCon",
-      "activity": "_:SpeciesIdentification"
+      "entity" : "_:IdentifiedSpeciesCon",
+      "activity" : "_:SpeciesIdentification"
     }, {
       "@type" : "Entity",
-      "@id": "_:ProcessedSampleCon",
-      "type": [
-        "cpm:backwardConnector"
-      ],
-      "cpm:referencedBundleId": [
-        "_:ProcessingBundle"
-      ]
+      "@id" : "_:ProcessedSampleCon",
+      "type" : [ "cpm:backwardConnector" ],
+      "cpm:referencedBundleId" : [ "_:ProcessingBundle" ]
     }, {
       "@type" : "Derivation",
-      "generatedEntity": "_:ProcessedSampleCon",
-      "usedEntity": "_:StoredSampleCon_r1"
+      "generatedEntity" : "_:ProcessedSampleCon",
+      "usedEntity" : "_:StoredSampleCon_r1"
     }, {
       "@type" : "Entity",
-      "@id": "_:StoredSampleCon_r1",
-      "type": [
-        "cpm:backwardConnector"
-      ],
-      "cpm:referencedBundleId": [
-        "_:SamplingBundle"
-      ]
+      "@id" : "_:StoredSampleCon_r1",
+      "type" : [ "cpm:backwardConnector" ],
+      "cpm:referencedBundleId" : [ "_:SamplingBundle" ]
     }, {
       "@type" : "Entity",
-      "@id": "_:IdentifiedSpeciesCon",
+      "@id" : "_:IdentifiedSpeciesCon",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Derivation",
-      "generatedEntity": "_:IdentifiedSpeciesCon",
-      "usedEntity": "_:ProcessedSampleCon"
+      "generatedEntity" : "_:IdentifiedSpeciesCon",
+      "usedEntity" : "_:ProcessedSampleCon"
     }, {
       "@type" : "Entity",
       "@id" : "_:classification_QC",
@@ -172,11 +164,11 @@
     }, {
       "@type" : "Specialization",
       "specificEntity" : "gen:db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0",
-      "generalEntity": "_:ProcessedSampleCon"
+      "generalEntity" : "_:ProcessedSampleCon"
     }, {
       "@type" : "Specialization",
       "specificEntity" : "gen:ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4",
-      "generalEntity": "_:IdentifiedSpeciesCon"
+      "generalEntity" : "_:IdentifiedSpeciesCon"
     } ]
   } ]
 }

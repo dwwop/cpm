@@ -7,7 +7,7 @@
       "schema": "https://schema.org/",
       "prov": "http://www.w3.org/ns/prov#",
       "_": "https://openprovenance.org/blank#",
-      "gen": "gen"
+      "gen": "gen/"
     },
     "https://openprovenance.org/prov-jsonld/context.jsonld"
   ]

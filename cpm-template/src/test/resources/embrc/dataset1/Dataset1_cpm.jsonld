@@ -5,7 +5,7 @@
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
     "orcid" : "https://orcid.org/",
     "obolibrary" : "http://purl.obolibrary.org/obo/",
-    "gen" : "gen",
+    "gen" : "gen/",
     "seadatanet" : "https://edmo.seadatanet.org/report/",
     "dct" : "http://purl.org/dc/terms/",
     "marineregions" : "http://marineregions.org/mrgid/",
@@ -17,87 +17,63 @@
   "@graph" : [ {
     "@type" : "Bundle",
     "@context" : [ { }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
-    "@id": "_:SamplingBundle",
+    "@id" : "_:SamplingBundle",
     "@graph" : [ {
       "@type" : "Activity",
-      "@id": "_:Sampling",
-      "dct:hasPart" : [ "gen:fd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2", "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2", "gen:09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80", "gen:67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925", "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99", "gen:324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a" ],
+      "@id" : "_:Sampling",
+      "dct:hasPart" : [ "gen:09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80", "gen:fd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2", "gen:324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a", "gen:36294ecf35d15ba81da0bb55dfd8ee07934568e28ec56a51774b3e331ed6fd99", "gen:67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925", "gen:190fd43b1968737f3501420a6bfd9b74873e32416c6e14fef26238fbe3b197a2" ],
       "type" : [ "cpm:mainActivity" ]
     }, {
       "@type" : "Generation",
-      "entity": "_:StoredSampleCon_r1",
-      "activity": "_:Sampling"
+      "entity" : "_:StoredSampleCon_r1",
+      "activity" : "_:Sampling"
     }, {
       "@type" : "Generation",
-      "entity": "_:StoredSampleCon_r2_3um",
-      "activity": "_:Sampling"
+      "entity" : "_:StoredSampleCon_r2_3um",
+      "activity" : "_:Sampling"
     }, {
       "@type" : "Entity",
-      "@id": "_:StoredSampleCon_r1",
+      "@id" : "_:StoredSampleCon_r1",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Entity",
-      "@id": "_:StoredSampleCon_r1_Spec",
-      "type": [
-        "cpm:forwardConnector"
-      ],
-      "cpm:referencedBundleId": [
-        "_:ProcessingBundle"
-      ]
-    },
-      {
-        "@type": "Specialization",
-        "specificEntity": "_:StoredSampleCon_r1_Spec",
-        "generalEntity": "_:StoredSampleCon_r1"
+      "@id" : "_:StoredSampleCon_r1_Spec",
+      "type" : [ "cpm:forwardConnector" ],
+      "cpm:referencedBundleId" : [ "_:ProcessingBundle" ]
+    }, {
+      "@type" : "Specialization",
+      "specificEntity" : "_:StoredSampleCon_r1_Spec",
+      "generalEntity" : "_:StoredSampleCon_r1"
     }, {
       "@type" : "Entity",
-        "@id": "_:StoredSampleCon_r2_3um",
+      "@id" : "_:StoredSampleCon_r2_3um",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Entity",
-        "@id": "_:StoredSampleCon_r2_3um_Spec",
-        "type": [
-          "cpm:forwardConnector"
-        ],
-        "cpm:referencedBundleId": [
-          "_:DnaSequencingBundle"
-        ]
+      "@id" : "_:StoredSampleCon_r2_3um_Spec",
+      "type" : [ "cpm:forwardConnector" ],
+      "cpm:referencedBundleId" : [ "_:DnaSequencingBundle" ]
     }, {
-        "@type": "Specialization",
-        "specificEntity": "_:StoredSampleCon_r2_3um_Spec",
-        "generalEntity": "_:StoredSampleCon_r2_3um"
+      "@type" : "Specialization",
+      "specificEntity" : "_:StoredSampleCon_r2_3um_Spec",
+      "generalEntity" : "_:StoredSampleCon_r2_3um"
     }, {
       "@type" : "Entity",
-        "@id": "_:IdentifiedSpeciesCon",
+      "@id" : "_:IdentifiedSpeciesCon",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Derivation",
-        "generatedEntity": "_:IdentifiedSpeciesCon",
-        "usedEntity": "_:StoredSampleCon_r1"
+      "generatedEntity" : "_:IdentifiedSpeciesCon",
+      "usedEntity" : "_:StoredSampleCon_r1"
     }, {
       "@type" : "Entity",
-        "@id": "_:IdentifiedSpeciesConSpec",
-        "type": [
-          "cpm:forwardConnector"
-        ],
-        "cpm:referencedBundleId": [
-          "_:SpeciesIdentificationBundle"
-        ]
-      },
-      {
-        "@type": "Specialization",
-        "specificEntity": "_:IdentifiedSpeciesConSpec",
-        "generalEntity": "_:IdentifiedSpeciesCon"
+      "@id" : "_:IdentifiedSpeciesConSpec",
+      "type" : [ "cpm:forwardConnector" ],
+      "cpm:referencedBundleId" : [ "_:SpeciesIdentificationBundle" ]
     }, {
-      "@type" : "Entity",
-      "@id" : "gen:374da96f393f90611618df5475f7b17158935e3f8eecf9f419d878e8a82ac23c",
-      "schema:latitude" : [ {
-        "@value" : "51.249995"
-      } ],
-      "schema:longitude" : [ {
-        "@value" : "2.85327"
-      } ],
-      "type" : [ "schema:GeoCoordinates" ]
+      "@type" : "Specialization",
+      "specificEntity" : "_:IdentifiedSpeciesConSpec",
+      "generalEntity" : "_:IdentifiedSpeciesCon"
     }, {
       "@type" : "Entity",
       "@id" : "_:ABSPermit_ircc2345678",
@@ -125,11 +101,14 @@
       "type" : [ "schema:Permit", "schema:Thing", "schema:CreativeWork" ]
     }, {
       "@type" : "Entity",
-      "@id" : "gen:7d38ee5a6e0fc3fc67a78988647227bc0f07befb48f8101e78f726fb0c31ec64",
+      "@id" : "gen:92b8f2fa96e3b102c47d14fabec8e2a3ded5d27b5996e5a6967c8e39b062b9f5",
       "schema:name" : [ {
-        "@value" : "RV OurBigShip on-board lab"
+        "@value" : "Peristaltic pump (including pump heads, appropriate silicone tubes, stainless steel filter holders)"
       } ],
-      "type" : [ "schema:Place", "prov:Location" ]
+      "dct:type" : [ {
+        "@value" : "Masterflex - EW-07522-20"
+      } ],
+      "type" : [ "schema:Thing" ]
     }, {
       "@type" : "Entity",
       "@id" : "_:NiceMarineStation_rosette#1",
@@ -176,14 +155,10 @@
       "schema:description" : [ {
         "@value" : "water sample collected from 10m depth and filtered at 1000um"
       } ],
-        "type": [
-          "sosa:Sample",
-          "schema:Thing"
-        ]
-      },
-      {
-        "@type": "Entity",
-        "@id": "_:StoredSample_r2_3um",
+      "type" : [ "sosa:Sample", "schema:Thing" ]
+    }, {
+      "@type" : "Entity",
+      "@id" : "_:StoredSample_r2_3um",
       "type" : [ "sosa:Sample", "schema:Thing" ]
     }, {
       "@type" : "Entity",
@@ -236,6 +211,13 @@
       "type" : [ "sosa:Platform", "schema:Thing" ]
     }, {
       "@type" : "Entity",
+      "@id" : "gen:4a86c49fc31d3ba9b8a8e3c961dc7d1ef6cb59769f75fbd2b92aa36ef71b1fa2",
+      "sosa:hasFeatureOfInterest" : [ {
+        "@value" : "http://vocab.nerc.ac.uk/collection/A05/current/EV_SALIN"
+      } ],
+      "type" : [ "sosa:Observation" ]
+    }, {
+      "@type" : "Entity",
       "@id" : "marineregions:3293",
       "schema:name" : [ {
         "@value" : "Belgian EEZ"
@@ -249,11 +231,11 @@
       "type" : [ "schema:Place" ]
     }, {
       "@type" : "Entity",
-      "@id" : "gen:4a86c49fc31d3ba9b8a8e3c961dc7d1ef6cb59769f75fbd2b92aa36ef71b1fa2",
-      "sosa:hasFeatureOfInterest" : [ {
-        "@value" : "http://vocab.nerc.ac.uk/collection/A05/current/EV_SALIN"
+      "@id" : "gen:7d38ee5a6e0fc3fc67a78988647227bc0f07befb48f8101e78f726fb0c31ec64",
+      "schema:name" : [ {
+        "@value" : "RV OurBigShip on-board lab"
       } ],
-      "type" : [ "sosa:Observation" ]
+      "type" : [ "schema:Place", "prov:Location" ]
     }, {
       "@type" : "Entity",
       "@id" : "_:BigProject_belgium_water_10m",
@@ -277,23 +259,19 @@
       } ],
       "type" : [ "sosa:Sample", "schema:Thing" ]
     }, {
-        "@type": "Entity",
-        "@id": "_:StoredSample_r1",
-        "type": [
-          "sosa:Sample",
-          "schema:Thing"
-        ]
-      },
-      {
       "@type" : "Entity",
-      "@id" : "gen:92b8f2fa96e3b102c47d14fabec8e2a3ded5d27b5996e5a6967c8e39b062b9f5",
-      "schema:name" : [ {
-        "@value" : "Peristaltic pump (including pump heads, appropriate silicone tubes, stainless steel filter holders)"
+      "@id" : "gen:374da96f393f90611618df5475f7b17158935e3f8eecf9f419d878e8a82ac23c",
+      "schema:latitude" : [ {
+        "@value" : "51.249995"
       } ],
-      "dct:type" : [ {
-        "@value" : "Masterflex - EW-07522-20"
+      "schema:longitude" : [ {
+        "@value" : "2.85327"
       } ],
-      "type" : [ "schema:Thing" ]
+      "type" : [ "schema:GeoCoordinates" ]
+    }, {
+      "@type" : "Entity",
+      "@id" : "_:StoredSample_r1",
+      "type" : [ "sosa:Sample", "schema:Thing" ]
     }, {
       "@type" : "Entity",
       "@id" : "_:BigHappyOrganization_rosette#1"
@@ -343,6 +321,16 @@
       "type" : [ "schema:Thing", "schema:CreativeWork" ]
     }, {
       "@type" : "Entity",
+      "@id" : "gen:42936f9ee985b4cd422796235fa7d454c24693f07b97b65b2478f8df1ea6f5b2",
+      "schema:name" : [ {
+        "@value" : "1000 mesh"
+      } ],
+      "dct:type" : [ {
+        "@value" : "nylon mesh of 1000 um pore size"
+      } ],
+      "type" : [ "schema:Thing" ]
+    }, {
+      "@type" : "Entity",
       "@id" : "_:BigHappyOrganization_CTD#23",
       "schema:name" : [ {
         "@value" : "BigHappyOrganization CTD#23"
@@ -352,16 +340,6 @@
       } ],
       "dct:type" : [ {
         "@value" : "https://vocab.nerc.ac.uk/collection/L05/current/130"
-      } ],
-      "type" : [ "schema:Thing" ]
-    }, {
-      "@type" : "Entity",
-      "@id" : "gen:42936f9ee985b4cd422796235fa7d454c24693f07b97b65b2478f8df1ea6f5b2",
-      "schema:name" : [ {
-        "@value" : "1000 mesh"
-      } ],
-      "dct:type" : [ {
-        "@value" : "nylon mesh of 1000 um pore size"
       } ],
       "type" : [ "schema:Thing" ]
     }, {
@@ -429,22 +407,6 @@
       } ]
     }, {
       "@type" : "Activity",
-      "@id" : "gen:324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a",
-      "startTime" : "2021-01-01T00:00:00.000+01:00",
-      "endTime" : "2021-01-01T00:00:00.000+01:00",
-      "location" : [ {
-        "@value" : "gen:7d38ee5a6e0fc3fc67a78988647227bc0f07befb48f8101e78f726fb0c31ec64"
-      } ],
-      "schema:result" : [ "_:BigProject_belgium_water_10m_1000um_r1", "_:BigProject_belgium_water_10m_1000um_r2" ],
-      "dct:type" : [ {
-        "@value" : "Material processing, pre-filtering"
-      } ],
-      "type" : [ "schema:Action" ],
-      "schema:object" : [ {
-        "@value" : "_:BigProject_belgium_water_10m"
-      } ]
-    }, {
-      "@type" : "Activity",
       "@id" : "gen:09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80",
       "startTime" : "2021-01-01T00:00:00.000+01:00",
       "endTime" : "2021-01-01T00:00:00.000+01:00",
@@ -463,6 +425,22 @@
       "type" : [ "schema:Action" ],
       "schema:object" : [ {
         "@value" : "_:BigProject_belgium_water_10m_1000um_r1"
+      } ]
+    }, {
+      "@type" : "Activity",
+      "@id" : "gen:324df37d2e503522d56f379d8856e4d14599331df280bf0d011fe3060871261a",
+      "startTime" : "2021-01-01T00:00:00.000+01:00",
+      "endTime" : "2021-01-01T00:00:00.000+01:00",
+      "location" : [ {
+        "@value" : "gen:7d38ee5a6e0fc3fc67a78988647227bc0f07befb48f8101e78f726fb0c31ec64"
+      } ],
+      "schema:result" : [ "_:BigProject_belgium_water_10m_1000um_r1", "_:BigProject_belgium_water_10m_1000um_r2" ],
+      "dct:type" : [ {
+        "@value" : "Material processing, pre-filtering"
+      } ],
+      "type" : [ "schema:Action" ],
+      "schema:object" : [ {
+        "@value" : "_:BigProject_belgium_water_10m"
       } ]
     }, {
       "@type" : "Agent",
@@ -600,11 +578,11 @@
       "activity" : "gen:fd7e5c8ca79a78538b324f8426a3a6c48fdb58a0a3e2718e185455205b48d7e2"
     }, {
       "@type" : "Generation",
-        "entity": "_:StoredSample_r1",
+      "entity" : "_:StoredSample_r1",
       "activity" : "gen:09a6f65fe087c3806631e8926fa3cae8e049cfdfa2b0b63fe6de04bc88144e80"
     }, {
       "@type" : "Generation",
-        "entity": "_:StoredSample_r2_3um",
+      "entity" : "_:StoredSample_r2_3um",
       "activity" : "gen:67c557a442ca2446b987928fb47c4bbbd59c54395e61f01949d76c06e0106925"
     }, {
       "@type" : "Association",
@@ -656,17 +634,17 @@
         "@value" : "receiving agent"
       } ]
     }, {
-      "@type" : "Specialization",
-        "specificEntity": "_:StoredSample_r1",
-        "generalEntity": "_:StoredSampleCon_r1"
-    }, {
-      "@type" : "Specialization",
-        "specificEntity": "_:StoredSample_r2_3um",
-        "generalEntity": "_:StoredSampleCon_r2_3um"
-    }, {
       "@type" : "Influence",
       "influencee" : "_:ABSPermit_ircc2345678",
       "influencer" : "_:BigProject_belgium_water_10m"
+    }, {
+      "@type" : "Specialization",
+      "specificEntity" : "_:StoredSample_r1",
+      "generalEntity" : "_:StoredSampleCon_r1"
+    }, {
+      "@type" : "Specialization",
+      "specificEntity" : "_:StoredSample_r2_3um",
+      "generalEntity" : "_:StoredSampleCon_r2_3um"
     } ]
   } ]
 }

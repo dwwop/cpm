@@ -1,7 +1,7 @@
 {
   "@context" : [ {
     "schema" : "https://schema.org/",
-    "gen" : "gen",
+    "gen" : "gen/",
     "seadatanet" : "https://edmo.seadatanet.org/report/",
     "cpm" : "https://www.commonprovenancemodel.org/cpm-namespace-v1-0/",
     "dct" : "http://purl.org/dc/terms/",
@@ -15,52 +15,50 @@
   "@graph" : [ {
     "@type" : "Bundle",
     "@context" : [ { }, "https://openprovenance.org/prov-jsonld/context.jsonld" ],
-    "@id": "_:ProcessingBundle",
+    "@id" : "_:ProcessingBundle",
     "@graph" : [ {
       "@type" : "Activity",
-      "@id": "_:Processing",
+      "@id" : "_:Processing",
       "dct:hasPart" : [ "_:MaterialProcessing" ],
       "type" : [ "cpm:mainActivity" ]
     }, {
       "@type" : "Usage",
-      "activity": "_:Processing",
-      "entity": "_:StoredSampleCon_r1"
+      "activity" : "_:Processing",
+      "entity" : "_:StoredSampleCon_r1"
     }, {
       "@type" : "Generation",
-      "entity": "_:ProcessedSampleCon",
-      "activity": "_:Processing"
+      "entity" : "_:ProcessedSampleCon",
+      "activity" : "_:Processing"
     }, {
       "@type" : "Entity",
-      "@id": "_:StoredSampleCon_r1",
-      "type": [
-        "cpm:backwardConnector"
-      ],
-      "cpm:referencedBundleId": [
-        "_:SamplingBundle"
-      ]
+      "@id" : "_:StoredSampleCon_r1",
+      "type" : [ "cpm:backwardConnector" ],
+      "cpm:referencedBundleId" : [ "_:SamplingBundle" ]
     }, {
       "@type" : "Entity",
-      "@id": "_:ProcessedSampleCon",
+      "@id" : "_:ProcessedSampleCon",
       "type" : [ "cpm:forwardConnector" ]
     }, {
       "@type" : "Derivation",
-      "generatedEntity": "_:ProcessedSampleCon",
-      "usedEntity": "_:StoredSampleCon_r1"
+      "generatedEntity" : "_:ProcessedSampleCon",
+      "usedEntity" : "_:StoredSampleCon_r1"
     }, {
       "@type" : "Entity",
-      "@id": "_:ProcessedSampleConSpec",
-      "type": [
-        "cpm:forwardConnector"
-      ],
-      "cpm:referencedBundleId": [
-        "_:SpeciesIdentificationBundle"
-      ]
+      "@id" : "_:ProcessedSampleConSpec",
+      "type" : [ "cpm:forwardConnector" ],
+      "cpm:referencedBundleId" : [ "_:SpeciesIdentificationBundle" ]
     }, {
-      "@type": "Specialization",
-      "specificEntity": "_:ProcessedSampleConSpec",
-      "generalEntity": "_:ProcessedSampleCon"
-    },
-      {
+      "@type" : "Specialization",
+      "specificEntity" : "_:ProcessedSampleConSpec",
+      "generalEntity" : "_:ProcessedSampleCon"
+    }, {
+      "@type" : "Entity",
+      "@id" : "gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7",
+      "schema:description" : [ {
+        "@value" : "the first set of images taken by the flowcam are stored in /Users/NMSlab/flowcam/20210101/BigProject/raw"
+      } ],
+      "type" : [ "schema:Dataset", "schema:Thing" ]
+    }, {
       "@type" : "Entity",
       "@id" : "obolibrary:ENVO_00002150",
       "schema:name" : [ {
@@ -70,13 +68,6 @@
       "schema:termCode" : [ {
         "@value" : "ENVO_00002150"
       } ]
-    }, {
-      "@type" : "Entity",
-      "@id" : "gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7",
-      "schema:description" : [ {
-        "@value" : "the first set of images taken by the flowcam are stored in /Users/NMSlab/flowcam/20210101/BigProject/raw"
-      } ],
-      "type" : [ "schema:Dataset", "schema:Thing" ]
     }, {
       "@type" : "Entity",
       "@id" : "gen:a237c6fdc6c44c8dcda8bd87bd58b4690dcf34a0cc5732a1636bb1183f448575",
@@ -224,20 +215,20 @@
         "@value" : "lab technician"
       } ]
     }, {
-      "@type" : "Specialization",
-      "specificEntity" : "_:BigProject_belgium_water_10m_1000um_r1",
-        "generalEntity": "_:StoredSampleCon_r1"
-    }, {
-      "@type" : "Specialization",
-      "specificEntity" : "gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7",
-        "generalEntity": "_:ProcessedSampleCon"
-    }, {
       "@type" : "Influence",
       "influencee" : "_:NMS_flowcam_2010",
       "influencer" : "_:VisualSpreadsheet_FlowCam",
       "schema:accessibilitySummary" : [ {
         "@value" : "see file flowcam-settings.txt for software and hardware settings"
       } ]
+    }, {
+      "@type" : "Specialization",
+      "specificEntity" : "_:BigProject_belgium_water_10m_1000um_r1",
+      "generalEntity" : "_:StoredSampleCon_r1"
+    }, {
+      "@type" : "Specialization",
+      "specificEntity" : "gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7",
+      "generalEntity" : "_:ProcessedSampleCon"
     } ]
   } ]
 }

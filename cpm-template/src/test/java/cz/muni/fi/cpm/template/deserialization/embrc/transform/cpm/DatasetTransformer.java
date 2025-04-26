@@ -8,7 +8,7 @@ import org.openprovenance.prov.model.*;
 public abstract class DatasetTransformer {
     protected static final String BLANK_NS = "https://openprovenance.org/blank#";
     protected static final String BLANK_PREFIX = "_";
-    protected static final String GEN_NS = "gen";
+    protected static final String GEN_NS = "gen/";
     protected static final String GEN_PREFIX = "gen";
     protected final ProvFactory pF;
     protected final ICpmProvFactory cPF;
