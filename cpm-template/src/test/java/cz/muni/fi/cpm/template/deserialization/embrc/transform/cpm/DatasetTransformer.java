@@ -24,18 +24,25 @@ public abstract class DatasetTransformer {
 
     public Document toDocument(Document dsDoc) {
         IndexedDocument indexedDS = new IndexedDocument(pF, dsDoc);
+
         modifyDS(indexedDS);
         Document ti = createTI(indexedDS);
         Document updatedDs = indexedDS.toDocument();
 
-        ((Bundle) ti.getStatementOrBundle().getFirst()).getStatement().addAll(u.getStatement(updatedDs));
+        Bundle bun = ((Bundle) ti.getStatementOrBundle().getFirst());
+        bun.getStatement().addAll(u.getStatement(updatedDs));
         ti.getNamespace().extendWith(updatedDs.getNamespace());
+
+        addCrossPartRelations(bun);
+
         return ti;
     }
 
     protected abstract Document createTI(IndexedDocument indexedDS);
 
     protected abstract void modifyDS(IndexedDocument indexedDS);
+
+    protected abstract void addCrossPartRelations(Bundle bun);
 
     protected QualifiedName newQNWithBlankNS(String localPart) {
         return pF.newQualifiedName(BLANK_NS, localPart, BLANK_PREFIX);

@@ -50,17 +50,11 @@ public class Dataset1Transformer extends DatasetTransformer {
         fcR1Spec.setReferencedBundleId(newQNWithBlankNS(PROCESSING + "Bundle"));
         fcR1Spec.setSpecializationOf(fcR1.getId());
 
-        SpecializationOf specR1 = pF.newSpecializationOf(newQNWithBlankNS(STORED_SAMPLE_R1), fcR1.getId());
-        indexedDS.add(specR1);
-
         ForwardConnector fcR23UM = new ForwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM));
 
         ForwardConnector fcR23UMSpec = new ForwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM + "_Spec"));
         fcR23UMSpec.setReferencedBundleId(newQNWithBlankNS(DNA_SEQUENCING + "Bundle"));
         fcR23UMSpec.setSpecializationOf(fcR23UM.getId());
-
-        SpecializationOf specR23UM = pF.newSpecializationOf(newQNWithBlankNS(STORED_SAMPLE_R2_3UM), fcR23UM.getId());
-        indexedDS.add(specR23UM);
 
         mA.setGenerated(List.of(fcR1.getId(), fcR23UM.getId()));
 
@@ -91,6 +85,15 @@ public class Dataset1Transformer extends DatasetTransformer {
 
         WasGeneratedBy storingGenR23UM = pF.newWasGeneratedBy(null, storedR23UM.getId(), newQnWithGenNS(STORING_ACTIVITY_R2_3um));
         indexedDS.add(storingGenR23UM);
+    }
+
+    @Override
+    protected void addCrossPartRelations(Bundle bun) {
+        SpecializationOf specR1 = pF.newSpecializationOf(newQNWithBlankNS(STORED_SAMPLE_R1), newQNWithBlankNS(STORED_SAMPLE_CON_R1));
+        bun.getStatement().add(specR1);
+
+        SpecializationOf specR23UM = pF.newSpecializationOf(newQNWithBlankNS(STORED_SAMPLE_R2_3UM), newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM));
+        bun.getStatement().add(specR23UM);
     }
 
 }

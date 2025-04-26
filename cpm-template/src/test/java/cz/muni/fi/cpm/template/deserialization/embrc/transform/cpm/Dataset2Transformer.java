@@ -33,9 +33,6 @@ public class Dataset2Transformer extends DatasetTransformer {
         bC.setReferencedBundleId(newQNWithBlankNS(SAMPLING + "Bundle"));
         ti.setBackwardConnectors(List.of(bC));
 
-        SpecializationOf specBc = pF.newSpecializationOf(newQNWithBlankNS(SAMPLE_R1), bC.getId());
-        indexedDS.add(specBc);
-
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
         ForwardConnector fC = new ForwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON));
@@ -44,9 +41,6 @@ public class Dataset2Transformer extends DatasetTransformer {
         ForwardConnector fCSpec = new ForwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON + "Spec"));
         fCSpec.setReferencedBundleId(newQNWithBlankNS(SPECIES_IDENTIFICATION + "Bundle"));
         fCSpec.setSpecializationOf(fC.getId());
-
-        SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), fC.getId());
-        indexedDS.add(specFc);
 
         mA.setGenerated(List.of(fC.getId()));
 
@@ -57,5 +51,14 @@ public class Dataset2Transformer extends DatasetTransformer {
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
+    }
+
+    @Override
+    protected void addCrossPartRelations(Bundle bun) {
+        SpecializationOf specBc = pF.newSpecializationOf(newQNWithBlankNS(SAMPLE_R1), newQNWithBlankNS(STORED_SAMPLE_CON_R1));
+        bun.getStatement().add(specBc);
+
+        SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), newQNWithBlankNS(PROCESSED_SAMPLE_CON));
+        bun.getStatement().add(specFc);
     }
 }

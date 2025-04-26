@@ -12,9 +12,8 @@ import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Datase
 import static cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.Dataset2Transformer.PROCESSING;
 
 public class Dataset3Transformer extends DatasetTransformer {
+    public static final String IDENTIFIED_SPECIES_CON = "IdentifiedSpeciesCon";
     static final String SPECIES_IDENTIFICATION = "SpeciesIdentification";
-    static final String IDENTIFIED_SPECIES_CON = "IdentifiedSpeciesCon";
-
     private static final String IMAGES = "db2aef1f9e9cdf745897953efba7931099655ee21f323526decd0ad11b4cc0e0";
     private static final String RESULTS = "ac6f25ecc17ae20cbb5789ee654db6d401c771b4ad4c9e971a0d960c3b596ac4";
 
@@ -35,9 +34,6 @@ public class Dataset3Transformer extends DatasetTransformer {
         BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON));
         bC.setReferencedBundleId(newQNWithBlankNS(PROCESSING + "Bundle"));
 
-        SpecializationOf specBc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), bC.getId());
-        indexedDS.add(specBc);
-
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
         BackwardConnector bcStored = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
@@ -50,14 +46,20 @@ public class Dataset3Transformer extends DatasetTransformer {
         fC.setDerivedFrom(List.of(bC.getId()));
         ti.setForwardConnectors(List.of(fC));
 
-        SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(RESULTS), fC.getId());
-        indexedDS.add(specFc);
-
         mA.setGenerated(List.of(fC.getId()));
         return mapper.map(ti);
     }
 
     @Override
     protected void modifyDS(IndexedDocument indexedDS) {
+    }
+
+    @Override
+    protected void addCrossPartRelations(Bundle bun) {
+        SpecializationOf specBc = pF.newSpecializationOf(newQnWithGenNS(IMAGES), newQNWithBlankNS(PROCESSED_SAMPLE_CON));
+        bun.getStatement().add(specBc);
+
+        SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(RESULTS), newQNWithBlankNS(IDENTIFIED_SPECIES_CON));
+        bun.getStatement().add(specFc);
     }
 }

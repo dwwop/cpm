@@ -44,15 +44,9 @@ public class Dataset4Transformer extends DatasetTransformer {
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
-        SpecializationOf specBc = pF.newSpecializationOf(newQNWithBlankNS(SAMPLE_R2_3UM), bC.getId());
-        indexedDS.add(specBc);
-
         ForwardConnector fC = new ForwardConnector(newQNWithBlankNS(FILTERED_SEQUENCES_CON));
         fC.setDerivedFrom(List.of(bC.getId()));
         ti.setForwardConnectors(List.of(fC));
-
-        SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(FILTERED_SEQUENCES), fC.getId());
-        indexedDS.add(specFc);
 
         mA.setGenerated(List.of(fC.getId()));
 
@@ -107,5 +101,14 @@ public class Dataset4Transformer extends DatasetTransformer {
                 .removeIf(w -> Objects.equals(w.getEntity(), rawSequencesRes.getId())
                         && Objects.equals(w.getActivity(), newQNWithBlankNS(M_PROCESSING_ACTIVITY_4)));
         indexedDS.getEntities().remove(rawSequencesRes);
+    }
+
+    @Override
+    protected void addCrossPartRelations(Bundle bun) {
+        SpecializationOf specBc = pF.newSpecializationOf(newQNWithBlankNS(SAMPLE_R2_3UM), newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM));
+        bun.getStatement().add(specBc);
+
+        SpecializationOf specFc = pF.newSpecializationOf(newQnWithGenNS(FILTERED_SEQUENCES), newQNWithBlankNS(FILTERED_SEQUENCES_CON));
+        bun.getStatement().add(specFc);
     }
 }
