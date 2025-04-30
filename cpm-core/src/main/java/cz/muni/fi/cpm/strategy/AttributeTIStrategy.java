@@ -1,9 +1,9 @@
 package cz.muni.fi.cpm.strategy;
 
-import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.constants.DctAttributeConstants;
 import cz.muni.fi.cpm.constants.DctNamespaceConstants;
+import cz.muni.fi.cpm.model.CpmUtilities;
 import cz.muni.fi.cpm.model.IEdge;
 import cz.muni.fi.cpm.model.INode;
 import cz.muni.fi.cpm.model.ITIStrategy;
@@ -11,7 +11,6 @@ import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
 import java.util.List;
-import java.util.Objects;
 
 import static cz.muni.fi.cpm.model.CpmUtilities.hasCpmType;
 import static cz.muni.fi.cpm.model.CpmUtilities.hasValidCpmType;
@@ -30,19 +29,13 @@ public class AttributeTIStrategy implements ITIStrategy {
                         element.getLocation().isEmpty() && element.getLabel().isEmpty() &&
                         (element.getType().isEmpty() ||
                                 element.getType().stream().allMatch(t -> t.getValue() instanceof QualifiedName qN &&
-                                        belongsToCpmNs(qN))) &&
+                                        CpmUtilities.belongsToCpmNs(qN))) &&
                         element.getOther().stream().allMatch(x ->
-                                belongsToCpmNs(x.getElementName()) ||
+                                CpmUtilities.belongsToCpmNs(x.getElementName()) ||
                                         (x.getElementName() instanceof QualifiedName qN2 &&
                                                 DctNamespaceConstants.DCT_PREFIX.equals(qN2.getPrefix()) &&
                                                 DctNamespaceConstants.DCT_NS.equals(qN2.getNamespaceURI()) &&
                                                 DctAttributeConstants.HAS_PART.equals(qN2.getLocalPart()))));
-    }
-
-    private static boolean belongsToCpmNs(QualifiedName qN) {
-        return qN != null &&
-                Objects.equals(qN.getNamespaceURI(), CpmNamespaceConstants.CPM_NS) &&
-                Objects.equals(qN.getPrefix(), CpmNamespaceConstants.CPM_PREFIX);
     }
 
     @Override

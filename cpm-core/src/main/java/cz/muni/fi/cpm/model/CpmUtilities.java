@@ -37,8 +37,7 @@ public class CpmUtilities {
         // All types must be QualifiedName
         Set<String> typeStrings = types.stream()
                 .map(t -> ((QualifiedName) t.getValue()))
-                .filter(qn -> CpmNamespaceConstants.CPM_NS.equals(qn.getNamespaceURI()) &&
-                        CpmNamespaceConstants.CPM_PREFIX.equals(qn.getPrefix()))
+                .filter(CpmUtilities::belongsToCpmNs)
                 .map(QualifiedName::getLocalPart)
                 .collect(Collectors.toSet());
 
@@ -82,9 +81,7 @@ public class CpmUtilities {
         return statement instanceof HasType element &&
                 element.getType().stream().anyMatch(x ->
                         x.getValue() instanceof QualifiedName qN &&
-                                CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
-                                Objects.equals(type.toString(), qN.getLocalPart()));
+                                belongsToCpmNs(qN) && Objects.equals(type.toString(), qN.getLocalPart()));
     }
 
     /**
@@ -102,9 +99,7 @@ public class CpmUtilities {
         return statement instanceof HasOther element &&
                 element.getOther().stream().anyMatch(x ->
                         x.getElementName() instanceof QualifiedName qN &&
-                                CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
-                                Objects.equals(attr.toString(), qN.getLocalPart()));
+                                belongsToCpmNs(qN) && Objects.equals(attr.toString(), qN.getLocalPart()));
     }
 
     /**
@@ -120,9 +115,20 @@ public class CpmUtilities {
         return node.getElements().stream().anyMatch(element ->
                 element != null && element.getType().stream().anyMatch(x ->
                         x.getValue() instanceof QualifiedName qN &&
-                                CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
+                                belongsToCpmNs(qN) &&
                                 (CpmType.FORWARD_CONNECTOR.toString().equals(qN.getLocalPart()) ||
                                         CpmType.BACKWARD_CONNECTOR.toString().equals(qN.getLocalPart()))));
+    }
+
+    /**
+     * Checks if the given {@link QualifiedName} belongs to the CPM namespace.
+     *
+     * @param qN the qualified name to check
+     * @return true if the name is in the CPM namespace with the correct prefix, false otherwise
+     */
+    public static boolean belongsToCpmNs(QualifiedName qN) {
+        return qN != null &&
+                Objects.equals(qN.getNamespaceURI(), CpmNamespaceConstants.CPM_NS) &&
+                Objects.equals(qN.getPrefix(), CpmNamespaceConstants.CPM_PREFIX);
     }
 }
