@@ -1,6 +1,9 @@
 package cz.muni.fi.cpm.constants;
 
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
+
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,9 +29,21 @@ public enum CpmType {
     );
 
     private final String value;
+    public static final Set<String> AGENTS = Set.of(SENDER_AGENT.toString(), RECEIVER_AGENT.toString());
+
+
 
     CpmType(String value) {
         this.value = value;
+    }
+
+    public static CpmType fromString(String value) {
+        for (CpmType type : CpmType.values()) {
+            if (type.value.equals(value)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("Unknown value: " + value);
     }
 
     public String toString() {

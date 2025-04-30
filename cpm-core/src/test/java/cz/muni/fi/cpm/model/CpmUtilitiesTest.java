@@ -227,20 +227,63 @@ public class CpmUtilitiesTest {
         }
     }
 
+    @Test
+    public void hasValidCpmType_bothForwardAndBackwardConnector_returnsFalse() {
+        QualifiedName backward = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                CpmType.BACKWARD_CONNECTOR.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        QualifiedName forward = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                CpmType.FORWARD_CONNECTOR.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute bacAtr = pF.newType(backward, pF.getName().PROV_QUALIFIED_NAME);
+        Attribute forAtr = pF.newType(forward, pF.getName().PROV_QUALIFIED_NAME);
+
+        Element element = pF.newEntity(id, List.of(bacAtr, forAtr));
+        INode node = cF.newNode(element);
+
+        assertFalse(CpmUtilities.hasValidCpmType(node));
+    }
 
     @Test
-    public void hasAnyCpmType_noType_returnsFalse() {
+    public void hasValidCpmType_bothReceiverAndSenderAgent_returnsTrue() {
+        QualifiedName receiverAgent = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                CpmType.RECEIVER_AGENT.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        QualifiedName senderAgent = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                CpmType.SENDER_AGENT.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "agent", "ex");
+        Attribute recAtr = pF.newType(receiverAgent, pF.getName().PROV_QUALIFIED_NAME);
+        Attribute senAtr = pF.newType(senderAgent, pF.getName().PROV_QUALIFIED_NAME);
+
+        Element element = pF.newAgent(id, List.of(recAtr, senAtr));
+        INode node = cF.newNode(element);
+
+        assertTrue(CpmUtilities.hasValidCpmType(node));
+    }
+
+    @Test
+    public void hasValidCpmType_noType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Element element = pF.newEntity(id);
         INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasAnyCpmType(node));
+        assertFalse(CpmUtilities.hasValidCpmType(node));
     }
 
 
     @Test
-    public void hasAnyCpmType_invalidType_returnsFalse() {
+    public void hasValidCpmType_invalidType_returnsFalse() {
         org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
         Attribute invalidType = pF.newType(
@@ -250,7 +293,7 @@ public class CpmUtilitiesTest {
         Element element = pF.newEntity(id, Collections.singletonList(invalidType));
         INode node = cF.newNode(element);
 
-        assertFalse(CpmUtilities.hasAnyCpmType(node));
+        assertFalse(CpmUtilities.hasValidCpmType(node));
     }
 
     @Test

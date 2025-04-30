@@ -3,12 +3,13 @@ package cz.muni.fi.cpm.model;
 import cz.muni.fi.cpm.constants.CpmAttribute;
 import cz.muni.fi.cpm.constants.CpmNamespaceConstants;
 import cz.muni.fi.cpm.constants.CpmType;
-import org.openprovenance.prov.model.HasOther;
-import org.openprovenance.prov.model.HasType;
-import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.Statement;
+import org.openprovenance.prov.model.*;
+import org.openprovenance.prov.model.StatementOrBundle.Kind;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -18,21 +19,35 @@ public class CpmUtilities {
 
     /**
      * Checks if the given {@link INode} has any supported CPM type.
-     * This method verifies if any of the elements in the node contain a type that matches
-     * the CPM namespace, prefix, and is listed in {@link CpmType#STRING_VALUES}.
+     * This method verifies if the types of the elements in the node contain only types that match
+     * the CPM namespace, prefix, are listed in {@link CpmType#STRING_VALUES}, the combination of {@link CpmType}
+     * and {@link Kind} is valid
      *
      * @param node the {@link INode} to check
      * @return {@code true} if the node has any element with a supported CPM type, {@code false} otherwise
      */
-    public static boolean hasAnyCpmType(INode node) {
+    public static boolean hasValidCpmType(INode node) {
         if (node == null) return false;
 
-        return node.getElements().stream().anyMatch(element ->
-                element != null && element.getType().stream().anyMatch(x ->
-                        x.getValue() instanceof QualifiedName qN &&
-                                CpmNamespaceConstants.CPM_NS.equals(qN.getNamespaceURI()) &&
-                                CpmNamespaceConstants.CPM_PREFIX.equals(qN.getPrefix()) &&
-                                CpmType.STRING_VALUES.contains(qN.getLocalPart())));
+        List<Type> types = node.getElements().stream().flatMap(e -> e.getType().stream()).distinct().toList();
+
+        // All types must be QualifiedName
+        if (types.stream().anyMatch(t -> !(t.getValue() instanceof QualifiedName))) return false;
+
+        // All types must be QualifiedName
+        Set<String> typeStrings = types.stream()
+                .map(t -> ((QualifiedName) t.getValue()))
+                .filter(qn -> CpmNamespaceConstants.CPM_NS.equals(qn.getNamespaceURI()) &&
+                        CpmNamespaceConstants.CPM_PREFIX.equals(qn.getPrefix()))
+                .map(QualifiedName::getLocalPart)
+                .collect(Collectors.toSet());
+
+        // Two subtypes allowed only for sender and receiver agent
+        if (typeStrings.size() != 1 && !CpmType.AGENTS.equals(typeStrings)) return false;
+
+        return typeStrings.stream().allMatch(lp ->
+                CpmType.STRING_VALUES.contains(lp) &&
+                        CpmType.CPM_TYPE_TO_KIND.get(CpmType.fromString(lp)) == node.getKind());
     }
 
     /**

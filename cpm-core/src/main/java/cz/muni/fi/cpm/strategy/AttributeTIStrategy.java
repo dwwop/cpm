@@ -13,8 +13,8 @@ import org.openprovenance.prov.model.StatementOrBundle.Kind;
 import java.util.List;
 import java.util.Objects;
 
-import static cz.muni.fi.cpm.model.CpmUtilities.hasAnyCpmType;
 import static cz.muni.fi.cpm.model.CpmUtilities.hasCpmType;
+import static cz.muni.fi.cpm.model.CpmUtilities.hasValidCpmType;
 
 
 /**
@@ -29,8 +29,7 @@ public class AttributeTIStrategy implements ITIStrategy {
                 element != null &&
                         element.getLocation().isEmpty() && element.getLabel().isEmpty() &&
                         (element.getType().isEmpty() ||
-                                (element.getType().size() == 1 &&
-                                        element.getType().getFirst().getValue() instanceof QualifiedName qN &&
+                                element.getType().stream().allMatch(t -> t.getValue() instanceof QualifiedName qN &&
                                         belongsToCpmNs(qN))) &&
                         element.getOther().stream().allMatch(x ->
                                 belongsToCpmNs(x.getElementName()) ||
@@ -51,18 +50,18 @@ public class AttributeTIStrategy implements ITIStrategy {
         if (node == null) return false;
         if (hasNonTIAttributes(node)) return false;
 
-        boolean hasNodeAnyCpmType = hasAnyCpmType(node);
+        boolean hasNodeValidCpmType = hasValidCpmType(node);
 
         List<INode> generalNodes = node.getEffectEdges().stream()
                 .filter(x -> Kind.PROV_SPECIALIZATION.equals(x.getKind()))
                 .map(IEdge::getCause).toList();
 
-        if (generalNodes.isEmpty() && hasNodeAnyCpmType) return true;
+        if (generalNodes.isEmpty() && hasNodeValidCpmType) return true;
         if (generalNodes.size() != 1) return false;
 
         INode generalNode = generalNodes.getFirst();
         if (hasNonTIAttributes(generalNode)) return false;
         return hasCpmType(generalNode, CpmType.FORWARD_CONNECTOR) &&
-                (!hasNodeAnyCpmType || hasCpmType(node, CpmType.FORWARD_CONNECTOR));
+                (!hasNodeValidCpmType || hasCpmType(node, CpmType.FORWARD_CONNECTOR));
     }
 }
