@@ -86,6 +86,22 @@ public class CpmUtilitiesTest {
     }
 
     @Test
+    public void hasCpmType_receiverAgentInvalidKind_returnsFalse() {
+        QualifiedName receiverAgent = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                CpmType.RECEIVER_AGENT.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "agent", "ex");
+        Attribute recAtr = pF.newType(receiverAgent, pF.getName().PROV_QUALIFIED_NAME);
+
+        Element element = pF.newEntity(id, List.of(recAtr));
+        INode node = cF.newNode(element);
+
+        assertFalse(CpmUtilities.hasCpmType(node, CpmType.RECEIVER_AGENT));
+    }
+
+    @Test
     public void hasCpmType_withInvalidUri_returnsFalse() {
         QualifiedName validQualifiedName = new QualifiedName(
                 "invalidUri",
@@ -199,10 +215,15 @@ public class CpmUtilitiesTest {
             org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
 
             Attribute cpmType = cPF.newCpmType(type);
-            Element element = pF.newEntity(id, Collections.singletonList(cpmType));
+            Element element = switch (CpmType.CPM_TYPE_TO_KIND.get(type)) {
+                case PROV_AGENT -> pF.newAgent(id, Collections.singletonList(cpmType));
+                case PROV_ACTIVITY -> pF.newActivity(id, null, null, Collections.singletonList(cpmType));
+                case PROV_ENTITY -> pF.newEntity(id, Collections.singletonList(cpmType));
+                default -> throw new IllegalStateException("Unexpected value: " + CpmType.CPM_TYPE_TO_KIND.get(type));
+            };
             INode node = cF.newNode(element);
 
-            assertTrue(CpmUtilities.hasAnyCpmType(node));
+            assertTrue(CpmUtilities.hasValidCpmType(node));
         }
     }
 

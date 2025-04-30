@@ -53,7 +53,7 @@ public class CpmUtilities {
     /**
      * Checks if the given {@link Statement} has a specific CPM type.
      * This method verifies if the statement contains a type that matches
-     * the CPM namespace, prefix, and the specified {@link CpmType}.
+     * the CPM namespace, prefix, the specified {@link CpmType} and the combination of {@link CpmType} and {@link Kind}.
      *
      * @param statement the {@link Statement} to check
      * @param type      the {@link CpmType} to compare against
@@ -61,6 +61,8 @@ public class CpmUtilities {
      */
     public static boolean hasCpmType(Statement statement, CpmType type) {
         if (statement == null || type == null) return false;
+
+        if (CpmType.CPM_TYPE_TO_KIND.get(type) != statement.getKind()) return false;
 
         return statement instanceof HasType element &&
                 element.getType().stream().anyMatch(x ->

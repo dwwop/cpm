@@ -16,6 +16,15 @@ public enum CpmType {
             .map(CpmType::toString)
             .collect(Collectors.toSet());
 
+    public static final Map<CpmType, Kind> CPM_TYPE_TO_KIND = Map.of(
+            BACKWARD_CONNECTOR, Kind.PROV_ENTITY,
+            FORWARD_CONNECTOR, Kind.PROV_ENTITY,
+            IDENTIFIER, Kind.PROV_ENTITY,
+            MAIN_ACTIVITY, Kind.PROV_ACTIVITY,
+            SENDER_AGENT, Kind.PROV_AGENT,
+            RECEIVER_AGENT, Kind.PROV_AGENT
+    );
+
     private final String value;
 
     CpmType(String value) {
