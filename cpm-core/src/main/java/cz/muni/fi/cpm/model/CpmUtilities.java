@@ -85,21 +85,39 @@ public class CpmUtilities {
     }
 
     /**
-     * Checks if the given {@link Statement} contains a specific CPM attribute.
+     * Checks if the given {@link HasOther} contains a specific CPM attribute.
      * This method verifies if the statement includes an "other" attribute matching
      * the CPM namespace, prefix, and the specified {@link CpmAttribute}.
      *
-     * @param statement the {@link Statement} to check
+     * @param statement the {@link HasOther} to check
      * @param attr      the {@link CpmAttribute} to compare against
      * @return {@code true} if the statement contains the specified CPM attribute, {@code false} otherwise
      */
-    public static boolean containsCpmAttribute(Statement statement, CpmAttribute attr) {
+    public static boolean containsCpmAttribute(HasOther statement, CpmAttribute attr) {
         if (statement == null || attr == null) return false;
 
-        return statement instanceof HasOther element &&
-                element.getOther().stream().anyMatch(x ->
+        return statement.getOther().stream().anyMatch(x ->
+                x.getElementName() instanceof QualifiedName qN && belongsToCpmNs(qN) &&
+                        Objects.equals(attr.toString(), qN.getLocalPart()));
+    }
+
+    /**
+     * Retrieves the value of a specific CPM attribute from the given {@link HasOther} statement.
+     * This method searches the "other" attributes for one that matches the CPM namespace and
+     * the specified {@link CpmAttribute}. If found, the value of the attribute is returned.
+     *
+     * @param statement the {@link HasOther} to search
+     * @param attr      the {@link CpmAttribute} to retrieve
+     * @return the value of the specified CPM attribute, or {@code null} if not present
+     */
+    public static Object getCpmAttributeValue(HasOther statement, CpmAttribute attr) {
+        if (statement == null || attr == null) return null;
+        return statement.getOther().stream().filter(x ->
                         x.getElementName() instanceof QualifiedName qN &&
-                                belongsToCpmNs(qN) && Objects.equals(attr.toString(), qN.getLocalPart()));
+                                belongsToCpmNs(qN) && Objects.equals(attr.toString(), qN.getLocalPart()))
+                .findFirst()
+                .map(Attribute::getValue)
+                .orElse(null);
     }
 
     /**
@@ -112,12 +130,23 @@ public class CpmUtilities {
      */
     public static boolean isConnector(INode node) {
         if (node == null) return false;
-        return node.getElements().stream().anyMatch(element ->
-                element != null && element.getType().stream().anyMatch(x ->
-                        x.getValue() instanceof QualifiedName qN &&
-                                belongsToCpmNs(qN) &&
-                                (CpmType.FORWARD_CONNECTOR.toString().equals(qN.getLocalPart()) ||
-                                        CpmType.BACKWARD_CONNECTOR.toString().equals(qN.getLocalPart()))));
+        return node.getElements().stream().anyMatch(e -> e instanceof Entity en && isConnector(en));
+    }
+
+    /**
+     * Checks if the given {@link Entity} is considered a connector.
+     * A connector is defined as having a type matching either
+     * {@link CpmType#FORWARD_CONNECTOR} or {@link CpmType#BACKWARD_CONNECTOR}.
+     *
+     * @param entity the {@link Entity} to check
+     * @return {@code true} if the entity is a connector, {@code false} otherwise
+     */
+    public static boolean isConnector(Entity entity) {
+        return entity != null && entity.getType().stream().anyMatch(x ->
+                x.getValue() instanceof QualifiedName qN &&
+                        belongsToCpmNs(qN) &&
+                        (CpmType.FORWARD_CONNECTOR.toString().equals(qN.getLocalPart()) ||
+                                CpmType.BACKWARD_CONNECTOR.toString().equals(qN.getLocalPart())));
     }
 
     /**

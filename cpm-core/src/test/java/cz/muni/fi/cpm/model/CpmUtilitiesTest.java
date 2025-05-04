@@ -12,6 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Element;
+import org.openprovenance.prov.model.LangString;
 import org.openprovenance.prov.vanilla.ProvFactory;
 import org.openprovenance.prov.vanilla.QualifiedName;
 
@@ -19,8 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CpmUtilitiesTest {
@@ -331,4 +331,42 @@ public class CpmUtilitiesTest {
 
         assertFalse(CpmUtilities.containsCpmAttribute(element, CpmAttribute.REFERENCED_BUNDLE_ID));
     }
+
+    @Test
+    public void getCpmAttributeValue_withNull_returnsNull() {
+        assertNull(CpmUtilities.getCpmAttributeValue(null, CpmAttribute.REFERENCED_BUNDLE_ID));
+        assertNull(CpmUtilities.getCpmAttributeValue(pF.newEntity(pF.newQualifiedName("uri", "entity", "ex"), List.of()), null));
+    }
+
+    @Test
+    public void getAttributeValue_validCpmAttribute_returnsValue() {
+        QualifiedName validQualifiedName = new QualifiedName(
+                CpmNamespaceConstants.CPM_NS,
+                CpmAttribute.REFERENCED_BUNDLE_ID.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute attribute = pF.newOther(validQualifiedName, "ref123", pF.getName().XSD_STRING);
+
+        Element element = pF.newEntity(id, Collections.singletonList(attribute));
+
+        LangString lS = pF.newInternationalizedString("ref123");
+        assertEquals(lS, CpmUtilities.getCpmAttributeValue(element, CpmAttribute.REFERENCED_BUNDLE_ID));
+    }
+
+    @Test
+    public void getCpmAttributeValue_wrongNs_returnsNull() {
+        QualifiedName wrongQualifiedName = new QualifiedName(
+                "wrong",
+                CpmAttribute.REFERENCED_BUNDLE_ID.toString(),
+                CpmNamespaceConstants.CPM_PREFIX);
+
+        org.openprovenance.prov.model.QualifiedName id = pF.newQualifiedName("uri", "entity", "ex");
+        Attribute attribute = pF.newOther(wrongQualifiedName, "ref123", pF.getName().XSD_STRING);
+
+        Element element = pF.newEntity(id, Collections.singletonList(attribute));
+
+        assertNull(CpmUtilities.getCpmAttributeValue(element, CpmAttribute.REFERENCED_BUNDLE_ID));
+    }
+
 }
