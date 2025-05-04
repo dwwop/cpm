@@ -14,7 +14,7 @@ public enum CpmAttribute {
     REFERENCED_META_BUNDLE_ID("referencedMetaBundleId"),
     PROVENANCE_SERVICE_URI("provenanceServiceUri"),
     HASH_VALUE("hashValue"),
-    REFERENCED_BUNDLE_HASH_VALUE("referencedBundlehashValue"),
+    REFERENCED_BUNDLE_HASH_VALUE("referencedBundleHashValue"),
     HASH_ALG("hashAlg"),
     CONTACT_ID_PID("contactIdPid");
 
