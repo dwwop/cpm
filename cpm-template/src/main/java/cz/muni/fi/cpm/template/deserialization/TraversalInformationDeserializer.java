@@ -2,7 +2,6 @@ package cz.muni.fi.cpm.template.deserialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.template.mapper.ITemplateProvMapper;
 import cz.muni.fi.cpm.template.mapper.TemplateProvMapper;
 import cz.muni.fi.cpm.template.schema.TraversalInformation;
@@ -21,14 +20,14 @@ public class TraversalInformationDeserializer implements ITraversalInformationDe
     private final ObjectMapper mapper;
     private final ITemplateProvMapper templateMapper;
 
-    public TraversalInformationDeserializer(ObjectMapper mapper, ICpmProvFactory cpmFactory) {
+    public TraversalInformationDeserializer(ObjectMapper mapper, ITemplateProvMapper tM) {
         this.mapper = mapper;
         customize(mapper);
-        this.templateMapper = new TemplateProvMapper(cpmFactory);
+        this.templateMapper = tM;
     }
 
     public TraversalInformationDeserializer() {
-        this(new ObjectMapper(), new CpmProvFactory());
+        this(new ObjectMapper(), new TemplateProvMapper(new CpmProvFactory()));
     }
 
     @Override
