@@ -4,6 +4,6 @@ public class NameConstants {
     public static final String ACQUISITION = "acquisition";
     public static final String ACQUISITION_CON = "sampleAcqConnector";
 
-    public static final String STORE = "store";
-    public static final String STORE_CON = "sampleStoreConnector";
+    public static final String STORAGE = "storage";
+    public static final String STOR_CON = "sampleStorConnector";
 }

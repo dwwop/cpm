@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.template.deserialization.mou.transform.store;
+package cz.muni.fi.cpm.template.deserialization.mou.transform.storage;
 
 import cz.muni.fi.cpm.constants.CpmType;
 import cz.muni.fi.cpm.model.CpmUtilities;
@@ -19,14 +19,14 @@ import static cz.muni.fi.cpm.constants.DctAttributeConstants.HAS_PART;
 import static cz.muni.fi.cpm.constants.DctNamespaceConstants.DCT_NS;
 import static cz.muni.fi.cpm.constants.DctNamespaceConstants.DCT_PREFIX;
 import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstants.ACQUISITION_CON;
-import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstants.STORE_CON;
+import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstants.STOR_CON;
 
-public abstract class StoreTransformer extends PatientTransformer implements ProvTemplateHandler {
-    public StoreTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
+public abstract class StorageTransformer extends PatientTransformer implements ProvTemplateHandler {
+    public StorageTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
         super(patient, pF, cPF, pbmF);
     }
 
-    private void addStoreDSToDocument(Document doc, String suffix, String sampleId, Function<Entity, Void> populateStore) {
+    private void addStorageDSToDocument(Document doc, String suffix, String sampleId, Function<Entity, Void> populateStor) {
         Type sampleType = pbmF.newType(PbmType.SAMPLE);
 
         QualifiedName patientQN = pF.newQualifiedName(BBMRI_NS, "patient-" + patient.getId(), BBMRI_PREFIX);
@@ -51,26 +51,26 @@ public abstract class StoreTransformer extends PatientTransformer implements Pro
 
         WasGeneratedBy transGeneratedBy = pF.newWasGeneratedBy(null, sampleTransQN, transActivity);
 
-        QualifiedName storeActivity = pF.newQualifiedName(BBMRI_NS, "storeAct" + suffix, BBMRI_PREFIX);
-        Activity storeAc = pF.newActivity(storeActivity);
-        storeAc.getType().add(pbmF.newType(PbmType.STORAGE_ACTIVITY));
+        QualifiedName storActivity = pF.newQualifiedName(BBMRI_NS, "storageAct" + suffix, BBMRI_PREFIX);
+        Activity storAc = pF.newActivity(storActivity);
+        storAc.getType().add(pbmF.newType(PbmType.STORAGE_ACTIVITY));
 
-        Used storeUsed = pF.newUsed(storeActivity, sampleTransQN);
+        Used storUsed = pF.newUsed(storActivity, sampleTransQN);
 
-        Other sampleIdStoreOther = newOther("sampleId", sampleId);
-        QualifiedName sampleStoreQN = pF.newQualifiedName(BBMRI_NS, "sampleStore" + suffix, BBMRI_PREFIX);
-        Entity sampleStore = pF.newEntity(sampleStoreQN, List.of(sampleType, sampleIdStoreOther));
+        Other sampleIdStorOther = newOther("sampleId", sampleId);
+        QualifiedName sampleStorQN = pF.newQualifiedName(BBMRI_NS, "sampleStorage" + suffix, BBMRI_PREFIX);
+        Entity sampleStor = pF.newEntity(sampleStorQN, List.of(sampleType, sampleIdStorOther));
 
-        WasDerivedFrom sampleStoreDer = pF.newWasDerivedFrom(sampleStoreQN, patientQN);
+        WasDerivedFrom sampleStorDer = pF.newWasDerivedFrom(sampleStorQN, patientQN);
 
-        populateStore.apply(sampleStore);
+        populateStor.apply(sampleStor);
 
-        WasGeneratedBy storeGeneratedBy = pF.newWasGeneratedBy(null, sampleStoreQN, storeActivity);
+        WasGeneratedBy storGeneratedBy = pF.newWasGeneratedBy(null, sampleStorQN, storActivity);
 
-        SpecializationOf fcSpec = pF.newSpecializationOf(sampleStoreQN, doc.getNamespace().qualifiedName(BBMRI_PREFIX, STORE_CON + suffix, pF));
+        SpecializationOf fcSpec = pF.newSpecializationOf(sampleStorQN, doc.getNamespace().qualifiedName(BBMRI_PREFIX, STOR_CON + suffix, pF));
 
         Bundle bundle = (Bundle) doc.getStatementOrBundle().getFirst();
-        bundle.getStatement().addAll(List.of(bcSpec, trans, sampleTrans, transGeneratedBy, storeAc, storeUsed, sampleStore, storeGeneratedBy, fcSpec, patientE, sampleTransDer, sampleStoreDer));
+        bundle.getStatement().addAll(List.of(bcSpec, trans, sampleTrans, transGeneratedBy, storAc, storUsed, sampleStor, storGeneratedBy, fcSpec, patientE, sampleTransDer, sampleStorDer));
 
         for (Statement s : bundle.getStatement()) {
             if (CpmUtilities.hasCpmType(s, CpmType.MAIN_ACTIVITY)) {
@@ -81,7 +81,7 @@ public abstract class StoreTransformer extends PatientTransformer implements Pro
                         pF.getName().PROV_QUALIFIED_NAME));
                 mainActivity.getOther().add(pF.newOther(
                         pF.newQualifiedName(DCT_NS, HAS_PART, DCT_PREFIX),
-                        storeActivity,
+                        storActivity,
                         pF.getName().PROV_QUALIFIED_NAME));
             }
         }
@@ -89,7 +89,7 @@ public abstract class StoreTransformer extends PatientTransformer implements Pro
 
     @Override
     protected void addTissueDSToDoc(Document doc, String suffix, Tissue tissue) {
-        addStoreDSToDocument(doc, suffix, tissue.getSampleId(), entity ->
+        addStorageDSToDocument(doc, suffix, tissue.getSampleId(), entity ->
         {
             entity.getType().add(pF.newType(
                     pF.newQualifiedName(BBMRI_NS, "tissue", BBMRI_PREFIX),
@@ -111,7 +111,7 @@ public abstract class StoreTransformer extends PatientTransformer implements Pro
 
     @Override
     protected void addDMDSToDoc(Document doc, String suffix, DiagnosisMaterial dM) {
-        addStoreDSToDocument(doc, suffix, dM.getSampleId(), entity ->
+        addStorageDSToDocument(doc, suffix, dM.getSampleId(), entity ->
         {
             entity.getType().add(pF.newType(
                     pF.newQualifiedName(BBMRI_NS, "diagnosticMaterial", BBMRI_PREFIX),

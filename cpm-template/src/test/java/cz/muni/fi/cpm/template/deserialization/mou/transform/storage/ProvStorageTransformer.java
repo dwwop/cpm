@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.template.deserialization.mou.transform.store;
+package cz.muni.fi.cpm.template.deserialization.mou.transform.storage;
 
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.template.deserialization.mou.schema.Patient;
@@ -15,8 +15,8 @@ import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstant
 import static cz.muni.fi.cpm.template.deserialization.pbm.PbmNamespaceConstants.PBM_NS;
 import static cz.muni.fi.cpm.template.deserialization.pbm.PbmNamespaceConstants.PBM_PREFIX;
 
-public class ProvStoreTransformer extends StoreTransformer {
-    public ProvStoreTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
+public class ProvStorageTransformer extends StorageTransformer {
+    public ProvStorageTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
         super(patient, pF, cPF, pbmF);
     }
 
@@ -25,11 +25,11 @@ public class ProvStoreTransformer extends StoreTransformer {
 
         Bindings bindings = new Bindings();
         bindings.var = Map.of(
-                "main_activity_id", newQDescriptor(BBMRI_PREFIX + ":" + STORE + suffix),
-                "forward_conn_id", newQDescriptor(BBMRI_PREFIX + ":" + STORE_CON + suffix),
+                "main_activity_id", newQDescriptor(BBMRI_PREFIX + ":" + STORAGE + suffix),
+                "forward_conn_id", newQDescriptor(BBMRI_PREFIX + ":" + STOR_CON + suffix),
                 "sender_id", newQDescriptor(BBMRI_PREFIX + ":UNI"),
                 "backward_conn_id", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION_CON + suffix),
-                "bndl", newQDescriptor(BBMRI_PREFIX + ":" + STORE + "Bundle" + suffix),
+                "bndl", newQDescriptor(BBMRI_PREFIX + ":" + STORAGE + "Bundle" + suffix),
                 "ref_id", newQDescriptor(BBMRI_PREFIX + ":" + ACQUISITION + "Bundle" + suffix)
         );
 
@@ -37,7 +37,7 @@ public class ProvStoreTransformer extends StoreTransformer {
                 BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS, DCT_PREFIX, DCT_NS
         );
 
-        return newDocument(pF, bindings, "backbone_tmpl_store");
+        return newDocument(pF, bindings, "backbone_tmpl_stor");
     }
 
 }

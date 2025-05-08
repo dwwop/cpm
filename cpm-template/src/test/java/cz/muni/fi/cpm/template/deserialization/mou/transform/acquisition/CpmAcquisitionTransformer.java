@@ -40,7 +40,7 @@ public class CpmAcquisitionTransformer extends AcquisitionTransformer {
         QualifiedName fcSpecId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + "Spec" + suffix, pF);
         ForwardConnector fCSpec = new ForwardConnector(fcSpecId);
         fCSpec.setSpecializationOf(fcID);
-        fCSpec.setReferencedBundleId(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "Bundle" + suffix, pF));
+        fCSpec.setReferencedBundleId(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORAGE + "Bundle" + suffix, pF));
         ti.getForwardConnectors().add(fCSpec);
 
         QualifiedName agentId = ti.getNamespace().qualifiedName(BBMRI_PREFIX, patient.getBiobank(), pF);

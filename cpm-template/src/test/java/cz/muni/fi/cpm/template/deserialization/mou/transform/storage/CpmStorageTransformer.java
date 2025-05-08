@@ -1,4 +1,4 @@
-package cz.muni.fi.cpm.template.deserialization.mou.transform.store;
+package cz.muni.fi.cpm.template.deserialization.mou.transform.storage;
 
 import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.template.deserialization.mou.schema.Patient;
@@ -15,8 +15,8 @@ import static cz.muni.fi.cpm.template.deserialization.mou.constants.NameConstant
 import static cz.muni.fi.cpm.template.deserialization.pbm.PbmNamespaceConstants.PBM_NS;
 import static cz.muni.fi.cpm.template.deserialization.pbm.PbmNamespaceConstants.PBM_PREFIX;
 
-public class CpmStoreTransformer extends StoreTransformer {
-    public CpmStoreTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
+public class CpmStorageTransformer extends StorageTransformer {
+    public CpmStorageTransformer(Patient patient, ProvFactory pF, ICpmProvFactory cPF, PbmFactory pbmF) {
         super(patient, pF, cPF, pbmF);
     }
 
@@ -24,9 +24,9 @@ public class CpmStoreTransformer extends StoreTransformer {
     protected Document createTI(String suffix) {
         TraversalInformation ti = new TraversalInformation();
         ti.setPrefixes(Map.of(BBMRI_PREFIX, BBMRI_NS, PBM_PREFIX, PBM_NS));
-        ti.setBundleName(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + "Bundle" + suffix, pF));
+        ti.setBundleName(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORAGE + "Bundle" + suffix, pF));
 
-        MainActivity mA = new MainActivity(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE + suffix, pF));
+        MainActivity mA = new MainActivity(ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORAGE + suffix, pF));
         ti.setMainActivity(mA);
 
         QualifiedName aCID = ti.getNamespace().qualifiedName(BBMRI_PREFIX, ACQUISITION_CON + suffix, pF);
@@ -38,7 +38,7 @@ public class CpmStoreTransformer extends StoreTransformer {
         MainActivityUsed used = new MainActivityUsed(aCID);
         mA.setUsed(List.of(used));
 
-        QualifiedName fcID = ti.getNamespace().qualifiedName(BBMRI_PREFIX, STORE_CON + suffix, pF);
+        QualifiedName fcID = ti.getNamespace().qualifiedName(BBMRI_PREFIX, STOR_CON + suffix, pF);
         mA.setGenerated(List.of(fcID));
 
         ForwardConnector fC = new ForwardConnector(fcID);

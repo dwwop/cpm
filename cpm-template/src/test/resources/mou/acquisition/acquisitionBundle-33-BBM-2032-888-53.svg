@@ -141,13 +141,13 @@
 <!-- &#45;attrs3 -->
 <g id="node8" class="node">
 <title>&#45;attrs3</title>
-<polygon fill="none" stroke="gray" points="924.5,-77 653.5,-77 653.5,-40.5 930.5,-40.5 930.5,-71 924.5,-77"/>
-<polyline fill="none" stroke="gray" points="924.5,-77 924.5,-71"/>
-<polyline fill="none" stroke="gray" points="930.5,-71 924.5,-71"/>
-<text text-anchor="start" x="663.5" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">type:</text>
-<text text-anchor="start" x="748.75" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">cpm:forwardConnector</text>
-<text text-anchor="start" x="663.5" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">referencedBundleId:</text>
-<text text-anchor="start" x="748.75" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">bbmri:storeBundle&#45;33&#45;BBM:2032:888:53</text>
+<polygon fill="none" stroke="gray" points="929.38,-77 648.62,-77 648.62,-40.5 935.38,-40.5 935.38,-71 929.38,-77"/>
+<polyline fill="none" stroke="gray" points="929.38,-77 929.38,-71"/>
+<polyline fill="none" stroke="gray" points="935.38,-71 929.38,-71"/>
+<text text-anchor="start" x="658.62" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">type:</text>
+<text text-anchor="start" x="743.88" y="-61.5" font-family="Times New Roman,serif" font-size="10.00">cpm:forwardConnector</text>
+<text text-anchor="start" x="658.62" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">referencedBundleId:</text>
+<text text-anchor="start" x="743.88" y="-48.25" font-family="Times New Roman,serif" font-size="10.00">bbmri:storageBundle&#45;33&#45;BBM:2032:888:53</text>
 </g>
 <!-- &#45;attrs3&#45;&gt;http://www.bbmri.cz/schemas/biobank/data#sampleAcqConnectorSpec&#45;33&#45;BBM:2032:888:53 -->
 <!-- null _:_ -->
