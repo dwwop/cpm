@@ -29,15 +29,20 @@ public class Dataset3Transformer extends DatasetTransformer {
         MainActivity mA = new MainActivity(newQNWithBlankNS(SPECIES_IDENTIFICATION));
         ti.setMainActivity(mA);
 
+        SenderAgent stationAg = new SenderAgent(newQNWithBlankNS(NICE_MARINE_STATION));
+        ti.setSenderAgents(List.of(stationAg));
+
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON));
+        bC.setAttributedTo(new ConnectorAttributed(stationAg.getId()));
         bC.setReferencedBundleId(newQNWithBlankNS(PROCESSING + "Bundle"));
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
 
         BackwardConnector bcStored = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
         bcStored.setReferencedBundleId(newQNWithBlankNS(SAMPLING + "Bundle"));
+        bcStored.setAttributedTo(new ConnectorAttributed(stationAg.getId()));
         bC.setDerivedFrom(List.of(bcStored.getId()));
 
         ti.setBackwardConnectors(List.of(bC, bcStored));

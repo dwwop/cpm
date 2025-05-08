@@ -35,6 +35,10 @@
       "type" : [ "cpm:backwardConnector" ],
       "cpm:referencedBundleId" : [ "_:SamplingBundle" ]
     }, {
+      "@type" : "Attribution",
+      "entity" : "_:StoredSampleCon_r2_3um",
+      "agent" : "_:NiceMarineStation"
+    }, {
       "@type" : "Entity",
       "@id" : "_:FilteredSequencesCon",
       "type" : [ "cpm:forwardConnector" ]
@@ -42,6 +46,10 @@
       "@type" : "Derivation",
       "generatedEntity" : "_:FilteredSequencesCon",
       "usedEntity" : "_:StoredSampleCon_r2_3um"
+    }, {
+      "@type" : "Agent",
+      "@id" : "_:NiceMarineStation",
+      "type" : [ "cpm:senderAgent" ]
     }, {
       "@type" : "Entity",
       "@id" : "_:SiU_BP_0001_b",

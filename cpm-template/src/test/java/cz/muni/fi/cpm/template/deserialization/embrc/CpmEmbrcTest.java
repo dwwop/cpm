@@ -10,6 +10,7 @@ import cz.muni.fi.cpm.model.ICpmProvFactory;
 import cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm.*;
 import cz.muni.fi.cpm.template.deserialization.embrc.transform.jsonld.EmbrcTransformer;
 import cz.muni.fi.cpm.template.deserialization.embrc.transform.jsonld.ProvContextManager;
+import cz.muni.fi.cpm.template.deserialization.embrc.transform.storage.EmbrcProvStorageTransformer;
 import cz.muni.fi.cpm.template.util.GraphvizChecker;
 import cz.muni.fi.cpm.vanilla.CpmProvFactory;
 import org.junit.jupiter.api.MethodOrderer;
@@ -17,24 +18,24 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openprovenance.prov.interop.InteropFramework;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.ProvFactory;
 import org.openprovenance.prov.model.interop.Formats;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.stream.Stream;
 
 import static cz.muni.fi.cpm.template.constants.PathConstants.TEST_RESOURCES;
+import static cz.muni.fi.cpm.template.deserialization.embrc.transform.storage.EmbrcProvStorageTransformer.V0_SUFFIX;
+import static cz.muni.fi.cpm.template.deserialization.embrc.transform.storage.EmbrcProvStorageTransformer.V1_SUFFIX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CpmEmbrcTest {
-    private static final String EMBRC_FOLDER = "embrc" + File.separator;
+    public static final String EMBRC_FOLDER = "embrc" + File.separator;
 
     private final ProvFactory pF;
     private final ICpmProvFactory cPF;
@@ -46,27 +47,19 @@ public class CpmEmbrcTest {
         cF = new CpmMergedFactory(pF);
     }
 
-    private static Stream<Object[]> dataSetProvider() {
-        return Stream.of(
-                new Object[]{1},
-                new Object[]{2},
-                new Object[]{3},
-                new Object[]{4}
-        );
-    }
-
+    // 5 in TI for dataset 2, because sender and receiver agents are merged
     private static Stream<Object[]> documentProvider() {
         return Stream.of(
-                new Object[]{Dataset1Transformer.class, 1, 7, 35, 2},
-                new Object[]{Dataset2Transformer.class, 2, 4, 11, 2},
-                new Object[]{Dataset3Transformer.class, 3, 4, 7, 2},
-                new Object[]{Dataset4Transformer.class, 4, 3, 42, 2}
+                new Object[]{Dataset1Transformer.class, 1, 9, 35, 2},
+                new Object[]{Dataset2Transformer.class, 2, 5, 11, 2},
+                new Object[]{Dataset3Transformer.class, 3, 5, 7, 2},
+                new Object[]{Dataset4Transformer.class, 4, 4, 42, 2}
         );
     }
 
     @Order(0)
     @ParameterizedTest
-    @MethodSource("dataSetProvider")
+    @ValueSource(ints = {1, 2, 3, 4})
     public void transformEmbrcToProvJsonLD(int datasetNum) throws IOException, JsonLdError {
         String datasetFolder = "dataset" + datasetNum + File.separator;
         String inputFile = TEST_RESOURCES + EMBRC_FOLDER + datasetFolder + "Dataset" + datasetNum + "_ProvenanceMetadata.jsonld";
@@ -120,6 +113,36 @@ public class CpmEmbrcTest {
         } catch (IOException | InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Order(3)
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    public void transformCpmToProvStorageFormatV0(int datasetNum) throws IOException {
+        String datasetFolder = "dataset" + datasetNum + File.separator;
+        String filePath = TEST_RESOURCES + EMBRC_FOLDER + datasetFolder + "Dataset" + datasetNum + "_cpm";
+        EmbrcProvStorageTransformer pST = new EmbrcProvStorageTransformer(pF);
+
+        try (InputStream inputStream = new FileInputStream(filePath + ".jsonld")) {
+            ByteArrayOutputStream outputStreamV0 = pST.transformToV0(inputStream);
+            outputStreamV0.writeTo(new FileOutputStream(filePath + "_storage_v0.json"));
+        }
+    }
+
+    @Order(4)
+    @ParameterizedTest
+    @ValueSource(ints = {4, 3, 2, 1})
+    public void transformCpmToProvStorageFormatV1(int datasetNum) throws IOException {
+        String datasetFolder = "dataset" + datasetNum + File.separator;
+        String filePath = TEST_RESOURCES + EMBRC_FOLDER + datasetFolder + "Dataset" + datasetNum + "_cpm";
+        EmbrcProvStorageTransformer pST = new EmbrcProvStorageTransformer(pF);
+
+        try (InputStream inputStream = new FileInputStream(filePath + ".jsonld")) {
+            String suffix = datasetNum == 1 || datasetNum == 2 ? V1_SUFFIX : V0_SUFFIX;
+            ByteArrayOutputStream outputStreamV1 = pST.transformToV1(inputStream, suffix);
+            outputStreamV1.writeTo(new FileOutputStream(filePath + "_storage" + suffix + ".json"));
+
         }
     }
 }

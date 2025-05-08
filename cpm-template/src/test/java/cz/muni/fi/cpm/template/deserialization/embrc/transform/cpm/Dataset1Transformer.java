@@ -1,9 +1,7 @@
 package cz.muni.fi.cpm.template.deserialization.embrc.transform.cpm;
 
 import cz.muni.fi.cpm.model.ICpmProvFactory;
-import cz.muni.fi.cpm.template.schema.ForwardConnector;
-import cz.muni.fi.cpm.template.schema.MainActivity;
-import cz.muni.fi.cpm.template.schema.TraversalInformation;
+import cz.muni.fi.cpm.template.schema.*;
 import org.openprovenance.prov.model.*;
 
 import java.util.List;
@@ -44,17 +42,25 @@ public class Dataset1Transformer extends DatasetTransformer {
 
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
+        ReceiverAgent stationAg = new ReceiverAgent(newQNWithBlankNS(NICE_MARINE_STATION));
+
+        ReceiverAgent seqAg = new ReceiverAgent(newQNWithBlankNS(SEQUENCING_IS_US_HQ));
+
+        ti.setReceiverAgents(List.of(stationAg, seqAg));
+
         ForwardConnector fcR1 = new ForwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
 
         ForwardConnector fcR1Spec = new ForwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1 + "_Spec"));
         fcR1Spec.setReferencedBundleId(newQNWithBlankNS(PROCESSING + "Bundle"));
         fcR1Spec.setSpecializationOf(fcR1.getId());
+        fcR1Spec.setAttributedTo(new ConnectorAttributed(stationAg.getId()));
 
         ForwardConnector fcR23UM = new ForwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM));
 
         ForwardConnector fcR23UMSpec = new ForwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM + "_Spec"));
         fcR23UMSpec.setReferencedBundleId(newQNWithBlankNS(DNA_SEQUENCING + "Bundle"));
         fcR23UMSpec.setSpecializationOf(fcR23UM.getId());
+        fcR23UMSpec.setAttributedTo(new ConnectorAttributed(seqAg.getId()));
 
         mA.setGenerated(List.of(fcR1.getId(), fcR23UM.getId()));
 
@@ -64,8 +70,10 @@ public class Dataset1Transformer extends DatasetTransformer {
         ForwardConnector fCIdenSpec = new ForwardConnector(newQNWithBlankNS(IDENTIFIED_SPECIES_CON + "Spec"));
         fCIdenSpec.setReferencedBundleId(newQNWithBlankNS(SPECIES_IDENTIFICATION + "Bundle"));
         fCIdenSpec.setSpecializationOf(fCIden.getId());
+        fCIdenSpec.setAttributedTo(new ConnectorAttributed(stationAg.getId()));
 
         ti.getForwardConnectors().addAll(List.of(fcR1, fcR1Spec, fcR23UM, fcR23UMSpec, fCIden, fCIdenSpec));
+
 
         return mapper.map(ti);
     }

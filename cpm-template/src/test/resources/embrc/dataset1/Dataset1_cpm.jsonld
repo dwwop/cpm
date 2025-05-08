@@ -41,6 +41,10 @@
       "type" : [ "cpm:forwardConnector" ],
       "cpm:referencedBundleId" : [ "_:ProcessingBundle" ]
     }, {
+      "@type" : "Attribution",
+      "entity" : "_:StoredSampleCon_r1_Spec",
+      "agent" : "_:NiceMarineStation"
+    }, {
       "@type" : "Specialization",
       "specificEntity" : "_:StoredSampleCon_r1_Spec",
       "generalEntity" : "_:StoredSampleCon_r1"
@@ -53,6 +57,10 @@
       "@id" : "_:StoredSampleCon_r2_3um_Spec",
       "type" : [ "cpm:forwardConnector" ],
       "cpm:referencedBundleId" : [ "_:DnaSequencingBundle" ]
+    }, {
+      "@type" : "Attribution",
+      "entity" : "_:StoredSampleCon_r2_3um_Spec",
+      "agent" : "_:SequencingIsUsHQ"
     }, {
       "@type" : "Specialization",
       "specificEntity" : "_:StoredSampleCon_r2_3um_Spec",
@@ -71,9 +79,21 @@
       "type" : [ "cpm:forwardConnector" ],
       "cpm:referencedBundleId" : [ "_:SpeciesIdentificationBundle" ]
     }, {
+      "@type" : "Attribution",
+      "entity" : "_:IdentifiedSpeciesConSpec",
+      "agent" : "_:NiceMarineStation"
+    }, {
       "@type" : "Specialization",
       "specificEntity" : "_:IdentifiedSpeciesConSpec",
       "generalEntity" : "_:IdentifiedSpeciesCon"
+    }, {
+      "@type" : "Agent",
+      "@id" : "_:NiceMarineStation",
+      "type" : [ "cpm:receiverAgent" ]
+    }, {
+      "@type" : "Agent",
+      "@id" : "_:SequencingIsUsHQ",
+      "type" : [ "cpm:receiverAgent" ]
     }, {
       "@type" : "Entity",
       "@id" : "_:ABSPermit_ircc2345678",

@@ -27,10 +27,19 @@ public class Dataset2Transformer extends DatasetTransformer {
         MainActivity mA = new MainActivity(newQNWithBlankNS(PROCESSING));
         ti.setMainActivity(mA);
 
+        SenderAgent stationSenderAg = new SenderAgent(newQNWithBlankNS(NICE_MARINE_STATION));
+//        SenderAgent stationSenderAg = new SenderAgent(newQNWithBlankNS("NiceMarineStationSender"));
+        ti.setSenderAgents(List.of(stationSenderAg));
+
+        ReceiverAgent stationAg = new ReceiverAgent(newQNWithBlankNS("NiceMarineStation"));
+//        ReceiverAgent stationAg = new ReceiverAgent(newQNWithBlankNS("NiceMarineStationReceiver"));
+        ti.setReceiverAgents(List.of(stationAg));
+
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R1));
         bC.setReferencedBundleId(newQNWithBlankNS(SAMPLING + "Bundle"));
+        bC.setAttributedTo(new ConnectorAttributed(stationSenderAg.getId()));
         ti.setBackwardConnectors(List.of(bC));
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));
@@ -40,6 +49,7 @@ public class Dataset2Transformer extends DatasetTransformer {
 
         ForwardConnector fCSpec = new ForwardConnector(newQNWithBlankNS(PROCESSED_SAMPLE_CON + "Spec"));
         fCSpec.setReferencedBundleId(newQNWithBlankNS(SPECIES_IDENTIFICATION + "Bundle"));
+        fCSpec.setAttributedTo(new ConnectorAttributed(stationAg.getId()));
         fCSpec.setSpecializationOf(fC.getId());
 
         mA.setGenerated(List.of(fC.getId()));

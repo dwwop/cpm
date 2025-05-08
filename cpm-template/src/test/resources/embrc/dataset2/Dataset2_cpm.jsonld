@@ -35,6 +35,10 @@
       "type" : [ "cpm:backwardConnector" ],
       "cpm:referencedBundleId" : [ "_:SamplingBundle" ]
     }, {
+      "@type" : "Attribution",
+      "entity" : "_:StoredSampleCon_r1",
+      "agent" : "_:NiceMarineStation"
+    }, {
       "@type" : "Entity",
       "@id" : "_:ProcessedSampleCon",
       "type" : [ "cpm:forwardConnector" ]
@@ -48,9 +52,17 @@
       "type" : [ "cpm:forwardConnector" ],
       "cpm:referencedBundleId" : [ "_:SpeciesIdentificationBundle" ]
     }, {
+      "@type" : "Attribution",
+      "entity" : "_:ProcessedSampleConSpec",
+      "agent" : "_:NiceMarineStation"
+    }, {
       "@type" : "Specialization",
       "specificEntity" : "_:ProcessedSampleConSpec",
       "generalEntity" : "_:ProcessedSampleCon"
+    }, {
+      "@type" : "Agent",
+      "@id" : "_:NiceMarineStation",
+      "type" : [ "cpm:senderAgent", "cpm:receiverAgent" ]
     }, {
       "@type" : "Entity",
       "@id" : "gen:5017bc3edda5006a4c29737b48585fefdfd4ef740bed03ab10730ec86e4153d7",

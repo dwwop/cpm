@@ -36,10 +36,14 @@ public class Dataset4Transformer extends DatasetTransformer {
         MainActivity mA = new MainActivity(newQNWithBlankNS(DNA_SEQUENCING));
         ti.setMainActivity(mA);
 
+        SenderAgent stationAg = new SenderAgent(newQNWithBlankNS(NICE_MARINE_STATION));
+        ti.setSenderAgents(List.of(stationAg));
+
         mA.setHasPart(indexedDS.getActivities().stream().map(Identifiable::getId).toList());
 
         BackwardConnector bC = new BackwardConnector(newQNWithBlankNS(STORED_SAMPLE_CON_R2_3UM));
         bC.setReferencedBundleId(newQNWithBlankNS(SAMPLING + "Bundle"));
+        bC.setAttributedTo(new ConnectorAttributed(stationAg.getId()));
         ti.setBackwardConnectors(List.of(bC));
 
         mA.setUsed(List.of(new MainActivityUsed(bC.getId())));

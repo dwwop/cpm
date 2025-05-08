@@ -37,10 +37,18 @@
       "generatedEntity" : "_:ProcessedSampleCon",
       "usedEntity" : "_:StoredSampleCon_r1"
     }, {
+      "@type" : "Attribution",
+      "entity" : "_:ProcessedSampleCon",
+      "agent" : "_:NiceMarineStation"
+    }, {
       "@type" : "Entity",
       "@id" : "_:StoredSampleCon_r1",
       "type" : [ "cpm:backwardConnector" ],
       "cpm:referencedBundleId" : [ "_:SamplingBundle" ]
+    }, {
+      "@type" : "Attribution",
+      "entity" : "_:StoredSampleCon_r1",
+      "agent" : "_:NiceMarineStation"
     }, {
       "@type" : "Entity",
       "@id" : "_:IdentifiedSpeciesCon",
@@ -49,6 +57,10 @@
       "@type" : "Derivation",
       "generatedEntity" : "_:IdentifiedSpeciesCon",
       "usedEntity" : "_:ProcessedSampleCon"
+    }, {
+      "@type" : "Agent",
+      "@id" : "_:NiceMarineStation",
+      "type" : [ "cpm:senderAgent" ]
     }, {
       "@type" : "Entity",
       "@id" : "_:classification_QC",

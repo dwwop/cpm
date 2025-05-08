@@ -10,16 +10,20 @@ public abstract class DatasetTransformer {
     protected static final String BLANK_PREFIX = "_";
     protected static final String GEN_NS = "gen/";
     protected static final String GEN_PREFIX = "gen";
+
     protected final ProvFactory pF;
     protected final ICpmProvFactory cPF;
     protected final ProvUtilities u;
     protected final ITemplateProvMapper mapper;
 
+    protected static final String NICE_MARINE_STATION = "NiceMarineStation";
+    protected static final String SEQUENCING_IS_US_HQ = "SequencingIsUsHQ";
+
     public DatasetTransformer(ProvFactory pF, ICpmProvFactory cPF) {
         this.pF = pF;
         this.cPF = cPF;
         this.u = new ProvUtilities();
-        this.mapper = new TemplateProvMapper(cPF);
+        this.mapper = new TemplateProvMapper(cPF, true);
     }
 
     public Document toDocument(Document dsDoc) {
