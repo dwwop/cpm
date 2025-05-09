@@ -97,6 +97,19 @@ public class CpmDocument implements StatementAction {
         u.forAllStatement(crossPartEdges, this);
     }
 
+    public CpmDocument(List<Statement> statements, final QualifiedName bundleId, ProvFactory provFactory, ICpmProvFactory cPF, ICpmFactory cF) {
+        this.pF = provFactory;
+        this.cF = cF;
+        this.cPF = cPF;
+        this.bundleId = bundleId;
+
+        if (bundleId == null || statements == null) {
+            throw new IllegalArgumentException(CpmExceptionConstants.NOT_NULL_PARTS);
+        }
+
+        u.forAllStatement(statements, this);
+    }
+
     public void setTIStrategy(ITIStrategy strategy) {
         this.tiStrategy = strategy;
     }

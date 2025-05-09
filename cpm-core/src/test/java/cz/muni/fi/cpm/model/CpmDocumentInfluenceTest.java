@@ -343,7 +343,7 @@ public abstract class CpmDocumentInfluenceTest {
 
         QualifiedName bundleId = pF.newQualifiedName("uri", "bundle", "ex");
 
-        CpmDocument doc = new CpmDocument(List.of(), List.of(inf, cause, agent1, effect, agent2, activity1), List.of(), bundleId, pF, cPF, cF);
+        CpmDocument doc = new CpmDocument(List.of(inf, cause, agent1, effect, agent2, activity1), bundleId, pF, cPF, cF);
 
         assertNotNull(doc.getEdges(rel));
         assertEquals(6, doc.getEdges(id1, id2).size());

@@ -63,6 +63,12 @@ public abstract class CpmDocumentConstructorTest {
 
 
     @Test
+    public void constructor_statementsNullDocument_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(new ArrayList<>(), null, pF, cPF, cF));
+        assertThrows(IllegalArgumentException.class, () -> new CpmDocument(null, pF.newQualifiedName("uri", "bundle", "ex"), pF, cPF, cF));
+    }
+
+    @Test
     public void constructor_graph_returnsExpectedDocument() {
         QualifiedName id1 = cPF.newCpmQualifiedName("qN1");
         Entity entity1 = cPF.getProvFactory().newEntity(id1);
