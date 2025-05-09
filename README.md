@@ -15,18 +15,17 @@ This library, originally developed as part of a master's thesis ([available here
 
 ## Installation
 
-Since this library is not yet published to Maven Central, download the latest `.jar`
-from [Releases](https://github.com/dwwop/cpm/releases) and add it to your project manually.
+Since this library is not yet published to Maven Central, download the latest `.jar` files
+from [Releases](https://github.com/dwwop/cpm/releases) and add them to your project manually.
 
-### Maven
-
-Copy the `.jar` to your local repo:
+### cpm-core
+Copy the cpm-core `.jar` to your local repo:
 
 ```sh
 mvn install:install-file \
-  -Dfile=cpm-1.0.0.jar \
+  -Dfile=cpm-core-1.0.0.jar \
   -DgroupId=cz.muni.fi.cpm \
-  -DartifactId=cpm \
+  -DartifactId=cpm-core \
   -Dversion=1.0.0 \
   -Dpackaging=jar
   ```
@@ -34,11 +33,32 @@ mvn install:install-file \
 Then add the dependency:
 
 ```xml
-
 <dependency>
-    <groupId>com.yourorg</groupId>
-    <artifactId>your-library</artifactId>
-    <version>x.y.z</version>
+    <groupId>cz.muni.fi.cpm</groupId>
+    <artifactId>cpm-core</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+### cpm-template
+Copy the cpm-template `.jar` to your local repo:
+
+```sh
+mvn install:install-file \
+  -Dfile=cpm-template-1.0.0.jar \
+  -DgroupId=cz.muni.fi.cpm \
+  -DartifactId=cpm-template \
+  -Dversion=1.0.0 \
+  -Dpackaging=jar
+  ```
+
+Then add the dependency:
+
+```xml
+<dependency>
+    <groupId>cz.muni.fi.cpm</groupId>
+    <artifactId>cpm-template</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 
