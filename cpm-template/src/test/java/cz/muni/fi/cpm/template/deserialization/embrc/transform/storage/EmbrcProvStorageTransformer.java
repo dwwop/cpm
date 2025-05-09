@@ -42,23 +42,44 @@ public class EmbrcProvStorageTransformer {
     private final InteropFramework interop;
     private final ProvStorageTransformer pST;
 
+    private String metaNs;
+    private String storageNs;
+    private String metaPrefix;
+    private String storagePrefix;
+
     public EmbrcProvStorageTransformer(ProvFactory pF) {
         this.pF = pF;
         this.cPF = new CpmProvFactory(pF);
         this.cF = new CpmOrderedFactory(pF);
         this.interop = new InteropFramework(pF);
         this.pST = new ProvStorageTransformer(pF);
+        setNs(STORAGE_PREFIX, STORAGE_NS, META_PREFIX, META_NS);
     }
 
+    /**
+     * Sets custom namespace prefixes and IRIs for storage and metadata to generate files for a different Provenance
+     * Storage instance
+     *
+     * @param storagePrefix the prefix to use for bundle identifiers
+     * @param storageNs     the namespace IRI for a custom Provenance Storage instance
+     * @param metaPrefix    the prefix to use for meta bundles
+     * @param metaNs        the namespace IRI for meta bundles
+     */
+    public void setNs(String storagePrefix, String storageNs, String metaPrefix, String metaNs) {
+        this.storagePrefix = storagePrefix;
+        this.storageNs = storageNs;
+        this.metaNs = metaNs;
+        this.metaPrefix = metaPrefix;
+    }
 
     private Document addMissingStorageAndMetaNs(CpmDocument cpmDoc, String suffix) {
         String origBunId = cpmDoc.getBundleId().getLocalPart();
-        cpmDoc.setBundleId(pF.newQualifiedName(STORAGE_NS, origBunId + suffix, STORAGE_PREFIX));
+        cpmDoc.setBundleId(pF.newQualifiedName(storageNs, origBunId + suffix, storagePrefix));
 
         cpmDoc.getMainActivity().getElements().forEach(e -> {
                     Activity mainActivity = (Activity) e;
                     mainActivity.getOther().add(cPF.newCpmAttribute(CpmAttribute.REFERENCED_META_BUNDLE_ID,
-                            pF.newQualifiedName(META_NS, origBunId + EmbrcProvStorageTransformer.V0_SUFFIX + "_meta", META_PREFIX)));
+                            pF.newQualifiedName(metaNs, origBunId + EmbrcProvStorageTransformer.V0_SUFFIX + "_meta", metaPrefix)));
                 }
         );
 
