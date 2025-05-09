@@ -5,6 +5,7 @@ import org.openprovenance.prov.model.QualifiedName;
 import java.util.Collections;
 import java.util.stream.Stream;
 
+@SuppressWarnings("unused")
 public class RelationProvider {
 
     static Stream<Object[]> provideRelations() {

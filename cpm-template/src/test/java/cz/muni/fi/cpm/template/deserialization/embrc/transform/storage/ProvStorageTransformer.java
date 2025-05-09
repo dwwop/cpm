@@ -104,7 +104,7 @@ public class ProvStorageTransformer {
         ((ObjectNode) jNode.get("bundle").fields().next().getValue()).remove(JsonLDMetaConstants.JSONLD_ID);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        mapper.writeValue(baos, jNode);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(baos, jNode);
         return baos;
     }
 
