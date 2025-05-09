@@ -2,12 +2,15 @@ package cz.muni.fi.cpm.template.schema;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import org.openprovenance.prov.model.QualifiedName;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MainActivityUsed {
+    @JsonPropertyDescription("The identifier of the usage relation")
     private QualifiedName id;
     @JsonProperty(required = true)
+    @JsonPropertyDescription("The identifier of the backward connector")
     private QualifiedName bcId;
 
     public QualifiedName getId() {

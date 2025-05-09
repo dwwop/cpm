@@ -1,9 +1,6 @@
 package cz.muni.fi.cpm.template.schema;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomNamespacePrefixDeserializer;
 import org.openprovenance.prov.model.Namespace;
@@ -20,15 +17,23 @@ public class TraversalInformation {
     @JsonDeserialize(using = CustomNamespacePrefixDeserializer.class)
     private Namespace namespace = new Namespace();
     @JsonProperty(required = true)
+    @JsonPropertyDescription("The main activity of the traversal information part")
     private MainActivity mainActivity;
     @JsonProperty(required = true)
+    @JsonPropertyDescription("The bundle's identifier")
     private QualifiedName bundleName;
+    @JsonPropertyDescription("The backward connectors")
     private List<BackwardConnector> backwardConnectors;
+    @JsonPropertyDescription("The forward connectors")
     private List<ForwardConnector> forwardConnectors;
+    @JsonPropertyDescription("The sender agents")
     private List<SenderAgent> senderAgents;
+    @JsonPropertyDescription("The receiver agents")
     private List<ReceiverAgent> receiverAgents;
+    @JsonPropertyDescription("The identifier entities")
     private List<IdentifierEntity> identifierEntities;
 
+    @JsonPropertyDescription("The namespace declarations")
     @JsonDeserialize(using = CustomNamespacePrefixDeserializer.class)
     @JsonProperty(required = true)
     public Map<String, String> getPrefixes() {
