@@ -39,6 +39,8 @@ public class CpmMouTest {
     private final ICpmFactory cF;
     private final PbmFactory pbmF;
 
+    private static final String OUTPUT_FORMAT_EXTENSION = ".provn";
+
     public CpmMouTest() {
         pF = new org.openprovenance.prov.vanilla.ProvFactory();
         cPF = new CpmProvFactory(pF);
@@ -75,7 +77,7 @@ public class CpmMouTest {
 
             Bundle bundle = (Bundle) cATDoc.getStatementOrBundle().getFirst();
             String fileName = TEST_RESOURCES + MOU_FOLDER + ACQUISITION + File.separator + bundle.getId().getLocalPart().replace(":", "-");
-            interop.writeDocument(fileName + ".provn", cATDoc);
+            interop.writeDocument(fileName + OUTPUT_FORMAT_EXTENSION, cATDoc);
             if (GraphvizChecker.isGraphvizInstalled()) {
                 interop.writeDocument(fileName + ".svg", cATDoc);
             }
@@ -118,7 +120,7 @@ public class CpmMouTest {
 
             Bundle bundle = (Bundle) cATDoc.getStatementOrBundle().getFirst();
             String fileName = TEST_RESOURCES + MOU_FOLDER + STORAGE + File.separator + bundle.getId().getLocalPart().replace(":", "-");
-            interop.writeDocument(fileName + ".provn", cATDoc);
+            interop.writeDocument(fileName + OUTPUT_FORMAT_EXTENSION, cATDoc);
             if (GraphvizChecker.isGraphvizInstalled()) {
                 interop.writeDocument(fileName + ".svg", cATDoc);
             }
