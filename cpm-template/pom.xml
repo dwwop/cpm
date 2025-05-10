@@ -22,23 +22,19 @@
             <groupId>org.openprovenance.prov</groupId>
             <artifactId>prov-nf</artifactId>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.fasterxml.jackson.module</groupId>-->
+        <!--            <artifactId>jackson-module-jsonSchema</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
-            <groupId>org.openprovenance.prov</groupId>
-            <artifactId>prov-n</artifactId>
+            <groupId>cz.muni.fi.cpm</groupId>
+            <artifactId>cpm-core</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.openprovenance.prov</groupId>
             <artifactId>prov-interop</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jsonSchema</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cz.muni.fi.cpm</groupId>
-            <artifactId>cpm-core</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

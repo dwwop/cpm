@@ -19,20 +19,43 @@ Since this library is not yet published to Maven Central, download the latest `.
 from [Releases](https://github.com/dwwop/cpm/releases) and add them to your project manually.
 
 ### cpm-core
-Copy the cpm-core `.jar` to your local repo:
 
-```sh
-mvn install:install-file \
-  -Dfile=cpm-core-1.0.0.jar \
-  -DgroupId=cz.muni.fi.cpm \
-  -DartifactId=cpm-core \
-  -Dversion=1.0.0 \
-  -Dpackaging=jar
-  ```
-
-Then add the dependency:
+1. Download the `cpm-core-1.0.0.jar` from [Releases](https://github.com/dwwop/cpm/releases).
+2. Place the `cpm-core-1.0.0.jar` in a directory inside your project (e.g., `src/main/resources`).
+3. Add the following plugin to your `pom.xml`:
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-install-plugin</artifactId>
+    <version>3.1.4</version>
+    <executions>
+        <execution>
+            <id>install-core</id>
+            <phase>clean</phase>
+            <configuration>
+                <file>${project.basedir}/src/main/resources/cpm-core-1.0.0.jar</file>
+                <groupId>cz.muni.fi.cpm</groupId>
+                <artifactId>cpm-core</artifactId>
+                <version>1.0.0</version>
+                <packaging>jar</packaging>
+                <generatePom>true</generatePom>
+            </configuration>
+            <goals>
+                <goal>install-file</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+```
+4. Run `mvn clean`
+5. Add the following dependencies to your `pom.xml`:
 
 ```xml
+<dependency>
+    <groupId>org.openprovenance.prov</groupId>
+    <artifactId>prov-model</artifactId>
+    <version>2.2.1</version>
+</dependency>
 <dependency>
     <groupId>cz.muni.fi.cpm</groupId>
     <artifactId>cpm-core</artifactId>
@@ -41,20 +64,41 @@ Then add the dependency:
 ```
 
 ### cpm-template
-Copy the cpm-template `.jar` to your local repo:
-
-```sh
-mvn install:install-file \
-  -Dfile=cpm-template-1.0.0.jar \
-  -DgroupId=cz.muni.fi.cpm \
-  -DartifactId=cpm-template \
-  -Dversion=1.0.0 \
-  -Dpackaging=jar
-  ```
-
-Then add the dependency:
+> **Important**: `cpm-template` uses `cpm-core` as its dependency!
+1. Download the `cpm-template-1.0.0.jar` from [Releases](https://github.com/dwwop/cpm/releases).
+2. Place the `cpm-template-1.0.0.jar` in the same directory inside your project.
+3. Add the following execution to the `maven-install-plugin` plugin to your `pom.xml`:
+```xml
+<execution>
+    <id>install-template</id>
+    <phase>clean</phase>
+    <configuration>
+        <file>${project.basedir}/src/main/resources/cpm-template-1.0.0.jar</file>
+        <groupId>cz.muni.fi.cpm</groupId>
+        <artifactId>cpm-template</artifactId>
+        <version>1.0.0</version>
+        <packaging>jar</packaging>
+        <generatePom>true</generatePom>
+    </configuration>
+    <goals>
+        <goal>install-file</goal>
+    </goals>
+</execution>
+```
+4. Run `mvn clean`
+5. Add the following dependencies to your `pom.xml`:
 
 ```xml
+<dependency>
+    <groupId>org.openprovenance.prov</groupId>
+    <artifactId>prov-interop</artifactId>
+    <version>2.2.1</version>
+</dependency>
+<dependency>
+    <groupId>org.openprovenance.prov</groupId>
+    <artifactId>prov-nf</artifactId>
+    <version>2.2.1</version>
+</dependency>
 <dependency>
     <groupId>cz.muni.fi.cpm</groupId>
     <artifactId>cpm-template</artifactId>

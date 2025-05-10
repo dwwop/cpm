@@ -48,11 +48,6 @@
             </dependency>
             <dependency>
                 <groupId>org.openprovenance.prov</groupId>
-                <artifactId>prov-n</artifactId>
-                <version>${prov.ver}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.openprovenance.prov</groupId>
                 <artifactId>prov-nf</artifactId>
                 <version>${prov.ver}</version>
             </dependency>
