@@ -103,4 +103,9 @@ public class IdentifierEntityTest {
         assertEquals(CpmAttribute.COMMENT.toString(), entity.getOther().getFirst().getElementName().getLocalPart());
         assertEquals(comment, ((LangString) entity.getOther().getFirst().getValue()).getValue());
     }
+
+    @Test
+    public void toStatements_nullEntity_returnsNull() {
+        assertNull(mapper.map((IdentifierEntity) null));
+    }
 }

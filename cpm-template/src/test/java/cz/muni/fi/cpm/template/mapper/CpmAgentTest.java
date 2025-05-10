@@ -66,4 +66,11 @@ public class CpmAgentTest {
         assertEquals(CpmAttribute.CONTACT_ID_PID.toString(), contactIdAttr.getElementName().getLocalPart());
         assertEquals(contactIdPid, ((LangString) contactIdAttr.getValue()).getValue());
     }
+
+
+    @Test
+    public void toStatements_nullAgent_returnsNull() {
+        assertNull(mapper.map((ReceiverAgent) null));
+        assertNull(mapper.map((SenderAgent) null));
+    }
 }

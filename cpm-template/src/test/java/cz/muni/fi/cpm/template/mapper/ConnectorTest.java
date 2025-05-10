@@ -169,4 +169,10 @@ public class ConnectorTest {
         assertEquals(qN, ((SpecializationOf) specStatement).getSpecificEntity());
         assertEquals(specialisationId, ((SpecializationOf) specStatement).getGeneralEntity());
     }
+
+    @Test
+    public void toStatements_nullConnector_returnsNull() {
+        assertNull(mapper.map((BackwardConnector) null));
+        assertNull(mapper.map((ForwardConnector) null));
+    }
 }

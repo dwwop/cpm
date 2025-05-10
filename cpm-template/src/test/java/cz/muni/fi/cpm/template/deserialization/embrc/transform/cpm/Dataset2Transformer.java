@@ -31,7 +31,7 @@ public class Dataset2Transformer extends DatasetTransformer {
 //        SenderAgent stationSenderAg = new SenderAgent(newQNWithBlankNS("NiceMarineStationSender"));
         ti.setSenderAgents(List.of(stationSenderAg));
 
-        ReceiverAgent stationAg = new ReceiverAgent(newQNWithBlankNS("NiceMarineStation"));
+        ReceiverAgent stationAg = new ReceiverAgent(newQNWithBlankNS(NICE_MARINE_STATION));
 //        ReceiverAgent stationAg = new ReceiverAgent(newQNWithBlankNS("NiceMarineStationReceiver"));
         ti.setReceiverAgents(List.of(stationAg));
 

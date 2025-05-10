@@ -152,4 +152,9 @@ public class MainActivityTest {
         assertEquals(startTime, activity.getStartTime());
         assertEquals(endTime, activity.getEndTime());
     }
+
+    @Test
+    public void toStatements_nullActivity_returnsNull() {
+        assertNull(mapper.map((MainActivity) null));
+    }
 }

@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static cz.muni.fi.cpm.template.constants.CpmTemplateExceptionConstants.NULL_BUNDLE_NAME;
+
 public class TemplateProvMapper implements ITemplateProvMapper {
     private final ICpmProvFactory cPF;
     private boolean mergeAgents = false;
@@ -36,6 +38,9 @@ public class TemplateProvMapper implements ITemplateProvMapper {
     }
 
     private List<Statement> map(Connector c) {
+        if (c == null) {
+            return null;
+        }
         List<Statement> statements = new ArrayList<>();
         List<Attribute> attributes = new ArrayList<>();
 
@@ -86,6 +91,10 @@ public class TemplateProvMapper implements ITemplateProvMapper {
 
 
     public List<Statement> map(ForwardConnector fC) {
+        if (fC == null) {
+            return null;
+        }
+
         List<Statement> statements = map((Connector) fC);
         if (fC.getSpecializationOf() != null) {
             statements.add(cPF.getProvFactory().newSpecializationOf(fC.getId(), fC.getSpecializationOf()));
@@ -94,6 +103,10 @@ public class TemplateProvMapper implements ITemplateProvMapper {
     }
 
     private List<Statement> map(CpmAgent agent) {
+        if (agent == null) {
+            return null;
+        }
+
         List<Attribute> attributes = new ArrayList<>();
 
         if (agent.getContactIdPid() != null) {
@@ -115,6 +128,10 @@ public class TemplateProvMapper implements ITemplateProvMapper {
 
 
     public List<Statement> map(IdentifierEntity iE) {
+        if (iE == null) {
+            return null;
+        }
+
         List<Attribute> attributes = new ArrayList<>();
 
         if (iE.getExternalId() != null) {
@@ -134,9 +151,12 @@ public class TemplateProvMapper implements ITemplateProvMapper {
 
 
     public List<Statement> map(MainActivity mA) {
+        if (mA == null) {
+            return null;
+        }
+
         List<Statement> statements = new ArrayList<>();
         List<Attribute> attributes = new ArrayList<>();
-
 
         if (mA.getReferencedMetaBundleId() != null) {
             attributes.add(cPF.newCpmAttribute(CpmAttribute.REFERENCED_META_BUNDLE_ID, mA.getReferencedMetaBundleId()));
@@ -171,7 +191,19 @@ public class TemplateProvMapper implements ITemplateProvMapper {
 
     @Override
     public Document map(TraversalInformation ti) {
-        List<Statement> statements = new ArrayList<>(map(ti.getMainActivity()));
+        if (ti == null) {
+            return null;
+        }
+
+        if (ti.getBundleName() == null) {
+            throw new IllegalArgumentException(NULL_BUNDLE_NAME);
+        }
+
+        List<Statement> statements = new ArrayList<>();
+
+        if (ti.getMainActivity() != null) {
+            statements.addAll(map(ti.getMainActivity()));
+        }
 
         if (ti.getBackwardConnectors() != null) {
             ti.getBackwardConnectors().stream().map(this::map).flatMap(List::stream).forEach(statements::add);
