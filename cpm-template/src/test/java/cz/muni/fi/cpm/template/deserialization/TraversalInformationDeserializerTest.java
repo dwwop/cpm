@@ -41,11 +41,11 @@ public class TraversalInformationDeserializerTest {
             File outputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "output.provn");
             serialiser.serialiseDocument(new FileOutputStream(outputFile), doc, true);
 
+            ProvDeserialiser provDeserialiser = new org.openprovenance.prov.notation.ProvDeserialiser(pF);
             File expectedOutputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "expectedOutput.provn");
-            String outputContent = new String(Files.readAllBytes(outputFile.toPath()));
-            String expectedOutputContent = new String(Files.readAllBytes(expectedOutputFile.toPath()));
+            Document expectedDoc = provDeserialiser.deserialiseDocument(Files.newInputStream(expectedOutputFile.toPath()));
 
-            assertEquals(expectedOutputContent, outputContent);
+            assertEquals(expectedDoc, doc);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -69,12 +69,11 @@ public class TraversalInformationDeserializerTest {
             File outputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "outputTrans.provn");
             serialiser.serialiseDocument(new FileOutputStream(outputFile), transDoc, true);
 
+            ProvDeserialiser provDeserialiser = new org.openprovenance.prov.notation.ProvDeserialiser(pF);
             File expectedOutputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "expectedOutputTrans.provn");
-            String outputContent = new String(Files.readAllBytes(outputFile.toPath()));
-            String expectedOutputContent = new String(Files.readAllBytes(expectedOutputFile.toPath()));
+            Document expectedDoc = provDeserialiser.deserialiseDocument(Files.newInputStream(expectedOutputFile.toPath()));
 
-            assertEquals(expectedOutputContent, outputContent);
-
+            assertEquals(expectedDoc, transDoc);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -101,11 +100,9 @@ public class TraversalInformationDeserializerTest {
             serialiser.serialiseDocument(new FileOutputStream(outputFile), transDoc, true);
 
             File expectedOutputFile = new File(TEST_RESOURCES + DESERIALIZE_FOLDER + "expectedOutputOrdered.provn");
-            String outputContent = new String(Files.readAllBytes(outputFile.toPath()));
-            String expectedOutputContent = new String(Files.readAllBytes(expectedOutputFile.toPath()));
+            Document expectedDoc = provDeserialiser.deserialiseDocument(Files.newInputStream(expectedOutputFile.toPath()));
 
-            assertEquals(expectedOutputContent, outputContent);
-
+            assertEquals(expectedDoc, doc);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
